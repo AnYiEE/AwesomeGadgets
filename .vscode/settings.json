@@ -1,0 +1,44 @@
+{
+	"diffEditor.codeLens": true,
+	"diffEditor.ignoreTrimWhitespace": false,
+	"editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+	"editor.guides.bracketPairs": "active",
+	"editor.insertSpaces": false,
+	"editor.linkedEditing": true,
+	"editor.renderWhitespace": "all",
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"eslint.enable": true,
+	"eslint.format.enable": true,
+	"prettier.enable": true,
+	"[css]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[less]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"css.format.spaceAroundSelectorSeparator": true,
+	"css.lint.unknownAtRules": "ignore",
+	"errorLens.editorHoverPartsEnabled": {
+		"buttonsEnabled": false
+	},
+	"errorLens.enableOnDiffView": true,
+	"stylelint.packageManager": "pnpm",
+	"explorer.fileNesting.enabled": true,
+	"explorer.fileNesting.expand": false,
+	"explorer.fileNesting.patterns": {
+		"package.json": ".babel*, .editorConfig, .eslint*, .git*, pnpm-lock.yaml, .prettier*, .stylelint*, commitlinterrc.json, esbuild.config.js, tsconfig.json, LICENCE",
+		"readme*": "*.md"
+	}
+}

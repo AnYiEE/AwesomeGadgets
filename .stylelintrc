@@ -1,0 +1,18 @@
+{
+	"customSyntax": "postcss-less",
+	"extends": ["stylelint-config-standard", "stylelint-prettier/recommended"],
+	"rules": {
+		"declaration-block-no-duplicate-properties": [
+			true,
+			{
+				"ignore": ["consecutive-duplicates"]
+			}
+		],
+		"media-feature-range-notation": "prefix",
+		"no-descending-specificity": null,
+		"property-no-vendor-prefix": null,
+		"selector-id-pattern": null,
+		"selector-class-pattern": null,
+		"value-no-vendor-prefix": null
+	}
+}

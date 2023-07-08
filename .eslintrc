@@ -1,0 +1,84 @@
+{
+	"root": true,
+	"plugins": ["@typescript-eslint"],
+	"extends": [
+		"wikimedia/client-common",
+		"wikimedia/language/es2022",
+		"wikimedia/mediawiki",
+		"wikimedia/jquery",
+		"plugin:@typescript-eslint/recommended",
+		"prettier"
+	],
+	"parserOptions": {
+		"parser": "@typescript-eslint/parser"
+	},
+	"ignorePatterns": ["dist/", "*.json", "pnpm-lock.yaml"],
+	"globals": {},
+	"rules": {
+		"@typescript-eslint/ban-ts-comment": "warn",
+		"@typescript-eslint/no-empty-function": [
+			"error",
+			{
+				"allow": ["arrowFunctions"]
+			}
+		],
+		"@typescript-eslint/no-explicit-any": "warn",
+		"@typescript-eslint/no-this-alias": [
+			"error",
+			{
+				"allowDestructuring": false,
+				"allowedNames": ["self"]
+			}
+		],
+		"@typescript-eslint/no-unused-vars": [
+			"warn",
+			{
+				"varsIgnorePattern": "^_"
+			}
+		],
+		"jsdoc/check-tag-names": "off",
+		"jsdoc/no-undefined-types": "off",
+		"jsdoc/require-param": "off",
+		"no-jquery/no-animate": [
+			"warn",
+			{
+				"allowScroll": true
+			}
+		],
+		"no-jquery/no-class-state": "off",
+		"no-jquery/no-each-util": "off",
+		"no-jquery/no-fade": "off",
+		"no-jquery/no-global-selector": "off",
+		"no-jquery/no-sizzle": "off",
+		"no-jquery/no-slide": "off",
+		"no-jquery/variable-pattern": "off",
+		"security/detect-non-literal-regexp": "off",
+		"security/detect-unsafe-regex": "off",
+		"camelcase": "off",
+		"dot-notation": "off",
+		"new-cap": "off",
+		"no-alert": "off",
+		"no-control-regex": "off",
+		"no-console": "off",
+		"no-new": "off",
+		"no-underscore-dangle": "off",
+		"no-unused-expressions": "off",
+		"quotes": [
+			"error",
+			"single",
+			{
+				"avoidEscape": true,
+				"allowTemplateLiterals": true
+			}
+		],
+		"quote-props": [
+			"error",
+			"as-needed",
+			{
+				"keywords": true,
+				"unnecessary": true,
+				"numbers": false
+			}
+		]
+	}
+}
