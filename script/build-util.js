@@ -101,10 +101,10 @@ const buildStyles = async (styles, {name, licenseText}) => {
 
 const files = {};
 /**
- * @param {string} currentDir The path of the source file
+ * @param {string} [currentDir=src] The path of the source file
  * @returns {Promise<Record<string, {definition?:string; script?:string; style?:string; license?:string; scripts:string[]; styles:string[]}>>} An object used to describe source files
  */
-const findSourceFile = async (currentDir) => {
+const findSourceFile = async (currentDir = 'src') => {
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const dirList = await fsPromises.readdir(currentDir);
 	for (const dir of dirList) {

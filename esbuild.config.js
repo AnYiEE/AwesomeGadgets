@@ -3,7 +3,7 @@ import {findSourceFile} from './script/build-util.js';
 import deploy from './script/deploy.js';
 import {generateTargets} from './script/deploy-util.js';
 
-const sourceFiles = await findSourceFile('src');
+const sourceFiles = await findSourceFile();
 
 const definitions = await build(sourceFiles);
 
