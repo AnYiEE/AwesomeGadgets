@@ -15,17 +15,17 @@ const build = async (sourceFiles) => {
 		const licenseText = await getLicense(license, {name});
 		if (script || scripts) {
 			/** @type {string[]} */
-			const scriptArray = script ? [script] : scripts;
-			const scriptText = scriptArray.join('|');
-			definitionItemFiles += scriptText ? `${scriptText}|` : '';
-			await buildScripts(scriptArray, {name, licenseText});
+			const scriptFileArray = script ? [script] : scripts;
+			const scriptFiles = scriptFileArray.map((_script) => `${name}<>${_script}`).join('|');
+			definitionItemFiles += scriptFiles ? `${scriptFiles}|` : '';
+			await buildScripts(scriptFileArray, {name, licenseText});
 		}
 		if (style || styles) {
 			/** @type {string[]} */
-			const styleArray = style ? [style] : styles;
-			const styleText = styleArray.join('|');
-			definitionItemFiles += styleText ? `${styleText}|` : '';
-			await buildStyles(styleArray, {name, licenseText});
+			const styleFileArray = style ? [style] : styles;
+			const styleFiles = styleFileArray.map((_style) => `${name}<>${_style}`).join('|');
+			definitionItemFiles += styleFiles ? `${styleFiles}|` : '';
+			await buildStyles(styleFileArray, {name, licenseText});
 		}
 		const definitionItem = cleanDefinition({
 			definitionItem: await getDefinition(definition, {name}),
