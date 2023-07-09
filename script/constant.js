@@ -1,5 +1,10 @@
+/** @type {string} */
 const BANNER = `/* <nowiki> */`;
+
+/** @type {string} */
 const FOOTER = '/* </nowiki> */';
+
+/** @type {string} */
 const WARNING = `/**
  * +--------------------------------------------------------+
  * |         === WARNING: GLOBAL GADGET FILE ===            |
@@ -19,6 +24,7 @@ const HEADER = `<div class="mw-message-box mw-message-box-notice">
 * 若需要设置您所需启用或关闭的小工具，请前往[[Special:参数设置#mw-prefsection-gadgets|参数设置]]。
 </div>`;
 
+/** @type {{enable: boolean; description: string; actions: string[]; default: boolean; dependencies: string[]; hidden: boolean; peers: string[]; rights: string[]; skins: string[]}} */
 const DEFAULT_DEFINITION = {
 	enable: true,
 	description: '',
@@ -33,4 +39,7 @@ const DEFAULT_DEFINITION = {
 	// type: 'general' | 'styles' -> 自动识别，无需指定
 };
 
-export {BANNER, FOOTER, WARNING, HEADER, DEFAULT_DEFINITION};
+/** @type {string} */
+const DEPLOY_USER_AGENT = '';
+
+export {BANNER, FOOTER, WARNING, HEADER, DEFAULT_DEFINITION, DEPLOY_USER_AGENT};

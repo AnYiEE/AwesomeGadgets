@@ -9,11 +9,7 @@ import {BANNER, FOOTER, WARNING, DEFAULT_DEFINITION} from './constant.js';
 const __dirname = path.resolve();
 
 /**
- * @param {Object} object
- * @param {string} object.code
- * @param {string} object.path
- * @param {'text/css'|'text/javascript'} object.contentType
- * @param {string} object.licenseText
+ * @param {{code:string; path:string, contentType:'text/css'|'text/javascript', licenseText:string}} object
  */
 const write = async ({code: sourceCode, path: outputFileWithPath, contentType, licenseText}) => {
 	let fullCode = '';
@@ -59,9 +55,7 @@ const build = async (inputFileWithPath, outputFileWithPath) => {
 
 /**
  * @param {string} script
- * @param {Object} object
- * @param {string} object.name
- * @param {string} object.licenseText
+ * @param {{name:string; licenseText:string}} object
  */
 const buildScript = async (script, {name, licenseText}) => {
 	const inputScriptWithPath = path.join(__dirname, `src/${name}/${script}`);
@@ -73,10 +67,8 @@ const buildScript = async (script, {name, licenseText}) => {
 };
 
 /**
- * @param {string[]} scripts Array of file names for the entry files of a gadget
- * @param {Object} object The name and license text of this gadget
- * @param {string} object.name
- * @param {string} object.licenseText
+ * @param {string[]} scripts Array of script file names for a gadget
+ * @param {{name:string; licenseText:string}} object The name and license text of this gadget
  */
 const buildScripts = async (scripts, {name, licenseText}) => {
 	for (const script of scripts) {
@@ -86,9 +78,7 @@ const buildScripts = async (scripts, {name, licenseText}) => {
 
 /**
  * @param {string} style
- * @param {Object} object
- * @param {string} object.name
- * @param {string} object.licenseText
+ * @param {{name:string; licenseText:string}} object
  */
 const buildStyle = async (style, {name, licenseText}) => {
 	const inputStyleWithPath = path.join(__dirname, `src/${name}/${style}`);
@@ -101,9 +91,7 @@ const buildStyle = async (style, {name, licenseText}) => {
 
 /**
  * @param {string[]} styles Array of style sheet file names for a gadget
- * @param {Object} object The name and license text of this gadget
- * @param {string} object.name
- * @param {string} object.licenseText
+ * @param {{name:string; licenseText:string}} object The name and license text of this gadget
  */
 const buildStyles = async (styles, {name, licenseText}) => {
 	for (const style of styles) {
@@ -114,7 +102,7 @@ const buildStyles = async (styles, {name, licenseText}) => {
 const files = {};
 /**
  * @param {string} currentDir The path of the source file
- * @return {Promise<{definition?:string; script?:string; style?:string; license?:string; scripts:string[]; styles:string[]}>}
+ * @returns {Promise<Record<string, {definition?:string; script?:string; style?:string; license?:string; scripts:string[]; styles:string[]}>>} An object used to describe source files
  */
 const findSourceFile = async (currentDir) => {
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
@@ -125,10 +113,7 @@ const findSourceFile = async (currentDir) => {
 		const stats = await fsPromises.stat(fullPath);
 		if (stats.isDirectory()) {
 			await findSourceFile(fullPath);
-		} else if (
-			!/\.d\.ts$/ // !/(?<!\.d)\.ts$/
-				.test(dir)
-		) {
+		} else if (!/\.d\.ts$/.test(dir)) {
 			const fullPathArray = fullPath.split(process.platform === 'win32' ? '\\' : '/');
 			// 仅支持形如src/gadget/index.ts的“一层”路径，因为考虑到子文件夹可能被父文件夹的脚本import
 			if (fullPathArray.length !== 3) {
@@ -169,10 +154,9 @@ const findSourceFile = async (currentDir) => {
 };
 
 /**
- * @param {string} definition definition file name of a gadget
- * @param {Object} object The name of this gadget
- * @param {string} object.name
- * @return {Promise<string>} gadget definition fragment
+ * @param {string} definition Definition file name of a gadget
+ * @param {{name:string}} object The name of this gadget
+ * @returns {Promise<string>} Gadget definition fragment
  */
 const getDefinition = async (definition, {name}) => {
 	const definitionFileWithPath = path.join(__dirname, `src/${name}/${definition}`);
@@ -217,10 +201,8 @@ const getDefinition = async (definition, {name}) => {
 };
 
 /**
- * @param {Object} object gadget definition fragment
- * @param {string} object.definitionItem
- * @param {string} object.definitionItemFiles
- * @return {string} gadget definition (in the format of MediaWiki:Gadgets-definition item)
+ * @param {{definitionItem:string; definitionItemFiles:string}} object Gadget definition fragment
+ * @return {string} Gadget definition (in the format of MediaWiki:Gadgets-definition item)
  */
 const cleanDefinition = ({definitionItem, definitionItemFiles}) => {
 	const isStyleOnly = !/\.[jt]s\|/.test(definitionItemFiles);
@@ -239,7 +221,7 @@ const cleanDefinition = ({definitionItem, definitionItemFiles}) => {
 };
 
 /**
- * @param {string[]} definitions definitions Array of gadget definitions (in the format of MediaWiki:Gadgets-definition item)
+ * @param {string[]} definitions Definitions Array of gadget definitions (in the format of MediaWiki:Gadgets-definition item)
  */
 const setDefinition = async (definitions) => {
 	const definitionArray = definitions
@@ -255,9 +237,8 @@ const setDefinition = async (definitions) => {
 
 /**
  * @param {string} license The license file name of a gadget
- * @param {Object} object The name of this gadget
- * @param {string} object.name
- * @return {Promise<string>} The license text of this gadget
+ * @param {{name:string}} object The name of this gadget
+ * @returns {Promise<string>} The license text of this gadget
  */
 const getLicense = async (license, {name}) => {
 	if (!license) {
