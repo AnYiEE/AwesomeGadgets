@@ -108,7 +108,7 @@ const findSourceFile = async (currentDir = 'src') => {
 			const fullPathArray = fullPath.split(process.platform === 'win32' ? '\\' : '/');
 			// 仅支持形如src/gadget/index.ts的“一层”路径，因为考虑到子文件夹可能被父文件夹的脚本import
 			if (fullPathArray.length !== 3) {
-				return;
+				continue;
 			}
 			const [_sourceDir, fileDir, fileName] = fullPathArray;
 			files[fileDir] ??= {};
