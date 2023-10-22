@@ -18,7 +18,7 @@ const generateTargets = (definitions) => {
 		if (definition === '') {
 			continue;
 		}
-		const [_, name, files, description] = definition.match(/^\*\s(\S+?)\[\S+?]\|(\S+?)#(.*?)$/);
+		const [_, name, files, description] = definition.match(/^\*\s(\S+?)\[\S+?]\|(\S+?)#\S*?#(.*?)$/);
 		targets[name] = {};
 		targets[name].files = files
 			.split('|')
@@ -116,7 +116,7 @@ const makeEditSummary = async () => {
 };
 
 /**
- * Read definition file text
+ * Read `dist/definition.txt`
  *
  * @returns {Promise<string>} Gadget definitions (in the format of MediaWiki:Gadgets-definition item)
  */
@@ -124,7 +124,7 @@ const readDefinition = async () => {
 	const definitionPath = path.join(__dirname, 'dist/definition.txt');
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	let definitionText = await fsPromises.readFile(definitionPath);
-	definitionText = definitionText.toString().replace(/<>/g, '-');
+	definitionText = definitionText.toString().replace(/<>/g, '-').replace(/-\./g, '.');
 	definitionText = `${BANNER}\n${definitionText}`;
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const fileHandle = await fsPromises.open(definitionPath, 'w');
@@ -144,7 +144,30 @@ const readFileText = async (name, file) => {
 	const filePath = path.join(__dirname, `dist/${name}/${file}`);
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const fileText = await fsPromises.readFile(filePath);
-	return fileText;
+	return fileText.toString();
 };
 
-export {generateTargets, log, prompt, checkConfig, loadConfig, makeEditSummary, readDefinition, readFileText};
+/**
+ * Set `dist/definition.txt`
+ *
+ * @param {string} definitionText The MediaWiki:Gadgets-definition content
+ */
+const setDefinition = async (definitionText) => {
+	const definitionPath = path.join(__dirname, `dist/definition.txt`);
+	// eslint-disable-next-line security/detect-non-literal-fs-filename
+	const fileHandle = await fsPromises.open(definitionPath, 'w');
+	await fileHandle.writeFile(definitionText);
+	await fileHandle.close();
+};
+
+export {
+	generateTargets,
+	log,
+	prompt,
+	checkConfig,
+	loadConfig,
+	makeEditSummary,
+	readDefinition,
+	readFileText,
+	setDefinition,
+};

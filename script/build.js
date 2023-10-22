@@ -1,8 +1,30 @@
 import {buildScripts, buildStyles, cleanDefinition, getDefinition, getLicense, setDefinition} from './build-util.js';
 
+/**
+ * @param {string} name
+ * @param {string} file
+ * @return {string}
+ */
+const removeDuplicateFileName = (name, file) => {
+	const fileNameSplit = file.split('.');
+	return `${name}<>${fileNameSplit.shift() === name ? `.${fileNameSplit.join('.')}` : file}`;
+};
+
+/**
+ * @param {string} name Gadget name
+ * @param {string[]} files Array of file names
+ * @return {string} Generated file names string
+ */
+const getFiles = (name, files) => {
+	return files
+		.map((file) => {
+			return removeDuplicateFileName(name, file);
+		})
+		.join('|');
+};
+
 /** @type {string[]} */
 const definitions = [];
-
 /**
  * Compile scripts and styles and generate corresponding definitions
  *
@@ -15,21 +37,13 @@ const build = async (sourceFiles) => {
 		const licenseText = await getLicense(license, {name});
 		if (script || scripts) {
 			const scriptFileArray = script ? [script] : scripts;
-			const scriptFiles = scriptFileArray
-				.map((_script) => {
-					return `${name}<>${_script}`;
-				})
-				.join('|');
+			const scriptFiles = getFiles(name, scriptFileArray);
 			definitionItemFiles += scriptFiles ? `${scriptFiles}|` : '';
 			await buildScripts(scriptFileArray, {name, licenseText});
 		}
 		if (style || styles) {
 			const styleFileArray = style ? [style] : styles;
-			const styleFiles = styleFileArray
-				.map((_style) => {
-					return `${name}<>${_style}`;
-				})
-				.join('|');
+			const styleFiles = getFiles(name, styleFileArray);
 			definitionItemFiles += styleFiles ? `${styleFiles}|` : '';
 			await buildStyles(styleFileArray, {name, licenseText});
 		}

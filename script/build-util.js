@@ -97,8 +97,8 @@ const files = {};
  */
 const findSourceFile = async (currentDir = 'src') => {
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
-	const dirList = await fsPromises.readdir(currentDir);
-	for (const dir of dirList) {
+	const dirArray = await fsPromises.readdir(currentDir);
+	for (const dir of dirArray) {
 		const fullPath = path.join(currentDir, dir);
 		// eslint-disable-next-line security/detect-non-literal-fs-filename
 		const stats = await fsPromises.stat(fullPath);
@@ -145,7 +145,7 @@ const findSourceFile = async (currentDir = 'src') => {
 };
 
 /**
- * @param {string} definition Definition file name of a gadget
+ * @param {string} [definition] Definition file name of a gadget
  * @param {{name:string}} object The name of this gadget
  * @returns {Promise<string>} Gadget definition fragment
  */
@@ -160,15 +160,21 @@ const getDefinition = async (definition, {name}) => {
 			chalk.yellow(`definition.json for ${chalk.bold(name)} is missing, default definition will be used.`)
 		);
 	}
+	/** @type {typeof DEFAULT_DEFINITION} */
 	const definitionObject = {...DEFAULT_DEFINITION, ...JSON.parse(definitionJsonText)};
-	const definitionItem = `* ${name}[ResourceLoader|$1$2]|$3$4`;
+	const definitionItem = `* ${name}[ResourceLoader|$1$2]|$3$4$5`;
 	let definitionText = '';
 	for (const [key, value] of Object.entries(definitionObject)) {
 		if (key === 'enable' && value === false) {
 			return '';
 		}
 		const typeOfValue = typeof value;
-		if (['description', 'type'].includes(key) || !value || (typeOfValue === 'object' && !value.length)) {
+		const isArray = Array.isArray(value);
+		if (
+			['category', 'description', 'type'].includes(key) ||
+			[false, undefined].includes(value) ||
+			(isArray && !value.length)
+		) {
 			continue;
 		}
 		switch (typeOfValue) {
@@ -178,7 +184,9 @@ const getDefinition = async (definition, {name}) => {
 				}
 				break;
 			case 'object':
-				definitionText += `${key}=${value.join(',')}|`;
+				if (isArray) {
+					definitionText += `${key}=${value.join(',')}|`;
+				}
 				break;
 			case 'string':
 				definitionText += `${key}=${value}|`;
@@ -186,9 +194,11 @@ const getDefinition = async (definition, {name}) => {
 		}
 	}
 	definitionText = definitionText.replace(/\|$/, '');
+	let categoryText = definitionObject.category;
+	categoryText = categoryText ? `#${categoryText}` : '#appear';
 	let descriptionText = definitionObject.description;
 	descriptionText = descriptionText ? `#${descriptionText}` : '#';
-	return definitionItem.replace('$1', definitionText).replace('$4', descriptionText);
+	return definitionItem.replace('$1', definitionText).replace('$4', categoryText).replace('$5', descriptionText);
 };
 
 /**
@@ -204,6 +214,7 @@ const cleanDefinition = ({definitionItem, definitionItemFiles}) => {
 		definitionItemFull = definitionItemFull.replace(/[|\]]dependencies=\S+?([|\]])/, '$1');
 	}
 	return definitionItemFull
+		.replace(/\|\|/, '|')
 		.replace(/\|]/, ']')
 		.replace(/\|#/, '#')
 		.replace(/\.ts([|#])/g, '.js$1')
@@ -212,17 +223,33 @@ const cleanDefinition = ({definitionItem, definitionItemFiles}) => {
 };
 
 /**
+ * Set `dist/definition.txt`
+ *
  * @param {string[]} definitions Definitions Array of gadget definitions (in the format of MediaWiki:Gadgets-definition item)
  */
 const setDefinition = async (definitions) => {
-	const definitionArray = definitions
+	/** @type {Record<string, string[] | undefined>} */
+	const definitionObject = {};
+	definitions
 		.filter((definition) => {
 			return definition !== '';
 		})
-		.map((definition) => {
-			return definition.replace(/#.*/, '');
+		.forEach((definition) => {
+			const [, category] = definition.match(/.*?#(\S+?)#/);
+			definitionObject[category] ??= [];
+			definitionObject[category].push(definition.replace(/#.*/, ''));
 		});
-	const definitionText = definitionArray.join('\n').replace(/(\S+?$)/, '$1\n');
+	let definitionText = '';
+	for (const [category, definitionItems] of Object.entries(definitionObject)) {
+		const categoryHeader = `== ${category} ==`;
+		for (const definition of definitionItems) {
+			if (definitionText.includes(categoryHeader)) {
+				definitionText += `${definition}\n`;
+			} else {
+				definitionText += `${categoryHeader}\n${definition}\n`;
+			}
+		}
+	}
 	const definitionPath = path.join(__dirname, `dist/definition.txt`);
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const fileHandle = await fsPromises.open(definitionPath, 'w');

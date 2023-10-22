@@ -1,6 +1,15 @@
 import {mwn} from 'mwn';
 import {DEPLOY_USER_AGENT} from './constant.js';
-import {checkConfig, loadConfig, log, makeEditSummary, prompt, readDefinition, readFileText} from './deploy-util.js';
+import {
+	checkConfig,
+	loadConfig,
+	log,
+	makeEditSummary,
+	prompt,
+	readDefinition,
+	readFileText,
+	setDefinition,
+} from './deploy-util.js';
 
 /**
  * Deploy definitions, scripts and styles
@@ -21,6 +30,7 @@ const deploy = async (targets) => {
 	const editSummary = await makeEditSummary();
 	try {
 		const definitionText = await readDefinition();
+		await setDefinition(definitionText);
 		await api.save('MediaWiki:Gadgets-definition', definitionText, editSummary);
 		log('green', `✔ Successfully saved gadget definitions`);
 	} catch (error) {
@@ -36,11 +46,18 @@ const deploy = async (targets) => {
 			log('red', `✘ Failed to save ${name} description`);
 			console.error(error);
 		}
-		for (const file of files) {
+		for (let file of files) {
+			if (/^\./.test(file)) {
+				file = `${name}${file}`;
+			}
 			const fileText = await readFileText(name, file);
 			try {
-				await api.save(`MediaWiki:Gadget-${name}-${file}`, fileText, editSummary);
-				log('green', `✔ Successfully saved ${file} to ${name}`);
+				let fileName = `${name}-${file}`;
+				if (file.split('.')[0] === name) {
+					fileName = file;
+				}
+				await api.save(`MediaWiki:Gadget-${fileName}`, fileText, editSummary);
+				log('green', `✔ Successfully saved ${fileName} to ${name}`);
 			} catch (error) {
 				log('red', `✘ Failed to save ${file} to ${name}`);
 				console.error(error);

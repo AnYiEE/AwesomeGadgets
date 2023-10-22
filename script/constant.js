@@ -25,10 +25,11 @@ const BANNER = `<div class="mw-message-box mw-message-box-notice">
 * 若需要设置您所需启用或关闭的小工具，请前往[[Special:参数设置#mw-prefsection-gadgets|参数设置]]。
 </div>`;
 
-/** @type {{enable: boolean; description: string; actions: string[]; contentModels: string[]; default: boolean; dependencies: string[]; hidden: boolean; namespaces: false | number; package: boolean; peers: string[]; rights: string[]; skins: string[]; supportsUrlLoad: boolean}} */
+/** @type {{enable: boolean; category: '' | 'appear' | 'browser' | 'compatibility' | 'edit' | 'sysop'; description: string; actions: string[]; contentModels: string[]; default: boolean; dependencies: string[]; hidden: boolean; namespaces: false | number[]; package: boolean; peers: string[]; rights: string[]; skins: string[]; supportsUrlLoad: boolean}} */
 const DEFAULT_DEFINITION = {
 	enable: true,
-	description: '',
+	category: '', // 回落值为appear
+	description: '', // 回落值为小工具名称
 	actions: [],
 	contentModels: [],
 	'default': false,
