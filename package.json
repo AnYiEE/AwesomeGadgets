@@ -14,8 +14,8 @@
 		"format": "prettier --write . && pnpm lint:fix",
 		"eslint": "eslint .",
 		"eslint:fix": "eslint . --fix",
-		"stylelint": "stylelint src/**/*.css",
-		"stylelint:fix": "stylelint src/**/*.css --fix",
+		"stylelint": "stylelint src/**/*.{css,less} --allow-empty-input",
+		"stylelint:fix": "stylelint src/**/*.{css,less} --allow-empty-input --fix",
 		"lint": "pnpm eslint && pnpm stylelint",
 		"lint:fix": "pnpm eslint:fix && pnpm stylelint:fix"
 	},
