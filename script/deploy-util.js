@@ -3,16 +3,16 @@ import prompts from 'prompts';
 import {execSync} from 'node:child_process';
 import fsPromises from 'node:fs/promises';
 import path from 'node:path';
-import {HEADER} from './constant.js';
+import {BANNER} from './constant.js';
 const __dirname = path.resolve();
 
 /**
  * Generate deployment targets based on the definitions
  *
  * @param {string[]} definitions Array of gadget definitions (in the format of MediaWiki:Gadgets-definition item)
- * @returns {Promise<Record<string, {description:string; files:string[]}>>} Deployment targets
+ * @return {Record<string, {description:string; files:string[]}>} Deployment targets
  */
-const generateTargets = async (definitions) => {
+const generateTargets = (definitions) => {
 	const targets = {};
 	for (const definition of definitions) {
 		if (definition === '') {
@@ -22,8 +22,12 @@ const generateTargets = async (definitions) => {
 		targets[name] = {};
 		targets[name].files = files
 			.split('|')
-			.filter((file) => file !== '')
-			.map((file) => file.replace(/\S+?<>/, ''));
+			.filter((file) => {
+				return file !== '';
+			})
+			.map((file) => {
+				return file.replace(/\S+?<>/, '');
+			});
 		targets[name].description = description || name;
 	}
 	return targets;
@@ -120,13 +124,13 @@ const readDefinition = async () => {
 	const definitionPath = path.join(__dirname, 'dist/definition.txt');
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	let definitionText = await fsPromises.readFile(definitionPath);
-	definitionText = definitionText.toString('utf-8').replace(/<>/g, '-');
-	definitionText = HEADER + '\n' + definitionText;
+	definitionText = definitionText.toString().replace(/<>/g, '-');
+	definitionText = `${BANNER}\n${definitionText}`;
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const fileHandle = await fsPromises.open(definitionPath, 'w');
 	await fileHandle.writeFile(definitionText);
 	await fileHandle.close();
-	return definitionText.toString('utf-8');
+	return definitionText.toString();
 };
 
 /**

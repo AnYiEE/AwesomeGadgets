@@ -7,6 +7,6 @@ const sourceFiles = await findSourceFile();
 
 const definitions = await build(sourceFiles);
 
-const deployTargets = await generateTargets(definitions);
+const deployTargets = generateTargets(definitions);
 
 await deploy(deployTargets);

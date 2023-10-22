@@ -1,18 +1,22 @@
 {
-	"customSyntax": "postcss-less",
-	"extends": ["stylelint-config-standard", "stylelint-prettier/recommended"],
+	"extends": ["stylelint-config-wikimedia/mediawiki", "stylelint-config-wikimedia/support-modern"],
 	"rules": {
-		"declaration-block-no-duplicate-properties": [
-			true,
-			{
-				"ignore": ["consecutive-duplicates"]
-			}
-		],
-		"media-feature-range-notation": "prefix",
+		"declaration-no-important": null,
+		"function-url-quotes": "always",
 		"no-descending-specificity": null,
-		"property-no-vendor-prefix": null,
-		"selector-id-pattern": null,
+		"rule-empty-line-before": null,
 		"selector-class-pattern": null,
-		"value-no-vendor-prefix": null
+		"selector-max-id": null,
+		"selector-not-notation": "complex",
+		"selector-type-no-unknown": null,
+		"stylistic/declaration-colon-newline-after": null,
+		"stylistic/declaration-colon-space-after": "always-single-line",
+		"stylistic/function-parentheses-space-inside": "never",
+		"stylistic/indentation": null,
+		"stylistic/media-feature-parentheses-space-inside": "never",
+		"stylistic/selector-attribute-brackets-space-inside": "never",
+		"stylistic/selector-descendant-combinator-no-non-space": null,
+		"stylistic/selector-pseudo-class-parentheses-space-inside": "never",
+		"stylistic/value-list-comma-newline-after": null
 	}
 }

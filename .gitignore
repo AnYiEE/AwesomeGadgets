@@ -1,5 +1,3 @@
 dist
 node_modules
 script/credentials.json
-src/test
-src/test_*

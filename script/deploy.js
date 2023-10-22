@@ -1,6 +1,6 @@
 import {mwn} from 'mwn';
 import {DEPLOY_USER_AGENT} from './constant.js';
-import {log, prompt, checkConfig, loadConfig, makeEditSummary, readDefinition, readFileText} from './deploy-util.js';
+import {checkConfig, loadConfig, log, makeEditSummary, prompt, readDefinition, readFileText} from './deploy-util.js';
 
 /**
  * Deploy definitions, scripts and styles

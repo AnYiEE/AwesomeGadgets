@@ -5,7 +5,7 @@ import fsPromises from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 import esbuildOptions from './build-esbuild_options.js';
-import {BANNER, FOOTER, WARNING, DEFAULT_DEFINITION} from './constant.js';
+import {DEFAULT_DEFINITION, FOOTER, HEADER, WARNING} from './constant.js';
 const __dirname = path.resolve();
 
 /**
@@ -15,21 +15,12 @@ const write = async ({code: sourceCode, path: outputFileWithPath, contentType, l
 	let fullCode = '';
 	switch (contentType) {
 		case 'text/css':
-			fullCode = licenseText + WARNING + '\n\n' + BANNER + '\n\n' + sourceCode + '\n' + FOOTER + '\n';
+			fullCode = `${licenseText}${WARNING}\n\n${HEADER}\n\n${sourceCode}\n${FOOTER}\n`;
 			break;
 		case 'text/javascript': {
 			const licenseTextTrim = licenseText.trim();
-			const _licenseText = licenseTextTrim ? licenseTextTrim + '\n' : '';
-			fullCode =
-				_licenseText +
-				WARNING +
-				'\n' +
-				BANNER +
-				'\n(function () {\n\n' +
-				sourceCode +
-				'\n\n})();\n' +
-				FOOTER +
-				'\n';
+			const _licenseText = licenseTextTrim ? `${licenseTextTrim}\n` : '';
+			fullCode = `${_licenseText}${WARNING}\n${HEADER}\n(function () {\n\n${sourceCode}\n\n})();\n${FOOTER}\n`;
 			break;
 		}
 		default:
@@ -62,7 +53,7 @@ const buildScript = async (script, {name, licenseText}) => {
 	const outputScriptWithPath = path.join(__dirname, `dist/${name}/${script.replace(/\.ts$/, '.js')}`);
 	await build(inputScriptWithPath, outputScriptWithPath);
 	const babelFileResult = await babel.transformFileAsync(outputScriptWithPath);
-	const code = babelFileResult.code;
+	const {code} = babelFileResult;
 	await write({contentType: 'text/javascript', path: outputScriptWithPath, code, licenseText});
 };
 
@@ -120,7 +111,7 @@ const findSourceFile = async (currentDir = 'src') => {
 				return;
 			}
 			const [_sourceDir, fileDir, fileName] = fullPathArray;
-			files[fileDir] = files[fileDir] ?? {};
+			files[fileDir] ??= {};
 			switch (fileName) {
 				case 'definition.json':
 					files[fileDir].definition = fileName;
@@ -140,11 +131,11 @@ const findSourceFile = async (currentDir = 'src') => {
 					files[fileDir].license = fileName;
 					break;
 			}
-			files[fileDir].scripts = files[fileDir].scripts ?? [];
+			files[fileDir].scripts ??= [];
 			if (/\.[jt]s$/.test(fileName)) {
 				files[fileDir].scripts.push(fileName);
 			}
-			files[fileDir].styles = files[fileDir].styles ?? [];
+			files[fileDir].styles ??= [];
 			if (/\.(?:css|less)$/.test(fileName)) {
 				files[fileDir].styles.push(fileName);
 			}
@@ -169,7 +160,7 @@ const getDefinition = async (definition, {name}) => {
 			chalk.yellow(`definition.json for ${chalk.bold(name)} is missing, default definition will be used.`)
 		);
 	}
-	const definitionObject = Object.assign({}, DEFAULT_DEFINITION, JSON.parse(definitionJsonText));
+	const definitionObject = {...DEFAULT_DEFINITION, ...JSON.parse(definitionJsonText)};
 	const definitionItem = `* ${name}[ResourceLoader|$1$2]|$3$4`;
 	let definitionText = '';
 	for (const [key, value] of Object.entries(definitionObject)) {
@@ -225,8 +216,12 @@ const cleanDefinition = ({definitionItem, definitionItemFiles}) => {
  */
 const setDefinition = async (definitions) => {
 	const definitionArray = definitions
-		.filter((definition) => definition !== '')
-		.map((definition) => definition.replace(/#.*/, ''));
+		.filter((definition) => {
+			return definition !== '';
+		})
+		.map((definition) => {
+			return definition.replace(/#.*/, '');
+		});
 	const definitionText = definitionArray.join('\n').replace(/(\S+?$)/, '$1\n');
 	const definitionPath = path.join(__dirname, `dist/definition.txt`);
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
@@ -247,7 +242,7 @@ const getLicense = async (license, {name}) => {
 	const licenseFileWithPath = path.join(__dirname, `src/${name}/${license}`);
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const licenseText = await fsPromises.readFile(licenseFileWithPath);
-	return licenseText ? licenseText + '\n' : '';
+	return licenseText ? `${licenseText}\n` : '';
 };
 
 export {buildScripts, buildStyles, findSourceFile, cleanDefinition, getDefinition, getLicense, setDefinition};

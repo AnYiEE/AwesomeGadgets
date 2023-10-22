@@ -3,6 +3,7 @@
 		"dbaeumer.vscode-eslint",
 		"EditorConfig.EditorConfig",
 		"esbenp.prettier-vscode",
+		"sporiley.css-auto-prefix",
 		"stylelint.vscode-stylelint",
 		"usernamehw.errorlens",
 		"yoavbls.pretty-ts-errors"

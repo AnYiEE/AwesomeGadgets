@@ -15,13 +15,21 @@ const build = async (sourceFiles) => {
 		const licenseText = await getLicense(license, {name});
 		if (script || scripts) {
 			const scriptFileArray = script ? [script] : scripts;
-			const scriptFiles = scriptFileArray.map((_script) => `${name}<>${_script}`).join('|');
+			const scriptFiles = scriptFileArray
+				.map((_script) => {
+					return `${name}<>${_script}`;
+				})
+				.join('|');
 			definitionItemFiles += scriptFiles ? `${scriptFiles}|` : '';
 			await buildScripts(scriptFileArray, {name, licenseText});
 		}
 		if (style || styles) {
 			const styleFileArray = style ? [style] : styles;
-			const styleFiles = styleFileArray.map((_style) => `${name}<>${_style}`).join('|');
+			const styleFiles = styleFileArray
+				.map((_style) => {
+					return `${name}<>${_style}`;
+				})
+				.join('|');
 			definitionItemFiles += styleFiles ? `${styleFiles}|` : '';
 			await buildStyles(styleFileArray, {name, licenseText});
 		}
