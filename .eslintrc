@@ -252,7 +252,7 @@
 		"unicorn/string-content": "off",
 		"unicorn/switch-case-braces": ["error", "avoid"],
 
-		"no-control-regex": "off",
+		"getter-return": ["error", {"allowImplicit": true}],
 		"quotes": [
 			"error",
 			"single",
