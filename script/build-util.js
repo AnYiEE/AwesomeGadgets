@@ -116,14 +116,15 @@ const findSourceFile = async (currentDir = 'src') => {
 				case 'definition.json':
 					files[fileDir].definition = fileName;
 					break;
+				case 'index.js':
 				case 'index.ts':
 				case `${fileDir}.js`:
 				case `${fileDir}.ts`:
 					files[fileDir].script = fileName;
 					break;
 				case 'index.css':
-				case `${fileDir}.css`:
 				case 'index.less':
+				case `${fileDir}.css`:
 				case `${fileDir}.less`:
 					files[fileDir].style = fileName;
 					break;
