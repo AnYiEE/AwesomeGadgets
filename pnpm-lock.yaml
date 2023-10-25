@@ -54,8 +54,8 @@ devDependencies:
     specifier: ^5.0.4
     version: 5.0.4
   mwn:
-    specifier: ^1.11.5
-    version: 1.11.5
+    specifier: ^2.0.1
+    version: 2.0.1
   postcss-less:
     specifier: ^6.0.0
     version: 6.0.0(postcss@8.4.31)
@@ -73,7 +73,7 @@ devDependencies:
     version: 0.16.1(postcss-less@6.0.0)(typescript@5.2.2)
   types-mediawiki:
     specifier: github:AnYiEE/types-mediawiki
-    version: git@github.com+AnYiEE/types-mediawiki/79060c9428eaa22779ee6fcff211409f992d6081
+    version: git/github.com+AnYiEE/types-mediawiki/79060c9428eaa22779ee6fcff211409f992d6081
   typescript:
     specifier: ^5.2.2
     version: 5.2.2
@@ -1600,10 +1600,6 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@types/eventsource@1.1.14:
-    resolution: {integrity: sha512-WiPIkZ5fuhTkeaVaPKbaP6vHuTX9FHnFNTrkSbm+Uf6g4TH3YNbdfw5/1oLzKIWsQRbrvSiByO2nPSxjr5/cgQ==}
-    dev: true
-
   /@types/jquery@3.5.24:
     resolution: {integrity: sha512-V/TG69ge5amcr8Ap7vY3SObqKfZlV7ttqcYnNcYnndI77ySIRi05+3GjvfwRtE2qalAC2ySLIL1ker512sI20g==}
     dependencies:
@@ -2115,11 +2111,6 @@ packages:
 
   /colord@2.9.3:
     resolution: {integrity: sha512-jeC1axXpnb0/2nn/Y1LPuLdgXBLH7aDcHu4KEKfqw3CUhX7ZpfBSlPKyqXE6btIgEzfWtrX3/tyBCaCvXvMkOw==}
-    dev: true
-
-  /colors@1.4.0:
-    resolution: {integrity: sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==}
-    engines: {node: '>=0.1.90'}
     dev: true
 
   /combined-stream@1.0.8:
@@ -2812,11 +2803,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /eventsource@1.1.2:
-    resolution: {integrity: sha512-xAH3zWhgO2/3KIniEKYPr8plNSzlGINOUqYj0m0u7AB81iRw8b/3E73W6AuU+6klLbaSFmZnaETQ2lXPfAydrA==}
-    engines: {node: '>=0.12.0'}
-    dev: true
-
   /fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
     dev: true
@@ -3494,10 +3480,6 @@ packages:
       kind-of: 6.0.3
     dev: true
 
-  /minimist@1.2.8:
-    resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
-    dev: true
-
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
     dev: true
@@ -3519,20 +3501,17 @@ packages:
       minimatch: 3.1.2
     dev: true
 
-  /mwn@1.11.5:
-    resolution: {integrity: sha512-gt+so4kY1aTst5/+B5ziJAxwh3R4W4iEBcypjFjo626jvAHz03ogWTBdNU3cK+xKehAu3iS17dP3WVqW5P1G0g==}
+  /mwn@2.0.1:
+    resolution: {integrity: sha512-pBKLWeN7XEizXC4evWNEwwNiUGa0Kz6f1e5wQlb+JdPNWaZipjLrBJhnresr4A+337i1ACTWeSOoVJEp5/V2oA==}
     engines: {node: '>=10'}
     dependencies:
-      '@types/eventsource': 1.1.14
       '@types/node': 14.18.63
       '@types/tough-cookie': 4.0.4
       axios: 0.25.0
       axios-cookiejar-support: 1.0.1(@types/tough-cookie@4.0.4)(axios@0.25.0)(tough-cookie@4.1.3)
       chalk: 1.1.3
-      eventsource: 1.1.2
       form-data: 3.0.1
       oauth-1.0a: 2.2.6
-      prettyjson: 1.2.5
       tough-cookie: 4.1.3
       types-mediawiki: 1.4.0
     transitivePeerDependencies:
@@ -3794,14 +3773,6 @@ packages:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
     hasBin: true
-    dev: true
-
-  /prettyjson@1.2.5:
-    resolution: {integrity: sha512-rksPWtoZb2ZpT5OVgtmy0KHVM+Dca3iVwWY9ifwhcexfjebtgjg3wmrUt9PvJ59XIYBcknQeYHD8IAnVlh9lAw==}
-    hasBin: true
-    dependencies:
-      colors: 1.4.0
-      minimist: 1.2.8
     dev: true
 
   /prompts@2.4.2:
@@ -4693,7 +4664,7 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  git@github.com+AnYiEE/types-mediawiki/79060c9428eaa22779ee6fcff211409f992d6081:
+  git/github.com+AnYiEE/types-mediawiki/79060c9428eaa22779ee6fcff211409f992d6081:
     resolution: {commit: 79060c9428eaa22779ee6fcff211409f992d6081, repo: git@github.com:AnYiEE/types-mediawiki.git, type: git}
     name: types-mediawiki
     version: 2.0.4
