@@ -1,4 +1,4 @@
-import {mwn} from 'mwn';
+import {Mvn} from 'mwn';
 import {DEPLOY_USER_AGENT} from './constant.js';
 import {
 	checkConfig,
@@ -19,7 +19,7 @@ import {
 const deploy = async (targets) => {
 	let config = await loadConfig();
 	config = await checkConfig(config);
-	const api = new mwn({
+	const api = new Mvn({
 		userAgent: DEPLOY_USER_AGENT,
 		...config,
 	});
