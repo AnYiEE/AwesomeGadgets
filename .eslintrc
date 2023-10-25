@@ -13,7 +13,6 @@
 	"parserOptions": {
 		"parser": "@typescript-eslint/parser"
 	},
-	"ignorePatterns": ["dist/", "*.json", "pnpm-lock.yaml"],
 	"globals": {},
 	"rules": {
 		"array-callback-return": [
