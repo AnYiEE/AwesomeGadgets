@@ -1,0 +1,8 @@
+{
+	"rules": {
+		"new-cap": "off",
+		"sort-imports": "off",
+		"unicorn/no-array-for-each": "off",
+		"unicorn/no-await-expression-member": "off"
+	}
+}
