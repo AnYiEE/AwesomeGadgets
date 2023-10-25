@@ -46,5 +46,11 @@
 	"explorer.fileNesting.patterns": {
 		"package.json": ".babel*, .browserslist*, .editorConfig, .eslint*, .git*, pnpm-lock.yaml, .prettier*, .stylelint*, commitlinterrc.json, esbuild.config.js, tsconfig.json, LICENCE",
 		"readme*": "*.md"
-	}
+	},
+	"json.schemas": [
+		{
+			"fileMatch": ["src/*/definition.json"],
+			"url": "./.vscode/json-schemas/definition.json"
+		}
+	]
 }

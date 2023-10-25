@@ -1,0 +1,99 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "小工具定义",
+	"type": "object",
+	"properties": {
+		"enable": {
+			"type": "boolean",
+			"title": "是否启用当前小工具",
+			"default": true
+		},
+		"category": {
+			"type": "string",
+			"title": "当前小工具在“MediaWiki:Gadgets-definition”页面中所处的章节",
+			"default": "appear",
+			"examples": ["appear", "browser", "compatibility", "edit", "sysop"],
+			"minLength": 1
+		},
+		"description": {
+			"type": "string",
+			"title": "“MediaWiki:Gadget-小工具名”页面中的文本，不能包含井号，默认为小工具名"
+		},
+		"actions": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "string"
+			}
+		},
+		"contentModels": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "string"
+			}
+		},
+		"default": {
+			"type": "boolean",
+			"default": false
+		},
+		"dependencies": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "string"
+			}
+		},
+		"hidden": {
+			"type": "boolean",
+			"default": false
+		},
+		"namespaces": {
+			"title": "加载当前小工具的命名空间，值为 false 时等同于未作设置",
+			"default": false,
+			"anyOf": [
+				{
+					"type": "array",
+					"items": {
+						"type": "number"
+					}
+				},
+				{
+					"type": "boolean",
+					"enum": [false]
+				}
+			]
+		},
+		"package": {
+			"type": "boolean",
+			"default": false
+		},
+		"peers": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "string"
+			}
+		},
+		"rights": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "string"
+			}
+		},
+		"skins": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "string"
+			}
+		},
+		"supportsUrlLoad": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"additionalProperties": false,
+	"required": ["enable"]
+}
