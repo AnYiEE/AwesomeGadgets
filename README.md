@@ -46,13 +46,33 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
 
 3. 根据实际情况更改`script/constant.js`中的信息
 
-4. 在`script`文件夹下新建`credentials.json`文件
+4. 在`script`文件夹下新建`credentials.json`文件（多选一，取决于你的登录方式，如果文件中有多种登录凭据，则 OAuth2 优先于 OAuth1.0a 优先于账号密码）
 
     ```json
     {
     	"apiUrl": "https://your.wiki/api.php", // 根据实际情况修改
     	"username": "", // 填入机器人账号和密码（可以在[[Special:BotPasswords]]获取）
     	"password": ""
+    }
+    ```
+
+    ```json
+    {
+    	"apiUrl": "https://your.wiki/api.php", // 根据实际情况修改
+    	"OAuth2AccessToken": "" // 填入 OAuth2 访问密钥
+    }
+    ```
+
+    ```json
+    {
+    	"apiUrl": "https://your.wiki/api.php", // 根据实际情况修改
+    	"OAuthCredentials": {
+    		// 填入 OAuth1.0a 相关信息
+    		"accessToken": "16_DIGIT_ALPHANUMERIC_KEY",
+    		"accessSecret": "20_DIGIT_ALPHANUMERIC_KEY",
+    		"consumerToken": "16_DIGIT_ALPHANUMERIC_KEY",
+    		"consumerSecret": "20_DIGIT_ALPHANUMERIC_KEY"
+    	}
     }
     ```
 

@@ -67,18 +67,19 @@ const prompt = async (message, type = 'text', initial = '') => {
 /**
  * Check the integrity of configuration items
  *
- * @param {{apiUrl?:string; username?:string; password?:string}} config To be completed configuration
+ * @param {Record<string, unknown>} config To be completed configuration
+ * @param {boolean} checkApiUrlOnly Only check `config.apiUrl` is empty or not
  * @returns {Promise<{apiUrl:string; username:string; password:string}>} Completed configuration
  */
-const checkConfig = async (config) => {
+const checkConfig = async (config, checkApiUrlOnly = false) => {
 	if (!config.apiUrl) {
 		const apiUrl = await prompt('> Enter api url (eg. https://your.wiki/api.php)');
 		config.apiUrl = apiUrl;
 	}
-	if (!config.username) {
+	if (!checkApiUrlOnly && !config.username) {
 		config.username = await prompt('> Enter username');
 	}
-	if (!config.password) {
+	if (!checkApiUrlOnly && !config.password) {
 		config.password = await prompt('> Enter bot password', 'password');
 	}
 	return config;
@@ -87,7 +88,7 @@ const checkConfig = async (config) => {
 /**
  * Load credentials.json
  *
- * @returns {Promise<{apiUrl?:string; username?:string; password?:string}>} The result of parsing the credentials.json file
+ * @returns {Promise<{apiUrl?:string; username?:string; password?:string} | {apiUrl?:string; OAuth2AccessToken?:string} | {apiUrl?:string; OAuthCredentials?:{accessToken?:string; accessSecret?:string; consumerToken?:string; consumerSecret?:string}}>} The result of parsing the credentials.json file
  */
 const loadConfig = async () => {
 	const credentialsFileWithPath = path.join(__dirname, 'script/credentials.json');

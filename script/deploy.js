@@ -1,4 +1,4 @@
-import {Mvn} from 'mwn';
+import {Mwn} from 'mwn';
 import {DEPLOY_USER_AGENT} from './constant.js';
 import {
 	checkConfig,
@@ -18,13 +18,25 @@ import {
  */
 const deploy = async (targets) => {
 	let config = await loadConfig();
-	config = await checkConfig(config);
-	const api = new Mvn({
-		userAgent: DEPLOY_USER_AGENT,
+	config = await checkConfig(config, true);
+	const api = await Mwn.init({
 		...config,
+		userAgent: DEPLOY_USER_AGENT,
 	});
+	let isUseOAuth = false;
+	try {
+		api.initOAuth();
+		isUseOAuth = true;
+	} catch {
+		config = await checkConfig(config);
+		api.setOptions(config);
+	}
 	log('yellow', '--- Logging in ---');
-	await api.login();
+	if (isUseOAuth) {
+		await api.getTokensAndSiteInfo();
+	} else {
+		await api.login();
+	}
 	await prompt(`> Press [Enter] to start deploying or press [ctrl + C] twice to cancel`);
 	log('yellow', '--- starting deployment ---');
 	const editSummary = await makeEditSummary();
