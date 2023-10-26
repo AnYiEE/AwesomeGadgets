@@ -118,15 +118,23 @@ const findSourceFile = async (currentDir = 'src') => {
 					break;
 				case 'index.js':
 				case 'index.ts':
+					files[fileDir].script = fileName;
+					break;
 				case `${fileDir}.js`:
 				case `${fileDir}.ts`:
-					files[fileDir].script = fileName;
+					if (!files[fileDir].script) {
+						files[fileDir].script = fileName;
+					}
 					break;
 				case 'index.css':
 				case 'index.less':
+					files[fileDir].style = fileName;
+					break;
 				case `${fileDir}.css`:
 				case `${fileDir}.less`:
-					files[fileDir].style = fileName;
+					if (!files[fileDir].style) {
+						files[fileDir].style = fileName;
+					}
 					break;
 				case 'LICENSE':
 					files[fileDir].license = fileName;

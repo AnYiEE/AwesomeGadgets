@@ -12,9 +12,9 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
 
 3. 开始编写代码
 
-    1. 目录下的`小工具名.{js, ts, css, less}`(1)、`index.{js, ts, css, less}`(2) 默认为脚本/样式的入口文件（二选一即可）。
+    1. 目录下的`小工具名.{js, ts, css, less}`(1)、`index.{js, ts, css, less}`(2) 默认为脚本/样式的入口文件（二选一即可，`*.{ts, less}`优先于`*.{js, css}`。两者同时存在时，`index.*`优先于`小工具名.*`）。
 
-        1. 当存在入口文件时，所有的脚本/样式均会被编译并打包，最终生成`小工具名.{js, css}`(1)、`小工具名-index.{js, css}`(2) 并部署。
+        1. 当存在入口文件时，所有的脚本/样式均会被编译并打包，最终生成`小工具名.{js, css}`(1)或`小工具名-index.{js, css}`(2) 并部署。
         2. 不存在入口文件时，所有的脚本/样式均会被编译并部署。
 
     2. 目录下可以创建`definition.json`以手动指定小工具定义（可选）
@@ -46,7 +46,7 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
 
 3. 根据实际情况更改`script/constant.js`中的信息
 
-4. 在`script`文件夹下新建`credentials.json`文件（多选一，取决于你的登录方式，如果文件中有多种登录凭据，则 OAuth2 优先于 OAuth1.0a 优先于账号密码）
+4. 在`script`文件夹下新建`credentials.json`文件（多选一，取决于你的登录方式。存在多种登录凭据时，OAuth2 优先于 OAuth1.0a 优先于账号密码）
 
     ```json
     {
