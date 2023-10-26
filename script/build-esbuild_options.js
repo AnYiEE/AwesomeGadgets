@@ -16,6 +16,7 @@ const loader = {
 /** @see https://esbuild.github.io/api/#general-options */
 const esbuildOptions = {
 	bundle: true,
+	charset: 'utf8',
 	plugins: [lessLoader()],
 	loader,
 };
