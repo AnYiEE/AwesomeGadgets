@@ -108,10 +108,14 @@ const loadConfig = async () => {
  * @returns {Promise<string>} The edit summary
  */
 const makeEditSummary = async () => {
-	const sha = execSync('git rev-parse --short HEAD').toString('utf8').trim();
-	const summary = execSync('git log --pretty=format:"%s" HEAD -1').toString('utf8').trim();
-	const message = await prompt('> Edit summary message (optional):');
-	const editSummary = `Git 版本 ${sha}: ${message || summary}`;
+	let sha = '';
+	let summary = '';
+	try {
+		sha = execSync('git rev-parse --short HEAD').toString('utf8').trim();
+		summary = execSync('git log --pretty=format:"%s" HEAD -1').toString('utf8').trim();
+	} catch {}
+	const customSummary = await prompt('> Custom edit summary message (optional):');
+	const editSummary = `${sha ? `Git 版本 ${sha}: ` : ''}${customSummary || summary}`;
 	log('white', `Edit summary is: "${editSummary}"`);
 	return editSummary;
 };
