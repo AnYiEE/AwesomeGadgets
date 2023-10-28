@@ -54,7 +54,12 @@ const buildScript = async (script, {name, licenseText}) => {
 	await build(inputScriptWithPath, outputScriptWithPath);
 	const babelFileResult = await babel.transformFileAsync(outputScriptWithPath);
 	const {code} = babelFileResult;
-	await write({contentType: 'text/javascript', path: outputScriptWithPath, code, licenseText});
+	await write({
+		contentType: 'text/javascript',
+		path: outputScriptWithPath,
+		code,
+		licenseText,
+	});
 };
 
 /**
@@ -63,7 +68,10 @@ const buildScript = async (script, {name, licenseText}) => {
  */
 const buildScripts = async (scripts, {name, licenseText}) => {
 	for (const script of scripts) {
-		await buildScript(script, {name, licenseText});
+		await buildScript(script, {
+			name,
+			licenseText,
+		});
 	}
 };
 
@@ -77,7 +85,12 @@ const buildStyle = async (style, {name, licenseText}) => {
 	await build(inputStyleWithPath, outputStyleWithPath);
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const code = await fsPromises.readFile(outputStyleWithPath);
-	await write({contentType: 'text/css', path: outputStyleWithPath, code, licenseText});
+	await write({
+		contentType: 'text/css',
+		path: outputStyleWithPath,
+		code,
+		licenseText,
+	});
 };
 
 /**
@@ -86,7 +99,10 @@ const buildStyle = async (style, {name, licenseText}) => {
  */
 const buildStyles = async (styles, {name, licenseText}) => {
 	for (const style of styles) {
-		await buildStyle(style, {name, licenseText});
+		await buildStyle(style, {
+			name,
+			licenseText,
+		});
 	}
 };
 

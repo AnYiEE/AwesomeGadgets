@@ -34,21 +34,31 @@ const definitions = [];
 const build = async (sourceFiles) => {
 	for (const [name, {definition, license, script, scripts, style, styles}] of Object.entries(sourceFiles)) {
 		let definitionItemFiles = '';
-		const licenseText = await getLicense(license, {name});
+		const licenseText = await getLicense(license, {
+			name,
+		});
 		if (script || scripts) {
 			const scriptFileArray = script ? [script] : scripts;
 			const scriptFiles = getFiles(name, scriptFileArray);
 			definitionItemFiles += scriptFiles ? `${scriptFiles}|` : '';
-			await buildScripts(scriptFileArray, {name, licenseText});
+			await buildScripts(scriptFileArray, {
+				name,
+				licenseText,
+			});
 		}
 		if (style || styles) {
 			const styleFileArray = style ? [style] : styles;
 			const styleFiles = getFiles(name, styleFileArray);
 			definitionItemFiles += styleFiles ? `${styleFiles}|` : '';
-			await buildStyles(styleFileArray, {name, licenseText});
+			await buildStyles(styleFileArray, {
+				name,
+				licenseText,
+			});
 		}
 		const definitionItem = cleanDefinition({
-			definitionItem: await getDefinition(definition, {name}),
+			definitionItem: await getDefinition(definition, {
+				name,
+			}),
 			definitionItemFiles,
 		});
 		definitions.push(definitionItem);
