@@ -17,7 +17,7 @@ const __dirname = path.resolve();
 const generateTargets = (definitions) => {
 	const targets = {};
 	for (const definition of definitions) {
-		if (definition === '') {
+		if (!definition) {
 			continue;
 		}
 		const [_, name, files, description] = definition.match(/^\*\s(\S+?)\[\S+?]\|(\S+?)#\S*?#(.*?)$/);
@@ -132,7 +132,7 @@ const readDefinition = async () => {
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	let definitionText = await fsPromises.readFile(definitionPath);
 	definitionText = definitionText.toString().replace(/<>/g, '-').replace(/-\./g, '.');
-	definitionText = `${BANNER.replace(/[=]=/g, '')}\n${definitionText}`;
+	definitionText = `${BANNER.replace(/[=]=/g, '').trim()}\n${definitionText}`;
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const fileHandle = await fsPromises.open(definitionPath, 'w');
 	await fileHandle.writeFile(definitionText);

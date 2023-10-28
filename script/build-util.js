@@ -220,7 +220,7 @@ const getDefinition = async (definition, {name}) => {
 	}
 	definitionText = definitionText.replace(/\|$/, '');
 	const cleanInvalidCharacters = (text) => {
-		return text.trim().replace(/#|==|<>/g, '');
+		return text.replace(/#|==|<>/g, '').trim();
 	};
 	let categoryText = cleanInvalidCharacters(definitionObject.category);
 	categoryText = categoryText ? `#${categoryText}` : '#appear';
