@@ -38,9 +38,9 @@ const write = async ({code: sourceCode, path: outputFileWithPath, contentType, l
  */
 const build = async (inputFileWithPath, outputFileWithPath) => {
 	await esbuild.build({
+		...esbuildOptions,
 		entryPoints: [inputFileWithPath],
 		outfile: outputFileWithPath,
-		...esbuildOptions,
 	});
 };
 
