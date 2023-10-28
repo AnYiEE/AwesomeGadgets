@@ -46,6 +46,6 @@ const DEFAULT_DEFINITION = {
 };
 
 /** @type {string} */
-const DEPLOY_USER_AGENT = '';
+const DEPLOY_USER_AGENT = 'AnYiEE/AwesomeGadgets (https://github.com/AnYiEE/AwesomeGadgets; i@anyi.in)';
 
 export {HEADER, WARNING, FOOTER, BANNER, DEFAULT_DEFINITION, DEPLOY_USER_AGENT};
