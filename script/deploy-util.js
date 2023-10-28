@@ -201,28 +201,41 @@ const convertVariant = async (pageTitle, {api, content, editSummary}) => {
 };
 
 /**
- * Save gadget definition category pages
+ * Save gadget definition section pages
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
  * @param {{api:_Mwn; editSummary:string}} api The api instance and the edit summary used by the api instance
  */
-const saveDefinitionCategory = async (definitionText, {api, editSummary}) => {
-	const categories = definitionText.match(/^==([\S\s]+?)==$/gm).map((categoryHeader) => {
-		return categoryHeader.replace(/[=]=/g, '').trim();
+const saveDefinitionSectionPage = async (definitionText, {api, editSummary}) => {
+	const sections = definitionText.match(/^==([\S\s]+?)==$/gm).map((sectionHeader) => {
+		return sectionHeader.replace(/[=]=/g, '').trim();
 	});
-	const pageTitles = categories.map((category) => {
-		return `MediaWiki:Gadget-section-${category}`;
+	const pageTitles = sections.map((section) => {
+		return `MediaWiki:Gadget-section-${section}`;
 	});
-	for (const [index, category] of categories.entries()) {
-		const categoryText = DEFINITION_CATEGORY_MAP[category] || category;
+	for (const [index, section] of sections.entries()) {
+		const sectionText = DEFINITION_CATEGORY_MAP[section] || section;
 		const pageTitle = pageTitles[index];
-		await api.save(pageTitle, categoryText, editSummary);
-		if (IS_CONVERT_DESCRIPTION_VARIANT) {
-			await convertVariant(pageTitle, {
-				content: categoryText,
-				api,
-				editSummary,
-			});
+		try {
+			await api.save(pageTitle, sectionText, editSummary);
+			log('green', `✔ Successfully saved ${pageTitle}`);
+			if (!IS_CONVERT_DESCRIPTION_VARIANT) {
+				continue;
+			}
+			try {
+				await convertVariant(pageTitle, {
+					content: sectionText,
+					api,
+					editSummary,
+				});
+				log('green', `✔ Successfully converted ${pageTitle}`);
+			} catch (error) {
+				log('red', `✘ Failed to convert ${pageTitle}`);
+				console.error(error);
+			}
+		} catch (error) {
+			log('red', `✘ Failed to save ${pageTitle}`);
+			console.error(error);
 		}
 	}
 };
@@ -237,16 +250,6 @@ const saveDefinition = async (definitionText, {api, editSummary}) => {
 	try {
 		await api.save('MediaWiki:Gadgets-definition', definitionText, editSummary);
 		log('green', '✔ Successfully saved gadget definitions');
-		try {
-			await saveDefinitionCategory(definitionText, {
-				api,
-				editSummary,
-			});
-			log('green', '✔ Successfully saved gadget definition categories');
-		} catch (error) {
-			log('red', '✘ Failed to save gadget definition categories');
-			console.error(error);
-		}
 	} catch (error) {
 		log('red', '✘ Failed to save gadget definitions');
 		console.error(error);
@@ -264,17 +267,18 @@ const saveDescription = async (name, {api, description, editSummary}) => {
 	try {
 		await api.save(descriptionPageTitle, description, editSummary);
 		log('green', `✔ Successfully saved ${name} description`);
+		if (!IS_CONVERT_DESCRIPTION_VARIANT) {
+			return;
+		}
 		try {
-			if (IS_CONVERT_DESCRIPTION_VARIANT) {
-				await convertVariant(descriptionPageTitle, {
-					content: description,
-					api,
-					editSummary,
-				});
-				log('green', `✔ Successfully converted ${name} description`);
-			}
+			await convertVariant(descriptionPageTitle, {
+				content: description,
+				api,
+				editSummary,
+			});
+			log('green', `✔ Successfully converted ${name} description`);
 		} catch (error) {
-			log('red', `✘ Failed to converted ${name} description`);
+			log('red', `✘ Failed to convert ${name} description`);
 			console.error(error);
 		}
 	} catch (error) {
@@ -314,6 +318,7 @@ export {
 	readFileText,
 	setDefinition,
 	saveDefinition,
+	saveDefinitionSectionPage,
 	saveDescription,
 	saveFiles,
 };

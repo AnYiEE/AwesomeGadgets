@@ -10,6 +10,7 @@ import {
 	readFileText,
 	setDefinition,
 	saveDefinition,
+	saveDefinitionSectionPage,
 	saveDescription,
 	saveFiles,
 } from './deploy-util.js';
@@ -46,6 +47,10 @@ const deploy = async (targets) => {
 	const definitionText = await readDefinition();
 	await setDefinition(definitionText);
 	await saveDefinition(definitionText, {
+		api,
+		editSummary,
+	});
+	await saveDefinitionSectionPage(definitionText, {
 		api,
 		editSummary,
 	});
