@@ -44,7 +44,7 @@
 	"explorer.fileNesting.enabled": true,
 	"explorer.fileNesting.expand": false,
 	"explorer.fileNesting.patterns": {
-		"package.json": ".babel*, .browserslist*, .editorConfig, .eslint*, .git*, pnpm-lock.yaml, .prettier*, .stylelint*, commitlinterrc.json, esbuild.config.js, tsconfig.json, LICENCE",
+		"package.json": ".babel*, .browserslist*, .editorConfig, .eslint*, .git*, pnpm-lock.yaml, .prettier*, .stylelint*, commitlint*, esbuild.config.js, tsconfig.json, LICENCE",
 		"readme*": "*.md"
 	},
 	"json.schemas": [

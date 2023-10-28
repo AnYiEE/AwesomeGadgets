@@ -11,13 +11,15 @@
 	"scripts": {
 		"build": "pnpm format && node script/only-build.js",
 		"deploy": "pnpm format && node esbuild.config.js",
-		"format": "prettier --write . && pnpm lint:fix",
-		"eslint": "eslint .",
-		"eslint:fix": "eslint . --fix",
-		"stylelint": "stylelint src/**/*.{css,less} --allow-empty-input",
-		"stylelint:fix": "stylelint src/**/*.{css,less} --allow-empty-input --fix",
+		"format": "prettier --cache --write . && pnpm lint:fix",
+		"eslint": "eslint --cache .",
+		"eslint:fix": "eslint --cache --fix .",
+		"stylelint": "stylelint --allow-empty-input --cache src/**/*.{css,less} ",
+		"stylelint:fix": "stylelint --allow-empty-input --fix --cache src/**/*.{css,less} ",
 		"lint": "pnpm eslint && pnpm stylelint",
-		"lint:fix": "pnpm eslint:fix && pnpm stylelint:fix"
+		"lint:fix": "pnpm eslint:fix && pnpm stylelint:fix",
+		"preinstall": "npx only-allow pnpm",
+		"prepare": "husky install"
 	},
 	"keywords": [
 		"MediaWiki"
@@ -27,6 +29,8 @@
 	"devDependencies": {
 		"@babel/core": "^7.23.2",
 		"@babel/preset-env": "^7.23.2",
+		"@commitlint/cli": "^18.2.0",
+		"@commitlint/config-conventional": "^18.1.0",
 		"@types/jqueryui": "^1.12.19",
 		"@types/oojs-ui": "^0.47.3",
 		"@typescript-eslint/eslint-plugin": "^5.62.0",
@@ -40,8 +44,8 @@
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-config-wikimedia": "^0.25.1",
 		"eslint-plugin-unicorn": "^48.0.1",
-		"git-commit-msg-linter": "^5.0.4",
 		"happy-dom": "^12.10.3",
+		"husky": "^8.0.3",
 		"mwn": "^2.0.1",
 		"postcss-less": "^6.0.0",
 		"prettier": "^3.0.3",
@@ -50,5 +54,16 @@
 		"stylelint-config-wikimedia": "^0.16.1",
 		"types-mediawiki": "github:AnYiEE/types-mediawiki",
 		"typescript": "^5.2.2"
+	},
+	"lint-staged": {
+		"*.{css,less}": [
+			"prettier --cache --write",
+			"stylelint --allow-empty-input --fix --cache"
+		],
+		"*.{cjs,js,ts}": [
+			"prettier --cache --write",
+			"eslint --cache --fix"
+		],
+		"*.{json,md}": "prettier --cache --write"
 	}
 }
