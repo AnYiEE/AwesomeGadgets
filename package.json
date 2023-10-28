@@ -5,7 +5,7 @@
 		"type": "git",
 		"url": "https://github.com/AnYiEE/AwesomeGadgets"
 	},
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "Storage, compile, and auto deploy gadgets.",
 	"type": "module",
 	"scripts": {
@@ -15,7 +15,7 @@
 		"eslint": "eslint --cache .",
 		"eslint:fix": "eslint --cache --fix .",
 		"stylelint": "stylelint --allow-empty-input --cache src/**/*.{css,less} ",
-		"stylelint:fix": "stylelint --allow-empty-input --fix --cache src/**/*.{css,less} ",
+		"stylelint:fix": "stylelint --allow-empty-input --cache --fix src/**/*.{css,less} ",
 		"lint": "pnpm eslint && pnpm stylelint",
 		"lint:fix": "pnpm eslint:fix && pnpm stylelint:fix",
 		"preinstall": "npx only-allow pnpm",
@@ -58,7 +58,7 @@
 	"lint-staged": {
 		"*.{css,less}": [
 			"prettier --cache --write",
-			"stylelint --allow-empty-input --fix --cache"
+			"stylelint --allow-empty-input --cache --fix"
 		],
 		"*.{cjs,js,ts}": [
 			"prettier --cache --write",
