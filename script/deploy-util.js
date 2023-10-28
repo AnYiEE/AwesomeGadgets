@@ -39,10 +39,10 @@ const generateTargets = (definitions) => {
  * Log message with chalk
  *
  * @param {string} color message text color
- * @param  {string} msg message text
+ * @param  {string} message message text
  */
-const log = (color, msg) => {
-	console.log(chalk[color](msg));
+const log = (color, message) => {
+	console.log(chalk[color](message));
 };
 
 /**
@@ -143,15 +143,15 @@ const readDefinition = async () => {
 /**
  * Read file text
  *
- * @param {string} name Gadget name
+ * @param {string} name The gadget name
  * @param {string} file The file name used by this gadget
- * @returns {Promise<string>} The file text
+ * @returns {Promise<string>} The file content
  */
 const readFileText = async (name, file) => {
 	const filePath = path.join(__dirname, `dist/${name}/${file}`);
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
-	const fileText = await fsPromises.readFile(filePath);
-	return fileText.toString();
+	const fileContent = await fsPromises.readFile(filePath);
+	return fileContent.toString();
 };
 
 /**
@@ -171,9 +171,9 @@ const setDefinition = async (definitionText) => {
  * Convert language variants of a page
  *
  * @param {string} pageTitle The titie of this page
- * @param {{api:_Mwn; editSummary:string; text:string}} object The api instance, the edit summary used by the api instance and the text of this page
+ * @param {{api:_Mwn; content:string; editSummary:string}} object The api instance, the content of this page and the edit summary used by the api instance
  */
-const convertVariant = async (pageTitle, {api, editSummary, text}) => {
+const convertVariant = async (pageTitle, {api, content, editSummary}) => {
 	const variants = ['zh', 'zh-hans', 'zh-cn', 'zh-my', 'zh-sg', 'zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'];
 	/**
 	 * @param {keyof typeof variants} variant
@@ -181,7 +181,7 @@ const convertVariant = async (pageTitle, {api, editSummary, text}) => {
 	 */
 	const convert = async (variant) => {
 		const parsedHtml = await api.parseWikitext(
-			`{{NoteTA|G1=IT|G2=MediaWiki}}<div class="convertVariant">${text}</div>`,
+			`{{NoteTA|G1=IT|G2=MediaWiki}}<div class="convertVariant">${content}</div>`,
 			{
 				prop: 'text',
 				uselang: variant,
@@ -219,7 +219,7 @@ const saveDefinitionCategory = async (definitionText, {api, editSummary}) => {
 		await api.save(pageTitle, categoryText, editSummary);
 		if (IS_CONVERT_DESCRIPTION_VARIANT) {
 			await convertVariant(pageTitle, {
-				text: categoryText,
+				content: categoryText,
 				api,
 				editSummary,
 			});
@@ -256,7 +256,7 @@ const saveDefinition = async (definitionText, {api, editSummary}) => {
 /**
  * Save gadget description
  *
- * @param {string} name Gadget name
+ * @param {string} name The gadget name
  * @param {{api:_Mwn; description:string; editSummary:string}} api The api instance, the definition of this gadget and the edit summary used by the api instance
  */
 const saveDescription = async (name, {api, description, editSummary}) => {
@@ -267,7 +267,7 @@ const saveDescription = async (name, {api, description, editSummary}) => {
 		try {
 			if (IS_CONVERT_DESCRIPTION_VARIANT) {
 				await convertVariant(descriptionPageTitle, {
-					text: description,
+					content: description,
 					api,
 					editSummary,
 				});
@@ -286,7 +286,7 @@ const saveDescription = async (name, {api, description, editSummary}) => {
 /**
  * Save gadget file
  *
- * @param {string} name Gadget name
+ * @param {string} name The gadget name
  * @param {{api:_Mwn; editSummary:string; file:string; fileText:string}} api The api instance, the edit summary used by the api instance, the target file name and the file content
  */
 const saveFiles = async (name, {api, editSummary, file, fileText}) => {

@@ -64,7 +64,7 @@ const buildScript = async (script, {name, licenseText}) => {
 
 /**
  * @param {string[]} scripts Array of script file names for a gadget
- * @param {{name:string; licenseText:string}} object The name and license text of this gadget
+ * @param {{name:string; licenseText:string}} object The name and license file content of this gadget
  */
 const buildScripts = async (scripts, {name, licenseText}) => {
 	for (const script of scripts) {
@@ -95,7 +95,7 @@ const buildStyle = async (style, {name, licenseText}) => {
 
 /**
  * @param {string[]} styles Array of style sheet file names for a gadget
- * @param {{name:string; licenseText:string}} object The name and license text of this gadget
+ * @param {{name:string; licenseText:string}} object The name and license file content of this gadget
  */
 const buildStyles = async (styles, {name, licenseText}) => {
 	for (const style of styles) {
@@ -170,9 +170,9 @@ const findSourceFile = async (currentDir = 'src') => {
 };
 
 /**
- * @param {string} [definition] Definition file name of a gadget
- * @param {{name:string}} object The name of this gadget
- * @returns {Promise<string>} Gadget definition fragment
+ * @param {string} [definition] The definition file name of a gadget
+ * @param {{name:string}} object The gadget name
+ * @returns {Promise<string>} The gadget definition fragment
  */
 const getDefinition = async (definition, {name}) => {
 	const definitionFileWithPath = path.join(__dirname, `src/${name}/${definition}`);
@@ -231,7 +231,7 @@ const getDefinition = async (definition, {name}) => {
 
 /**
  * @param {{definitionItem:string; definitionItemFiles:string}} object Gadget definition fragment
- * @return {string} Gadget definition (in the format of MediaWiki:Gadgets-definition item)
+ * @return {string} The Gadget definition (in the format of MediaWiki:Gadgets-definition item)
  */
 const cleanDefinition = ({definitionItem, definitionItemFiles}) => {
 	const isStyleOnly = !/\.[jt]s\|/.test(definitionItemFiles);
@@ -253,10 +253,10 @@ const cleanDefinition = ({definitionItem, definitionItemFiles}) => {
 /**
  * Set `dist/definition.txt`
  *
- * @param {string[]} definitions Definitions Array of gadget definitions (in the format of MediaWiki:Gadgets-definition item)
+ * @param {string[]} definitions The gadget definitions array (in the format of MediaWiki:Gadgets-definition item)
  */
 const setDefinition = async (definitions) => {
-	/** @type {Record<string, string[] | undefined>} */
+	/** @type {Record<string, typeof definitions | undefined>} */
 	const definitionObject = {};
 	definitions
 		.filter((definition) => {
@@ -286,9 +286,9 @@ const setDefinition = async (definitions) => {
 };
 
 /**
- * @param {string} license The license file name of a gadget
- * @param {{name:string}} object The name of this gadget
- * @returns {Promise<string>} The license text of this gadget
+ * @param {string} license The gadget license file name
+ * @param {{name:string}} object The gadget name
+ * @returns {Promise<string>} The gadget license file content
  */
 const getLicense = async (license, {name}) => {
 	if (!license) {

@@ -11,9 +11,9 @@ const removeDuplicateFileName = (name, file) => {
 };
 
 /**
- * @param {string} name Gadget name
- * @param {string[]} files Array of file names
- * @return {string} Generated file names string
+ * @param {string} name The gadget name
+ * @param {string[]} files The file names array
+ * @return {string} The generated file names string
  */
 const getFiles = (name, files) => {
 	return files
@@ -29,7 +29,7 @@ const definitions = [];
  * Compile scripts and styles and generate corresponding definitions
  *
  * @param {Record<string, {definition?:string; script?:string; style?:string; license?:string; scripts:string[]; styles:string[]}>} sourceFiles Return value of `findSourceFile(/path/to/gadget_files)`
- * @returns {Promise<string[]>} Definitions Array of gadget definitions (in the format of MediaWiki:Gadgets-definition item)
+ * @returns {Promise<typeof definitions>} Array of gadget definitions (in the format of MediaWiki:Gadgets-definition item)
  */
 const build = async (sourceFiles) => {
 	for (const [name, {definition, license, script, scripts, style, styles}] of Object.entries(sourceFiles)) {

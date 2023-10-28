@@ -44,7 +44,7 @@ const DEFAULT_DEFINITION = {
 	// type: 'general' | 'styles' -> 自动识别，无需指定
 };
 
-/** @type {Record<string,string>} */
+/** @type {Record<string, string | undefined>} */
 const DEFINITION_CATEGORY_MAP = {
 	appear: '显示类小工具',
 	browser: '浏览类小工具',
