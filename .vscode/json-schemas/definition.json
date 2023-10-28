@@ -17,7 +17,7 @@
 		},
 		"description": {
 			"type": "string",
-			"title": "“MediaWiki:Gadget-小工具名”页面中的文本，不能包含井号，默认为小工具名"
+			"title": "“MediaWiki:Gadget-小工具名”页面中的文本，默认为小工具名"
 		},
 		"actions": {
 			"type": "array",

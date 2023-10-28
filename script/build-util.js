@@ -203,9 +203,12 @@ const getDefinition = async (definition, {name}) => {
 		}
 	}
 	definitionText = definitionText.replace(/\|$/, '');
-	let categoryText = definitionObject.category;
+	const cleanInvalidCharacters = (text) => {
+		return text.replace(/#|<>/g, '');
+	};
+	let categoryText = cleanInvalidCharacters(definitionObject.category);
 	categoryText = categoryText ? `#${categoryText}` : '#appear';
-	let descriptionText = definitionObject.description;
+	let descriptionText = cleanInvalidCharacters(definitionObject.description);
 	descriptionText = descriptionText ? `#${descriptionText}` : '#';
 	return definitionItem.replace('$1', definitionText).replace('$4', categoryText).replace('$5', descriptionText);
 };
