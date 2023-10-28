@@ -196,7 +196,7 @@ const getDefinition = async (definition, {name}) => {
 		const typeOfValue = typeof value;
 		const isArray = Array.isArray(value);
 		if (
-			['category', 'description', 'type'].includes(key) ||
+			['description', 'section', 'type'].includes(key) ||
 			[false, undefined].includes(value) ||
 			(isArray && !value.length)
 		) {
@@ -222,11 +222,11 @@ const getDefinition = async (definition, {name}) => {
 	const cleanInvalidCharacters = (text) => {
 		return text.replace(/#|==|<>/g, '').trim();
 	};
-	let categoryText = cleanInvalidCharacters(definitionObject.category);
-	categoryText = categoryText ? `#${categoryText}` : '#appear';
+	let sectionText = cleanInvalidCharacters(definitionObject.section);
+	sectionText = sectionText ? `#${sectionText}` : '#appear';
 	let descriptionText = cleanInvalidCharacters(definitionObject.description);
 	descriptionText = descriptionText ? `#${descriptionText}` : '#';
-	return definitionItem.replace('$1', definitionText).replace('$4', categoryText).replace('$5', descriptionText);
+	return definitionItem.replace('$1', definitionText).replace('$4', sectionText).replace('$5', descriptionText);
 };
 
 /**
@@ -263,18 +263,18 @@ const setDefinition = async (definitions) => {
 			return definition !== '';
 		})
 		.forEach((definition) => {
-			const [, category] = definition.match(/.*?#(\S+?)#/);
-			definitionObject[category] ??= [];
-			definitionObject[category].push(definition.replace(/#.*/, ''));
+			const [, section] = definition.match(/.*?#(\S+?)#/);
+			definitionObject[section] ??= [];
+			definitionObject[section].push(definition.replace(/#.*/, ''));
 		});
 	let definitionText = '';
-	for (const [category, definitionItems] of Object.entries(definitionObject)) {
-		const categoryHeader = `== ${category} ==`;
+	for (const [section, definitionItems] of Object.entries(definitionObject)) {
+		const sectionHeader = `== ${section} ==`;
 		for (const definition of definitionItems) {
-			if (definitionText.includes(categoryHeader)) {
+			if (definitionText.includes(sectionHeader)) {
 				definitionText += `${definition}\n`;
 			} else {
-				definitionText += `${categoryHeader}\n${definition}\n`;
+				definitionText += `${sectionHeader}\n${definition}\n`;
 			}
 		}
 	}

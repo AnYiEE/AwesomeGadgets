@@ -24,11 +24,11 @@ const BANNER = `<div class="mw-message-box mw-message-box-notice">
 * 若需要设置您所需启用或关闭的小工具，请前往[[Special:参数设置#mw-prefsection-gadgets|参数设置]]。
 </div>`;
 
-/** @type {{enable: boolean; category: string | 'appear' | 'browser' | 'compatibility' | 'edit' | 'sysop'; description: string; actions: string[]; contentModels: string[]; default: boolean; dependencies: string[]; hidden: boolean; namespaces: false | number[]; package: boolean; peers: string[]; rights: string[]; skins: string[]; supportsUrlLoad: boolean}} */
+/** @type {{enable: boolean; description: string; section: string | 'appear' | 'browser' | 'compatibility' | 'edit' | 'sysop'; actions: string[]; contentModels: string[]; default: boolean; dependencies: string[]; hidden: boolean; namespaces: false | number[]; package: boolean; peers: string[]; rights: string[]; skins: string[]; supportsUrlLoad: boolean}} */
 const DEFAULT_DEFINITION = {
 	enable: true,
-	category: '', // 回落值为appear
 	description: '', // 回落值为小工具名称
+	section: '', // 回落值为appear
 	actions: [],
 	contentModels: [],
 	'default': false,
@@ -45,7 +45,7 @@ const DEFAULT_DEFINITION = {
 };
 
 /** @type {Record<string, string | undefined>} */
-const DEFINITION_CATEGORY_MAP = {
+const DEFINITION_SECTION_MAP = {
 	appear: '显示类小工具',
 	browser: '浏览类小工具',
 	compatibility: '基础类小工具',
@@ -65,7 +65,7 @@ export {
 	FOOTER,
 	BANNER,
 	DEFAULT_DEFINITION,
-	DEFINITION_CATEGORY_MAP,
+	DEFINITION_SECTION_MAP,
 	DEPLOY_USER_AGENT,
 	IS_CONVERT_DESCRIPTION_VARIANT,
 };
