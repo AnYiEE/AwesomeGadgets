@@ -220,7 +220,7 @@ const getDefinition = async (definition, {name}) => {
 	}
 	definitionText = definitionText.replace(/\|$/, '');
 	const cleanInvalidCharacters = (text) => {
-		return text.replace(/#|<>/g, '');
+		return text.trim().replace(/#|==|<>/g, '');
 	};
 	let categoryText = cleanInvalidCharacters(definitionObject.category);
 	categoryText = categoryText ? `#${categoryText}` : '#appear';
@@ -278,7 +278,7 @@ const setDefinition = async (definitions) => {
 			}
 		}
 	}
-	const definitionPath = path.join(__dirname, `dist/definition.txt`);
+	const definitionPath = path.join(__dirname, 'dist/definition.txt');
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const fileHandle = await fsPromises.open(definitionPath, 'w');
 	await fileHandle.writeFile(definitionText);

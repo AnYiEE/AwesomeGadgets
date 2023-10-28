@@ -10,6 +10,7 @@ import {
 	readDefinition,
 	readFileText,
 	setDefinition,
+	saveDefinitionCategory,
 } from './deploy-util.js';
 
 /**
@@ -38,16 +39,26 @@ const deploy = async (targets) => {
 	} else {
 		await api.login();
 	}
-	await prompt(`> Press [Enter] to start deploying or press [ctrl + C] twice to cancel`);
+	await prompt('> Press [Enter] to start deploying or press [ctrl + C] twice to cancel');
 	log('yellow', '--- starting deployment ---');
 	const editSummary = await makeEditSummary();
+	const definitionText = await readDefinition();
+	await setDefinition(definitionText);
 	try {
-		const definitionText = await readDefinition();
-		await setDefinition(definitionText);
 		await api.save('MediaWiki:Gadgets-definition', definitionText, editSummary);
-		log('green', `✔ Successfully saved gadget definitions`);
+		log('green', '✔ Successfully saved gadget definitions');
+		try {
+			await saveDefinitionCategory(definitionText, {
+				api,
+				editSummary,
+			});
+			log('green', '✔ Successfully saved gadget definition categories');
+		} catch (error) {
+			log('red', '✘ Failed to save gadget definition categories');
+			console.error(error);
+		}
 	} catch (error) {
-		log('red', `✘ Failed to save gadget definitions`);
+		log('red', '✘ Failed to save gadget definitions');
 		console.error(error);
 	}
 	for (const [name, {description, files}] of Object.entries(targets)) {
@@ -58,8 +69,8 @@ const deploy = async (targets) => {
 			try {
 				if (IS_CONVERT_DESCRIPTION_VARIANT) {
 					await convertVariant(descriptionPageTitle, {
+						text: description,
 						api,
-						description,
 						editSummary,
 					});
 					log('green', `✔ Successfully converted ${name} description`);

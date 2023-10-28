@@ -3,7 +3,7 @@ import prompts from 'prompts';
 import {execSync} from 'node:child_process';
 import fsPromises from 'node:fs/promises';
 import path from 'node:path';
-import {BANNER} from './constant.js';
+import {BANNER, DEFINITION_CATEGORY_MAP} from './constant.js';
 import {Mwn as _Mwn} from 'mwn';
 import {Window} from 'happy-dom';
 const __dirname = path.resolve();
@@ -132,7 +132,7 @@ const readDefinition = async () => {
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	let definitionText = await fsPromises.readFile(definitionPath);
 	definitionText = definitionText.toString().replace(/<>/g, '-').replace(/-\./g, '.');
-	definitionText = `${BANNER}\n${definitionText}`;
+	definitionText = `${BANNER.replace(/[=]=/g, '')}\n${definitionText}`;
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const fileHandle = await fsPromises.open(definitionPath, 'w');
 	await fileHandle.writeFile(definitionText);
@@ -168,12 +168,12 @@ const setDefinition = async (definitionText) => {
 };
 
 /**
- * Automatically convert language variants of a gadget description
+ * Automatically convert language variants of a page
  *
- * @param {string} pageTitle The description page title of this gadget
- * @param {{api: _Mwn; description:string; editSummary:string}} object The api instance, the description of this gadget and the edit summary used by the api instance
+ * @param {string} pageTitle The titie of this page
+ * @param {{api: _Mwn; editSummary:string; text:string}} object The api instance, the edit summary used by the api instance and the text of this page
  */
-const convertVariant = async (pageTitle, {api, description, editSummary}) => {
+const convertVariant = async (pageTitle, {api, editSummary, text}) => {
 	const variants = ['zh', 'zh-hans', 'zh-cn', 'zh-my', 'zh-sg', 'zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'];
 	/**
 	 * @param {keyof typeof variants} variant
@@ -181,7 +181,7 @@ const convertVariant = async (pageTitle, {api, description, editSummary}) => {
 	 */
 	const convert = async (variant) => {
 		const parsedHtml = await api.parseWikitext(
-			`{{NoteTA|G1=IT|G2=MediaWiki}}<div class="convertVariant">${description}</div>`,
+			`{{NoteTA|G1=IT|G2=MediaWiki}}<div class="convertVariant">${text}</div>`,
 			{
 				prop: 'text',
 				uselang: variant,
@@ -200,6 +200,31 @@ const convertVariant = async (pageTitle, {api, description, editSummary}) => {
 	}
 };
 
+/**
+ * Automatically save gadget definition category pages
+ *
+ * @param {string} definitionText The MediaWiki:Gadgets-definition content
+ * @param {{api: _Mwn; editSummary:string}} api The api instance and the edit summary used by the api instance
+ */
+const saveDefinitionCategory = async (definitionText, {api, editSummary}) => {
+	const categories = definitionText.match(/^==([\S\s]+?)==$/gm).map((categoryHeader) => {
+		return categoryHeader.replace(/[=]=/g, '').trim();
+	});
+	const pageTitles = categories.map((category) => {
+		return `MediaWiki:Gadget-section-${category}`;
+	});
+	for (const [index, category] of categories.entries()) {
+		const categoryText = DEFINITION_CATEGORY_MAP[category] || category;
+		const pageTitle = pageTitles[index];
+		await api.save(pageTitle, categoryText, editSummary);
+		await convertVariant(pageTitle, {
+			text: categoryText,
+			api,
+			editSummary,
+		});
+	}
+};
+
 export {
 	generateTargets,
 	log,
@@ -211,4 +236,5 @@ export {
 	readFileText,
 	setDefinition,
 	convertVariant,
+	saveDefinitionCategory,
 };

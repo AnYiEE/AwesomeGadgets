@@ -1,5 +1,5 @@
 /** @type {string} */
-const HEADER = `/* <nowiki> */`;
+const HEADER = '/* <nowiki> */';
 
 /** @type {string} */
 const FOOTER = '/* </nowiki> */';
@@ -45,10 +45,28 @@ const DEFAULT_DEFINITION = {
 	// type: 'general' | 'styles' -> 自动识别，无需指定
 };
 
+/** @type {Record<string,string>} */
+const DEFINITION_CATEGORY_MAP = {
+	appear: '显示类小工具',
+	browser: '浏览类小工具',
+	compatibility: '基础类小工具',
+	edit: '编辑类小工具',
+	sysop: '管理类小工具',
+};
+
 /** @type {string} */
 const DEPLOY_USER_AGENT = 'AnYiEE/AwesomeGadgets (https://github.com/AnYiEE/AwesomeGadgets; i@anyi.in)';
 
 /** @type {boolean} */
 const IS_CONVERT_DESCRIPTION_VARIANT = true;
 
-export {HEADER, WARNING, FOOTER, BANNER, DEFAULT_DEFINITION, DEPLOY_USER_AGENT, IS_CONVERT_DESCRIPTION_VARIANT};
+export {
+	HEADER,
+	WARNING,
+	FOOTER,
+	BANNER,
+	DEFAULT_DEFINITION,
+	DEFINITION_CATEGORY_MAP,
+	DEPLOY_USER_AGENT,
+	IS_CONVERT_DESCRIPTION_VARIANT,
+};
