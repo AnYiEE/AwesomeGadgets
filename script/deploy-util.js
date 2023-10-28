@@ -3,7 +3,7 @@ import prompts from 'prompts';
 import {execSync} from 'node:child_process';
 import fsPromises from 'node:fs/promises';
 import path from 'node:path';
-import {BANNER, DEFINITION_SECTION_MAP, IS_CONVERT_DESCRIPTION_VARIANT} from './constant.js';
+import {BANNER, DEFINITION_SECTION_MAP, IS_CONVERT_VARIANT} from './constant.js';
 import {Mwn as _Mwn} from 'mwn';
 import {Window} from 'happy-dom';
 const __dirname = path.resolve();
@@ -219,7 +219,7 @@ const saveDefinitionSectionPage = async (definitionText, {api, editSummary}) => 
 		try {
 			await api.save(pageTitle, sectionText, editSummary);
 			log('green', `✔ Successfully saved ${pageTitle}`);
-			if (!IS_CONVERT_DESCRIPTION_VARIANT) {
+			if (!IS_CONVERT_VARIANT) {
 				continue;
 			}
 			try {
@@ -267,7 +267,7 @@ const saveDescription = async (name, {api, description, editSummary}) => {
 	try {
 		await api.save(descriptionPageTitle, description, editSummary);
 		log('green', `✔ Successfully saved ${name} description`);
-		if (!IS_CONVERT_DESCRIPTION_VARIANT) {
+		if (!IS_CONVERT_VARIANT) {
 			return;
 		}
 		try {

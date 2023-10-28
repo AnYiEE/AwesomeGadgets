@@ -44,7 +44,13 @@ const DEFAULT_DEFINITION = {
 	// type: 'general' | 'styles' -> 自动识别，无需指定
 };
 
-/** @type {Record<string, string | undefined>} */
+/**
+ * 指定`MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}`页面的文本（即小工具章节名）
+ *
+ * 可自行添加，回落值为`DEFAULT_DEFINITION.section`的值
+ *
+ * @type {Record<string, string>}
+ */
 const DEFINITION_SECTION_MAP = {
 	appear: '显示类小工具',
 	browser: '浏览类小工具',
@@ -56,8 +62,14 @@ const DEFINITION_SECTION_MAP = {
 /** @type {string} */
 const DEPLOY_USER_AGENT = 'AnYiEE/AwesomeGadgets (https://github.com/AnYiEE/AwesomeGadgets; i@anyi.in)';
 
-/** @type {boolean} */
-const IS_CONVERT_DESCRIPTION_VARIANT = true;
+/**
+ * 是否自动转换`MediaWiki:Gadget-${gadgetName}`和`MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}`页面的语言变体
+ *
+ * 需要目标 MediaWiki 网站存在 NoteTA 模板和IT以及MediaWiki公共转换组
+ *
+ * @type {boolean}
+ */
+const IS_CONVERT_VARIANT = false;
 
 export {
 	HEADER,
@@ -67,5 +79,5 @@ export {
 	DEFAULT_DEFINITION,
 	DEFINITION_SECTION_MAP,
 	DEPLOY_USER_AGENT,
-	IS_CONVERT_DESCRIPTION_VARIANT,
+	IS_CONVERT_VARIANT,
 };
