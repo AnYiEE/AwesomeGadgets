@@ -4,6 +4,8 @@ import {execSync} from 'node:child_process';
 import fsPromises from 'node:fs/promises';
 import path from 'node:path';
 import {BANNER} from './constant.js';
+import {Mwn as _Mwn} from 'mwn';
+import {Window} from 'happy-dom';
 const __dirname = path.resolve();
 
 /**
@@ -165,6 +167,39 @@ const setDefinition = async (definitionText) => {
 	await fileHandle.close();
 };
 
+/**
+ * Automatically convert language variants of a gadget description
+ *
+ * @param {string} pageTitle The description page title of this gadget
+ * @param {{api: _Mwn; description:string; editSummary:string}} object The api instance, the description of this gadget and the edit summary used by the api instance
+ */
+const convertVariant = async (pageTitle, {api, description, editSummary}) => {
+	const variants = ['zh', 'zh-hans', 'zh-cn', 'zh-my', 'zh-sg', 'zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'];
+	/**
+	 * @param {keyof typeof variants} variant
+	 * @returns {Promise<void>}
+	 */
+	const convert = async (variant) => {
+		const parsedHtml = await api.parseWikitext(
+			`{{NoteTA|G1=IT|G2=MediaWiki}}<div class="convertVariant">${description}</div>`,
+			{
+				prop: 'text',
+				uselang: variant,
+			}
+		);
+		const window = new Window({
+			url: api.options.apiUrl,
+		});
+		const {document} = window;
+		document.body.innerHTML = `<div>${parsedHtml}</div>`;
+		const convertedDescription = document.querySelector('.convertVariant').innerHTML;
+		await api.save(`${pageTitle}/${variant}`, convertedDescription, editSummary);
+	};
+	for (const variant of variants) {
+		await convert(variant);
+	}
+};
+
 export {
 	generateTargets,
 	log,
@@ -175,4 +210,5 @@ export {
 	readDefinition,
 	readFileText,
 	setDefinition,
+	convertVariant,
 };

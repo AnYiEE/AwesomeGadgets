@@ -1,7 +1,8 @@
 import {Mwn} from 'mwn';
-import {DEPLOY_USER_AGENT} from './constant.js';
+import {DEPLOY_USER_AGENT, IS_CONVERT_DESCRIPTION_VARIANT} from './constant.js';
 import {
 	checkConfig,
+	convertVariant,
 	loadConfig,
 	log,
 	makeEditSummary,
@@ -51,9 +52,22 @@ const deploy = async (targets) => {
 	}
 	for (const [name, {description, files}] of Object.entries(targets)) {
 		try {
-			/** @todo Automatic conversion of language variants for description */
-			await api.save(`MediaWiki:Gadget-${name}`, description, editSummary);
+			const descriptionPageTitle = `MediaWiki:Gadget-${name}`;
+			await api.save(descriptionPageTitle, description, editSummary);
 			log('green', `✔ Successfully saved ${name} description`);
+			try {
+				if (IS_CONVERT_DESCRIPTION_VARIANT) {
+					await convertVariant(descriptionPageTitle, {
+						api,
+						description,
+						editSummary,
+					});
+					log('green', `✔ Successfully converted ${name} description`);
+				}
+			} catch (error) {
+				log('red', `✘ Failed to converted ${name} description`);
+				console.error(error);
+			}
 		} catch (error) {
 			log('red', `✘ Failed to save ${name} description`);
 			console.error(error);
