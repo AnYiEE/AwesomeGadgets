@@ -3,7 +3,7 @@ import prompts from 'prompts';
 import {execSync} from 'node:child_process';
 import fsPromises from 'node:fs/promises';
 import path from 'node:path';
-import {BANNER, DEFINITION_CATEGORY_MAP} from './constant.js';
+import {BANNER, DEFINITION_CATEGORY_MAP, IS_CONVERT_DESCRIPTION_VARIANT} from './constant.js';
 import {Mwn as _Mwn} from 'mwn';
 import {Window} from 'happy-dom';
 const __dirname = path.resolve();
@@ -168,10 +168,10 @@ const setDefinition = async (definitionText) => {
 };
 
 /**
- * Automatically convert language variants of a page
+ * Convert language variants of a page
  *
  * @param {string} pageTitle The titie of this page
- * @param {{api: _Mwn; editSummary:string; text:string}} object The api instance, the edit summary used by the api instance and the text of this page
+ * @param {{api:_Mwn; editSummary:string; text:string}} object The api instance, the edit summary used by the api instance and the text of this page
  */
 const convertVariant = async (pageTitle, {api, editSummary, text}) => {
 	const variants = ['zh', 'zh-hans', 'zh-cn', 'zh-my', 'zh-sg', 'zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'];
@@ -201,10 +201,10 @@ const convertVariant = async (pageTitle, {api, editSummary, text}) => {
 };
 
 /**
- * Automatically save gadget definition category pages
+ * Save gadget definition category pages
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {{api: _Mwn; editSummary:string}} api The api instance and the edit summary used by the api instance
+ * @param {{api:_Mwn; editSummary:string}} api The api instance and the edit summary used by the api instance
  */
 const saveDefinitionCategory = async (definitionText, {api, editSummary}) => {
 	const categories = definitionText.match(/^==([\S\s]+?)==$/gm).map((categoryHeader) => {
@@ -217,11 +217,89 @@ const saveDefinitionCategory = async (definitionText, {api, editSummary}) => {
 		const categoryText = DEFINITION_CATEGORY_MAP[category] || category;
 		const pageTitle = pageTitles[index];
 		await api.save(pageTitle, categoryText, editSummary);
-		await convertVariant(pageTitle, {
-			text: categoryText,
-			api,
-			editSummary,
-		});
+		if (IS_CONVERT_DESCRIPTION_VARIANT) {
+			await convertVariant(pageTitle, {
+				text: categoryText,
+				api,
+				editSummary,
+			});
+		}
+	}
+};
+
+/**
+ * Save gadget definition
+ *
+ * @param {string} definitionText The MediaWiki:Gadgets-definition content
+ * @param {{api:_Mwn; editSummary:string}} api The api instance and the edit summary used by the api instance
+ */
+const saveDefinition = async (definitionText, {api, editSummary}) => {
+	try {
+		await api.save('MediaWiki:Gadgets-definition', definitionText, editSummary);
+		log('green', '✔ Successfully saved gadget definitions');
+		try {
+			await saveDefinitionCategory(definitionText, {
+				api,
+				editSummary,
+			});
+			log('green', '✔ Successfully saved gadget definition categories');
+		} catch (error) {
+			log('red', '✘ Failed to save gadget definition categories');
+			console.error(error);
+		}
+	} catch (error) {
+		log('red', '✘ Failed to save gadget definitions');
+		console.error(error);
+	}
+};
+
+/**
+ * Save gadget description
+ *
+ * @param {string} name Gadget name
+ * @param {{api:_Mwn; description:string; editSummary:string}} api The api instance, the definition of this gadget and the edit summary used by the api instance
+ */
+const saveDescription = async (name, {api, description, editSummary}) => {
+	const descriptionPageTitle = `MediaWiki:Gadget-${name}`;
+	try {
+		await api.save(descriptionPageTitle, description, editSummary);
+		log('green', `✔ Successfully saved ${name} description`);
+		try {
+			if (IS_CONVERT_DESCRIPTION_VARIANT) {
+				await convertVariant(descriptionPageTitle, {
+					text: description,
+					api,
+					editSummary,
+				});
+				log('green', `✔ Successfully converted ${name} description`);
+			}
+		} catch (error) {
+			log('red', `✘ Failed to converted ${name} description`);
+			console.error(error);
+		}
+	} catch (error) {
+		log('red', `✘ Failed to save ${name} description`);
+		console.error(error);
+	}
+};
+
+/**
+ * Save gadget file
+ *
+ * @param {string} name Gadget name
+ * @param {{api:_Mwn; editSummary:string; file:string; fileText:string}} api The api instance, the edit summary used by the api instance, the target file name and the file content
+ */
+const saveFiles = async (name, {api, editSummary, file, fileText}) => {
+	try {
+		let fileName = `${name}-${file}`;
+		if (file.split('.')[0] === name) {
+			fileName = file;
+		}
+		await api.save(`MediaWiki:Gadget-${fileName}`, fileText, editSummary);
+		log('green', `✔ Successfully saved ${fileName} to ${name}`);
+	} catch (error) {
+		log('red', `✘ Failed to save ${file} to ${name}`);
+		console.error(error);
 	}
 };
 
@@ -235,6 +313,7 @@ export {
 	readDefinition,
 	readFileText,
 	setDefinition,
-	convertVariant,
-	saveDefinitionCategory,
+	saveDefinition,
+	saveDescription,
+	saveFiles,
 };
