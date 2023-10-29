@@ -65,7 +65,7 @@ const DEPLOY_USER_AGENT = 'AnYiEE/AwesomeGadgets (https://github.com/AnYiEE/Awes
 /**
  * 是否自动转换`MediaWiki:Gadget-${gadgetName}`和`MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}`页面的语言变体
  *
- * 需要目标 MediaWiki 网站存在 NoteTA 模板和IT以及MediaWiki公共转换组
+ * 需要目标 MediaWiki 网站存在 NoteTA 模板和 IT 以及 MediaWiki 公共转换组
  *
  * @type {boolean}
  */
