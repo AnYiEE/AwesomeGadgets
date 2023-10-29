@@ -5,7 +5,7 @@
 		"type": "git",
 		"url": "https://github.com/AnYiEE/AwesomeGadgets"
 	},
-	"version": "1.1.1",
+	"version": "1.2.0",
 	"description": "Storage, compile, and auto deploy gadgets.",
 	"type": "module",
 	"scripts": {
@@ -23,8 +23,7 @@
 	},
 	"keywords": [
 		"MediaWiki",
-		"MediaWiki Gadget",
-		"Wikipedia"
+		"MediaWiki Gadget"
 	],
 	"author": "安忆 <i@anyi.in>",
 	"license": "GPL-3.0-or-later",
