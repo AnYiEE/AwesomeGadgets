@@ -160,7 +160,7 @@ const readFileText = async (name, file) => {
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
  */
 const setDefinition = async (definitionText) => {
-	const definitionPath = path.join(__dirname, `dist/definition.txt`);
+	const definitionPath = path.join(__dirname, 'dist/definition.txt');
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const fileHandle = await fsPromises.open(definitionPath, 'w');
 	await fileHandle.writeFile(definitionText);
