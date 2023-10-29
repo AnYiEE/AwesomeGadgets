@@ -31,11 +31,11 @@ const DEFAULT_DEFINITION = {
 	section: '', // 回落值为appear
 	actions: [],
 	contentModels: [],
-	'default': false,
+	default: false,
 	dependencies: [],
 	hidden: false,
 	namespaces: false,
-	'package': false,
+	package: false,
 	peers: [],
 	rights: [],
 	skins: [],

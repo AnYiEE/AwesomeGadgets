@@ -111,15 +111,6 @@
 		"prefer-object-spread": "error",
 		"prefer-promise-reject-errors": "off",
 		"prefer-template": "error",
-		"quote-props": [
-			"error",
-			"as-needed",
-			{
-				"keywords": true,
-				"unnecessary": true,
-				"numbers": false
-			}
-		],
 		"radix": "error",
 		"require-await": "error",
 		"require-unicode-regexp": "off",

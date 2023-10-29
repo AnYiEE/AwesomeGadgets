@@ -28,6 +28,7 @@
 	"license": "GPL-3.0-or-later",
 	"devDependencies": {
 		"@babel/core": "^7.23.2",
+		"@babel/plugin-transform-property-literals": "^7.22.5",
 		"@babel/preset-env": "^7.23.2",
 		"@commitlint/cli": "^18.2.0",
 		"@commitlint/config-conventional": "^18.1.0",

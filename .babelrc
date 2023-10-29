@@ -12,5 +12,5 @@
 			}
 		]
 	],
-	"plugins": ["array-includes", "transform-object-hasown"]
+	"plugins": ["array-includes", "transform-object-hasown", "@babel/plugin-transform-property-literals"]
 }
