@@ -5,7 +5,7 @@
 		"type": "git",
 		"url": "https://github.com/AnYiEE/AwesomeGadgets"
 	},
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "Storage, compile, and auto deploy gadgets.",
 	"type": "module",
 	"scripts": {
