@@ -61,7 +61,12 @@
 		"no-continue": "off",
 		"no-div-regex": "error",
 		"no-else-return": "error",
-		"no-empty-function": ["error", {"allow": ["arrowFunctions"]}],
+		"no-empty-function": [
+			"error",
+			{
+				"allow": ["arrowFunctions"]
+			}
+		],
 		"no-empty-static-block": "error",
 		"no-eq-null": "error",
 		"no-inline-comments": "off",
@@ -93,7 +98,12 @@
 		"no-warning-comments": "off",
 		"object-shorthand": "error",
 		"operator-assignment": "error",
-		"prefer-arrow-callback": ["error", {"allowNamedFunctions": true}],
+		"prefer-arrow-callback": [
+			"error",
+			{
+				"allowNamedFunctions": true
+			}
+		],
 		"prefer-destructuring": "error",
 		"prefer-exponentiation-operator": "error",
 		"prefer-named-capture-group": "off",
