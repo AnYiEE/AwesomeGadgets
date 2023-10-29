@@ -136,6 +136,7 @@ const readDefinition = async () => {
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const fileHandle = await fsPromises.open(definitionPath, 'w');
 	await fileHandle.writeFile(definitionText);
+	await fileHandle.datasync();
 	await fileHandle.close();
 	return definitionText.toString();
 };
@@ -164,6 +165,7 @@ const setDefinition = async (definitionText) => {
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const fileHandle = await fsPromises.open(definitionPath, 'w');
 	await fileHandle.writeFile(definitionText);
+	await fileHandle.datasync();
 	await fileHandle.close();
 };
 

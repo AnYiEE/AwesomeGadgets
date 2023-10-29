@@ -27,8 +27,9 @@ const write = async ({code: sourceCode, path: outputFileWithPath, contentType, l
 			fullCode = sourceCode;
 	}
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
-	const fileHandle = await fsPromises.open(outputFileWithPath, 'r+');
+	const fileHandle = await fsPromises.open(outputFileWithPath, 'w');
 	await fileHandle.writeFile(fullCode);
+	await fileHandle.datasync();
 	await fileHandle.close();
 };
 
@@ -282,6 +283,7 @@ const setDefinition = async (definitions) => {
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
 	const fileHandle = await fsPromises.open(definitionPath, 'w');
 	await fileHandle.writeFile(definitionText);
+	await fileHandle.datasync();
 	await fileHandle.close();
 };
 
