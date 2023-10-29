@@ -5,7 +5,7 @@
 		"type": "git",
 		"url": "https://github.com/AnYiEE/AwesomeGadgets"
 	},
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "Storage, compile, and auto deploy gadgets.",
 	"type": "module",
 	"scripts": {
@@ -22,7 +22,9 @@
 		"prepare": "husky install"
 	},
 	"keywords": [
-		"MediaWiki"
+		"MediaWiki",
+		"MediaWiki Gadget",
+		"Wikipedia"
 	],
 	"author": "安忆 <i@anyi.in>",
 	"license": "GPL-3.0-or-later",
@@ -65,6 +67,6 @@
 			"prettier --cache --write",
 			"eslint --cache --fix"
 		],
-		"*.{json,md}": "prettier --cache --write"
+		"*": "prettier --cache --ignore-unknown --write"
 	}
 }
