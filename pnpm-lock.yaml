@@ -8,7 +8,13 @@ devDependencies:
   '@babel/core':
     specifier: ^7.23.2
     version: 7.23.2
+  '@babel/plugin-transform-member-expression-literals':
+    specifier: ^7.22.5
+    version: 7.22.5(@babel/core@7.23.2)
   '@babel/plugin-transform-property-literals':
+    specifier: ^7.22.5
+    version: 7.22.5(@babel/core@7.23.2)
+  '@babel/plugin-transform-reserved-words':
     specifier: ^7.22.5
     version: 7.22.5(@babel/core@7.23.2)
   '@babel/preset-env':
@@ -85,7 +91,7 @@ devDependencies:
     version: 0.16.1(postcss-less@6.0.0)(typescript@5.2.2)
   types-mediawiki:
     specifier: github:AnYiEE/types-mediawiki
-    version: git@github.com+AnYiEE/types-mediawiki/79060c9428eaa22779ee6fcff211409f992d6081
+    version: git/github.com+AnYiEE/types-mediawiki/79060c9428eaa22779ee6fcff211409f992d6081
   typescript:
     specifier: ^5.2.2
     version: 5.2.2
@@ -5192,7 +5198,7 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  git@github.com+AnYiEE/types-mediawiki/79060c9428eaa22779ee6fcff211409f992d6081:
+  git/github.com+AnYiEE/types-mediawiki/79060c9428eaa22779ee6fcff211409f992d6081:
     resolution: {commit: 79060c9428eaa22779ee6fcff211409f992d6081, repo: git@github.com:AnYiEE/types-mediawiki.git, type: git}
     name: types-mediawiki
     version: 2.0.4
