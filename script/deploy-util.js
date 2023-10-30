@@ -178,8 +178,26 @@ const setDefinition = async (definitionText) => {
 const convertVariant = async (pageTitle, {api, content, editSummary}) => {
 	const variants = ['zh', 'zh-hans', 'zh-cn', 'zh-my', 'zh-sg', 'zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'];
 	/**
+	 * @base <https://zh.wikipedia.org/wiki/User:Xiplus/js/TranslateVariants>
+	 * @license CC-BY-SA-4.0
+	 */
+	content = content
+		.replace(/[\s#&*_[\]{}|:'<>]/gim, (substring) => {
+			return `&#${substring.codePointAt(0)};`;
+		})
+		.replace(/(&#91;&#91;)((?:(?!&#124;)(?!&#93;).)+?)(&#124;(?:(?!&#93;).)+?&#93;&#93;)/g, '$1-{$2}-$3')
+		.replace(/-&#123;(.+?)&#125;-/g, (substring) => {
+			return substring
+				.replace('-&#123;', '-{')
+				.replace('&#125;-', '}-')
+				.replace(/&#124;/g, '|')
+				.replace(/&#32;/g, ' ')
+				.replace(/&#58;/g, ':')
+				.replace(/&#61;/g, '=')
+				.replace(/&#62;/g, '>');
+		});
+	/**
 	 * @param {keyof typeof variants} variant
-	 * @returns {Promise<void>}
 	 */
 	const convert = async (variant) => {
 		const parsedHtml = await api.parseWikitext(
@@ -194,7 +212,7 @@ const convertVariant = async (pageTitle, {api, content, editSummary}) => {
 		});
 		const {document} = window;
 		document.body.innerHTML = `<div>${parsedHtml}</div>`;
-		const convertedDescription = document.querySelector('.convertVariant').innerHTML;
+		const convertedDescription = document.querySelector('.convertVariant').textContent;
 		await api.save(`${pageTitle}/${variant}`, convertedDescription, editSummary);
 	};
 	for (const variant of variants) {
