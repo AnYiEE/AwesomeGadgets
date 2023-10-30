@@ -23,7 +23,7 @@ import {
 const deploy = async (targets) => {
 	let config = await loadConfig();
 	config = await checkConfig(config, true);
-	const api = await Mwn.init({
+	const api = new Mwn({
 		...config,
 		userAgent: DEPLOY_USER_AGENT,
 	});
