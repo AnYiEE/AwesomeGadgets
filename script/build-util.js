@@ -268,8 +268,12 @@ const setDefinition = async (definitions) => {
 			definitionObject[section] ??= [];
 			definitionObject[section].push(definition.replace(/#.*/, ''));
 		});
+	const definitionObjectSorted = {};
+	for (const key of Object.keys(definitionObject).sort()) {
+		definitionObjectSorted[key] = definitionObject[key];
+	}
 	let definitionText = '';
-	for (const [section, definitionItems] of Object.entries(definitionObject)) {
+	for (const [section, definitionItems] of Object.entries(definitionObjectSorted)) {
 		const sectionHeader = `== ${section} ==`;
 		for (const definition of definitionItems) {
 			if (definitionText.includes(sectionHeader)) {
