@@ -91,7 +91,7 @@ devDependencies:
     version: 0.16.1(postcss-less@6.0.0)(typescript@5.2.2)
   types-mediawiki:
     specifier: github:AnYiEE/types-mediawiki
-    version: github.com/AnYiEE/types-mediawiki/79060c9428eaa22779ee6fcff211409f992d6081
+    version: github.com/AnYiEE/types-mediawiki/b81e080c704c318fd9d151d0009b2818b61d6b8d
   typescript:
     specifier: ^5.2.2
     version: 5.2.2
@@ -5197,10 +5197,10 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  github.com/AnYiEE/types-mediawiki/79060c9428eaa22779ee6fcff211409f992d6081:
-    resolution: {tarball: https://codeload.github.com/AnYiEE/types-mediawiki/tar.gz/79060c9428eaa22779ee6fcff211409f992d6081}
+  github.com/AnYiEE/types-mediawiki/b81e080c704c318fd9d151d0009b2818b61d6b8d:
+    resolution: {tarball: https://codeload.github.com/AnYiEE/types-mediawiki/tar.gz/b81e080c704c318fd9d151d0009b2818b61d6b8d}
     name: types-mediawiki
-    version: 2.0.4
+    version: 2.0.5
     dependencies:
       '@types/jquery': 3.5.25
     dev: true
