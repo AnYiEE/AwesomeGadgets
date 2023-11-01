@@ -67,6 +67,18 @@ const prompt = async (message, type = 'text', initial = '') => {
 };
 
 /**
+ * Pause the script execution and wait for a period of time before continuing
+ *
+ * @param {number} [ms=1000] Waiting time (milliseconds)
+ * @return {Promise<void>}
+ */
+const wait = (ms = 1000) => {
+	return new Promise((resolve) => {
+		setTimeout(resolve, ms);
+	});
+};
+
+/**
  * Check the integrity of configuration items
  *
  * @param {Record<string, unknown>} config To be completed configuration
@@ -99,15 +111,15 @@ const loadConfig = async () => {
 		// eslint-disable-next-line security/detect-non-literal-fs-filename
 		credentialsJsonText = await fsPromises.readFile(credentialsFileWithPath);
 	} catch {
-		log('red', 'credentials.json is missing, a empty object will be used.');
+		log('red', 'The credentials.json is missing, a empty object will be used.');
 	}
 	return JSON.parse(credentialsJsonText);
 };
 
 /**
- * Make edit summary
+ * Make editing summary
  *
- * @returns {Promise<string>} The edit summary
+ * @returns {Promise<string>} The editing summary
  */
 const makeEditSummary = async () => {
 	let sha = '';
@@ -116,9 +128,12 @@ const makeEditSummary = async () => {
 		sha = execSync('git rev-parse --short HEAD').toString('utf8').trim();
 		summary = execSync('git log --pretty=format:"%s" HEAD -1').toString('utf8').trim();
 	} catch {}
-	const customSummary = await prompt('> Custom edit summary message (optional):');
+	const customSummary = await prompt('> Custom editing summary message (optional):');
 	const editSummary = `${sha ? `Git 版本 ${sha}: ` : ''}${customSummary || summary}`;
-	log('white', `Edit summary is: "${editSummary}"`);
+	log('white', `Editing summary is: "${editSummary}"`);
+	await prompt('> Press [Enter] to continue deploying or quickly press [ctrl + C] twice to cancel');
+	log('yellow', '--- deployment will continue in three seconds ---');
+	await wait(3000);
 	return editSummary;
 };
 
@@ -173,7 +188,7 @@ const setDefinition = async (definitionText) => {
  * Convert language variants of a page
  *
  * @param {string} pageTitle The titie of this page
- * @param {{api:_Mwn; content:string; editSummary:string}} object The api instance, the content of this page and the edit summary used by the api instance
+ * @param {{api:_Mwn; content:string; editSummary:string}} object The api instance, the content of this page and the editing summary used by the api instance
  */
 const convertVariant = async (pageTitle, {api, content, editSummary}) => {
 	const variants = ['zh', 'zh-hans', 'zh-cn', 'zh-my', 'zh-sg', 'zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'];
@@ -224,7 +239,7 @@ const convertVariant = async (pageTitle, {api, content, editSummary}) => {
  * Save gadget definition section pages
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {{api:_Mwn; editSummary:string}} api The api instance and the edit summary used by the api instance
+ * @param {{api:_Mwn; editSummary:string}} api The api instance and the editing summary used by the api instance
  */
 const saveDefinitionSectionPage = async (definitionText, {api, editSummary}) => {
 	const sections = definitionText.match(/^==([\S\s]+?)==$/gm).map((sectionHeader) => {
@@ -243,6 +258,7 @@ const saveDefinitionSectionPage = async (definitionText, {api, editSummary}) => 
 				continue;
 			}
 			try {
+				log('white', `— Converting ${pageTitle}`);
 				await convertVariant(pageTitle, {
 					content: sectionText,
 					api,
@@ -264,7 +280,7 @@ const saveDefinitionSectionPage = async (definitionText, {api, editSummary}) => 
  * Save gadget definition
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {{api:_Mwn; editSummary:string}} api The api instance and the edit summary used by the api instance
+ * @param {{api:_Mwn; editSummary:string}} api The api instance and the editing summary used by the api instance
  */
 const saveDefinition = async (definitionText, {api, editSummary}) => {
 	try {
@@ -280,7 +296,7 @@ const saveDefinition = async (definitionText, {api, editSummary}) => {
  * Save gadget description
  *
  * @param {string} name The gadget name
- * @param {{api:_Mwn; description:string; editSummary:string}} api The api instance, the definition of this gadget and the edit summary used by the api instance
+ * @param {{api:_Mwn; description:string; editSummary:string}} api The api instance, the definition of this gadget and the editing summary used by the api instance
  */
 const saveDescription = async (name, {api, description, editSummary}) => {
 	const descriptionPageTitle = `MediaWiki:Gadget-${name}`;
@@ -291,6 +307,7 @@ const saveDescription = async (name, {api, description, editSummary}) => {
 			return;
 		}
 		try {
+			log('white', `— Converting ${name} description`);
 			await convertVariant(descriptionPageTitle, {
 				content: description,
 				api,
@@ -311,7 +328,7 @@ const saveDescription = async (name, {api, description, editSummary}) => {
  * Save gadget file
  *
  * @param {string} name The gadget name
- * @param {{api:_Mwn; editSummary:string; file:string; fileText:string}} api The api instance, the edit summary used by the api instance, the target file name and the file content
+ * @param {{api:_Mwn; editSummary:string; file:string; fileText:string}} api The api instance, the editing summary used by the api instance, the target file name and the file content
  */
 const saveFiles = async (name, {api, editSummary, file, fileText}) => {
 	try {
@@ -341,4 +358,5 @@ export {
 	saveDefinitionSectionPage,
 	saveDescription,
 	saveFiles,
+	wait,
 };

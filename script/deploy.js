@@ -13,6 +13,7 @@ import {
 	saveDefinitionSectionPage,
 	saveDescription,
 	saveFiles,
+	wait,
 } from './deploy-util.js';
 
 /**
@@ -35,13 +36,14 @@ const deploy = async (targets) => {
 		config = await checkConfig(config);
 		api.setOptions(config);
 	}
-	log('yellow', '--- Logging in ---');
+	log('yellow', '--- logging in ---');
 	if (isUseOAuth) {
 		await api.getTokensAndSiteInfo();
 	} else {
 		await api.login();
 	}
-	await prompt('> Press [Enter] to start deploying or press [ctrl + C] twice to cancel');
+	await prompt('> Press [Enter] to start deploying or quickly press [ctrl + C] twice to cancel');
+	await wait();
 	log('yellow', '--- starting deployment ---');
 	const editSummary = await makeEditSummary();
 	const definitionText = await readDefinition();
