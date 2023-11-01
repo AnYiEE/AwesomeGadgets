@@ -145,7 +145,6 @@
 
 		"jsdoc/check-tag-names": "off",
 		"jsdoc/no-undefined-types": "off",
-		"jsdoc/require-param": "off",
 
 		"no-jquery/no-animate": [
 			"warn",
@@ -154,7 +153,6 @@
 			}
 		],
 		"no-jquery/no-class-state": "off",
-		"no-jquery/no-each-util": "off",
 		"no-jquery/no-fade": "off",
 		"no-jquery/no-global-selector": "off",
 		"no-jquery/no-sizzle": "off",
@@ -182,10 +180,7 @@
 		"unicorn/no-unreadable-array-destructuring": "off",
 		"unicorn/no-unsafe-regex": "off",
 		"unicorn/no-unused-properties": "off",
-		"unicorn/prefer-add-event-listener": "off",
 		"unicorn/prefer-at": "off",
-		"unicorn/prefer-code-point": "off",
-		"unicorn/prefer-object-has-own": "off",
 		"unicorn/prefer-query-selector": "off",
 		"unicorn/prefer-regexp-test": "off",
 		"unicorn/prefer-set-has": "off",
