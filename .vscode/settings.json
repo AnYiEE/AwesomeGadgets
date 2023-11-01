@@ -10,6 +10,9 @@
 	"eslint.enable": true,
 	"eslint.format.enable": true,
 	"prettier.enable": true,
+	"[markdown]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
 	"[css]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
@@ -40,6 +43,7 @@
 		"buttonsEnabled": false
 	},
 	"errorLens.enableOnDiffView": true,
+	"githubPullRequests.upstreamRemote": "never",
 	"stylelint.packageManager": "pnpm",
 	"explorer.fileNesting.enabled": true,
 	"explorer.fileNesting.expand": false,

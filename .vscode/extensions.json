@@ -1,13 +1,21 @@
 {
 	"recommendations": [
+		"christian-kohler.npm-intellisense",
+		"christian-kohler.path-intellisense",
+		"cschlosser.doxdocgen",
 		"dbaeumer.vscode-eslint",
 		"EditorConfig.EditorConfig",
 		"esbenp.prettier-vscode",
 		"github.vscode-github-actions",
+		"github.vscode-pull-request-github",
+		"mgmcdermott.vscode-language-babel",
+		"ms-vscode.vscode-typescript-next",
 		"redhat.vscode-yaml",
 		"sporiley.css-auto-prefix",
+		"steoates.autoimport",
 		"stylelint.vscode-stylelint",
 		"usernamehw.errorlens",
+		"webben.browserslist",
 		"yoavbls.pretty-ts-errors"
 	]
 }
