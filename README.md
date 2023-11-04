@@ -1,6 +1,13 @@
 ### 简介
 
-Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编译全站小工具（Gadget）的工具。小工具开发者只需关心小工具本身的代码实现，无需关心其他方面（如：语法兼容性）。
+Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编译全站小工具（Gadget）的工具。小工具开发者只需关心小工具本身的代码实现，无需关心其他方面。工具将自动检查语法、编译并部署到网站。
+
+-   使用 esbuild 编译，babel 转译，支持 Typescript 和 Less
+-   部署时将自动部署
+    -   `MediaWiki:Gadgets-definition`
+    -   `MediaWiki:Gadget-section-*`（支持自动转换中文变体）
+    -   `MediaWiki:Gadget-*`（支持自动转换中文变体）
+    -   `MediaWiki:Gadget-*.{js, css}`
 
 ### 用法
 
@@ -10,31 +17,37 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
 
 2. 在`src`文件夹下以小工具名新建文件夹
 
-3. 开始编写代码
+3. 在目录下新建`小工具名.{js, ts, css, less}`或`index.{js, ts, css, less}`
 
-    1. 目录下的`小工具名.{js, ts, css, less}`(1)、`index.{js, ts, css, less}`(2) 默认为脚本/样式的入口文件（二选一即可，`*.{ts, less}`优先于`*.{js, css}`。两者同时存在时，`index.*`优先于`小工具名.*`）。
+    1. 当存在入口文件`{小工具名, index}.{js, ts, css, less}`时
 
-        1. 当存在入口文件时，所有的脚本/样式均会被编译并打包，最终生成`小工具名.{js, css}`(1)或`小工具名-index.{js, css}`(2) 并部署。
-        2. 不存在入口文件时，所有的脚本/样式均会被编译并部署。
+        1. 只存在`小工具名.{js, ts, css, less}`，将最终生成`小工具名.{js, css}`，其他的脚本/样式是否被编译将取决于其是否被`小工具名.{js, ts, css, less}`导入
+        2. 只存在`index.{js, ts, css, less}`，将最终生成`小工具名-index.{js, css}`，其他的脚本/样式是否被编译将取决于其是否被`index.{js, ts, css, less}`导入
+        3. 二者同时存在，将最终生成`小工具名-index.{js, css}`，`小工具名.{js, ts, css, less}`和其他的脚本/样式是否被编译将取决于其是否被`index.{js, ts, css, less}`导入
 
-    2. 目录下可以创建`definition.json`以手动指定小工具定义（可选）
+    2. 不存在入口文件时，所有的脚本/样式均会被编译，生成`对应文件名.{js, css}`
+
+4. 目录下可以创建`definition.json`以手动指定小工具定义（可选）
 
     ```json
     {
     	// 示例
     	"actions": ["view", "edit"],
+    	"contentModels": ["wikitext"],
     	"dependencies": ["mediawiki.util"],
+    	"namespaces": [0], // or false
+    	"package": false,
     	"peers": ["peers"],
     	"rights": ["rollback"],
     	"skins": ["vector"]
     }
     ```
 
-4. 运行`pnpm run build`以检查语法、格式化代码、测试编译
+5. 运行`pnpm run build`以格式化代码、检查语法、测试编译
 
-5. 向上游发起 Pull Request
+6. 向上游发起 Pull Request
 
-> 脚本可以是 ts 或 js，可以使用 ESNext 所支持的语法（如`import`）；导入的图片将被自动转换成 Data URLs（如`data:image/png;base64,...`）。
+> 脚本可以是 ts 或 js，可以使用 ESNext 所支持的语法（如`import`，支持跨目录导入）；导入的图片将被自动转换成 Data URLs（如`data:image/png;base64,...`）。
 >
 > 样式可以是 less 或 css，支持`@import`语法。
 
