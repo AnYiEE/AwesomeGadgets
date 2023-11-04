@@ -1,7 +1,5 @@
 {
 	"recommendations": [
-		"christian-kohler.npm-intellisense",
-		"christian-kohler.path-intellisense",
 		"cschlosser.doxdocgen",
 		"dbaeumer.vscode-eslint",
 		"EditorConfig.EditorConfig",
@@ -12,7 +10,6 @@
 		"ms-vscode.vscode-typescript-next",
 		"redhat.vscode-yaml",
 		"sporiley.css-auto-prefix",
-		"steoates.autoimport",
 		"stylelint.vscode-stylelint",
 		"usernamehw.errorlens",
 		"webben.browserslist",

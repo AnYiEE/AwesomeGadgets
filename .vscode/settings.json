@@ -1,12 +1,17 @@
 {
 	"diffEditor.codeLens": true,
+	"diffEditor.experimental.showMoves": true,
 	"diffEditor.ignoreTrimWhitespace": false,
 	"editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+	"editor.cursorBlinking": "smooth",
+	"editor.cursorSmoothCaretAnimation": "on",
 	"editor.guides.bracketPairs": "active",
 	"editor.insertSpaces": false,
 	"editor.linkedEditing": true,
 	"editor.renderWhitespace": "all",
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"git.autoStash": true,
+	"git.allowForcePush": true,
 	"eslint.enable": true,
 	"eslint.format.enable": true,
 	"prettier.enable": true,
@@ -37,6 +42,15 @@
 	"[yaml]": {
 		"editor.defaultFormatter": "redhat.vscode-yaml"
 	},
+	"html.autoClosingTags": true,
+	"javascript.autoClosingTags": true,
+	"typescript.autoClosingTags": true,
+	"javascript.suggest.autoImports": true,
+	"typescript.suggest.autoImports": true,
+	"javascript.suggest.completeFunctionCalls": true,
+	"typescript.suggest.completeFunctionCalls": true,
+	"javascript.updateImportsOnFileMove.enabled": "always",
+	"typescript.updateImportsOnFileMove.enabled": "always",
 	"css.format.spaceAroundSelectorSeparator": true,
 	"css.lint.unknownAtRules": "ignore",
 	"errorLens.editorHoverPartsEnabled": {
