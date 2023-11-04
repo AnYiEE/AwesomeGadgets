@@ -176,7 +176,7 @@ const findSourceFile = async (currentDir = 'src') => {
 				if (/\.less$/.test(fileName)) {
 					files[fileDir].styles = [
 						...new Set(
-							files[fileDir].style.filter((style) => {
+							files[fileDir].styles.filter((style) => {
 								return style !== fileName.replace(/\.less$/, '.css');
 							})
 						),
