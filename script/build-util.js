@@ -160,28 +160,10 @@ const findSourceFile = async (currentDir = 'src') => {
 			files[fileDir].scripts ??= [];
 			if (/\.[jt]s$/.test(fileName)) {
 				files[fileDir].scripts.push(fileName);
-				if (/\.ts$/.test(fileName)) {
-					files[fileDir].scripts = [
-						...new Set(
-							files[fileDir].scripts.filter((script) => {
-								return script !== fileName.replace(/\.ts$/, '.js');
-							})
-						),
-					];
-				}
 			}
 			files[fileDir].styles ??= [];
 			if (/\.(?:css|less)$/.test(fileName)) {
 				files[fileDir].styles.push(fileName);
-				if (/\.less$/.test(fileName)) {
-					files[fileDir].styles = [
-						...new Set(
-							files[fileDir].style.filter((style) => {
-								return style !== fileName.replace(/\.less$/, '.css');
-							})
-						),
-					];
-				}
 			}
 		}
 	}
