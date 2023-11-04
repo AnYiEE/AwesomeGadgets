@@ -14,6 +14,7 @@ jobs:
       - name: Checkout target repo
         uses: actions/checkout@v4
       - name: Sync upstream changes (1/2)
+        id: sync
         uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
         with:
           target_sync_branch: master
@@ -21,23 +22,27 @@ jobs:
           upstream_sync_branch: master
           upstream_sync_repo: AnYiEE/AwesomeGadgets
       - name: Sync check (1/2)
-        if: success()
+        if: ${{ success() }}
         run: |
           echo "[Success] 同步成功。"
           exit 0
       - name: Retry sync upstream changes
+        if: ${{ steps.sync.conclusion == 'failure' }}
         run: |
           echo "[Error] 同步失败，可能是由于本地仓库 pnpm-lock.yaml 文件和上游冲突，正尝试自动合并更改。"
       - name: Install pnpm
+        if: ${{ steps.sync.conclusion == 'failure' }}
         uses: pnpm/action-setup@v2
         with:
           version: latest
           run_install: false
       - name: Get pnpm store directory
+        if: ${{ steps.sync.conclusion == 'failure' }}
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
       - name: Setup pnpm cache
+        if: ${{ steps.sync.conclusion == 'failure' }}
         uses: actions/cache@v3
         with:
           path: ${{ env.STORE_PATH }}
@@ -45,8 +50,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
+        if: ${{ steps.sync.conclusion == 'failure' }}
         run: pnpm i
       - name: Sync upstream changes (2/2)
+        if: ${{ steps.sync.conclusion == 'failure' }}
         uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
         with:
           target_sync_branch: master
@@ -54,7 +61,7 @@ jobs:
           upstream_sync_branch: master
           upstream_sync_repo: AnYiEE/AwesomeGadgets
       - name: Sync check (2/2)
-        if: failure()
+        if: ${{ steps.sync.conclusion == 'failure' && failure() }}
         run: |
           echo "[Error] 由于上游仓库 workflow 文件变更或无法自动合并更改，请手动 Sync Fork 一次或手动合并更改。"
           exit 1
