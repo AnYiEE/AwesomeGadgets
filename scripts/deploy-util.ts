@@ -1,8 +1,8 @@
+import {type ApiEditResponse, Mwn} from 'mwn';
 import {BANNER, DEFINITION_SECTION_MAP, IS_CONVERT_VARIANT} from './constant';
 import type {Credentials, CredentialsOnlyPassword, DeploymentTargets} from './scripts';
 import fsPromises, {type FileHandle} from 'node:fs/promises';
 import prompts, {type Answers, type PromptType} from 'prompts';
-import {Mwn} from 'mwn';
 import {Window} from 'happy-dom';
 import chalk from 'chalk';
 import {execSync} from 'node:child_process';
@@ -198,7 +198,7 @@ const setDefinition = async (definitionText: string): Promise<void> => {
 const convertVariant = async (
 	pageTitle: string,
 	{api, content, editSummary}: {api: Mwn; content: string; editSummary: string}
-): Promise<void> => {
+): Promise<boolean> => {
 	const variants: string[] = ['zh', 'zh-hans', 'zh-cn', 'zh-my', 'zh-sg', 'zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'];
 	/**
 	 * @base <https://zh.wikipedia.org/wiki/User:Xiplus/js/TranslateVariants>
@@ -219,6 +219,7 @@ const convertVariant = async (
 				.replace(/&#61;/g, '=')
 				.replace(/&#62;/g, '>');
 		});
+	let isNoChange = false;
 	const convert = async (variant: (typeof variants)[0]): Promise<void> => {
 		const parsedHtml: string = await api.parseWikitext(
 			`{{NoteTA|G1=IT|G2=MediaWiki}}<div class="convertVariant">${content}</div>`,
@@ -233,11 +234,15 @@ const convertVariant = async (
 		const {document} = window;
 		document.body.innerHTML = `<div>${parsedHtml}</div>`;
 		const convertedDescription: string = document.querySelector('.convertVariant').textContent;
-		await api.save(`${pageTitle}/${variant}`, convertedDescription, editSummary);
+		const response: ApiEditResponse = await api.save(`${pageTitle}/${variant}`, convertedDescription, editSummary);
+		if (response.nochange) {
+			isNoChange = true;
+		}
 	};
 	for (const variant of variants) {
 		await convert(variant);
 	}
+	return isNoChange;
 };
 
 /**
@@ -262,19 +267,27 @@ const saveDefinitionSectionPage = async (
 		const sectionText: string = DEFINITION_SECTION_MAP[section] || section;
 		const pageTitle: string = pageTitles[index];
 		try {
-			await api.save(pageTitle, sectionText, editSummary);
-			log('green', `✔ Successfully saved ${pageTitle}`);
+			const response: ApiEditResponse = await api.save(pageTitle, sectionText, editSummary);
+			if (response.nochange) {
+				log('yellow', `━ No change saving ${pageTitle}`);
+			} else {
+				log('green', `✔ Successfully saved ${pageTitle}`);
+			}
 			if (!IS_CONVERT_VARIANT) {
 				continue;
 			}
 			try {
-				log('white', `— Converting ${pageTitle}`);
-				await convertVariant(pageTitle, {
+				log('white', `━ Converting ${pageTitle}`);
+				const isNoChange: boolean = await convertVariant(pageTitle, {
 					content: sectionText,
 					api,
 					editSummary,
 				});
-				log('green', `✔ Successfully converted ${pageTitle}`);
+				if (isNoChange) {
+					log('yellow', `━ No change converting ${pageTitle}`);
+				} else {
+					log('green', `✔ Successfully converted ${pageTitle}`);
+				}
 			} catch (error) {
 				log('red', `✘ Failed to convert ${pageTitle}`);
 				console.error(error);
@@ -297,8 +310,12 @@ const saveDefinition = async (
 	{api, editSummary}: {api: Mwn; editSummary: string}
 ): Promise<void> => {
 	try {
-		await api.save('MediaWiki:Gadgets-definition', definitionText, editSummary);
-		log('green', '✔ Successfully saved gadget definitions');
+		const response: ApiEditResponse = await api.save('MediaWiki:Gadgets-definition', definitionText, editSummary);
+		if (response.nochange) {
+			log('yellow', '━ No change saving gadget definitions');
+		} else {
+			log('green', '✔ Successfully saved gadget definitions');
+		}
 	} catch (error) {
 		log('red', '✘ Failed to save gadget definitions');
 		console.error(error);
@@ -317,19 +334,27 @@ const saveDescription = async (
 ): Promise<void> => {
 	const descriptionPageTitle = `MediaWiki:Gadget-${name}`;
 	try {
-		await api.save(descriptionPageTitle, description, editSummary);
-		log('green', `✔ Successfully saved ${name} description`);
+		const response: ApiEditResponse = await api.save(descriptionPageTitle, description, editSummary);
+		if (response.nochange) {
+			log('yellow', `━ No change saving ${name} description`);
+		} else {
+			log('green', `✔ Successfully saved ${name} description`);
+		}
 		if (!IS_CONVERT_VARIANT) {
 			return;
 		}
 		try {
-			log('white', `— Converting ${name} description`);
-			await convertVariant(descriptionPageTitle, {
+			log('white', `━ Converting ${name} description`);
+			const isNoChange: boolean = await convertVariant(descriptionPageTitle, {
 				content: description,
 				api,
 				editSummary,
 			});
-			log('green', `✔ Successfully converted ${name} description`);
+			if (isNoChange) {
+				log('yellow', `━ No change converting ${name} description`);
+			} else {
+				log('green', `✔ Successfully converted ${name} description`);
+			}
 		} catch (error) {
 			log('red', `✘ Failed to convert ${name} description`);
 			console.error(error);
@@ -355,8 +380,12 @@ const saveFiles = async (
 		if (file.split('.')[0] === name) {
 			fileName = file;
 		}
-		await api.save(`MediaWiki:Gadget-${fileName}`, fileText, editSummary);
-		log('green', `✔ Successfully saved ${fileName} to ${name}`);
+		const response: ApiEditResponse = await api.save(`MediaWiki:Gadget-${fileName}`, fileText, editSummary);
+		if (response.nochange) {
+			log('yellow', `━ No change saving ${fileName} to ${name}`);
+		} else {
+			log('green', `✔ Successfully saved ${fileName} to ${name}`);
+		}
 	} catch (error) {
 		log('red', `✘ Failed to save ${file} to ${name}`);
 		console.error(error);
