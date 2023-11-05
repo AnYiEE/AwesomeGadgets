@@ -55,9 +55,9 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
 
 1. Fork 本仓库
 
-2. 根据实际情况更改各个小工具的`definition.json`，可选值及默认值可见于`script/constant.js` - `DEFAULT_DEFINITION`
+2. 根据实际情况更改各个小工具的`definition.json`，可选值及默认值可见于`scripts/constant.js` - `DEFAULT_DEFINITION`
 
-3. 根据实际情况更改`script/constant.js`中的信息
+3. 根据实际情况更改`scripts/constant.js`中的信息
 
 4. 在`script`文件夹下新建`credentials.json`文件（多选一，取决于你的登录方式。存在多种登录凭据时，OAuth2 优先于 OAuth1.0a 优先于账号密码）
 
@@ -91,6 +91,6 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
 
 5. 运行`pnpm run deploy`以检查语法、格式化代码、编译源码、并向网站部署
 
-> 请网站维护者注意：在 Fork 本仓库后，本仓库的 Actions 将自动同步上游变更。这意味着在一般情况下，不需要改动除了`src`文件夹和`script/constant.js`之外的东西，以免发生合并冲突。
+> 请网站维护者注意：在 Fork 本仓库后，本仓库的 Actions 将自动同步上游变更。这意味着在一般情况下，不需要改动除了`src`文件夹和`scripts/constant.js`之外的东西，以免发生合并冲突。
 >
 > 建议网站维护者只接受 Pull request，以便 Actions 自动检查并指出代码语法和格式的错误。如果检查未能通过，也不应修改本仓库的相关规则。未通过意味着代码本身存在问题，而不应该将问题归咎于严格的规则。

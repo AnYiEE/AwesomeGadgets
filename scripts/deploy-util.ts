@@ -109,7 +109,7 @@ const checkConfig = async (
  * @returns {Promise<Partial<Credentials>>} The result of parsing the credentials.json file
  */
 const loadConfig = async (): Promise<Partial<Credentials>> => {
-	const credentialsFileWithPath: string = path.join(__dirname, 'script/credentials.json');
+	const credentialsFileWithPath: string = path.join(__dirname, 'scripts/credentials.json');
 	let credentialsJsonText = '{}';
 	try {
 		// eslint-disable-next-line security/detect-non-literal-fs-filename
