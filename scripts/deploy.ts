@@ -1,5 +1,4 @@
-import {Mwn} from 'mwn';
-import {DEPLOY_USER_AGENT} from './constant.js';
+import type {Credentials, DeploymentTargets} from './scripts';
 import {
 	checkConfig,
 	loadConfig,
@@ -8,23 +7,25 @@ import {
 	prompt,
 	readDefinition,
 	readFileText,
-	setDefinition,
 	saveDefinition,
 	saveDefinitionSectionPage,
 	saveDescription,
 	saveFiles,
+	setDefinition,
 	wait,
-} from './deploy-util.js';
+} from './deploy-util';
+import {DEPLOY_USER_AGENT} from './constant';
+import {Mwn} from 'mwn';
 
 /**
  * Deploy definitions, scripts and styles
  *
- * @param {Record<string, {description:string; files:string[]}>} targets Return value of `generateTargets(definitions)`
+ * @param {DeploymentTargets} targets Return value of `generateTargets(definitions)`
  */
-const deploy = async (targets) => {
-	let config = await loadConfig();
+const deploy = async (targets: DeploymentTargets): Promise<void> => {
+	let config: Partial<Credentials> = await loadConfig();
 	config = await checkConfig(config, true);
-	const api = new Mwn({
+	const api: Mwn = new Mwn({
 		...config,
 		userAgent: DEPLOY_USER_AGENT,
 	});
@@ -45,8 +46,8 @@ const deploy = async (targets) => {
 	await prompt('> Press [Enter] to start deploying or quickly press [ctrl + C] twice to cancel');
 	await wait();
 	log('yellow', '--- starting deployment ---');
-	const editSummary = await makeEditSummary();
-	const definitionText = await readDefinition();
+	const editSummary: string = await makeEditSummary();
+	const definitionText: string = await readDefinition();
 	await setDefinition(definitionText);
 	await saveDefinition(definitionText, {
 		api,
@@ -66,7 +67,7 @@ const deploy = async (targets) => {
 			if (/^\./.test(file)) {
 				file = `${name}${file}`;
 			}
-			const fileText = await readFileText(name, file);
+			const fileText: string = await readFileText(name, file);
 			await saveFiles(name, {
 				api,
 				editSummary,

@@ -1,17 +1,26 @@
-import babel from '@babel/core';
+import {DEFAULT_DEFINITION, FOOTER, HEADER, WARNING} from './constant';
+import type {DefaultDefinition, SourceFiles} from './scripts';
+import babel, {type BabelFileResult} from '@babel/core';
+import fsPromises, {type FileHandle} from 'node:fs/promises';
+import type {Stats} from 'node:fs';
 import chalk from 'chalk';
 import esbuild from 'esbuild';
-import fsPromises from 'node:fs/promises';
+import esbuildOptions from './build-esbuild_options';
 import path from 'node:path';
 import process from 'node:process';
-import esbuildOptions from './build-esbuild_options.js';
-import {DEFAULT_DEFINITION, FOOTER, HEADER, WARNING} from './constant.js';
 const __dirname = path.resolve();
 
-/**
- * @param {{code:string; path:string, contentType:'text/css'|'text/javascript', licenseText:string}} object
- */
-const write = async ({code: sourceCode, path: outputFileWithPath, contentType, licenseText}) => {
+const write = async ({
+	contentType,
+	licenseText,
+	code: sourceCode,
+	path: outputFileWithPath,
+}: {
+	contentType: 'text/css' | 'text/javascript';
+	licenseText: string;
+	code: string;
+	path: string;
+}): Promise<void> => {
 	let fullCode = '';
 	switch (contentType) {
 		case 'text/css':
@@ -27,17 +36,13 @@ const write = async ({code: sourceCode, path: outputFileWithPath, contentType, l
 			fullCode = sourceCode;
 	}
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
-	const fileHandle = await fsPromises.open(outputFileWithPath, 'w');
+	const fileHandle: FileHandle = await fsPromises.open(outputFileWithPath, 'w');
 	await fileHandle.writeFile(fullCode);
 	await fileHandle.datasync();
 	await fileHandle.close();
 };
 
-/**
- * @param {string} inputFileWithPath
- * @param {string} outputFileWithPath
- */
-const build = async (inputFileWithPath, outputFileWithPath) => {
+const build = async (inputFileWithPath: string, outputFileWithPath: string): Promise<void> => {
 	await esbuild.build({
 		...esbuildOptions,
 		entryPoints: [inputFileWithPath],
@@ -46,20 +51,20 @@ const build = async (inputFileWithPath, outputFileWithPath) => {
 };
 
 /**
- * @param {string} script
- * @param {{name:string; licenseText:string}} object
+ * @param {string} script The script file name of a gadget
+ * @param {{name:string; licenseText:string}} object The name and license file content of this gadget
  */
-const buildScript = async (script, {name, licenseText}) => {
-	const inputScriptWithPath = path.join(__dirname, `src/${name}/${script}`);
-	const outputScriptWithPath = path.join(__dirname, `dist/${name}/${script.replace(/\.ts$/, '.js')}`);
+const buildScript = async (script: string, {name, licenseText}: {name: string; licenseText: string}): Promise<void> => {
+	const inputScriptWithPath: string = path.join(__dirname, `src/${name}/${script}`);
+	const outputScriptWithPath: string = path.join(__dirname, `dist/${name}/${script.replace(/\.ts$/, '.js')}`);
 	await build(inputScriptWithPath, outputScriptWithPath);
-	const babelFileResult = await babel.transformFileAsync(outputScriptWithPath);
+	const babelFileResult: BabelFileResult = (await babel.transformFileAsync(outputScriptWithPath)) as BabelFileResult;
 	const {code} = babelFileResult;
 	await write({
+		licenseText,
+		code: code as string,
 		contentType: 'text/javascript',
 		path: outputScriptWithPath,
-		code,
-		licenseText,
 	});
 };
 
@@ -67,7 +72,10 @@ const buildScript = async (script, {name, licenseText}) => {
  * @param {string[]} scripts Array of script file names for a gadget
  * @param {{name:string; licenseText:string}} object The name and license file content of this gadget
  */
-const buildScripts = async (scripts, {name, licenseText}) => {
+const buildScripts = async (
+	scripts: string[],
+	{name, licenseText}: {name: string; licenseText: string}
+): Promise<void> => {
 	for (const script of scripts) {
 		await buildScript(script, {
 			name,
@@ -77,20 +85,21 @@ const buildScripts = async (scripts, {name, licenseText}) => {
 };
 
 /**
- * @param {string} style
- * @param {{name:string; licenseText:string}} object
+ * @param {string} style The style sheet file name of a gadget
+ * @param {{name:string; licenseText:string}} object The name and license file content of this gadget
  */
-const buildStyle = async (style, {name, licenseText}) => {
-	const inputStyleWithPath = path.join(__dirname, `src/${name}/${style}`);
-	const outputStyleWithPath = path.join(__dirname, `dist/${name}/${style.replace(/\.less$/, '.css')}`);
+const buildStyle = async (style: string, {name, licenseText}: {name: string; licenseText: string}): Promise<void> => {
+	const inputStyleWithPath: string = path.join(__dirname, `src/${name}/${style}`);
+	const outputStyleWithPath: string = path.join(__dirname, `dist/${name}/${style.replace(/\.less$/, '.css')}`);
 	await build(inputStyleWithPath, outputStyleWithPath);
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
-	const code = await fsPromises.readFile(outputStyleWithPath);
+	const fileBuffer: Buffer = await fsPromises.readFile(outputStyleWithPath);
+	const code: string = fileBuffer.toString();
 	await write({
-		contentType: 'text/css',
-		path: outputStyleWithPath,
 		code,
 		licenseText,
+		contentType: 'text/css',
+		path: outputStyleWithPath,
 	});
 };
 
@@ -98,7 +107,10 @@ const buildStyle = async (style, {name, licenseText}) => {
  * @param {string[]} styles Array of style sheet file names for a gadget
  * @param {{name:string; licenseText:string}} object The name and license file content of this gadget
  */
-const buildStyles = async (styles, {name, licenseText}) => {
+const buildStyles = async (
+	styles: string[],
+	{name, licenseText}: {name: string; licenseText: string}
+): Promise<void> => {
 	for (const style of styles) {
 		await buildStyle(style, {
 			name,
@@ -107,28 +119,28 @@ const buildStyles = async (styles, {name, licenseText}) => {
 	}
 };
 
-const files = {};
+const files: SourceFiles = {};
 /**
  * @param {string} [currentDir=src] The path of the source file
- * @returns {Promise<Record<string, {definition?:string; script?:string; style?:string; license?:string; scripts:string[]; styles:string[]}>>} An object used to describe source files
+ * @returns {Promise<SourceFiles>} An object used to describe source files
  */
-const findSourceFile = async (currentDir = 'src') => {
+const findSourceFile = async (currentDir = 'src'): Promise<SourceFiles> => {
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
-	const dirArray = await fsPromises.readdir(currentDir);
+	const dirArray: string[] = await fsPromises.readdir(currentDir);
 	for (const dir of dirArray) {
-		const fullPath = path.join(currentDir, dir);
+		const fullPath: string = path.join(currentDir, dir);
 		// eslint-disable-next-line security/detect-non-literal-fs-filename
-		const stats = await fsPromises.stat(fullPath);
+		const stats: Stats = await fsPromises.stat(fullPath);
 		if (stats.isDirectory()) {
 			await findSourceFile(fullPath);
 		} else if (!/\.d\.ts$/.test(dir)) {
-			const fullPathArray = fullPath.split(process.platform === 'win32' ? '\\' : '/');
+			const fullPathArray: string[] = fullPath.split(process.platform === 'win32' ? '\\' : '/');
 			// 仅支持形如src/gadget/index.ts的“一层”路径，因为考虑到子文件夹可能被父文件夹的脚本import
 			if (fullPathArray.length !== 3) {
 				continue;
 			}
 			const [_sourceDir, fileDir, fileName] = fullPathArray;
-			files[fileDir] ??= {};
+			files[fileDir] ??= {} as SourceFiles[''];
 			switch (fileName) {
 				case 'definition.json':
 					files[fileDir].definition = fileName;
@@ -163,7 +175,7 @@ const findSourceFile = async (currentDir = 'src') => {
 				if (/\.ts$/.test(fileName)) {
 					files[fileDir].scripts = [
 						...new Set(
-							files[fileDir].scripts.filter((script) => {
+							files[fileDir].scripts.filter((script: string): boolean => {
 								return script !== fileName.replace(/\.ts$/, '.js');
 							})
 						),
@@ -176,7 +188,7 @@ const findSourceFile = async (currentDir = 'src') => {
 				if (/\.less$/.test(fileName)) {
 					files[fileDir].styles = [
 						...new Set(
-							files[fileDir].styles.filter((style) => {
+							files[fileDir].styles.filter((style: string): boolean => {
 								return style !== fileName.replace(/\.less$/, '.css');
 							})
 						),
@@ -189,31 +201,31 @@ const findSourceFile = async (currentDir = 'src') => {
 };
 
 /**
- * @param {string} [definition] The definition file name of a gadget
+ * @param {string|undefined} [definition] The definition file name of a gadget
  * @param {{name:string}} object The gadget name
  * @returns {Promise<string>} The gadget definition fragment
  */
-const getDefinition = async (definition, {name}) => {
-	const definitionFileWithPath = path.join(__dirname, `src/${name}/${definition}`);
+const getDefinition = async (definition: string | undefined, {name}: {name: string}): Promise<string> => {
+	const definitionFileWithPath: string = path.join(__dirname, `src/${name}/${definition}`);
 	let definitionJsonText = '{}';
 	try {
 		// eslint-disable-next-line security/detect-non-literal-fs-filename
-		definitionJsonText = await fsPromises.readFile(definitionFileWithPath);
+		const fileBuffer: Buffer = await fsPromises.readFile(definitionFileWithPath);
+		definitionJsonText = fileBuffer.toString();
 	} catch {
 		console.warn(
-			chalk.yellow(`definition.json for ${chalk.bold(name)} is missing, default definition will be used.`)
+			chalk.yellow(`definition.json for ${chalk.bold(name)} is missing, the default definition will be used.`)
 		);
 	}
-	/** @type {typeof DEFAULT_DEFINITION} */
-	const definitionObject = {...DEFAULT_DEFINITION, ...JSON.parse(definitionJsonText)};
+	const definitionObject: DefaultDefinition = {...DEFAULT_DEFINITION, ...JSON.parse(definitionJsonText)};
 	const definitionItem = `* ${name}[ResourceLoader|$1$2]|$3$4$5`;
 	let definitionText = '';
 	for (const [key, value] of Object.entries(definitionObject)) {
 		if (key === 'enable' && value === false) {
 			return '';
 		}
-		const typeOfValue = typeof value;
-		const isArray = Array.isArray(value);
+		const typeOfValue: typeof value = typeof value;
+		const isArray: boolean = Array.isArray(value);
 		if (
 			['description', 'section', 'type'].includes(key) ||
 			[false, undefined].includes(value) ||
@@ -238,12 +250,12 @@ const getDefinition = async (definition, {name}) => {
 		}
 	}
 	definitionText = definitionText.replace(/\|$/, '');
-	const cleanInvalidCharacters = (text) => {
+	const cleanInvalidCharacters = (text: string): string => {
 		return text.replace(/#|==|<>/g, '').trim();
 	};
-	let sectionText = cleanInvalidCharacters(definitionObject.section);
+	let sectionText: string = cleanInvalidCharacters(definitionObject.section);
 	sectionText = sectionText ? `#${sectionText}` : '#appear';
-	let descriptionText = cleanInvalidCharacters(definitionObject.description);
+	let descriptionText: string = cleanInvalidCharacters(definitionObject.description);
 	descriptionText = descriptionText ? `#${descriptionText}` : '#';
 	return definitionItem.replace('$1', definitionText).replace('$4', sectionText).replace('$5', descriptionText);
 };
@@ -252,9 +264,15 @@ const getDefinition = async (definition, {name}) => {
  * @param {{definitionItem:string; definitionItemFiles:string}} object Gadget definition fragment
  * @return {string} The Gadget definition (in the format of MediaWiki:Gadgets-definition item)
  */
-const cleanDefinition = ({definitionItem, definitionItemFiles}) => {
+const cleanDefinition = ({
+	definitionItem,
+	definitionItemFiles,
+}: {
+	definitionItem: string;
+	definitionItemFiles: string;
+}): string => {
 	const isStyleOnly = !/\.[jt]s\|/.test(definitionItemFiles);
-	let definitionItemFull = definitionItem
+	let definitionItemFull: string = definitionItem
 		.replace('$2', isStyleOnly ? '|type=styles' : '')
 		.replace('$3', definitionItemFiles);
 	if (isStyleOnly) {
@@ -274,19 +292,16 @@ const cleanDefinition = ({definitionItem, definitionItemFiles}) => {
  *
  * @param {string[]} definitions The gadget definitions array (in the format of MediaWiki:Gadgets-definition item)
  */
-const setDefinition = async (definitions) => {
-	/** @type {Record<string, typeof definitions | undefined>} */
-	const definitionObject = {};
-	definitions
-		.filter((definition) => {
-			return definition !== '';
-		})
-		.forEach((definition) => {
-			const [, section] = definition.match(/.*?#(\S+?)#/);
-			definitionObject[section] ??= [];
-			definitionObject[section].push(definition.replace(/#.*/, ''));
-		});
-	const definitionObjectSorted = {};
+const setDefinition = async (definitions: string[]): Promise<void> => {
+	const definitionObject: Record<string, typeof definitions> = {};
+	for (const definition of definitions.filter((_definition: string): boolean => {
+		return _definition !== '';
+	})) {
+		const [, section] = definition.match(/.*?#(\S+?)#/) as RegExpExecArray;
+		definitionObject[section] ??= [];
+		definitionObject[section].push(definition.replace(/#.*/, ''));
+	}
+	const definitionObjectSorted: typeof definitionObject = {};
 	for (const key of Object.keys(definitionObject).sort()) {
 		definitionObjectSorted[key] = definitionObject[key];
 	}
@@ -301,27 +316,27 @@ const setDefinition = async (definitions) => {
 			}
 		}
 	}
-	const definitionPath = path.join(__dirname, 'dist/definition.txt');
+	const definitionPath: string = path.join(__dirname, 'dist/definition.txt');
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
-	const fileHandle = await fsPromises.open(definitionPath, 'w');
+	const fileHandle: FileHandle = await fsPromises.open(definitionPath, 'w');
 	await fileHandle.writeFile(definitionText);
 	await fileHandle.datasync();
 	await fileHandle.close();
 };
 
 /**
- * @param {string} license The gadget license file name
+ * @param {string|undefined} license The gadget license file name
  * @param {{name:string}} object The gadget name
  * @returns {Promise<string>} The gadget license file content
  */
-const getLicense = async (license, {name}) => {
+const getLicense = async (license: string | undefined, {name}: {name: string}): Promise<string> => {
 	if (!license) {
 		return '';
 	}
-	const licenseFileWithPath = path.join(__dirname, `src/${name}/${license}`);
+	const licenseFileWithPath: string = path.join(__dirname, `src/${name}/${license}`);
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
-	const licenseText = await fsPromises.readFile(licenseFileWithPath);
-	return licenseText ? `${licenseText}\n` : '';
+	const fileBuffer: Buffer = await fsPromises.readFile(licenseFileWithPath);
+	return fileBuffer.length ? `${fileBuffer}\n` : '';
 };
 
-export {buildScripts, buildStyles, findSourceFile, cleanDefinition, getDefinition, getLicense, setDefinition};
+export {buildScripts, buildStyles, cleanDefinition, findSourceFile, getDefinition, getLicense, setDefinition};

@@ -9,8 +9,8 @@
 	"description": "Storage, compile, and auto deploy gadgets.",
 	"type": "module",
 	"scripts": {
-		"build": "pnpm format && node script/only-build.js",
-		"deploy": "pnpm format && node esbuild.config.js",
+		"build": "pnpm format && node --no-warnings --loader ts-node/esm scripts/only-build.ts",
+		"deploy": "pnpm format && node --no-warnings --loader ts-node/esm esbuild.config.ts",
 		"format": "prettier --cache --write . && pnpm lint:fix",
 		"eslint": "eslint --cache .",
 		"eslint:fix": "eslint --cache --fix .",
@@ -37,6 +37,7 @@
 		"@commitlint/config-conventional": "^18.1.0",
 		"@types/babel__core": "^7.20.3",
 		"@types/jqueryui": "^1.12.19",
+		"@types/node": "^20.8.10",
 		"@types/oojs-ui": "^0.47.3",
 		"@types/prompts": "^2.4.7",
 		"@typescript-eslint/eslint-plugin": "^5.62.0",
@@ -58,6 +59,7 @@
 		"prompts": "^2.4.2",
 		"stylelint": "^15.11.0",
 		"stylelint-config-wikimedia": "^0.16.1",
+		"ts-node": "^10.9.1",
 		"types-mediawiki": "github:AnYiEE/types-mediawiki",
 		"typescript": "^5.2.2"
 	},

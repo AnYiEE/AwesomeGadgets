@@ -1,33 +1,36 @@
-import chalk from 'chalk';
-import prompts from 'prompts';
-import {execSync} from 'node:child_process';
-import fsPromises from 'node:fs/promises';
-import path from 'node:path';
-import {BANNER, DEFINITION_SECTION_MAP, IS_CONVERT_VARIANT} from './constant.js';
-import {Mwn as _Mwn} from 'mwn';
+import {BANNER, DEFINITION_SECTION_MAP, IS_CONVERT_VARIANT} from './constant';
+import type {Credentials, CredentialsOnlyPassword, DeploymentTargets} from './scripts';
+import fsPromises, {type FileHandle} from 'node:fs/promises';
+import prompts, {type Answers, type PromptType} from 'prompts';
+import {Mwn} from 'mwn';
 import {Window} from 'happy-dom';
+import chalk from 'chalk';
+import {execSync} from 'node:child_process';
+import path from 'node:path';
 const __dirname = path.resolve();
 
 /**
  * Generate deployment targets based on the definitions
  *
  * @param {string[]} definitions Array of gadget definitions (in the format of MediaWiki:Gadgets-definition item)
- * @return {Record<string, {description:string; files:string[]}>} Deployment targets
+ * @return {DeploymentTargets} Deployment targets
  */
-const generateTargets = (definitions) => {
-	const targets = {};
+const generateTargets = (definitions: string[]): DeploymentTargets => {
+	const targets: DeploymentTargets = {};
 	for (const definition of definitions) {
 		if (!definition) {
 			continue;
 		}
-		const [_, name, files, description] = definition.match(/^\*\s(\S+?)\[\S+?]\|(\S+?)#\S*?#(.*?)$/);
-		targets[name] = {};
+		const [_, name, files, description] = definition.match(
+			/^\*\s(\S+?)\[\S+?]\|(\S+?)#\S*?#(.*?)$/
+		) as RegExpMatchArray;
+		targets[name] = {} as DeploymentTargets[''];
 		targets[name].files = files
 			.split('|')
-			.filter((file) => {
+			.filter((file: string): boolean => {
 				return file !== '';
 			})
-			.map((file) => {
+			.map((file: string): string => {
 				return file.replace(/\S+?<>/, '');
 			});
 		targets[name].description = description || name;
@@ -41,7 +44,7 @@ const generateTargets = (definitions) => {
  * @param {string} color message text color
  * @param  {string} message message text
  */
-const log = (color, message) => {
+const log = (color: string, message: string): void => {
 	console.log(chalk[color](message));
 };
 
@@ -49,21 +52,20 @@ const log = (color, message) => {
  * Easy to use CLI prompts to enquire users for information
  *
  * @param {string} message The message to be displayed to the user
- * @param {string} type Defines the type of prompt to display
+ * @param {PromptType} type Defines the type of prompt to display
  * @param {string} initial Optional default prompt value
- * @returns {Promise<prompts.Answers<string>>}
+ * @returns {Promise<string>}
  * @see https://www.npmjs.com/package/prompts
  */
-const prompt = async (message, type = 'text', initial = '') => {
-	const name = String(Math.random());
-	return (
-		await prompts({
-			message,
-			type,
-			initial,
-			name,
-		})
-	)[name];
+const prompt = async (message: string, type: PromptType = 'text', initial = ''): Promise<string> => {
+	const name: string = Math.random().toString();
+	const answers: Answers<string> = await prompts({
+		initial,
+		message,
+		name,
+		type,
+	});
+	return answers[name];
 };
 
 /**
@@ -72,7 +74,7 @@ const prompt = async (message, type = 'text', initial = '') => {
  * @param {number} [ms=1000] Waiting time (milliseconds)
  * @return {Promise<void>}
  */
-const wait = (ms = 1000) => {
+const wait = (ms = 1000): Promise<void> => {
 	return new Promise((resolve) => {
 		setTimeout(resolve, ms);
 	});
@@ -85,10 +87,12 @@ const wait = (ms = 1000) => {
  * @param {boolean} checkApiUrlOnly Only check `config.apiUrl` is empty or not
  * @returns {Promise<{apiUrl:string; username:string; password:string}>} Completed configuration
  */
-const checkConfig = async (config, checkApiUrlOnly = false) => {
+const checkConfig = async (
+	config: Partial<CredentialsOnlyPassword>,
+	checkApiUrlOnly = false
+): Promise<CredentialsOnlyPassword> => {
 	if (!config.apiUrl) {
-		const apiUrl = await prompt('> Enter api url (eg. https://your.wiki/api.php)');
-		config.apiUrl = apiUrl;
+		config.apiUrl = await prompt('> Enter api url (eg. https://your.wiki/api.php)');
 	}
 	if (!checkApiUrlOnly && !config.username) {
 		config.username = await prompt('> Enter username');
@@ -96,20 +100,21 @@ const checkConfig = async (config, checkApiUrlOnly = false) => {
 	if (!checkApiUrlOnly && !config.password) {
 		config.password = await prompt('> Enter bot password', 'password');
 	}
-	return config;
+	return config as CredentialsOnlyPassword;
 };
 
 /**
  * Load credentials.json
  *
- * @returns {Promise<{apiUrl?:string; username?:string; password?:string} | {apiUrl?:string; OAuth2AccessToken?:string} | {apiUrl?:string; OAuthCredentials?:{accessToken?:string; accessSecret?:string; consumerToken?:string; consumerSecret?:string}}>} The result of parsing the credentials.json file
+ * @returns {Promise<Partial<Credentials>>} The result of parsing the credentials.json file
  */
-const loadConfig = async () => {
-	const credentialsFileWithPath = path.join(__dirname, 'script/credentials.json');
+const loadConfig = async (): Promise<Partial<Credentials>> => {
+	const credentialsFileWithPath: string = path.join(__dirname, 'script/credentials.json');
 	let credentialsJsonText = '{}';
 	try {
 		// eslint-disable-next-line security/detect-non-literal-fs-filename
-		credentialsJsonText = await fsPromises.readFile(credentialsFileWithPath);
+		const fileBuffer: Buffer = await fsPromises.readFile(credentialsFileWithPath);
+		credentialsJsonText = fileBuffer.toString();
 	} catch {
 		log('red', 'The credentials.json is missing, a empty object will be used.');
 	}
@@ -121,14 +126,14 @@ const loadConfig = async () => {
  *
  * @returns {Promise<string>} The editing summary
  */
-const makeEditSummary = async () => {
+const makeEditSummary = async (): Promise<string> => {
 	let sha = '';
 	let summary = '';
 	try {
 		sha = execSync('git rev-parse --short HEAD').toString('utf8').trim();
 		summary = execSync('git log --pretty=format:"%s" HEAD -1').toString('utf8').trim();
 	} catch {}
-	const customSummary = await prompt('> Custom editing summary message (optional):');
+	const customSummary: string = await prompt('> Custom editing summary message (optional):');
 	const editSummary = `${sha ? `Git 版本 ${sha}: ` : ''}${customSummary || summary}`;
 	log('white', `Editing summary is: "${editSummary}"`);
 	await prompt('> Press [Enter] to continue deploying or quickly press [ctrl + C] twice to cancel');
@@ -142,18 +147,18 @@ const makeEditSummary = async () => {
  *
  * @returns {Promise<string>} Gadget definitions (in the format of MediaWiki:Gadgets-definition item)
  */
-const readDefinition = async () => {
-	const definitionPath = path.join(__dirname, 'dist/definition.txt');
+const readDefinition = async (): Promise<string> => {
+	const definitionPath: string = path.join(__dirname, 'dist/definition.txt');
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
-	let definitionText = await fsPromises.readFile(definitionPath);
-	definitionText = definitionText.toString().replace(/<>/g, '-').replace(/-\./g, '.');
+	const fileBuffer: Buffer = await fsPromises.readFile(definitionPath);
+	let definitionText = fileBuffer.toString().replace(/<>/g, '-').replace(/-\./g, '.');
 	definitionText = `${BANNER.replace(/[=]=/g, '').trim()}\n${definitionText}`;
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
-	const fileHandle = await fsPromises.open(definitionPath, 'w');
+	const fileHandle: FileHandle = await fsPromises.open(definitionPath, 'w');
 	await fileHandle.writeFile(definitionText);
 	await fileHandle.datasync();
 	await fileHandle.close();
-	return definitionText.toString();
+	return definitionText;
 };
 
 /**
@@ -163,11 +168,11 @@ const readDefinition = async () => {
  * @param {string} file The file name used by this gadget
  * @returns {Promise<string>} The file content
  */
-const readFileText = async (name, file) => {
-	const filePath = path.join(__dirname, `dist/${name}/${file}`);
+const readFileText = async (name: string, file: string): Promise<string> => {
+	const filePath: string = path.join(__dirname, `dist/${name}/${file}`);
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
-	const fileContent = await fsPromises.readFile(filePath);
-	return fileContent.toString();
+	const fileBuffer: Buffer = await fsPromises.readFile(filePath);
+	return fileBuffer.toString();
 };
 
 /**
@@ -175,10 +180,10 @@ const readFileText = async (name, file) => {
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
  */
-const setDefinition = async (definitionText) => {
-	const definitionPath = path.join(__dirname, 'dist/definition.txt');
+const setDefinition = async (definitionText: string): Promise<void> => {
+	const definitionPath: string = path.join(__dirname, 'dist/definition.txt');
 	// eslint-disable-next-line security/detect-non-literal-fs-filename
-	const fileHandle = await fsPromises.open(definitionPath, 'w');
+	const fileHandle: FileHandle = await fsPromises.open(definitionPath, 'w');
 	await fileHandle.writeFile(definitionText);
 	await fileHandle.datasync();
 	await fileHandle.close();
@@ -188,20 +193,23 @@ const setDefinition = async (definitionText) => {
  * Convert language variants of a page
  *
  * @param {string} pageTitle The titie of this page
- * @param {{api:_Mwn; content:string; editSummary:string}} object The api instance, the content of this page and the editing summary used by the api instance
+ * @param {{api:Mwn; content:string; editSummary:string}} object The api instance, the content of this page and the editing summary used by the api instance
  */
-const convertVariant = async (pageTitle, {api, content, editSummary}) => {
-	const variants = ['zh', 'zh-hans', 'zh-cn', 'zh-my', 'zh-sg', 'zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'];
+const convertVariant = async (
+	pageTitle: string,
+	{api, content, editSummary}: {api: Mwn; content: string; editSummary: string}
+): Promise<void> => {
+	const variants: string[] = ['zh', 'zh-hans', 'zh-cn', 'zh-my', 'zh-sg', 'zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'];
 	/**
 	 * @base <https://zh.wikipedia.org/wiki/User:Xiplus/js/TranslateVariants>
 	 * @license CC-BY-SA-4.0
 	 */
 	content = content
-		.replace(/[\s#&*_[\]{}|:'<>]/gim, (substring) => {
+		.replace(/[\s#&*_[\]{}|:'<>]/gim, (substring: string): string => {
 			return `&#${substring.codePointAt(0)};`;
 		})
 		.replace(/(&#91;&#91;)((?:(?!&#124;)(?!&#93;).)+?)(&#124;(?:(?!&#93;).)+?&#93;&#93;)/g, '$1-{$2}-$3')
-		.replace(/-&#123;(.+?)&#125;-/g, (substring) => {
+		.replace(/-&#123;(.+?)&#125;-/g, (substring: string): string => {
 			return substring
 				.replace('-&#123;', '-{')
 				.replace('&#125;-', '}-')
@@ -211,23 +219,20 @@ const convertVariant = async (pageTitle, {api, content, editSummary}) => {
 				.replace(/&#61;/g, '=')
 				.replace(/&#62;/g, '>');
 		});
-	/**
-	 * @param {keyof typeof variants} variant
-	 */
-	const convert = async (variant) => {
-		const parsedHtml = await api.parseWikitext(
+	const convert = async (variant: (typeof variants)[0]): Promise<void> => {
+		const parsedHtml: string = await api.parseWikitext(
 			`{{NoteTA|G1=IT|G2=MediaWiki}}<div class="convertVariant">${content}</div>`,
 			{
 				prop: 'text',
 				uselang: variant,
 			}
 		);
-		const window = new Window({
+		const window: Window = new Window({
 			url: api.options.apiUrl,
 		});
 		const {document} = window;
 		document.body.innerHTML = `<div>${parsedHtml}</div>`;
-		const convertedDescription = document.querySelector('.convertVariant').textContent;
+		const convertedDescription: string = document.querySelector('.convertVariant').textContent;
 		await api.save(`${pageTitle}/${variant}`, convertedDescription, editSummary);
 	};
 	for (const variant of variants) {
@@ -239,18 +244,23 @@ const convertVariant = async (pageTitle, {api, content, editSummary}) => {
  * Save gadget definition section pages
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {{api:_Mwn; editSummary:string}} api The api instance and the editing summary used by the api instance
+ * @param {{api:Mwn; editSummary:string}} api The api instance and the editing summary used by the api instance
  */
-const saveDefinitionSectionPage = async (definitionText, {api, editSummary}) => {
-	const sections = definitionText.match(/^==([\S\s]+?)==$/gm).map((sectionHeader) => {
-		return sectionHeader.replace(/[=]=/g, '').trim();
-	});
-	const pageTitles = sections.map((section) => {
+const saveDefinitionSectionPage = async (
+	definitionText: string,
+	{api, editSummary}: {api: Mwn; editSummary: string}
+): Promise<void> => {
+	const sections: string[] = (definitionText.match(/^==([\S\s]+?)==$/gm) as RegExpMatchArray).map(
+		(sectionHeader: string): string => {
+			return sectionHeader.replace(/[=]=/g, '').trim();
+		}
+	);
+	const pageTitles: string[] = sections.map((section: string): string => {
 		return `MediaWiki:Gadget-section-${section}`;
 	});
 	for (const [index, section] of sections.entries()) {
-		const sectionText = DEFINITION_SECTION_MAP[section] || section;
-		const pageTitle = pageTitles[index];
+		const sectionText: string = DEFINITION_SECTION_MAP[section] || section;
+		const pageTitle: string = pageTitles[index];
 		try {
 			await api.save(pageTitle, sectionText, editSummary);
 			log('green', `✔ Successfully saved ${pageTitle}`);
@@ -280,9 +290,12 @@ const saveDefinitionSectionPage = async (definitionText, {api, editSummary}) => 
  * Save gadget definition
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {{api:_Mwn; editSummary:string}} api The api instance and the editing summary used by the api instance
+ * @param {{api:Mwn; editSummary:string}} api The api instance and the editing summary used by the api instance
  */
-const saveDefinition = async (definitionText, {api, editSummary}) => {
+const saveDefinition = async (
+	definitionText: string,
+	{api, editSummary}: {api: Mwn; editSummary: string}
+): Promise<void> => {
 	try {
 		await api.save('MediaWiki:Gadgets-definition', definitionText, editSummary);
 		log('green', '✔ Successfully saved gadget definitions');
@@ -296,9 +309,12 @@ const saveDefinition = async (definitionText, {api, editSummary}) => {
  * Save gadget description
  *
  * @param {string} name The gadget name
- * @param {{api:_Mwn; description:string; editSummary:string}} api The api instance, the definition of this gadget and the editing summary used by the api instance
+ * @param {{api:Mwn; description:string; editSummary:string}} api The api instance, the definition of this gadget and the editing summary used by the api instance
  */
-const saveDescription = async (name, {api, description, editSummary}) => {
+const saveDescription = async (
+	name: string,
+	{api, description, editSummary}: {api: Mwn; description: string; editSummary: string}
+): Promise<void> => {
 	const descriptionPageTitle = `MediaWiki:Gadget-${name}`;
 	try {
 		await api.save(descriptionPageTitle, description, editSummary);
@@ -328,9 +344,12 @@ const saveDescription = async (name, {api, description, editSummary}) => {
  * Save gadget file
  *
  * @param {string} name The gadget name
- * @param {{api:_Mwn; editSummary:string; file:string; fileText:string}} api The api instance, the editing summary used by the api instance, the target file name and the file content
+ * @param {{api:Mwn; editSummary:string; file:string; fileText:string}} api The api instance, the editing summary used by the api instance, the target file name and the file content
  */
-const saveFiles = async (name, {api, editSummary, file, fileText}) => {
+const saveFiles = async (
+	name: string,
+	{api, editSummary, file, fileText}: {api: Mwn; editSummary: string; file: string; fileText: string}
+): Promise<void> => {
 	try {
 		let fileName = `${name}-${file}`;
 		if (file.split('.')[0] === name) {
@@ -345,18 +364,18 @@ const saveFiles = async (name, {api, editSummary, file, fileText}) => {
 };
 
 export {
-	generateTargets,
-	log,
-	prompt,
 	checkConfig,
+	generateTargets,
 	loadConfig,
+	log,
 	makeEditSummary,
+	prompt,
 	readDefinition,
 	readFileText,
-	setDefinition,
 	saveDefinition,
 	saveDefinitionSectionPage,
 	saveDescription,
 	saveFiles,
+	setDefinition,
 	wait,
 };
