@@ -5,8 +5,8 @@
 		"type": "git",
 		"url": "https://github.com/AnYiEE/AwesomeGadgets"
 	},
-	"version": "2.2.1",
-	"description": "Storage, compile, and auto deploy gadgets.",
+	"version": "2.2.2",
+	"description": "Storage, compile, and auto deploy MediaWiki gadgets.",
 	"type": "module",
 	"scripts": {
 		"build": "pnpm format && node --no-warnings --loader ts-node/esm scripts/only-build.ts",
@@ -22,6 +22,7 @@
 		"prepare": "husky install"
 	},
 	"keywords": [
+		"Gadget",
 		"MediaWiki",
 		"MediaWiki Gadget"
 	],
