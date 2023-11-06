@@ -64,16 +64,5 @@
 		"ts-node": "^10.9.1",
 		"types-mediawiki": "github:AnYiEE/types-mediawiki",
 		"typescript": "^5.2.2"
-	},
-	"lint-staged": {
-		"*.{css,less}": [
-			"prettier --cache --write",
-			"stylelint --allow-empty-input --cache --fix"
-		],
-		"*.{cjs,js,ts}": [
-			"prettier --cache --write",
-			"eslint --cache --fix"
-		],
-		"*": "prettier --cache --ignore-unknown --write"
 	}
 }
