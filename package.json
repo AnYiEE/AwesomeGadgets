@@ -5,7 +5,7 @@
 		"type": "git",
 		"url": "https://github.com/AnYiEE/AwesomeGadgets"
 	},
-	"version": "2.2.2",
+	"version": "2.3.0",
 	"description": "Storage, compile, and auto deploy MediaWiki gadgets.",
 	"type": "module",
 	"scripts": {
