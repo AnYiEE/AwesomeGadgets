@@ -1,5 +1,4 @@
 {
-	"customSyntax": "postcss-less",
 	"extends": ["stylelint-config-wikimedia/mediawiki", "stylelint-config-wikimedia/support-modern"],
 	"rules": {
 		"declaration-no-important": null,
