@@ -234,7 +234,11 @@ const convertVariant = async (
 		const {document} = window;
 		document.body.innerHTML = `<div>${parsedHtml}</div>`;
 		const convertedDescription: string = document.querySelector('.convertVariant').textContent;
-		const response: ApiEditResponse = await api.save(`${pageTitle}/${variant}`, convertedDescription, editSummary);
+		const response: ApiEditResponse = await api.save(
+			`${pageTitle}/${variant}`,
+			convertedDescription.replace(/-{}-/g, ''),
+			editSummary
+		);
 		if (response.nochange) {
 			isNoChange = true;
 		}
