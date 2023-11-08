@@ -1,11 +1,7 @@
 {
 	"name": "awesome-gadgets",
 	"private": true,
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/AnYiEE/AwesomeGadgets"
-	},
-	"version": "2.3.0",
+	"version": "2.4.0",
 	"description": "Storage, compile, and auto deploy MediaWiki gadgets.",
 	"type": "module",
 	"scripts": {
@@ -20,6 +16,10 @@
 		"lint:fix": "pnpm eslint:fix && pnpm stylelint:fix",
 		"preinstall": "npx only-allow pnpm",
 		"prepare": "husky install"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/AnYiEE/AwesomeGadgets"
 	},
 	"keywords": [
 		"Gadget",
