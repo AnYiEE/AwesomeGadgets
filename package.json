@@ -36,11 +36,11 @@
 		"@babel/preset-env": "^7.23.2",
 		"@commitlint/cli": "^18.2.0",
 		"@commitlint/config-conventional": "^18.1.0",
-		"@types/babel__core": "^7.20.3",
-		"@types/jqueryui": "^1.12.19",
-		"@types/node": "^20.8.10",
-		"@types/oojs-ui": "^0.47.3",
-		"@types/prompts": "^2.4.7",
+		"@types/babel__core": "^7.20.4",
+		"@types/jqueryui": "^1.12.20",
+		"@types/node": "^20.9.0",
+		"@types/oojs-ui": "^0.47.5",
+		"@types/prompts": "^2.4.8",
 		"@typescript-eslint/eslint-plugin": "^5.62.0",
 		"@typescript-eslint/parser": "^5.62.0",
 		"babel-plugin-array-includes": "^2.0.3",
@@ -62,7 +62,12 @@
 		"stylelint": "^15.11.0",
 		"stylelint-config-wikimedia": "^0.16.1",
 		"ts-node": "^10.9.1",
-		"types-mediawiki": "github:AnYiEE/types-mediawiki",
+		"types-mediawiki-renovate": "latest",
 		"typescript": "^5.2.2"
+	},
+	"pnpm": {
+		"overrides": {
+			"types-mediawiki": "npm:types-mediawiki-renovate"
+		}
 	}
 }

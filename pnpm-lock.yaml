@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  types-mediawiki: npm:types-mediawiki-renovate
+
 devDependencies:
   '@babel/core':
     specifier: ^7.23.2
@@ -27,20 +30,20 @@ devDependencies:
     specifier: ^18.1.0
     version: 18.1.0
   '@types/babel__core':
-    specifier: ^7.20.3
-    version: 7.20.3
+    specifier: ^7.20.4
+    version: 7.20.4
   '@types/jqueryui':
-    specifier: ^1.12.19
-    version: 1.12.19
+    specifier: ^1.12.20
+    version: 1.12.20
   '@types/node':
-    specifier: ^20.8.10
-    version: 20.8.10
+    specifier: ^20.9.0
+    version: 20.9.0
   '@types/oojs-ui':
-    specifier: ^0.47.3
-    version: 0.47.3
+    specifier: ^0.47.5
+    version: 0.47.5
   '@types/prompts':
-    specifier: ^2.4.7
-    version: 2.4.7
+    specifier: ^2.4.8
+    version: 2.4.8
   '@typescript-eslint/eslint-plugin':
     specifier: ^5.62.0
     version: 5.62.0(@typescript-eslint/parser@5.62.0)(eslint@8.53.0)(typescript@5.2.2)
@@ -103,10 +106,10 @@ devDependencies:
     version: 0.16.1(postcss-less@6.0.0)(typescript@5.2.2)
   ts-node:
     specifier: ^10.9.1
-    version: 10.9.1(@types/node@20.8.10)(typescript@5.2.2)
-  types-mediawiki:
-    specifier: github:AnYiEE/types-mediawiki
-    version: github.com/AnYiEE/types-mediawiki/b81e080c704c318fd9d151d0009b2818b61d6b8d
+    version: 10.9.1(@types/node@20.9.0)(typescript@5.2.2)
+  types-mediawiki-renovate:
+    specifier: '*'
+    version: 2.0.0
   typescript:
     specifier: ^5.2.2
     version: 5.2.2
@@ -1827,8 +1830,8 @@ packages:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
     dev: true
 
-  /@types/babel__core@7.20.3:
-    resolution: {integrity: sha512-54fjTSeSHwfan8AyHWrKbfBWiEUrNTZsUwPTDSNaaP1QDQIZbeNUg3a59E9D+375MzUw/x1vx2/0F5LBz+AeYA==}
+  /@types/babel__core@7.20.4:
+    resolution: {integrity: sha512-mLnSC22IC4vcWiuObSRjrLd9XcBTGf59vUSoq2jkQDJ/QQ8PMI9rSuzE+aEV8karUMbskw07bKYoUJCKTUaygg==}
     dependencies:
       '@babel/parser': 7.23.0
       '@babel/types': 7.23.0
@@ -1862,8 +1865,14 @@ packages:
       '@types/sizzle': 2.3.5
     dev: true
 
-  /@types/jqueryui@1.12.19:
-    resolution: {integrity: sha512-pbjCT91/GB3kbJ9R2VeCfgTgHnqCrDG7FhLC7jeRnOsUJBxBX4VzTYPwF/qdRDxt7AHwaCzeuIM7IEPdYpfNvg==}
+  /@types/jquery@3.5.27:
+    resolution: {integrity: sha512-TR28Y8ezIGgfyA02UOh9x+Fy16/1qWYAnvtRd2gTBJuccX/vmddyti0MezLkTv7f+OLofVc2T961VPyKv1tXJQ==}
+    dependencies:
+      '@types/sizzle': 2.3.5
+    dev: true
+
+  /@types/jqueryui@1.12.20:
+    resolution: {integrity: sha512-kHjvlPOHy+8+3SBYFA4g+n144SBZ/RFEq6oYr5w1I7PfrrGJ3RXNc13UlGA2ohkx2EjGD93QB97or63IJWB+Lw==}
     dependencies:
       '@types/jquery': 3.5.25
     dev: true
@@ -1894,8 +1903,8 @@ packages:
       undici-types: 5.26.5
     dev: true
 
-  /@types/node@20.8.10:
-    resolution: {integrity: sha512-TlgT8JntpcbmKUFzjhsyhGfP2fsiz1Mv56im6enJ905xG1DAYesxJaeSbGqQmAw8OWPdhyJGhGSQGKRNJ45u9w==}
+  /@types/node@20.9.0:
+    resolution: {integrity: sha512-nekiGu2NDb1BcVofVcEKMIwzlx4NjHlcjhoxxKBNLtz15Y1z7MYf549DFvkHSId02Ax6kGwWntIBPC3l/JZcmw==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -1904,8 +1913,8 @@ packages:
     resolution: {integrity: sha512-ehPtgRgaULsFG8x0NeYJvmyH1hmlfsNLujHe9dQEia/7MAJYdzMSi19JtchUHjmBA6XC/75dK55mzZH+RyieSg==}
     dev: true
 
-  /@types/oojs-ui@0.47.3:
-    resolution: {integrity: sha512-StT+bKly8c4qtHVyUzw7iEdCbbBDunSqzqM09UZfTHHRfAqFboZXJo00gI61tXL50Dj4EaUhGDyXOYY+N9BGnQ==}
+  /@types/oojs-ui@0.47.5:
+    resolution: {integrity: sha512-naxHtrHsbv7EA1laQJunpFH2wJl3MooEhBybdGpH4V9Nww83oHDCnXR2nmcancGaCt5DgbGu3KLPc70bnYOy7A==}
     dependencies:
       '@types/jquery': 3.5.25
       '@types/oojs': 7.0.3
@@ -1915,10 +1924,10 @@ packages:
     resolution: {integrity: sha512-lTTxKHMBd9luGuAkPOGNmcKPES4Szc0Ud/3mN3NjJeXQIu93J9QSI+9bGSDmJGTVX0etfwYl9/r4vdy7v94wGA==}
     dev: true
 
-  /@types/prompts@2.4.7:
-    resolution: {integrity: sha512-5zTamE+QQM4nR6Ab3yHK+ovWuhLJXaa2ZLt3mT1en8U3ubWtjVT1vXDaVFC2+cL89uVn7Y+gIq5B3IcVvBl5xQ==}
+  /@types/prompts@2.4.8:
+    resolution: {integrity: sha512-fPOEzviubkEVCiLduO45h+zFHB0RZX8tFt3C783sO5cT7fUXf3EEECpD26djtYdh4Isa9Z9tasMQuZnYPtvYzw==}
     dependencies:
-      '@types/node': 20.8.10
+      '@types/node': 20.9.0
       kleur: 3.0.3
     dev: true
 
@@ -4090,7 +4099,7 @@ packages:
       form-data: 3.0.1
       oauth-1.0a: 2.2.6
       tough-cookie: 4.1.3
-      types-mediawiki: 1.4.0
+      types-mediawiki: /types-mediawiki-renovate@2.0.0
     transitivePeerDependencies:
       - debug
     dev: true
@@ -5094,7 +5103,7 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /ts-node@10.9.1(@types/node@20.8.10)(typescript@5.2.2):
+  /ts-node@10.9.1(@types/node@20.9.0)(typescript@5.2.2):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -5113,7 +5122,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.8.10
+      '@types/node': 20.9.0
       acorn: 8.11.2
       acorn-walk: 8.3.0
       arg: 4.1.3
@@ -5175,10 +5184,10 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /types-mediawiki@1.4.0:
-    resolution: {integrity: sha512-lyVkP0BsUbGNL24p2fCbdQ+24qK3jQyrbWDyRT28hL1aZFw249gNYCgUD41i6fMyu5c6JNxcHBwOHJhWxtWhFw==}
+  /types-mediawiki-renovate@2.0.0:
+    resolution: {integrity: sha512-k+5oE3OQJXXTL+O8A9GA/BhwMmJQ4Mlbk/SUjtaxmTyEbO+Ah1KxHhQPoCxvy2PjgTPimSTsegNF9nnHaV1/jw==}
     dependencies:
-      '@types/jquery': 3.5.25
+      '@types/jquery': 3.5.27
     dev: true
 
   /typescript@5.2.2:
@@ -5415,12 +5424,4 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-    dev: true
-
-  github.com/AnYiEE/types-mediawiki/b81e080c704c318fd9d151d0009b2818b61d6b8d:
-    resolution: {tarball: https://codeload.github.com/AnYiEE/types-mediawiki/tar.gz/b81e080c704c318fd9d151d0009b2818b61d6b8d}
-    name: types-mediawiki
-    version: 2.0.5
-    dependencies:
-      '@types/jquery': 3.5.25
     dev: true
