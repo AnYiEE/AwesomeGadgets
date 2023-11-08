@@ -108,7 +108,7 @@ devDependencies:
     specifier: ^10.9.1
     version: 10.9.1(@types/node@20.9.0)(typescript@5.2.2)
   types-mediawiki-renovate:
-    specifier: '*'
+    specifier: latest
     version: 2.0.0
   typescript:
     specifier: ^5.2.2
