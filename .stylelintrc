@@ -1,6 +1,7 @@
 {
 	"extends": ["stylelint-config-wikimedia/mediawiki", "stylelint-config-wikimedia/support-modern"],
 	"rules": {
+		"at-rule-disallowed-list": null,
 		"declaration-no-important": null,
 		"function-url-quotes": "always",
 		"no-descending-specificity": null,

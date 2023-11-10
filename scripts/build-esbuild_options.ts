@@ -3,6 +3,7 @@ import LessPluginAutoPrefix from 'less-plugin-autoprefix';
 import LessPluginNpmImport from 'less-plugin-npm-import';
 import browserslist from 'browserslist-config-wikimedia/modern-es6-only';
 import {lessLoader} from 'esbuild-plugin-less';
+import postcss from 'esbuild-postcss';
 
 /**
  * @summary Do not forget to declare these file extensions in `src/global.d.ts`
@@ -23,6 +24,7 @@ const esbuildOptions: BuildOptions = {
 	bundle: true,
 	charset: 'utf8',
 	plugins: [
+		postcss(),
 		lessLoader({
 			plugins: [
 				new LessPluginAutoPrefix({
