@@ -1,7 +1,6 @@
 import type {BuildOptions} from 'esbuild';
-import LessPluginAutoPrefix from 'less-plugin-autoprefix';
 import LessPluginNpmImport from 'less-plugin-npm-import';
-import browserslist from 'browserslist-config-wikimedia/modern-es6-only';
+import LessPluginPresetEnv from 'less-plugin-preset-env';
 import {lessLoader} from 'esbuild-plugin-less';
 import postcss from 'esbuild-postcss';
 
@@ -27,16 +26,7 @@ const esbuildOptions: BuildOptions = {
 		postcss(),
 		lessLoader({
 			plugins: [
-				new LessPluginAutoPrefix({
-					browsers: [
-						...new Set(
-							browserslist.map((value: string): string => {
-								const regex = /(.*?)\s(?:and|or)\s/;
-								return value.match(regex) ? (value.match(regex) as RegExpMatchArray)[1] : value;
-							})
-						),
-					],
-				}) as unknown as Less.Plugin,
+				new LessPluginPresetEnv() as unknown as Less.Plugin,
 				new LessPluginNpmImport({prefix: '~'}) as unknown as Less.Plugin,
 			],
 		}),

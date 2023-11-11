@@ -92,6 +92,9 @@ devDependencies:
   less-plugin-npm-import:
     specifier: ^2.1.0
     version: 2.1.0
+  less-plugin-preset-env:
+    specifier: ^1.0.1
+    version: 1.0.1
   mwn:
     specifier: ^2.0.1
     version: 2.0.1
@@ -4242,6 +4245,14 @@ packages:
     dependencies:
       promise: 7.0.4
       resolve: 1.1.7
+    dev: true
+
+  /less-plugin-preset-env@1.0.1:
+    resolution: {integrity: sha512-ejvgzdtjwFWHZ1APRHJWkeZJjGxr0+CJmyL2FH0Wn/kPg5l4v6yJ84dzymkrM1g3zCvFCLyhpjbrZeGQIFaJQg==}
+    engines: {node: '>=4.0.0'}
+    dependencies:
+      postcss: 8.4.31
+      postcss-preset-env: 9.3.0(postcss@8.4.31)
     dev: true
 
   /less@4.2.0:
