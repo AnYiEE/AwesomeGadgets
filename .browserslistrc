@@ -7,4 +7,4 @@
 # ios 11
 # android 5.0
 
-extends browserslist-config-wikimedia/modern
+extends browserslist-config-wikimedia/basic

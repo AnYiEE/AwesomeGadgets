@@ -1,5 +1,5 @@
 {
-	"extends": ["stylelint-config-wikimedia/mediawiki", "stylelint-config-wikimedia/support-modern"],
+	"extends": ["stylelint-config-wikimedia/mediawiki", "stylelint-config-wikimedia/support-basic"],
 	"rules": {
 		"at-rule-disallowed-list": null,
 		"declaration-no-important": null,

@@ -75,6 +75,7 @@ const prompt = async (message: string, type: PromptType = 'text', initial = ''):
  * @return {Promise<void>}
  */
 const wait = (ms = 1000): Promise<void> => {
+	// eslint-disable-next-line compat/compat
 	return new Promise((resolve) => {
 		setTimeout(resolve, ms);
 	});
