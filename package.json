@@ -55,7 +55,6 @@
 		"eslint-plugin-unicorn": "^49.0.0",
 		"happy-dom": "^12.10.3",
 		"husky": "^8.0.3",
-		"less-plugin-autoprefix": "^2.0.0",
 		"less-plugin-npm-import": "^2.1.0",
 		"less-plugin-preset-env": "^1.0.1",
 		"mwn": "^2.0.1",
