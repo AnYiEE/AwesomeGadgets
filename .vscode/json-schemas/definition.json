@@ -1,20 +1,20 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"title": "小工具定义",
+	"title": "小工具定义 / Gadget definition",
 	"type": "object",
 	"properties": {
 		"enable": {
 			"type": "boolean",
-			"title": "是否启用当前小工具",
+			"title": "是否启用当前小工具 / Enable current gadget or not",
 			"default": true
 		},
 		"description": {
 			"type": "string",
-			"title": "“MediaWiki:Gadget-小工具名”页面中的文本，默认为小工具名"
+			"title": "“MediaWiki:Gadget-小工具名”页面中的文本，默认为当前小工具名 / The content in the page 'MediaWiki:Gadget-${gadgetName}' (default: the current gadget name)"
 		},
 		"section": {
 			"type": "string",
-			"title": "当前小工具在“MediaWiki:Gadgets-definition”页面中所处的章节",
+			"title": "当前小工具在“MediaWiki:Gadgets-definition”页面中所处的章节 / The section of the current gadget in the page 'MediaWiki:Gadgets-definition'",
 			"default": "appear",
 			"examples": ["appear", "browser", "compatibility", "edit", "sysop"],
 			"minLength": 1
@@ -49,7 +49,7 @@
 			"default": false
 		},
 		"namespaces": {
-			"title": "加载当前小工具的命名空间，值为 false 时等同于未作设置",
+			"title": "加载当前小工具的命名空间，值为 false 时等同于未作设置 / The namespace to load the current gadget, set to `false` to be the same as not setting",
 			"default": false,
 			"anyOf": [
 				{

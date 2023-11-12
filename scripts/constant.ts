@@ -16,6 +16,11 @@ const WARNING = `/**
  * +--------------------------------------------------------+
  */`;
 
+/**
+ * `MediaWiki:Gadgets-definition`页面最上方的文本
+ *
+ * The content at the top of the `MediaWiki:Gadgets-definition` page
+ */
 const BANNER = `<div class="mw-message-box mw-message-box-notice">
 <big>本页面内容由脚本自动生成，维护于Git仓库内。对本页面内容的变更，应通知技术团队，以免在代码部署时被误覆盖。</big>
 * 若需要查看本地小工具使用情况，请前往[[Special:GadgetUsage|“小工具使用统计”界面]]。
@@ -24,8 +29,8 @@ const BANNER = `<div class="mw-message-box mw-message-box-notice">
 
 const DEFAULT_DEFINITION: DefaultDefinition = {
 	enable: true,
-	description: '', // 回落值为小工具名称
-	section: '', // 回落值为appear
+	description: '', // 回落值为小工具名称 / Fallback value: the name of the current gadget
+	section: '', // 回落值为appear / Fallback value: appear
 	actions: [],
 	contentModels: [],
 	default: false,
@@ -37,14 +42,18 @@ const DEFAULT_DEFINITION: DefaultDefinition = {
 	rights: [],
 	skins: [],
 	supportsUrlLoad: false,
-	// targets: 'desktop' | 'mobile' -> 已弃用，转用skins参数
-	// type: 'general' | 'styles' -> 自动识别，无需指定
+	// targets: 'desktop' | 'mobile' -> 已弃用，转用 skins 参数 / Deprecated, switch to the "skins" parameter
+	// type: 'general' | 'styles' -> 自动识别，无需指定 / Automatically recognized, no need to specify
 };
 
 /**
  * 指定`MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}`页面的文本（即小工具章节名）
  *
  * 可自行添加，回落值为`DEFAULT_DEFINITION.section`的值
+ *
+ * The content of the `MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}` page (the name of the current gadget section)
+ *
+ * Can be added by oneself, the fallback value is the value of `DEFAULT_DEFINITION.section`
  */
 const DEFINITION_SECTION_MAP: DefaultSectionMap = {
 	appear: '显示类小工具',
@@ -60,6 +69,10 @@ const DEPLOY_USER_AGENT = 'AnYiEE/AwesomeGadgets (https://github.com/AnYiEE/Awes
  * 是否自动转换`MediaWiki:Gadget-${gadgetName}`和`MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}`页面的语言变体
  *
  * 需要目标 MediaWiki 网站存在 NoteTA 模板和 IT 以及 MediaWiki 公共转换组
+ *
+ * Whether to automatically convert the language variants of the `MediaWiki:Gadget-${gadgetName}` and `MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}` pages
+ *
+ * The target MediaWiki site needs to have the NoteTA template and the IT and MediaWiki public conversion group
  */
 const IS_CONVERT_VARIANT = false;
 

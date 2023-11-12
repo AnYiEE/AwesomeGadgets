@@ -135,7 +135,8 @@ const findSourceFile = async (currentDir = 'src'): Promise<SourceFiles> => {
 			await findSourceFile(fullPath);
 		} else if (!/\.d\.ts$/.test(dir)) {
 			const fullPathArray: string[] = fullPath.split(process.platform === 'win32' ? '\\' : '/');
-			// 仅支持形如src/gadget/index.ts的“一层”路径，因为考虑到子文件夹可能被父文件夹的脚本import
+			// 仅支持形如`src/gadget/index.ts`的“一层”路径，因为考虑到子文件夹可能被父文件夹的脚本导入
+			// Only supports "one-layer" paths like `src/gadget/index.ts`, because it considers that subfolders may be imported by scripts in parent folders
 			if (fullPathArray.length !== 3) {
 				continue;
 			}
