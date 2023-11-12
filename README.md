@@ -1,3 +1,6 @@
+[![NPM version](https://img.shields.io/npm/v/awesome-gadgets.svg)](https://www.npmjs.com/package/awesome-gadgets)
+[![Linter](https://github.com/AnYiEE/AwesomeGadgets/actions/workflows/lint.yml/badge.svg)](https://github.com/AnYiEE/AwesomeGadgets/actions/workflows/lint.yml)
+
 ### 简介 / Introduction
 
 Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编译全站小工具（Gadget）的工具。小工具开发者只需关心小工具本身的代码实现，无需关心其他方面。工具将自动检查语法、编译并部署到网站。<br>Awesome Gadgets is a tool for MediaWiki websites, which is used to store, manage and compile all site gadgets. The developer only needs to focus on the code implementation of the gadget, and does not need to worry about other aspects. The tool will automatically check the syntax, compile and deploy to the website.
