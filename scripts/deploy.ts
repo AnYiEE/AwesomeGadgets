@@ -1,4 +1,5 @@
 import type {Credentials, DeploymentTargets} from './scripts';
+import {DEPLOY_USER_AGENT, MAX_CONCURRENCY} from './constant';
 import {
 	checkConfig,
 	delay,
@@ -14,8 +15,12 @@ import {
 	saveFiles,
 	setDefinition,
 } from './deploy-util';
-import {DEPLOY_USER_AGENT} from './constant';
 import {Mwn} from 'mwn';
+import PQueue from 'p-queue';
+
+const queue: PQueue = new PQueue({
+	concurrency: MAX_CONCURRENCY > 128 ? 128 : MAX_CONCURRENCY,
+});
 
 /**
  * Deploy definitions, scripts and styles
@@ -47,21 +52,23 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 	await delay();
 	log('yellow', '--- starting deployment ---');
 	const editSummary: string = await makeEditSummary();
+	const apiOptions: {
+		api: Mwn;
+		editSummary: string;
+		queue: PQueue;
+	} = {
+		api,
+		editSummary,
+		queue,
+	};
 	const definitionText: string = await readDefinition();
 	await setDefinition(definitionText);
-	await saveDefinition(definitionText, {
-		api,
-		editSummary,
-	});
-	await saveDefinitionSectionPage(definitionText, {
-		api,
-		editSummary,
-	});
+	await saveDefinition(definitionText, apiOptions);
+	await saveDefinitionSectionPage(definitionText, apiOptions);
 	for (const [name, {description, files}] of Object.entries(targets)) {
 		await saveDescription(name, {
-			api,
+			...apiOptions,
 			description,
-			editSummary,
 		});
 		for (let file of files) {
 			if (/^\./.test(file)) {
@@ -69,13 +76,13 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 			}
 			const fileText: string = await readFileText(name, file);
 			await saveFiles(name, {
-				api,
-				editSummary,
+				...apiOptions,
 				file,
 				fileText,
 			});
 		}
 	}
+	await queue.onIdle();
 	log('yellow', '--- end of deployment ---');
 };
 

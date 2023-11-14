@@ -3,6 +3,7 @@ import {BANNER, DEFINITION_SECTION_MAP, IS_CONVERT_VARIANT} from './constant';
 import type {Credentials, CredentialsOnlyPassword, DeploymentTargets} from './scripts';
 import fsPromises, {type FileHandle} from 'node:fs/promises';
 import prompts, {type Answers, type PromptType} from 'prompts';
+import PQueue from 'p-queue';
 import {Window} from 'happy-dom';
 import chalk from 'chalk';
 import {execSync} from 'node:child_process';
@@ -192,11 +193,11 @@ const setDefinition = async (definitionText: string): Promise<void> => {
  * Convert language variants of a page
  *
  * @param {string} pageTitle The titie of this page
- * @param {{api:Mwn; content:string; editSummary:string}} object The api instance, the content of this page and the editing summary used by the api instance
+ * @param {{api:Mwn; content:string; editSummary:string; queue:PQueue}} object The api instance, the content of this page, the editing summary used by this api instance and the deployment queue
  */
 const convertVariant = async (
 	pageTitle: string,
-	{api, content, editSummary}: {api: Mwn; content: string; editSummary: string}
+	{api, content, editSummary, queue}: {api: Mwn; content: string; editSummary: string; queue: PQueue}
 ): Promise<boolean> => {
 	const variants: string[] = ['zh', 'zh-hans', 'zh-cn', 'zh-my', 'zh-sg', 'zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'];
 	/**
@@ -242,9 +243,13 @@ const convertVariant = async (
 			isNoChange = true;
 		}
 	};
+	const taskQueue: Array<() => Promise<void>> = [];
 	for (const variant of variants) {
-		await convert(variant);
+		taskQueue.push(async (): Promise<void> => {
+			await convert(variant);
+		});
 	}
+	await queue.addAll(taskQueue);
 	return isNoChange;
 };
 
@@ -252,12 +257,16 @@ const convertVariant = async (
  * Save gadget definition section pages
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {{api:Mwn; editSummary:string}} api The api instance and the editing summary used by the api instance
+ * @param {Object} apiOptions
+ * @param {Mwn} apiOptions.api The api instance
+ * @param {string} apiOptions.editSummary The editing summary used by this api instance
+ * @param {PQueue} apiOptions.queue The deployment queue
  */
 const saveDefinitionSectionPage = async (
 	definitionText: string,
-	{api, editSummary}: {api: Mwn; editSummary: string}
+	apiOptions: {api: Mwn; editSummary: string; queue: PQueue}
 ): Promise<void> => {
+	const {api, editSummary, queue} = apiOptions;
 	const sections: string[] = (definitionText.match(/^==([\S\s]+?)==$/gm) as RegExpMatchArray).map(
 		(sectionHeader: string): string => {
 			return sectionHeader.replace(/[=]=/g, '').trim();
@@ -266,25 +275,32 @@ const saveDefinitionSectionPage = async (
 	const pageTitles: string[] = sections.map((section: string): string => {
 		return `MediaWiki:Gadget-section-${section}`;
 	});
+	const taskQueue: Array<() => Promise<void>> = [];
 	for (const [index, section] of sections.entries()) {
 		const sectionText: string = DEFINITION_SECTION_MAP[section] || section;
 		const pageTitle: string = pageTitles[index];
-		try {
-			const response: ApiEditResponse = await api.save(pageTitle, sectionText, editSummary);
-			if (response.nochange) {
-				log('yellow', `━ No change saving ${pageTitle}`);
-			} else {
-				log('green', `✔ Successfully saved ${pageTitle}`);
+		taskQueue.push(async (): Promise<void> => {
+			try {
+				const response: ApiEditResponse = await api.save(pageTitle, sectionText, editSummary);
+				if (response.nochange) {
+					log('yellow', `━ No change saving ${pageTitle}`);
+				} else {
+					log('green', `✔ Successfully saved ${pageTitle}`);
+				}
+			} catch (error) {
+				log('red', `✘ Failed to save ${pageTitle}`);
+				console.error(error);
 			}
-			if (!IS_CONVERT_VARIANT) {
-				continue;
-			}
+		});
+		if (!IS_CONVERT_VARIANT) {
+			continue;
+		}
+		taskQueue.push(async (): Promise<void> => {
 			try {
 				log('white', `━ Converting ${pageTitle}`);
 				const isNoChange: boolean = await convertVariant(pageTitle, {
+					...apiOptions,
 					content: sectionText,
-					api,
-					editSummary,
 				});
 				if (isNoChange) {
 					log('yellow', `━ No change converting ${pageTitle}`);
@@ -295,63 +311,79 @@ const saveDefinitionSectionPage = async (
 				log('red', `✘ Failed to convert ${pageTitle}`);
 				console.error(error);
 			}
-		} catch (error) {
-			log('red', `✘ Failed to save ${pageTitle}`);
-			console.error(error);
-		}
+		});
 	}
+	await queue.addAll(taskQueue);
 };
 
 /**
  * Save gadget definition
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {{api:Mwn; editSummary:string}} api The api instance and the editing summary used by the api instance
+ * @param {{api:Mwn; editSummary:string; queue:PQueue}} api The api instance, the editing summary used by this api instance and the deployment queue
  */
 const saveDefinition = async (
 	definitionText: string,
-	{api, editSummary}: {api: Mwn; editSummary: string}
+	{api, editSummary, queue}: {api: Mwn; editSummary: string; queue: PQueue}
 ): Promise<void> => {
-	try {
-		const response: ApiEditResponse = await api.save('MediaWiki:Gadgets-definition', definitionText, editSummary);
-		if (response.nochange) {
-			log('yellow', '━ No change saving gadget definitions');
-		} else {
-			log('green', '✔ Successfully saved gadget definitions');
+	await queue.add(async (): Promise<void> => {
+		try {
+			const response: ApiEditResponse = await api.save(
+				'MediaWiki:Gadgets-definition',
+				definitionText,
+				editSummary
+			);
+			if (response.nochange) {
+				log('yellow', '━ No change saving gadget definitions');
+			} else {
+				log('green', '✔ Successfully saved gadget definitions');
+			}
+		} catch (error) {
+			log('red', '✘ Failed to save gadget definitions');
+			console.error(error);
 		}
-	} catch (error) {
-		log('red', '✘ Failed to save gadget definitions');
-		console.error(error);
-	}
+	});
 };
 
 /**
  * Save gadget description
  *
  * @param {string} name The gadget name
- * @param {{api:Mwn; description:string; editSummary:string}} api The api instance, the definition of this gadget and the editing summary used by the api instance
+ * @param {Object} options
+ * @param {Mwn} options.api The api instance
+ * @param {string} options.description The definition of this gadget
+ * @param {string} options.editSummary The editing summary used by this api instance
+ * @param {PQueue} options.queue The deployment queue
  */
 const saveDescription = async (
 	name: string,
-	{api, description, editSummary}: {api: Mwn; description: string; editSummary: string}
+	options: {api: Mwn; description: string; editSummary: string; queue: PQueue}
 ): Promise<void> => {
+	const {description, ...apiOptions} = options;
+	const {api, editSummary, queue} = apiOptions;
 	const descriptionPageTitle = `MediaWiki:Gadget-${name}`;
-	try {
-		const response: ApiEditResponse = await api.save(descriptionPageTitle, description, editSummary);
-		if (response.nochange) {
-			log('yellow', `━ No change saving ${name} description`);
-		} else {
-			log('green', `✔ Successfully saved ${name} description`);
+	await queue.add(async (): Promise<void> => {
+		try {
+			const response: ApiEditResponse = await api.save(descriptionPageTitle, description, editSummary);
+			if (response.nochange) {
+				log('yellow', `━ No change saving ${name} description`);
+			} else {
+				log('green', `✔ Successfully saved ${name} description`);
+			}
+		} catch (error) {
+			log('red', `✘ Failed to save ${name} description`);
+			console.error(error);
 		}
-		if (!IS_CONVERT_VARIANT) {
-			return;
-		}
+	});
+	if (!IS_CONVERT_VARIANT) {
+		return;
+	}
+	await queue.add(async (): Promise<void> => {
 		try {
 			log('white', `━ Converting ${name} description`);
 			const isNoChange: boolean = await convertVariant(descriptionPageTitle, {
+				...apiOptions,
 				content: description,
-				api,
-				editSummary,
 			});
 			if (isNoChange) {
 				log('yellow', `━ No change converting ${name} description`);
@@ -362,37 +394,42 @@ const saveDescription = async (
 			log('red', `✘ Failed to convert ${name} description`);
 			console.error(error);
 		}
-	} catch (error) {
-		log('red', `✘ Failed to save ${name} description`);
-		console.error(error);
-	}
+	});
 };
 
 /**
  * Save gadget file
  *
  * @param {string} name The gadget name
- * @param {{api:Mwn; editSummary:string; file:string; fileText:string}} api The api instance, the editing summary used by the api instance, the target file name and the file content
+ * @param {{api:Mwn; editSummary:string; file:string; fileText:string; queue:PQueue}} api The api instance, the editing summary used by this api instance, the target file name, the file content and the deployment queue
  */
 const saveFiles = async (
 	name: string,
-	{api, editSummary, file, fileText}: {api: Mwn; editSummary: string; file: string; fileText: string}
+	{
+		api,
+		editSummary,
+		file,
+		fileText,
+		queue,
+	}: {api: Mwn; editSummary: string; file: string; fileText: string; queue: PQueue}
 ): Promise<void> => {
-	try {
-		let fileName = `${name}-${file}`;
-		if (file.split('.')[0] === name) {
-			fileName = file;
+	await queue.add(async (): Promise<void> => {
+		try {
+			let fileName = `${name}-${file}`;
+			if (file.split('.')[0] === name) {
+				fileName = file;
+			}
+			const response: ApiEditResponse = await api.save(`MediaWiki:Gadget-${fileName}`, fileText, editSummary);
+			if (response.nochange) {
+				log('yellow', `━ No change saving ${fileName} to ${name}`);
+			} else {
+				log('green', `✔ Successfully saved ${fileName} to ${name}`);
+			}
+		} catch (error) {
+			log('red', `✘ Failed to save ${file} to ${name}`);
+			console.error(error);
 		}
-		const response: ApiEditResponse = await api.save(`MediaWiki:Gadget-${fileName}`, fileText, editSummary);
-		if (response.nochange) {
-			log('yellow', `━ No change saving ${fileName} to ${name}`);
-		} else {
-			log('green', `✔ Successfully saved ${fileName} to ${name}`);
-		}
-	} catch (error) {
-		log('red', `✘ Failed to save ${file} to ${name}`);
-		console.error(error);
-	}
+	});
 };
 
 export {
