@@ -77,11 +77,11 @@ const DEPLOY_USER_AGENT = 'AnYiEE/AwesomeGadgets (https://github.com/AnYiEE/Awes
 const IS_CONVERT_VARIANT = false;
 
 /**
- * 部署时请求目标 MediaWiki 网站 API 的最大并发数，上限为 128
+ * 部署时请求目标 MediaWiki 网站 API 的最大并发数，上限为 256
  *
- * The maximum concurrency number of requests to the API during deployment, the upper limit is 128
+ * The maximum concurrency number of requests to the API during deployment, the upper limit is 256
  */
-const MAX_CONCURRENCY = 32;
+const MAX_CONCURRENCY = 64;
 
 export {
 	HEADER,

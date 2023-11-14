@@ -24,47 +24,59 @@ const getFiles = (name: string, files: string[]): string => {
 		.join('|');
 };
 
-const definitions: string[] = [];
 /**
  * Compile scripts and styles and generate corresponding definitions
  *
  * @param {SourceFiles} sourceFiles Return value of `findSourceFile(/path/to/gadget_files)`
- * @returns {Promise<typeof definitions>} Array of gadget definitions (in the format of MediaWiki:Gadgets-definition item)
+ * @return {string[]} Array of gadget definitions (in the format of MediaWiki:Gadgets-definition item)
  */
-const build = async (sourceFiles: SourceFiles): Promise<typeof definitions> => {
+const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
+	const buildPromiseArray: Promise<void>[] = [];
+	const definitions: string[] = [];
+
 	for (const [name, {definition, license, script, scripts, style, styles}] of Object.entries(sourceFiles)) {
 		let definitionItemFiles = '';
-		const licenseText: string = await getLicense(license, {
+		const licenseText: string = getLicense(license, {
 			name,
 		});
+
 		if (script || scripts) {
 			const scriptFileArray: string[] = script ? [script] : scripts;
 			const scriptFiles: string = getFiles(name, scriptFileArray);
 			definitionItemFiles += scriptFiles ? `${scriptFiles}|` : '';
-			await buildScripts(scriptFileArray, {
-				name,
-				licenseText,
-			});
+			buildPromiseArray.push(
+				buildScripts(scriptFileArray, {
+					name,
+					licenseText,
+				})
+			);
 		}
+
 		if (style || styles) {
 			const styleFileArray: string[] = style ? [style] : styles;
 			const styleFiles: string = getFiles(name, styleFileArray);
 			definitionItemFiles += styleFiles ? `${styleFiles}|` : '';
-			await buildStyles(styleFileArray, {
-				name,
-				licenseText,
-			});
+			buildPromiseArray.push(
+				buildStyles(styleFileArray, {
+					name,
+					licenseText,
+				})
+			);
 		}
+
 		const definitionItem: string = cleanDefinition({
-			definitionItem: await getDefinition(definition, {
+			definitionItem: getDefinition(definition, {
 				name,
 			}),
 			definitionItemFiles,
 		});
 		definitions.push(definitionItem);
 	}
-	await setDefinition(definitions);
+
+	await Promise.all(buildPromiseArray);
+	setDefinition(definitions);
+
 	return definitions;
 };
 
-export default build;
+export {build};

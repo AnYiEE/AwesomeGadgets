@@ -31,6 +31,7 @@ const esbuildOptions: BuildOptions = {
 			],
 		}),
 	],
+	write: false,
 };
 
-export default esbuildOptions;
+export {esbuildOptions};

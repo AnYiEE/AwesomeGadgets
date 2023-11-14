@@ -19,7 +19,7 @@ import {Mwn} from 'mwn';
 import PQueue from 'p-queue';
 
 const queue: PQueue = new PQueue({
-	concurrency: MAX_CONCURRENCY > 128 ? 128 : MAX_CONCURRENCY,
+	concurrency: MAX_CONCURRENCY > 256 ? 256 : MAX_CONCURRENCY,
 });
 
 /**
@@ -28,12 +28,14 @@ const queue: PQueue = new PQueue({
  * @param {DeploymentTargets} targets Return value of `generateTargets(definitions)`
  */
 const deploy = async (targets: DeploymentTargets): Promise<void> => {
-	let config: Partial<Credentials> = await loadConfig();
+	let config: Partial<Credentials> = loadConfig();
 	config = await checkConfig(config, true);
+
 	const api: Mwn = new Mwn({
 		...config,
 		userAgent: DEPLOY_USER_AGENT,
 	});
+
 	let isUseOAuth = false;
 	try {
 		api.initOAuth();
@@ -42,29 +44,35 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 		config = await checkConfig(config);
 		api.setOptions(config);
 	}
+
 	log('yellow', '--- logging in ---');
 	if (isUseOAuth) {
 		await api.getTokensAndSiteInfo();
 	} else {
 		await api.login();
 	}
+
 	await prompt('> Press [Enter] to start deploying or quickly press [ctrl + C] twice to cancel');
 	await delay();
+
 	log('yellow', '--- starting deployment ---');
-	const editSummary: string = await makeEditSummary();
+
+	const definitionText: string = readDefinition();
+	setDefinition(definitionText);
+
 	const apiOptions: {
 		api: Mwn;
 		editSummary: string;
 		queue: PQueue;
 	} = {
 		api,
-		editSummary,
 		queue,
+		editSummary: await makeEditSummary(),
 	};
-	const definitionText: string = await readDefinition();
-	await setDefinition(definitionText);
+
 	await saveDefinition(definitionText, apiOptions);
 	await saveDefinitionSectionPage(definitionText, apiOptions);
+
 	for (const [name, {description, files}] of Object.entries(targets)) {
 		await saveDescription(name, {
 			...apiOptions,
@@ -74,7 +82,7 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 			if (/^\./.test(file)) {
 				file = `${name}${file}`;
 			}
-			const fileText: string = await readFileText(name, file);
+			const fileText: string = readFileText(name, file);
 			await saveFiles(name, {
 				...apiOptions,
 				file,
@@ -82,8 +90,9 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 			});
 		}
 	}
+
 	await queue.onIdle();
 	log('yellow', '--- end of deployment ---');
 };
 
-export default deploy;
+export {deploy};
