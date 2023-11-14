@@ -1,6 +1,7 @@
 import type {Credentials, DeploymentTargets} from './scripts';
 import {
 	checkConfig,
+	delay,
 	loadConfig,
 	log,
 	makeEditSummary,
@@ -12,7 +13,6 @@ import {
 	saveDescription,
 	saveFiles,
 	setDefinition,
-	wait,
 } from './deploy-util';
 import {DEPLOY_USER_AGENT} from './constant';
 import {Mwn} from 'mwn';
@@ -44,7 +44,7 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 		await api.login();
 	}
 	await prompt('> Press [Enter] to start deploying or quickly press [ctrl + C] twice to cancel');
-	await wait();
+	await delay();
 	log('yellow', '--- starting deployment ---');
 	const editSummary: string = await makeEditSummary();
 	const definitionText: string = await readDefinition();

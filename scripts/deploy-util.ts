@@ -7,6 +7,7 @@ import {Window} from 'happy-dom';
 import chalk from 'chalk';
 import {execSync} from 'node:child_process';
 import path from 'node:path';
+import {setTimeout} from 'node:timers/promises';
 const __dirname = path.resolve();
 
 /**
@@ -74,11 +75,8 @@ const prompt = async (message: string, type: PromptType = 'text', initial = ''):
  * @param {number} [ms=1000] Waiting time (milliseconds)
  * @return {Promise<void>}
  */
-const wait = (ms = 1000): Promise<void> => {
-	// eslint-disable-next-line compat/compat
-	return new Promise((resolve) => {
-		setTimeout(resolve, ms);
-	});
+const delay = (ms = 1000): Promise<void> => {
+	return setTimeout(ms);
 };
 
 /**
@@ -139,7 +137,7 @@ const makeEditSummary = async (): Promise<string> => {
 	log('white', `Editing summary is: "${editSummary}"`);
 	await prompt('> Press [Enter] to continue deploying or quickly press [ctrl + C] twice to cancel');
 	log('yellow', '--- deployment will continue in three seconds ---');
-	await wait(3000);
+	await delay(3000);
 	return editSummary;
 };
 
@@ -399,6 +397,7 @@ const saveFiles = async (
 
 export {
 	checkConfig,
+	delay,
 	generateTargets,
 	loadConfig,
 	log,
@@ -411,5 +410,4 @@ export {
 	saveDescription,
 	saveFiles,
 	setDefinition,
-	wait,
 };
