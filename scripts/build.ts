@@ -45,7 +45,7 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 			const scriptFiles: string = getFiles(name, scriptFileArray);
 			definitionItemFiles += scriptFiles ? `${scriptFiles}|` : '';
 			buildPromiseArray.push(
-				buildScripts(scriptFileArray, {
+				...buildScripts(scriptFileArray, {
 					name,
 					licenseText,
 				})
@@ -57,7 +57,7 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 			const styleFiles: string = getFiles(name, styleFileArray);
 			definitionItemFiles += styleFiles ? `${styleFiles}|` : '';
 			buildPromiseArray.push(
-				buildStyles(styleFileArray, {
+				...buildStyles(styleFileArray, {
 					name,
 					licenseText,
 				})

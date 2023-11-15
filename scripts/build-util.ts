@@ -89,19 +89,17 @@ const buildScript = async (
 /**
  * @param {string[]} scripts Array of script file names for a gadget
  * @param {{name:string; licenseText:string}} object The name and the license file content of this gadget
+ * @return {Promise<void>[]} The build tasks
  */
-const buildScripts = async (
-	scripts: string[],
-	{name, licenseText}: {name: string; licenseText: string}
-): Promise<void> => {
+const buildScripts = (scripts: string[], {name, licenseText}: {name: string; licenseText: string}): Promise<void>[] => {
 	// Load outside the loop for optimizing I/O performance
 	const babelTransformOptions: TransformOptions = JSON.parse(
 		fs.readFileSync(path.join(__dirname, '.babelrc')).toString()
 	);
 
-	const buildPromseArray: Promise<void>[] = [];
+	const buildQueue: Promise<void>[] = [];
 	for (const script of scripts) {
-		buildPromseArray.push(
+		buildQueue.push(
 			buildScript(script, {
 				name,
 				licenseText,
@@ -109,7 +107,8 @@ const buildScripts = async (
 			})
 		);
 	}
-	await Promise.all(buildPromseArray);
+
+	return buildQueue;
 };
 
 /**
@@ -134,21 +133,20 @@ const buildStyle = async (style: string, {name, licenseText}: {name: string; lic
 /**
  * @param {string[]} styles Array of style sheet file names for a gadget
  * @param {{name:string; licenseText:string}} object The name and license file content of this gadget
+ * @return {Promise<void>[]} The build tasks
  */
-const buildStyles = async (
-	styles: string[],
-	{name, licenseText}: {name: string; licenseText: string}
-): Promise<void> => {
-	const buildPromseArray: Promise<void>[] = [];
+const buildStyles = (styles: string[], {name, licenseText}: {name: string; licenseText: string}): Promise<void>[] => {
+	const buildQueue: Promise<void>[] = [];
 	for (const style of styles) {
-		buildPromseArray.push(
+		buildQueue.push(
 			buildStyle(style, {
 				name,
 				licenseText,
 			})
 		);
 	}
-	await Promise.all(buildPromseArray);
+
+	return buildQueue;
 };
 
 const sourceFiles: SourceFiles = {};
