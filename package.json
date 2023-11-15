@@ -87,6 +87,9 @@
 			"eslint-config-wikimedia": "latest",
 			"stylelint-config-wikimedia": "latest",
 			"types-mediawiki": "npm:types-mediawiki-renovate"
+		},
+		"patchedDependencies": {
+			"eslint-plugin-compat@4.2.0": "patches/eslint-plugin-compat@4.2.0.patch"
 		}
 	}
 }

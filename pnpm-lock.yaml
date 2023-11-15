@@ -13,6 +13,11 @@ overrides:
   stylelint-config-wikimedia: latest
   types-mediawiki: npm:types-mediawiki-renovate
 
+patchedDependencies:
+  eslint-plugin-compat@4.2.0:
+    hash: 3q6vi2pkryrnmsqbaioldffjbm
+    path: patches/eslint-plugin-compat@4.2.0.patch
+
 devDependencies:
   '@babel/core':
     specifier: ^7.23.3
@@ -2167,8 +2172,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@mdn/browser-compat-data@5.3.30:
-    resolution: {integrity: sha512-rMYcyYjBLBvZhULbaJdWJ63jOqDIbdyTvaOKc0d6O8wo1GSjYlnamsZZI4RhqqdbaiAaOyE1wjk1oRqfKBcK7A==}
+  /@mdn/browser-compat-data@5.3.31:
+    resolution: {integrity: sha512-y+vtoPN3LqQrfQWu7GItqMjv1WvMHlc6lTywu0L8ZMu9IcIssfQcze16LcKFcjRD+OM6EDTd/RACJ/5agXMsTQ==}
     dev: true
 
   /@nodelib/fs.scandir@2.1.5:
@@ -2557,7 +2562,7 @@ packages:
   /ast-metadata-inferer@0.8.0:
     resolution: {integrity: sha512-jOMKcHht9LxYIEQu+RVd22vtgrPaVCtDRQ/16IGmurdzxvYbDd5ynxjnyrzLnieG96eTcAyaoj/wN/4/1FyyeA==}
     dependencies:
-      '@mdn/browser-compat-data': 5.3.30
+      '@mdn/browser-compat-data': 5.3.31
     dev: true
 
   /astral-regex@2.0.0:
@@ -3250,7 +3255,7 @@ packages:
     dependencies:
       browserslist-config-wikimedia: 0.5.1
       eslint: 8.53.0
-      eslint-plugin-compat: 4.2.0(eslint@8.53.0)
+      eslint-plugin-compat: 4.2.0(patch_hash=3q6vi2pkryrnmsqbaioldffjbm)(eslint@8.53.0)
       eslint-plugin-es-x: 5.4.0(eslint@8.53.0)
       eslint-plugin-jsdoc: 39.2.2(eslint@8.53.0)
       eslint-plugin-json-es: 1.5.7(eslint@8.53.0)
@@ -3268,13 +3273,13 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-compat@4.2.0(eslint@8.53.0):
+  /eslint-plugin-compat@4.2.0(patch_hash=3q6vi2pkryrnmsqbaioldffjbm)(eslint@8.53.0):
     resolution: {integrity: sha512-RDKSYD0maWy5r7zb5cWQS+uSPc26mgOzdORJ8hxILmWM7S/Ncwky7BcAtXVY5iRbKjBdHsWU8Yg7hfoZjtkv7w==}
     engines: {node: '>=14.x'}
     peerDependencies:
       eslint: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
-      '@mdn/browser-compat-data': 5.3.30
+      '@mdn/browser-compat-data': 5.3.31
       ast-metadata-inferer: 0.8.0
       browserslist: 4.22.1
       caniuse-lite: 1.0.30001562
@@ -3283,6 +3288,7 @@ packages:
       lodash.memoize: 4.1.2
       semver: 7.5.4
     dev: true
+    patched: true
 
   /eslint-plugin-es-x@5.4.0(eslint@8.53.0):
     resolution: {integrity: sha512-6Mniw760Nhd6brnDy+rz857LD+icZe5wXmsvXSuJ84svM0Q53ulJxpMhTJmpqHaLzYh7fuGAJ8V62ohbmqF+jA==}

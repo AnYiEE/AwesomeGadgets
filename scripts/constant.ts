@@ -39,6 +39,7 @@ const DEFAULT_DEFINITION: DefaultDefinition = {
 	namespaces: false,
 	package: false,
 	peers: [],
+	requiresES6: false,
 	rights: [],
 	skins: [],
 	supportsUrlLoad: false,
