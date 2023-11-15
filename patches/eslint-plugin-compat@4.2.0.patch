@@ -1,5 +1,5 @@
 diff --git a/lib/rules/compat.js b/lib/rules/compat.js
-index 84ed5c3b1791e66eff331bc8184c2fd3960f9c3d..6910296bd5b5d04f8aeadf50b8b76f495813b061 100644
+index 84ed5c3b1791e66eff331bc8184c2fd3960f9c3d..32c5630493336d927df0ad0e2326eecd70e30a01 100644
 --- a/lib/rules/compat.js
 +++ b/lib/rules/compat.js
 @@ -137,13 +137,18 @@ exports.default = {
@@ -13,7 +13,7 @@ index 84ed5c3b1791e66eff331bc8184c2fd3960f9c3d..6910296bd5b5d04f8aeadf50b8b76f49
 +            const errorName = generateErrorName(node);
 +            const needRequiresES6Flag = /fetch|IntersectionObserver|Promise|URL/.test(errorName);
 +            const errorMessage = needRequiresES6Flag
-+                ? `To use the ${errorName} method, first set "requiresES6" to true in the current gadget definition. Than, disable this warning by using "eslint-disable-next-line compat/compat"`
++                ? `To use the ${errorName} method, first set "requiresES6" to true in the current gadget definition. Then, disable this warning by using "eslint-disable-next-line compat/compat"`
 +                : [
 +                    errorName,
                      "is not supported in",

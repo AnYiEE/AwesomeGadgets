@@ -15,7 +15,7 @@ overrides:
 
 patchedDependencies:
   eslint-plugin-compat@4.2.0:
-    hash: 3q6vi2pkryrnmsqbaioldffjbm
+    hash: xb3fkg7yobwl6hbmal63hdsoh4
     path: patches/eslint-plugin-compat@4.2.0.patch
 
 devDependencies:
@@ -3255,7 +3255,7 @@ packages:
     dependencies:
       browserslist-config-wikimedia: 0.5.1
       eslint: 8.53.0
-      eslint-plugin-compat: 4.2.0(patch_hash=3q6vi2pkryrnmsqbaioldffjbm)(eslint@8.53.0)
+      eslint-plugin-compat: 4.2.0(patch_hash=xb3fkg7yobwl6hbmal63hdsoh4)(eslint@8.53.0)
       eslint-plugin-es-x: 5.4.0(eslint@8.53.0)
       eslint-plugin-jsdoc: 39.2.2(eslint@8.53.0)
       eslint-plugin-json-es: 1.5.7(eslint@8.53.0)
@@ -3273,7 +3273,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-compat@4.2.0(patch_hash=3q6vi2pkryrnmsqbaioldffjbm)(eslint@8.53.0):
+  /eslint-plugin-compat@4.2.0(patch_hash=xb3fkg7yobwl6hbmal63hdsoh4)(eslint@8.53.0):
     resolution: {integrity: sha512-RDKSYD0maWy5r7zb5cWQS+uSPc26mgOzdORJ8hxILmWM7S/Ncwky7BcAtXVY5iRbKjBdHsWU8Yg7hfoZjtkv7w==}
     engines: {node: '>=14.x'}
     peerDependencies:
