@@ -33,6 +33,7 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 
 	const api: Mwn = new Mwn({
 		...config,
+		maxRetries: 10,
 		userAgent: DEPLOY_USER_AGENT,
 	});
 
@@ -70,11 +71,11 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 		editSummary: await makeEditSummary(),
 	};
 
-	await saveDefinition(definitionText, apiOptions);
-	await saveDefinitionSectionPage(definitionText, apiOptions);
+	saveDefinition(definitionText, apiOptions);
+	saveDefinitionSectionPage(definitionText, apiOptions);
 
 	for (const [name, {description, files}] of Object.entries(targets)) {
-		await saveDescription(name, {
+		saveDescription(name, {
 			...apiOptions,
 			description,
 		});
@@ -83,7 +84,7 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 				file = `${name}${file}`;
 			}
 			const fileText: string = readFileText(name, file);
-			await saveFiles(name, {
+			saveFiles(name, {
 				...apiOptions,
 				file,
 				fileText,
