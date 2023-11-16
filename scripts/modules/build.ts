@@ -48,7 +48,10 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 		}
 
 		const definitionItem: string = generateDefinitionItem(name, definition, definitionItemFiles);
-		definitions.push(definitionItem);
+		// Exclude empty definitions (when the gadget is disabled, it will return an empty string)
+		if (definitionItem) {
+			definitions.push(definitionItem);
+		}
 	}
 
 	await Promise.all(buildPromiseArray);
@@ -56,9 +59,7 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 
 	console.log(chalk.yellow('--- end of build ---'));
 
-	return definitions.filter((definition: string): boolean => {
-		return !!definition; // Filter out empty definitions
-	});
+	return definitions;
 };
 
 export {build};

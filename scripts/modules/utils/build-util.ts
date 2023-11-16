@@ -402,7 +402,7 @@ const setDefinition = (definitions: string[]): void => {
 			if (definitionText.includes(sectionHeader)) {
 				definitionText += `${definition}\n`;
 			} else {
-				definitionText += `${sectionHeader}\n${definition}\n`;
+				definitionText += `\n${sectionHeader}\n${definition}\n`;
 			}
 		}
 	}
