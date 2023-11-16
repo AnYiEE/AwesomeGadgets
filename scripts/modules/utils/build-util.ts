@@ -147,6 +147,9 @@ const buildStyles = (name: string, styles: string[], {licenseText}: {licenseText
 const sourceFiles: SourceFiles = {};
 /**
  * @param {string?} [currentPath=src] The path of the current source file
+ *
+ * @summary DO NOT set this parameter when calling the function directly, it is only used for recursion
+ *
  * @return {SourceFiles} An object used to describe source files
  */
 const findSourceFile = (currentPath = 'src'): SourceFiles => {
@@ -244,8 +247,8 @@ const generateDefinitionFragment = (name: string, definition?: string): string =
 		if (!definition) {
 			throw new ReferenceError('definition.json is missing.');
 		}
-		const definitionFileWithPath: string = path.join(__dirname, `src/${name}/${definition}`);
-		const fileBuffer: Buffer = fs.readFileSync(definitionFileWithPath);
+		const definitionFilePath: string = path.join(__dirname, `src/${name}/${definition}`);
+		const fileBuffer: Buffer = fs.readFileSync(definitionFilePath);
 		definitionJsonText = fileBuffer.toString();
 	} catch {
 		console.log(
@@ -369,8 +372,8 @@ const getLicense = (name: string, license?: string): string | undefined => {
 		return;
 	}
 
-	const licenseFileWithPath: string = path.join(__dirname, `src/${name}/${license}`);
-	const fileBuffer: Buffer = fs.readFileSync(licenseFileWithPath);
+	const licenseFilePath: string = path.join(__dirname, `src/${name}/${license}`);
+	const fileBuffer: Buffer = fs.readFileSync(licenseFilePath);
 	return fileBuffer.toString().trim() ? `${fileBuffer}\n` : undefined;
 };
 

@@ -74,8 +74,8 @@ const checkConfig = async (
 const loadConfig = (): Partial<Credentials> => {
 	let credentialsJsonText = '{}';
 	try {
-		const credentialsFileWithPath: string = path.join(__dirname, 'scripts/credentials.json');
-		const fileBuffer: Buffer = fs.readFileSync(credentialsFileWithPath);
+		const credentialsFilePath: string = path.join(__dirname, 'scripts/credentials.json');
+		const fileBuffer: Buffer = fs.readFileSync(credentialsFilePath);
 		credentialsJsonText = fileBuffer.toString();
 	} catch {
 		console.log(chalk.red(`${chalk.italic('credentials.json')} is missing, a empty object will be used.`));
