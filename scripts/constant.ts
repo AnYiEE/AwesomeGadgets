@@ -1,4 +1,4 @@
-import type {DefaultDefinition, DefaultSectionMap} from './scripts';
+import type {DefaultDefinition, DefaultSectionMap} from './modules/types';
 
 const HEADER = '/* <nowiki> */';
 

@@ -1,3 +1,12 @@
+import type {Mwn} from 'mwn';
+import type PQueue from 'p-queue';
+
+interface ApiQueue {
+	api: Mwn;
+	editSummary: string;
+	queue: PQueue;
+}
+
 interface CredentialsOnlyOAuth {
 	apiUrl: string;
 	OAuthCredentials: {
@@ -61,4 +70,12 @@ interface SourceFiles {
 	};
 }
 
-export {Credentials, CredentialsOnlyPassword, DefaultDefinition, DefaultSectionMap, DeploymentTargets, SourceFiles};
+export {
+	ApiQueue,
+	Credentials,
+	CredentialsOnlyPassword,
+	DefaultDefinition,
+	DefaultSectionMap,
+	DeploymentTargets,
+	SourceFiles,
+};

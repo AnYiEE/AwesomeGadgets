@@ -1,13 +1,12 @@
-import {type ApiEditResponse, Mwn} from 'mwn';
-import {BANNER, DEFINITION_SECTION_MAP, IS_CONVERT_VARIANT} from './constant';
-import type {Credentials, CredentialsOnlyPassword, DeploymentTargets} from './scripts';
-import fs, {type PathOrFileDescriptor} from 'node:fs';
-import prompts, {type Answers, type PromptType} from 'prompts';
-import PQueue from 'p-queue';
+import type {ApiQueue, Credentials, CredentialsOnlyPassword, DeploymentTargets} from '../types';
+import {DEFINITION_SECTION_MAP, IS_CONVERT_VARIANT} from '../../constant';
+import {type ApiEditResponse} from 'mwn';
 import {Window} from 'happy-dom';
 import chalk from 'chalk';
 import {execSync} from 'node:child_process';
+import fs from 'node:fs';
 import path from 'node:path';
+import {prompt} from './general-util';
 import {setTimeout} from 'node:timers/promises';
 const __dirname = path.resolve();
 
@@ -21,10 +20,6 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
 	const targets: DeploymentTargets = {};
 
 	for (const definition of definitions) {
-		if (!definition) {
-			continue;
-		}
-
 		const [_, name, files, description] = definition.match(
 			/^\*\s(\S+?)\[\S+?]\|(\S+?)#\S*?#(.*?)$/
 		) as RegExpMatchArray;
@@ -33,7 +28,7 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
 		targets[name].files = files
 			.split('|')
 			.filter((file: string): boolean => {
-				return file !== '';
+				return !!file;
 			})
 			.map((file: string): string => {
 				return file.replace(/\S+?<>/, '');
@@ -42,47 +37,6 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
 	}
 
 	return targets;
-};
-
-/**
- * Pause the script execution and wait for a period of time before continuing
- *
- * @param {number} [ms=1000] Waiting time (milliseconds)
- * @return {Promise<void>}
- */
-const delay = (ms = 1000): Promise<void> => {
-	return setTimeout(ms);
-};
-
-/**
- * Log message with chalk
- *
- * @param {string} color message text color
- * @param  {string} message message text
- */
-const log = (color: string, message: string): void => {
-	console.log(chalk[color](message));
-};
-
-/**
- * Easy to use CLI prompts to enquire users for information
- *
- * @param {string} message The message to be displayed to the user
- * @param {PromptType} type Defines the type of prompt to display
- * @param {string} initial Optional default prompt value
- * @returns {Promise<string>}
- * @see https://www.npmjs.com/package/prompts
- */
-const prompt = async (message: string, type: PromptType = 'text', initial = ''): Promise<string> => {
-	const name: string = Math.random().toString();
-	const answers: Answers<string> = await prompts({
-		initial,
-		message,
-		name,
-		type,
-	});
-
-	return answers[name];
 };
 
 /**
@@ -96,14 +50,17 @@ const checkConfig = async (
 	config: Partial<CredentialsOnlyPassword>,
 	checkApiUrlOnly = false
 ): Promise<CredentialsOnlyPassword> => {
-	if (!config.apiUrl) {
-		config.apiUrl = await prompt('> Enter api url (eg. https://your.wiki/api.php)');
-	}
-	if (!checkApiUrlOnly && !config.username) {
-		config.username = await prompt('> Enter username');
-	}
-	if (!checkApiUrlOnly && !config.password) {
-		config.password = await prompt('> Enter bot password', 'password');
+	if (checkApiUrlOnly) {
+		if (!config.apiUrl) {
+			config.apiUrl = await prompt('> Enter api url (eg. https://your.wiki/api.php)');
+		}
+	} else {
+		if (!config.username) {
+			config.username = await prompt('> Enter username');
+		}
+		if (!config.password) {
+			config.password = await prompt('> Enter bot password', 'password');
+		}
 	}
 
 	return config as CredentialsOnlyPassword;
@@ -121,7 +78,7 @@ const loadConfig = (): Partial<Credentials> => {
 		const fileBuffer: Buffer = fs.readFileSync(credentialsFileWithPath);
 		credentialsJsonText = fileBuffer.toString();
 	} catch {
-		log('red', 'The credentials.json is missing, a empty object will be used.');
+		console.log(chalk.red(`${chalk.italic('credentials.json')} is missing, a empty object will be used.`));
 	}
 
 	return JSON.parse(credentialsJsonText);
@@ -141,12 +98,13 @@ const makeEditSummary = async (): Promise<string> => {
 	} catch {}
 
 	const customSummary: string = await prompt('> Custom editing summary message (optional):');
-	const editSummary = `${sha ? `Git 版本 ${sha}: ` : ''}${customSummary || summary}`;
-	log('white', `Editing summary is: "${editSummary}"`);
+	const editSummary = customSummary.trim() ? customSummary : `${sha ? `Git commit ${sha}: ` : ''}${summary}`;
+	console.log(chalk.white(`Editing summary is: ${chalk.bold(editSummary)}`));
 
 	await prompt('> Press [Enter] to continue deploying or quickly press [ctrl + C] twice to cancel');
-	log('yellow', '--- deployment will continue in three seconds ---');
-	await delay(3000);
+
+	console.log(chalk.yellow('--- deployment will continue in three seconds ---'));
+	await setTimeout(3000);
 
 	return editSummary;
 };
@@ -158,11 +116,9 @@ const makeEditSummary = async (): Promise<string> => {
  */
 const readDefinition = (): string => {
 	const definitionPath: string = path.join(__dirname, 'dist/definition.txt');
-
 	const fileBuffer: Buffer = fs.readFileSync(definitionPath);
-	const definitionText = fileBuffer.toString().replace(/<>/g, '-').replace(/-\./g, '.');
 
-	return `${BANNER.replace(/[=]=/g, '').trim()}\n${definitionText}`;
+	return fileBuffer.toString();
 };
 
 /**
@@ -180,28 +136,13 @@ const readFileText = (name: string, file: string): string => {
 };
 
 /**
- * Set `dist/definition.txt`
- *
- * @param {string} definitionText The MediaWiki:Gadgets-definition content
- */
-const setDefinition = (definitionText: string): void => {
-	const definitionPath: string = path.join(__dirname, 'dist/definition.txt');
-	const fileDescriptor: PathOrFileDescriptor = fs.openSync(definitionPath, 'w');
-	fs.writeFileSync(fileDescriptor, definitionText);
-	fs.fdatasyncSync(fileDescriptor);
-	fs.closeSync(fileDescriptor);
-};
-
-/**
  * Convert language variants of a page
  *
  * @param {string} pageTitle The titie of this page
- * @param {{api:Mwn; content:string; editSummary:string; queue:PQueue}} object The api instance, the content of this page, the editing summary used by this api instance and the deployment queue
+ * @param {string} content The content of this page
+ * @param {ApiQueue} object The api instance, the editing summary used by this api instance and the deployment queue
  */
-const convertVariant = (
-	pageTitle: string,
-	{api, content, editSummary, queue}: {api: Mwn; content: string; editSummary: string; queue: PQueue}
-): void => {
+const convertVariant = (pageTitle: string, content: string, {api, editSummary, queue}: ApiQueue): void => {
 	/**
 	 * @base <https://zh.wikipedia.org/wiki/User:Xiplus/js/TranslateVariants>
 	 * @license CC-BY-SA-4.0
@@ -252,18 +193,16 @@ const convertVariant = (
 
 	queue
 		.addAll(taskQueue)
-		.then((changes): void => {
-			const isNoChange: boolean = changes.every((change: boolean): boolean => {
-				return change === true;
-			});
+		.then((nochanges): void => {
+			const isNoChange: boolean = nochanges.every(Boolean);
 			if (isNoChange) {
-				log('yellow', `━ No change converting ${pageTitle}`);
+				console.log(chalk.yellow(`━ No change converting ${chalk.bold(pageTitle)}`));
 			} else {
-				log('green', `✔ Successfully converted ${pageTitle}`);
+				console.log(chalk.green(`✔ Successfully converted ${chalk.bold(pageTitle)}`));
 			}
 		})
 		.catch((error: unknown): void => {
-			log('red', `✘ Failed to convert ${pageTitle}`);
+			console.log(chalk.red(`✘ Failed to convert ${chalk.bold(pageTitle)}`));
 			console.error(error);
 		});
 };
@@ -272,12 +211,9 @@ const convertVariant = (
  * Save gadget definition
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {{api:Mwn; editSummary:string; queue:PQueue}} api The api instance, the editing summary used by this api instance and the deployment queue
+ * @param {ApiQueue} api The api instance, the editing summary used by this api instance and the deployment queue
  */
-const saveDefinition = (
-	definitionText: string,
-	{api, editSummary, queue}: {api: Mwn; editSummary: string; queue: PQueue}
-): void => {
+const saveDefinition = (definitionText: string, {api, editSummary, queue}: ApiQueue): void => {
 	queue.add(async (): Promise<void> => {
 		try {
 			const response: ApiEditResponse = await api.save(
@@ -286,12 +222,12 @@ const saveDefinition = (
 				editSummary
 			);
 			if (response.nochange) {
-				log('yellow', '━ No change saving gadget definitions');
+				console.log(chalk.yellow(`━ No change saving ${chalk.bold('gadget definitions')}`));
 			} else {
-				log('green', '✔ Successfully saved gadget definitions');
+				console.log(chalk.green(`✔ Successfully saved ${chalk.bold('gadget definitions')}`));
 			}
 		} catch (error: unknown) {
-			log('red', '✘ Failed to save gadget definitions');
+			console.log(chalk.red(`✘ Failed to save ${chalk.bold('gadget definitions')}`));
 			console.error(error);
 		}
 	});
@@ -301,12 +237,9 @@ const saveDefinition = (
  * Save gadget definition section pages
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {{api:Mwn; editSummary:string; queue:PQueue}} object The api instance, the editing summary used by the api instance and the deployment queue
+ * @param {ApiQueue} object The api instance, the editing summary used by the api instance and the deployment queue
  */
-const saveDefinitionSectionPage = (
-	definitionText: string,
-	{api, editSummary, queue}: {api: Mwn; editSummary: string; queue: PQueue}
-): void => {
+const saveDefinitionSectionPage = (definitionText: string, {api, editSummary, queue}: ApiQueue): void => {
 	const sections: string[] = (definitionText.match(/^==([\S\s]+?)==$/gm) as RegExpMatchArray).map(
 		(sectionHeader: string): string => {
 			return sectionHeader.replace(/[=]=/g, '').trim();
@@ -324,22 +257,21 @@ const saveDefinitionSectionPage = (
 			try {
 				const response: ApiEditResponse = await api.save(pageTitle, sectionText, editSummary);
 				if (response.nochange) {
-					log('yellow', `━ No change saving ${pageTitle}`);
+					console.log(chalk.yellow(`━ No change saving ${chalk.bold(pageTitle)}`));
 				} else {
-					log('green', `✔ Successfully saved ${pageTitle}`);
+					console.log(chalk.green(`✔ Successfully saved ${chalk.bold(pageTitle)}`));
 				}
 			} catch (error: unknown) {
-				log('red', `✘ Failed to save ${pageTitle}`);
+				console.log(chalk.red(`✘ Failed to save ${chalk.bold(pageTitle)}`));
 				console.error(error);
 			}
 		});
 
 		if (IS_CONVERT_VARIANT) {
-			convertVariant(pageTitle, {
+			convertVariant(pageTitle, sectionText, {
 				api,
 				editSummary,
 				queue,
-				content: sectionText,
 			});
 		}
 	}
@@ -349,34 +281,31 @@ const saveDefinitionSectionPage = (
  * Save gadget description
  *
  * @param {string} name The gadget name
- * @param {{api:Mwn; description:string; editSummary:string; queue:PQueue}} object The api instance, the definition of this gadget, the editing summary used by the api instance and the deployment queue
+ * @param {string} description The definition of this gadget
+ * @param {ApiQueue} object The api instance, the editing summary used by the api instance and the deployment queue
  */
-const saveDescription = (
-	name: string,
-	{api, description, editSummary, queue}: {api: Mwn; description: string; editSummary: string; queue: PQueue}
-): void => {
+const saveDescription = (name: string, description: string, {api, editSummary, queue}: ApiQueue): void => {
 	const descriptionPageTitle = `MediaWiki:Gadget-${name}`;
 
 	queue.add(async (): Promise<void> => {
 		try {
 			const response: ApiEditResponse = await api.save(descriptionPageTitle, description, editSummary);
 			if (response.nochange) {
-				log('yellow', `━ No change saving ${name} description`);
+				console.log(chalk.yellow(`━ No change saving ${chalk.bold(`${name} description`)}`));
 			} else {
-				log('green', `✔ Successfully saved ${name} description`);
+				console.log(chalk.green(`✔ Successfully saved ${chalk.bold(`${name} description`)}`));
 			}
 		} catch (error: unknown) {
-			log('red', `✘ Failed to save ${name} description`);
+			console.log(chalk.red(`✘ Failed to save ${chalk.bold(`${name} description`)}`));
 			console.error(error);
 		}
 	});
 
 	if (IS_CONVERT_VARIANT) {
-		convertVariant(descriptionPageTitle, {
+		convertVariant(descriptionPageTitle, description, {
 			api,
 			editSummary,
 			queue,
-			content: description,
 		});
 	}
 };
@@ -385,32 +314,26 @@ const saveDescription = (
  * Save gadget file
  *
  * @param {string} name The gadget name
- * @param {{api:Mwn; editSummary:string; file:string; fileText:string; queue:PQueue}} api The api instance, the editing summary used by this api instance, the target file name, the file content and the deployment queue
+ * @param {string} file The target file name
+ * @param {string} fileContent The target file content
+ * @param {ApiQueue} api The api instance, the editing summary used by this api instance and the deployment queue
  */
-const saveFiles = (
-	name: string,
-	{
-		api,
-		editSummary,
-		file,
-		fileText,
-		queue,
-	}: {api: Mwn; editSummary: string; file: string; fileText: string; queue: PQueue}
-): void => {
+const saveFiles = (name: string, file: string, fileContent: string, {api, editSummary, queue}: ApiQueue): void => {
+	let fileName = `${name}-${file}`;
+	if (file.split('.')[0] === name) {
+		fileName = file;
+	}
+
 	queue.add(async (): Promise<void> => {
 		try {
-			let fileName = `${name}-${file}`;
-			if (file.split('.')[0] === name) {
-				fileName = file;
-			}
-			const response: ApiEditResponse = await api.save(`MediaWiki:Gadget-${fileName}`, fileText, editSummary);
+			const response: ApiEditResponse = await api.save(`MediaWiki:Gadget-${fileName}`, fileContent, editSummary);
 			if (response.nochange) {
-				log('yellow', `━ No change saving ${fileName} to ${name}`);
+				console.log(chalk.yellow(`━ No change saving ${chalk.underline(fileName)} to ${chalk.bold(name)}`));
 			} else {
-				log('green', `✔ Successfully saved ${fileName} to ${name}`);
+				console.log(chalk.green(`✔ Successfully saved ${chalk.underline(fileName)} to ${chalk.bold(name)}`));
 			}
 		} catch (error: unknown) {
-			log('red', `✘ Failed to save ${file} to ${name}`);
+			console.log(chalk.red(`✘ Failed to save ${chalk.underline(fileName)} to ${chalk.bold(name)}`));
 			console.error(error);
 		}
 	});
@@ -418,15 +341,11 @@ const saveFiles = (
 
 export {
 	generateTargets,
-	delay,
-	log,
-	prompt,
 	checkConfig,
 	loadConfig,
 	makeEditSummary,
 	readDefinition,
 	readFileText,
-	setDefinition,
 	saveDefinition,
 	saveDefinitionSectionPage,
 	saveDescription,

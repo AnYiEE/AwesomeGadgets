@@ -1,30 +1,30 @@
-import {DEFAULT_DEFINITION, FOOTER, HEADER, WARNING} from './constant';
-import type {DefaultDefinition, SourceFiles} from './scripts';
+import {BANNER, DEFAULT_DEFINITION, FOOTER, HEADER, WARNING} from '../../constant';
+import type {DefaultDefinition, SourceFiles} from '../types';
 import babel, {type BabelFileResult, type TransformOptions} from '@babel/core';
 import esbuild, {type OutputFile} from 'esbuild';
 import fs, {type PathOrFileDescriptor, type Stats} from 'node:fs';
 import chalk from 'chalk';
-import {esbuildOptions} from './build-esbuild_options';
+import {esbuildOptions} from '../build-esbuild_options';
 import path from 'node:path';
 import process from 'node:process';
 const __dirname = path.resolve();
 
-const write = ({
-	contentType,
-	licenseText,
-	code: sourceCode,
-	path: outputFilePath,
-}: {
-	contentType: 'application/javascript' | 'text/css';
-	licenseText: string;
-	code: string;
-	path: string;
-}): void => {
+const writeFile = (
+	sourceCode: string,
+	outputFilePath: string,
+	{
+		contentType,
+		licenseText,
+	}: {
+		contentType?: 'application/javascript' | 'text/css';
+		licenseText?: string;
+	} = {}
+): void => {
 	let fileContent = '';
 
 	switch (contentType) {
 		case 'application/javascript': {
-			const licenseTextTrim = licenseText.trim();
+			const licenseTextTrim = licenseText?.trim();
 			licenseText = licenseTextTrim ? `${licenseTextTrim}\n` : '';
 			fileContent = `${licenseText}${WARNING}\n${HEADER}\n(function () {\n\n${sourceCode}\n\n})();\n${FOOTER}\n`;
 			break;
@@ -56,16 +56,14 @@ const build = async (inputFilePath: string, outputFilePath: string): Promise<str
 };
 
 /**
- * @param {string} script The script file name of a gadget
- * @param {{name:string; licenseText:string; babelTransformOptions:TransformOptions}} object The name and the license file content of this gadget, the .babelrc file parsed object in the root directory
+ * @param {string} name The gadget name
+ * @param {string} script The script file name of this gadget
+ * @param {{licenseText?:string; babelTransformOptions:TransformOptions}} object The license file content of this gadget and the `.babelrc` file parsed object
  */
 const buildScript = async (
+	name: string,
 	script: string,
-	{
-		name,
-		licenseText,
-		babelTransformOptions,
-	}: {name: string; licenseText: string; babelTransformOptions: TransformOptions}
+	{licenseText, babelTransformOptions}: {licenseText?: string; babelTransformOptions: TransformOptions}
 ): Promise<void> => {
 	const inputFilePath: string = path.join(__dirname, `src/${name}/${script}`);
 	// The TypeScript file is always compiled into a JavaScript file, so replace the extension directly
@@ -78,20 +76,19 @@ const buildScript = async (
 	)) as BabelFileResult;
 	const {code} = babelFileResult;
 
-	write({
+	writeFile(code as string, outputFilePath, {
 		licenseText,
-		code: code as string,
 		contentType: 'application/javascript',
-		path: outputFilePath,
 	});
 };
 
 /**
- * @param {string[]} scripts Array of script file names for a gadget
- * @param {{name:string; licenseText:string}} object The name and the license file content of this gadget
+ * @param {string} name The gadget name
+ * @param {string[]} scripts Array of script file names for this gadget
+ * @param {{licenseText?:string}?} object The license file content of this gadget
  * @return {Promise<void>[]} The build tasks
  */
-const buildScripts = (scripts: string[], {name, licenseText}: {name: string; licenseText: string}): Promise<void>[] => {
+const buildScripts = (name: string, scripts: string[], {licenseText}: {licenseText?: string} = {}): Promise<void>[] => {
 	// Load outside the loop for optimizing I/O performance
 	const babelTransformOptions: TransformOptions = JSON.parse(
 		fs.readFileSync(path.join(__dirname, '.babelrc')).toString()
@@ -100,8 +97,7 @@ const buildScripts = (scripts: string[], {name, licenseText}: {name: string; lic
 	const buildQueue: Promise<void>[] = [];
 	for (const script of scripts) {
 		buildQueue.push(
-			buildScript(script, {
-				name,
+			buildScript(name, script, {
 				licenseText,
 				babelTransformOptions,
 			})
@@ -112,35 +108,34 @@ const buildScripts = (scripts: string[], {name, licenseText}: {name: string; lic
 };
 
 /**
- * @param {string} style The style sheet file name of a gadget
- * @param {{name:string; licenseText:string}} object The name and the license file content of this gadget
+ * @param {string} name The gadget name
+ * @param {string} style The style sheet file name of this gadget
+ * @param {{licenseText?:string}?} object The license file content of this gadget
  */
-const buildStyle = async (style: string, {name, licenseText}: {name: string; licenseText: string}): Promise<void> => {
+const buildStyle = async (name: string, style: string, {licenseText}: {licenseText?: string} = {}): Promise<void> => {
 	const inputFilePath: string = path.join(__dirname, `src/${name}/${style}`);
 	// The Less file is always compiled into a CSS file, so replace the extension directly
 	const outputFilePath: string = path.join(__dirname, `dist/${name}/${style.replace(/\.less$/, '.css')}`);
 
 	const buildOutput: string = await build(inputFilePath, outputFilePath);
 
-	write({
+	writeFile(buildOutput, outputFilePath, {
 		licenseText,
-		code: buildOutput,
 		contentType: 'text/css',
-		path: outputFilePath,
 	});
 };
 
 /**
+ * @param {string} name The gadget name
  * @param {string[]} styles Array of style sheet file names for a gadget
- * @param {{name:string; licenseText:string}} object The name and license file content of this gadget
+ * @param {{licenseText?:string}?} object The license file content of this gadget
  * @return {Promise<void>[]} The build tasks
  */
-const buildStyles = (styles: string[], {name, licenseText}: {name: string; licenseText: string}): Promise<void>[] => {
+const buildStyles = (name: string, styles: string[], {licenseText}: {licenseText?: string} = {}): Promise<void>[] => {
 	const buildQueue: Promise<void>[] = [];
 	for (const style of styles) {
 		buildQueue.push(
-			buildStyle(style, {
-				name,
+			buildStyle(name, style, {
 				licenseText,
 			})
 		);
@@ -151,7 +146,7 @@ const buildStyles = (styles: string[], {name, licenseText}: {name: string; licen
 
 const sourceFiles: SourceFiles = {};
 /**
- * @param {string} [currentPath=src] The path of the current source file
+ * @param {string?} [currentPath=src] The path of the current source file
  * @return {SourceFiles} An object used to describe source files
  */
 const findSourceFile = (currentPath = 'src'): SourceFiles => {
@@ -237,21 +232,28 @@ const findSourceFile = (currentPath = 'src'): SourceFiles => {
 };
 
 /**
- * @param {string|undefined} [definition] The definition file name of a gadget
- * @param {{name:string}} object The gadget name
+ * @param {string} name The gadget name
+ * @param {string?} definition The definition file name of this gadget
  * @return {string} The gadget definition fragment
  */
-const getDefinition = (definition: string | undefined, {name}: {name: string}): string => {
+const generateDefinitionFragment = (name: string, definition?: string): string => {
 	let definitionText = '';
 
 	let definitionJsonText = '{}';
 	try {
+		if (!definition) {
+			throw new ReferenceError('definition.json is missing.');
+		}
 		const definitionFileWithPath: string = path.join(__dirname, `src/${name}/${definition}`);
 		const fileBuffer: Buffer = fs.readFileSync(definitionFileWithPath);
 		definitionJsonText = fileBuffer.toString();
 	} catch {
-		console.warn(
-			chalk.yellow(`definition.json for ${chalk.bold(name)} is missing, the default definition will be used.`)
+		console.log(
+			chalk.yellow(
+				`${chalk.italic('definition.json')} for ${chalk.bold(
+					name
+				)} is missing, the default definition will be used.`
+			)
 		);
 	}
 	const definitionObject: DefaultDefinition = {
@@ -309,25 +311,23 @@ const getDefinition = (definition: string | undefined, {name}: {name: string}): 
 };
 
 /**
- * @param {{definitionItem:string; definitionItemFiles:string}} object Gadget definition fragment
+ * @param {string} name The gadget name
+ * @param {string|undefined} definition The definition file name of this gadget
+ * @param {string} files All files used by this gadget
  * @return {string} The Gadget definition (in the format of MediaWiki:Gadgets-definition item)
  */
-const cleanDefinition = ({
-	definitionItem,
-	definitionItemFiles,
-}: {
-	definitionItem: string;
-	definitionItemFiles: string;
-}): string => {
-	const isStyleOnly = !/\.[jt]s\|/.test(definitionItemFiles);
-	let definitionItemFull: string = definitionItem
+const generateDefinitionItem = (name: string, definition: string | undefined, files: string): string => {
+	const definitionFragment: string = generateDefinitionFragment(name, definition);
+
+	const isStyleOnly = !/\.[jt]s\|/.test(files);
+	let definitionItem: string = definitionFragment
 		.replace('$2', isStyleOnly ? '|type=styles' : '')
-		.replace('$3', definitionItemFiles);
+		.replace('$3', files);
 	if (isStyleOnly) {
-		definitionItemFull = definitionItemFull.replace(/[|\]]dependencies=\S+?([|\]])/, '$1');
+		definitionItem = definitionItem.replace(/[|\]]dependencies=\S+?([|\]])/, '$1');
 	}
 
-	return definitionItemFull
+	return definitionItem
 		.replace(/\|\|/, '|')
 		.replace(/\|]/, ']')
 		.replace(/\|#/, '#')
@@ -337,15 +337,51 @@ const cleanDefinition = ({
 };
 
 /**
- * Set `dist/definition.txt`
+ * @param {string} name The gadget name
+ * @param {string} file The file name
+ * @return {string} The processed file name
+ */
+const removeDuplicateFileName = (name: string, file: string): string => {
+	const fileNameSplit: string[] = file.split('.');
+	return `${name}<>${fileNameSplit.shift() === name ? `.${fileNameSplit.join('.')}` : file}`;
+};
+
+/**
+ * @param {string} name The gadget name
+ * @param {string[]} files The file names array
+ * @return {string} The generated file names string
+ */
+const generateFileNames = (name: string, files: string[]): string => {
+	return files
+		.map((file: string): string => {
+			return removeDuplicateFileName(name, file);
+		})
+		.join('|');
+};
+
+/**
+ * @param {string} name The gadget name
+ * @param {string?} license The license file name of this gadget
+ * @return {string|undefined} The gadget license file content
+ */
+const getLicense = (name: string, license?: string): string | undefined => {
+	if (!license) {
+		return;
+	}
+
+	const licenseFileWithPath: string = path.join(__dirname, `src/${name}/${license}`);
+	const fileBuffer: Buffer = fs.readFileSync(licenseFileWithPath);
+	return fileBuffer.toString().trim() ? `${fileBuffer}\n` : undefined;
+};
+
+/**
+ * Temporarily set `dist/definition.txt` and wait for it to be deployed for use
  *
  * @param {string[]} definitions The gadget definitions array (in the format of MediaWiki:Gadgets-definition item)
  */
 const setDefinition = (definitions: string[]): void => {
 	const definitionObject: Record<string, typeof definitions> = {};
-	for (const definition of definitions.filter((_definition: string): boolean => {
-		return !!_definition; // Filter out empty definitions
-	})) {
+	for (const definition of definitions) {
 		const [, section] = definition.match(/.*?#(\S+?)#/) as RegExpExecArray;
 		definitionObject[section] ??= [];
 		definitionObject[section].push(definition.replace(/#.*/, ''));
@@ -367,6 +403,8 @@ const setDefinition = (definitions: string[]): void => {
 			}
 		}
 	}
+	definitionText = definitionText.replace(/<>/g, '-').replace(/-\./g, '.');
+	definitionText = `${BANNER.replace(/[=]=/g, '').trim()}\n${definitionText}`;
 
 	const definitionPath: string = path.join(__dirname, 'dist/definition.txt');
 	const fileDescriptor: PathOrFileDescriptor = fs.openSync(definitionPath, 'w');
@@ -375,19 +413,12 @@ const setDefinition = (definitions: string[]): void => {
 	fs.closeSync(fileDescriptor);
 };
 
-/**
- * @param {string|undefined} license The gadget license file name
- * @param {{name:string}} object The gadget name
- * @return {string} The gadget license file content
- */
-const getLicense = (license: string | undefined, {name}: {name: string}): string => {
-	if (!license) {
-		return '';
-	}
-
-	const licenseFileWithPath: string = path.join(__dirname, `src/${name}/${license}`);
-	const fileBuffer: Buffer = fs.readFileSync(licenseFileWithPath);
-	return fileBuffer.length ? `${fileBuffer}\n` : '';
+export {
+	buildScripts,
+	buildStyles,
+	findSourceFile,
+	generateDefinitionItem,
+	generateFileNames,
+	getLicense,
+	setDefinition,
 };
-
-export {buildScripts, buildStyles, findSourceFile, getDefinition, cleanDefinition, setDefinition, getLicense};
