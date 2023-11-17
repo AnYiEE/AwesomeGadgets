@@ -89,7 +89,8 @@
 			"types-mediawiki": "npm:types-mediawiki-renovate"
 		},
 		"patchedDependencies": {
-			"eslint-plugin-compat@4.2.0": "patches/eslint-plugin-compat@4.2.0.patch"
+			"eslint-plugin-compat@4.2.0": "patches/eslint-plugin-compat@4.2.0.patch",
+			"eslint-plugin-no-jquery@2.7.0": "patches/eslint-plugin-no-jquery@2.7.0.patch"
 		}
 	}
 }

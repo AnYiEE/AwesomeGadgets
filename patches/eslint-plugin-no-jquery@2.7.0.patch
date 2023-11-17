@@ -1,0 +1,19 @@
+diff --git a/Changelog.md b/Changelog.md
+deleted file mode 100644
+index 9d60c13ed44da15dcace8cdcc3f1b4f94e67bfa5..0000000000000000000000000000000000000000
+diff --git a/src/rules/no-global-selector.js b/src/rules/no-global-selector.js
+index 17ed2bf68eb2b3e73dfc8a5c7ab77afc6abe8a2a..f0da6b5799e89014cab496e818a344bda7a89d5d 100644
+--- a/src/rules/no-global-selector.js
++++ b/src/rules/no-global-selector.js
+@@ -80,7 +80,10 @@ module.exports = {
+ 
+ 				context.report( {
+ 					node: node,
+-					message: 'Avoid queries which search the entire DOM. Keep DOM nodes in memory where possible.'
++					message: `Avoid queries which search the entire DOM. Keep DOM nodes in memory where possible.
++To query all divs, use:
++const $body: JQuery<HTMLBodyElement> = $( document ).find( 'body' );
++const $divs: JQuery = $body.find( 'div' );`
+ 				} );
+ 			}
+ 		};
