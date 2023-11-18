@@ -154,7 +154,12 @@
 		],
 		"no-jquery/no-class-state": "off",
 		"no-jquery/no-fade": "off",
-		"no-jquery/no-global-selector": "warn",
+		"no-jquery/no-global-selector": [
+			"warn",
+			{
+				"allowBody": true
+			}
+		],
 		"no-jquery/no-sizzle": "off",
 		"no-jquery/no-slide": "off",
 		"no-jquery/variable-pattern": "off",

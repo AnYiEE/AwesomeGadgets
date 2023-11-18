@@ -2,18 +2,64 @@ diff --git a/Changelog.md b/Changelog.md
 deleted file mode 100644
 index 9d60c13ed44da15dcace8cdcc3f1b4f94e67bfa5..0000000000000000000000000000000000000000
 diff --git a/src/rules/no-global-selector.js b/src/rules/no-global-selector.js
-index 17ed2bf68eb2b3e73dfc8a5c7ab77afc6abe8a2a..f0da6b5799e89014cab496e818a344bda7a89d5d 100644
+index 17ed2bf68eb2b3e73dfc8a5c7ab77afc6abe8a2a..0a56a78f26489d4a6983a1e1cdea8655ce952998 100644
 --- a/src/rules/no-global-selector.js
 +++ b/src/rules/no-global-selector.js
-@@ -80,7 +80,10 @@ module.exports = {
+@@ -13,12 +13,17 @@ module.exports = {
+ 		docs: {
+ 			description: 'Disallows global selectors which search the whole document. ' +
+ 			'Encourages users to keep references to DOM nodes in memory, instead of selecting them from the DOM each time. ' +
+-			'Use the `allowIds` option to allow single ID selectors.'
++			'Use the `allowBody` option to allow single "body" selectors.' +
++			'Use the `allowIds` option to allow single ID selectors.' +
++			'The `allowIds` option is ignored if `allowBody` is true.'
+ 		},
+ 		schema: [
+ 			{
+ 				type: 'object',
+ 				properties: {
++					allowBody: {
++						type: 'boolean'
++					},
+ 					allowIds: {
+ 						type: 'boolean'
+ 					}
+@@ -39,13 +44,15 @@ module.exports = {
+ 				) {
+ 					return;
+ 				}
+-				const value = node.arguments[ 0 ].value;
+-				const allowIds = context.options[ 0 ] && context.options[ 0 ].allowIds;
++				const { value } = node.arguments[ 0 ];
++				const options = context.options[ 0 ] ?? {};
++				const { allowBody, allowIds } = options;
+ 				if (
+ 					typeof value !== 'string' ||
+ 					!value ||
+ 					value === '#' ||
+-					( allowIds && idPattern.test( value.trim() ) )
++					( allowBody && /^body$/i.test( value.trim() ) ) ||
++					( !allowBody && allowIds && idPattern.test( value.trim() ) )
+ 				) {
+ 					return;
+ 				}
+@@ -80,7 +87,18 @@ module.exports = {
  
  				context.report( {
  					node: node,
 -					message: 'Avoid queries which search the entire DOM. Keep DOM nodes in memory where possible.'
-+					message: `Avoid queries which search the entire DOM. Keep DOM nodes in memory where possible.
-+To query all divs, use:
-+const $body: JQuery<HTMLBodyElement> = $( document ).find( 'body' );
-+const $divs: JQuery = $body.find( 'div' );`
++					message: `Avoid queries which search the entire DOM. Keep DOM nodes in memory where possible.${allowBody ? `
++First, get a "body" reference. Then, use that reference to search.
++  const $body: JQuery<HTMLBodyElement> = $( 'body' );
++By a class name:
++  const $classes: JQuery = $body.find( '.class' );
++By an ID:
++  const $ids: JQuery = $body.find( '#id' );` : `First, get a "body" reference. Then, use that reference to search.
++  const $body: JQuery<HTMLBodyElement> = $( document ).find( 'body' );
++Search a class name:
++  const $classes: JQuery = $body.find( '.class' );
++Search an ID:
++  const $ids: JQuery = ${allowIds ? "$( '#id' )" : "$body.find( '#id' )"};`}`
  				} );
  			}
  		};
