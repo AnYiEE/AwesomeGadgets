@@ -1,14 +1,16 @@
 import type {ApiQueue, Credentials, CredentialsOnlyPassword, DeploymentTargets} from '../types';
 import {DEFINITION_SECTION_MAP, IS_CONVERT_VARIANT} from '../../constant';
+import fs, {type PathOrFileDescriptor} from 'node:fs';
 import {type ApiEditResponse} from 'mwn';
 import {Window} from 'happy-dom';
 import chalk from 'chalk';
 import {execSync} from 'node:child_process';
-import fs from 'node:fs';
 import path from 'node:path';
 import {prompt} from './general-util';
 import {setTimeout} from 'node:timers/promises';
 const __dirname = path.resolve();
+
+const deployPages: string[] = [];
 
 /**
  * Generate deployment targets based on the definitions
@@ -177,9 +179,12 @@ const convertVariant = (pageTitle: string, content: string, {api, editSummary, q
 		});
 		const {document} = window;
 		document.body.innerHTML = `<div>${parsedHtml}</div>`;
-
 		const convertedDescription: string = document.querySelector('.convertVariant').textContent.replace(/-{}-/g, '');
-		const response: ApiEditResponse = await api.save(`${pageTitle}/${variant}`, convertedDescription, editSummary);
+
+		const convertPageTitle = `${pageTitle}/${variant}`;
+		deployPages.push(convertPageTitle);
+
+		const response: ApiEditResponse = await api.save(convertPageTitle, convertedDescription, editSummary);
 
 		return !!response.nochange;
 	};
@@ -211,16 +216,15 @@ const convertVariant = (pageTitle: string, content: string, {api, editSummary, q
  * Save gadget definition
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {ApiQueue} api The api instance, the editing summary used by this api instance and the deployment queue
+ * @param {ApiQueue} object The api instance, the editing summary used by this api instance and the deployment queue
  */
 const saveDefinition = (definitionText: string, {api, editSummary, queue}: ApiQueue): void => {
+	const pageTitle = 'MediaWiki:Gadgets-definition';
+	deployPages.push(pageTitle);
+
 	queue.add(async (): Promise<void> => {
 		try {
-			const response: ApiEditResponse = await api.save(
-				'MediaWiki:Gadgets-definition',
-				definitionText,
-				editSummary
-			);
+			const response: ApiEditResponse = await api.save(pageTitle, definitionText, editSummary);
 			if (response.nochange) {
 				console.log(chalk.yellow(`━ No change saving ${chalk.bold('gadget definitions')}`));
 			} else {
@@ -251,7 +255,9 @@ const saveDefinitionSectionPage = (definitionText: string, {api, editSummary, qu
 
 	for (const [index, section] of sections.entries()) {
 		const sectionText: string = DEFINITION_SECTION_MAP[section] || section;
+
 		const pageTitle: string = pageTitles[index];
+		deployPages.push(pageTitle);
 
 		queue.add(async (): Promise<void> => {
 			try {
@@ -285,11 +291,12 @@ const saveDefinitionSectionPage = (definitionText: string, {api, editSummary, qu
  * @param {ApiQueue} object The api instance, the editing summary used by the api instance and the deployment queue
  */
 const saveDescription = (name: string, description: string, {api, editSummary, queue}: ApiQueue): void => {
-	const descriptionPageTitle = `MediaWiki:Gadget-${name}`;
+	const pageTitle = `MediaWiki:Gadget-${name}`;
+	deployPages.push(pageTitle);
 
 	queue.add(async (): Promise<void> => {
 		try {
-			const response: ApiEditResponse = await api.save(descriptionPageTitle, description, editSummary);
+			const response: ApiEditResponse = await api.save(pageTitle, description, editSummary);
 			if (response.nochange) {
 				console.log(chalk.yellow(`━ No change saving ${chalk.bold(`${name} description`)}`));
 			} else {
@@ -302,7 +309,7 @@ const saveDescription = (name: string, description: string, {api, editSummary, q
 	});
 
 	if (IS_CONVERT_VARIANT) {
-		convertVariant(descriptionPageTitle, description, {
+		convertVariant(pageTitle, description, {
 			api,
 			editSummary,
 			queue,
@@ -324,9 +331,12 @@ const saveFiles = (name: string, file: string, fileContent: string, {api, editSu
 		fileName = file;
 	}
 
+	const pageTitle = `MediaWiki:Gadget-${fileName}`;
+	deployPages.push(pageTitle);
+
 	queue.add(async (): Promise<void> => {
 		try {
-			const response: ApiEditResponse = await api.save(`MediaWiki:Gadget-${fileName}`, fileContent, editSummary);
+			const response: ApiEditResponse = await api.save(pageTitle, fileContent, editSummary);
 			if (response.nochange) {
 				console.log(chalk.yellow(`━ No change saving ${chalk.underline(fileName)} to ${chalk.bold(name)}`));
 			} else {
@@ -337,6 +347,69 @@ const saveFiles = (name: string, file: string, fileContent: string, {api, editSu
 			console.error(error);
 		}
 	});
+};
+
+/**
+ * Delete unused pages from the target MediaWiki site
+ *
+ * @param {ApiQueue} object The api instance, the editing summary used by this api instance and the delete page queue
+ */
+const deleteUnusedPages = async ({api, editSummary, queue}: ApiQueue): Promise<void> => {
+	const storeFilePath: string = path.join(__dirname, 'dist/store.txt');
+
+	let lastDeployPages: string[] = [];
+	try {
+		const fileBuffer: Buffer = fs.readFileSync(storeFilePath);
+		const fileContent: string = fileBuffer.toString();
+		lastDeployPages = fileContent.split('\n').filter((lineConent: string): boolean => {
+			return !!lineConent;
+		});
+	} catch {}
+
+	const fileDescriptor: PathOrFileDescriptor = fs.openSync(storeFilePath, 'w');
+	fs.writeFileSync(fileDescriptor, deployPages.join('\n'));
+	fs.fdatasyncSync(fileDescriptor);
+	fs.closeSync(fileDescriptor);
+
+	if (!lastDeployPages.length) {
+		console.log(chalk.yellow('━ No deployment log found'));
+		return;
+	}
+
+	const needToDeletePages: string[] = lastDeployPages.filter((page: string): boolean => {
+		return !deployPages.includes(page);
+	});
+
+	if (!needToDeletePages.length) {
+		console.log(chalk.yellow('━ No page need to delete'));
+		return;
+	}
+
+	process.stdout.write(`The following pages will be deleted:\n${needToDeletePages.join('\n')}\n`);
+	await prompt('> Press [Enter] to continue deleting or quickly press [ctrl + C] twice to cancel');
+	await setTimeout(1000);
+
+	console.log(chalk.yellow('--- deleting will continue in three seconds ---'));
+	await setTimeout(3000);
+
+	const deletePage = async (pageTitle: string): Promise<void> => {
+		try {
+			await api.delete(pageTitle, editSummary);
+			console.log(chalk.green(`✔ Successfully deleted ${chalk.bold(pageTitle)}`));
+		} catch (error: unknown) {
+			console.log(chalk.red(`✘ Failed to delete ${chalk.bold(pageTitle)}`));
+			console.error(error);
+		}
+	};
+
+	const taskQueue: (() => Promise<void>)[] = [];
+	for (const page of needToDeletePages) {
+		taskQueue.push((): Promise<void> => {
+			return deletePage(page);
+		});
+	}
+
+	queue.addAll(taskQueue);
 };
 
 export {
@@ -350,4 +423,5 @@ export {
 	saveDefinitionSectionPage,
 	saveDescription,
 	saveFiles,
+	deleteUnusedPages,
 };

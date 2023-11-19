@@ -2,6 +2,7 @@ import type {ApiQueue, Credentials, DeploymentTargets} from './types';
 import {DEPLOY_USER_AGENT, MAX_CONCURRENCY} from '../constant';
 import {
 	checkConfig,
+	deleteUnusedPages,
 	loadConfig,
 	makeEditSummary,
 	readDefinition,
@@ -17,8 +18,13 @@ import chalk from 'chalk';
 import {prompt} from './utils/general-util';
 import {setTimeout} from 'node:timers/promises';
 
-const queue: PQueue = new PQueue({
-	concurrency: MAX_CONCURRENCY > 256 ? 256 : MAX_CONCURRENCY,
+const concurrency: number = MAX_CONCURRENCY > 256 ? 256 : MAX_CONCURRENCY;
+
+const deletePageQueue: PQueue = new PQueue({
+	concurrency,
+});
+const deploymentQueue: PQueue = new PQueue({
+	concurrency,
 });
 
 /**
@@ -64,18 +70,20 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 
 	console.log(chalk.yellow('--- starting deployment ---'));
 
-	const apiQueue: ApiQueue = {
+	const editSummary: string = await makeEditSummary();
+
+	const apiDeploymentQueue: ApiQueue = {
 		api,
-		queue,
-		editSummary: await makeEditSummary(),
+		editSummary,
+		queue: deploymentQueue,
 	};
 
 	const definitionText: string = readDefinition();
-	saveDefinition(definitionText, apiQueue);
-	saveDefinitionSectionPage(definitionText, apiQueue);
+	saveDefinition(definitionText, apiDeploymentQueue);
+	saveDefinitionSectionPage(definitionText, apiDeploymentQueue);
 
 	for (const [name, {description, files}] of Object.entries(targets)) {
-		saveDescription(name, description, apiQueue);
+		saveDescription(name, description, apiDeploymentQueue);
 
 		for (let file of files) {
 			if (/^\./.test(file)) {
@@ -83,13 +91,26 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 			}
 
 			const fileText: string = readFileText(name, file);
-			saveFiles(name, file, fileText, apiQueue);
+			saveFiles(name, file, fileText, apiDeploymentQueue);
 		}
 	}
 
-	await queue.onIdle();
+	await deploymentQueue.onIdle();
 
 	console.log(chalk.yellow('--- end of deployment ---'));
+
+	console.log(chalk.yellow('--- starting delete unused pages ---'));
+
+	const apiDeletePageQueue: ApiQueue = {
+		api,
+		editSummary,
+		queue: deletePageQueue,
+	};
+	await deleteUnusedPages(apiDeletePageQueue);
+
+	await deletePageQueue.onIdle();
+
+	console.log(chalk.yellow('--- end of delete unused pages ---'));
 };
 
 export {deploy};
