@@ -367,7 +367,7 @@ const deleteUnusedPages = async ({api, editSummary, queue}: ApiQueue): Promise<v
 	} catch {}
 
 	const fileDescriptor: PathOrFileDescriptor = fs.openSync(storeFilePath, 'w');
-	fs.writeFileSync(fileDescriptor, deployPages.join('\n'));
+	fs.writeFileSync(fileDescriptor, deployPages.sort().join('\n'));
 	fs.fdatasyncSync(fileDescriptor);
 	fs.closeSync(fileDescriptor);
 
