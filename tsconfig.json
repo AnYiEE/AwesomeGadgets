@@ -1,33 +1,44 @@
 {
 	"compilerOptions": {
-		"target": "ESNext",
-		"module": "ESNext",
-		"moduleResolution": "Node",
-		"lib": ["dom", "dom.iterable", "ESNext"],
-		"strict": true,
-		"allowJs": true,
-		"allowUnusedLabels": false,
 		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"alwaysStrict": true,
 		"exactOptionalPropertyTypes": true,
 		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": true,
 		"noImplicitOverride": true,
 		"noImplicitReturns": true,
+		"noImplicitThis": true,
 		"noPropertyAccessFromIndexSignature": true,
 		"noUncheckedIndexedAccess": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"esModuleInterop": true,
-		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+
+		"allowImportingTsExtensions": true,
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"resolveJsonModule": true,
+
+		"downlevelIteration": true,
+		"newLine": "lf",
+		"noEmit": true,
 		"removeComments": false,
-		"resolveJsonModule": true
+
+		"allowJs": true,
+		"checkJs": true,
+
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"target": "ESNext",
+
+		"skipLibCheck": true
 	},
 	"exclude": ["node_modules/types-mediawiki-renovate/scripts"],
 	"include": [
 		"node_modules/types-mediawiki-renovate",
 		"node_modules/@types/jqueryui",
 		"node_modules/@types/oojs-ui",
-		"src/**/*.ts"
+		"src/**/*"
 	],
 	"ts-node": {
 		"experimentalSpecifierResolution": "node",

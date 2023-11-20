@@ -6,7 +6,7 @@
 	"scripts": {
 		"build": "pnpm format && node --no-warnings --loader ts-node/esm scripts/build.ts",
 		"deploy": "pnpm format && node --no-warnings --loader ts-node/esm scripts/deploy.ts",
-		"format": "prettier --cache --write . && pnpm lint:fix && tsc --noEmit",
+		"format": "prettier --cache --write . && pnpm lint:fix && tsc",
 		"eslint": "eslint --cache .",
 		"eslint:fix": "eslint --cache --fix .",
 		"stylelint": "stylelint --allow-empty-input --cache src/**/*.{css,less} ",
