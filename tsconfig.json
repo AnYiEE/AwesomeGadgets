@@ -19,7 +19,8 @@
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
-		"removeComments": false
+		"removeComments": false,
+		"resolveJsonModule": true
 	},
 	"exclude": ["node_modules/types-mediawiki-renovate/scripts"],
 	"include": [

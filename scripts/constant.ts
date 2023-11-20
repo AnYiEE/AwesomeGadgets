@@ -37,12 +37,12 @@ const DEFAULT_DEFINITION: DefaultDefinition = {
 	dependencies: [],
 	hidden: false,
 	namespaces: false,
-	package: false,
 	peers: [],
 	requiresES6: false,
 	rights: [],
 	skins: [],
 	supportsUrlLoad: false,
+	// package: boolean -> 无需指定，在 TypeScript 中可以引用任何东西 / No need to specify, just import anything in TypeScript
 	// targets: 'desktop' | 'mobile' -> 已弃用，转用 skins 参数 / Deprecated, switch to the "skins" parameter
 	// type: 'general' | 'styles' -> 自动识别，无需指定 / Automatically recognized, no need to specify <https://github.com/wikimedia/mediawiki-extensions-Gadgets/blob/master/includes/Gadget.php#L514>
 };
