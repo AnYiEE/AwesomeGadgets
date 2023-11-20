@@ -14,9 +14,6 @@ overrides:
   types-mediawiki: npm:types-mediawiki-renovate
 
 patchedDependencies:
-  eslint-plugin-compat@4.2.0:
-    hash: xb3fkg7yobwl6hbmal63hdsoh4
-    path: patches/eslint-plugin-compat@4.2.0.patch
   eslint-plugin-no-jquery@2.7.0:
     hash: v4iv7q4nqe6fm4j4rtzs7s6leq
     path: patches/eslint-plugin-no-jquery@2.7.0.patch
@@ -3251,7 +3248,7 @@ packages:
     dependencies:
       browserslist-config-wikimedia: 0.5.1
       eslint: 8.54.0
-      eslint-plugin-compat: 4.2.0(patch_hash=xb3fkg7yobwl6hbmal63hdsoh4)(eslint@8.54.0)
+      eslint-plugin-compat: 4.2.0(eslint@8.54.0)
       eslint-plugin-es-x: 5.4.0(eslint@8.54.0)
       eslint-plugin-jsdoc: 39.2.2(eslint@8.54.0)
       eslint-plugin-json-es: 1.5.7(eslint@8.54.0)
@@ -3269,7 +3266,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-compat@4.2.0(patch_hash=xb3fkg7yobwl6hbmal63hdsoh4)(eslint@8.54.0):
+  /eslint-plugin-compat@4.2.0(eslint@8.54.0):
     resolution: {integrity: sha512-RDKSYD0maWy5r7zb5cWQS+uSPc26mgOzdORJ8hxILmWM7S/Ncwky7BcAtXVY5iRbKjBdHsWU8Yg7hfoZjtkv7w==}
     engines: {node: '>=14.x'}
     peerDependencies:
@@ -3284,7 +3281,6 @@ packages:
       lodash.memoize: 4.1.2
       semver: 7.5.4
     dev: true
-    patched: true
 
   /eslint-plugin-es-x@5.4.0(eslint@8.54.0):
     resolution: {integrity: sha512-6Mniw760Nhd6brnDy+rz857LD+icZe5wXmsvXSuJ84svM0Q53ulJxpMhTJmpqHaLzYh7fuGAJ8V62ohbmqF+jA==}
