@@ -28,6 +28,8 @@
 		"allowJs": true,
 		"checkJs": true,
 
+		"esModuleInterop": true,
+
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"target": "ESNext",
 
