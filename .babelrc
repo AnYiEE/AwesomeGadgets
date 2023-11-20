@@ -13,5 +13,10 @@
 			}
 		]
 	],
+	"plugins": [
+		"@babel/plugin-transform-member-expression-literals",
+		"@babel/plugin-transform-property-literals",
+		"@babel/plugin-transform-reserved-words"
+	],
 	"compact": false
 }

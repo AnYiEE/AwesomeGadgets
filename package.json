@@ -39,6 +39,9 @@
 	],
 	"devDependencies": {
 		"@babel/core": "^7.23.3",
+		"@babel/plugin-transform-member-expression-literals": "^7.23.3",
+		"@babel/plugin-transform-property-literals": "^7.23.3",
+		"@babel/plugin-transform-reserved-words": "^7.23.3",
 		"@babel/preset-env": "^7.23.3",
 		"@commitlint/cli": "^18.4.2",
 		"@commitlint/config-conventional": "^18.4.2",
