@@ -25,15 +25,6 @@ devDependencies:
   '@babel/core':
     specifier: ^7.23.3
     version: 7.23.3
-  '@babel/plugin-transform-member-expression-literals':
-    specifier: ^7.23.3
-    version: 7.23.3(@babel/core@7.23.3)
-  '@babel/plugin-transform-property-literals':
-    specifier: ^7.23.3
-    version: 7.23.3(@babel/core@7.23.3)
-  '@babel/plugin-transform-reserved-words':
-    specifier: ^7.23.3
-    version: 7.23.3(@babel/core@7.23.3)
   '@babel/preset-env':
     specifier: ^7.23.3
     version: 7.23.3(@babel/core@7.23.3)
@@ -64,18 +55,15 @@ devDependencies:
   '@typescript-eslint/parser':
     specifier: ^5.62.0
     version: 5.62.0(eslint@8.54.0)(typescript@5.2.2)
-  babel-plugin-array-includes:
-    specifier: ^2.0.3
-    version: 2.0.3
-  babel-plugin-transform-object-hasown:
-    specifier: ^1.1.0
-    version: 1.1.0
   browserslist-config-wikimedia:
     specifier: latest
     version: 0.5.1
   chalk:
     specifier: ^5.3.0
     version: 5.3.0
+  core-js:
+    specifier: ^3.33.3
+    version: 3.33.3
   esbuild:
     specifier: ^0.19.6
     version: 0.19.6
@@ -1256,7 +1244,7 @@ packages:
       babel-plugin-polyfill-corejs2: 0.4.6(@babel/core@7.23.3)
       babel-plugin-polyfill-corejs3: 0.8.6(@babel/core@7.23.3)
       babel-plugin-polyfill-regenerator: 0.5.3(@babel/core@7.23.3)
-      core-js-compat: 3.33.2
+      core-js-compat: 3.33.3
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
@@ -2616,10 +2604,6 @@ packages:
       - debug
     dev: true
 
-  /babel-plugin-array-includes@2.0.3:
-    resolution: {integrity: sha512-sCOF2ST61Vlnss4IRn/X84crwJyzq0f/3z0voJd4XZ2izIUX2h9AO5L+F4CJ/7na3d9xRWDsaS0EfPTg8kJsqg==}
-    dev: true
-
   /babel-plugin-polyfill-corejs2@0.4.6(@babel/core@7.23.3):
     resolution: {integrity: sha512-jhHiWVZIlnPbEUKSSNb9YoWcQGdlTLq7z1GHL4AjFxaoOUMuuEVJ+Y4pAaQUGOGk93YsVCKPbqbfw3m0SM6H8Q==}
     peerDependencies:
@@ -2640,7 +2624,7 @@ packages:
     dependencies:
       '@babel/core': 7.23.3
       '@babel/helper-define-polyfill-provider': 0.4.3(@babel/core@7.23.3)
-      core-js-compat: 3.33.2
+      core-js-compat: 3.33.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2654,11 +2638,6 @@ packages:
       '@babel/helper-define-polyfill-provider': 0.4.3(@babel/core@7.23.3)
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /babel-plugin-transform-object-hasown@1.1.0:
-    resolution: {integrity: sha512-HD1IFdodOjsKOKli9RG47jEuo6kOZ9G3Q+0jheP7BZHkMAIN+PnMPaGmvBjpGQX/zaGlKKWumSs5LZNV0+ioqQ==}
-    engines: {node: '>=10'}
     dev: true
 
   /balanced-match@1.0.2:
@@ -2890,10 +2869,15 @@ packages:
       is-what: 3.14.1
     dev: true
 
-  /core-js-compat@3.33.2:
-    resolution: {integrity: sha512-axfo+wxFVxnqf8RvxTzoAlzW4gRoacrHeoFlc9n0x50+7BEyZL/Rt3hicaED1/CEd7I6tPCPVUYcJwCMO5XUYw==}
+  /core-js-compat@3.33.3:
+    resolution: {integrity: sha512-cNzGqFsh3Ot+529GIXacjTJ7kegdt5fPXxCBVS1G0iaZpuo/tBz399ymceLJveQhFFZ8qThHiP3fzuoQjKN2ow==}
     dependencies:
       browserslist: 4.22.1
+    dev: true
+
+  /core-js@3.33.3:
+    resolution: {integrity: sha512-lo0kOocUlLKmm6kv/FswQL8zbkH7mVsLJ/FULClOhv8WRVmKLVcs6XPNQAzstfeJTCHMyButEwG+z1kHxHoDZw==}
+    requiresBuild: true
     dev: true
 
   /core-util-is@1.0.3:

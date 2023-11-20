@@ -3,21 +3,15 @@
 		[
 			"@babel/preset-env",
 			{
+				"bugfixes": true,
 				"corejs": {
-					"version": 3,
+					"version": "3.33",
 					"proposals": true
 				},
 				"modules": false,
-				"useBuiltIns": "entry"
+				"useBuiltIns": "usage"
 			}
 		]
-	],
-	"plugins": [
-		"array-includes",
-		"transform-object-hasown",
-		"@babel/plugin-transform-member-expression-literals",
-		"@babel/plugin-transform-property-literals",
-		"@babel/plugin-transform-reserved-words"
 	],
 	"compact": false
 }

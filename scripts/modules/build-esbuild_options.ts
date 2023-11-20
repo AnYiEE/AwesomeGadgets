@@ -31,6 +31,7 @@ const esbuildOptions: BuildOptions = {
 			],
 		}),
 	],
+	treeShaking: true,
 	write: false,
 };
 

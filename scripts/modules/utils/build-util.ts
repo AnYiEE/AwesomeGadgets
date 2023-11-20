@@ -55,6 +55,20 @@ const build = async (inputFilePath: string, outputFilePath: string): Promise<str
 	return (buildResult.outputFiles as OutputFile[])[0].text;
 };
 
+const bundle = async (inputFilePath: string, code: string): Promise<string> => {
+	const buildResult = await esbuild.build({
+		...esbuildOptions,
+		stdin: {
+			contents: code,
+			resolveDir: 'node_modules',
+			sourcefile: inputFilePath,
+		},
+		target: 'es5',
+	});
+
+	return (buildResult.outputFiles as OutputFile[])[0].text;
+};
+
 /**
  * @param {string} name The gadget name
  * @param {string} script The script file name of this gadget
@@ -70,13 +84,16 @@ const buildScript = async (
 	const outputFilePath: string = path.join(__dirname, `dist/${name}/${script.replace(/\.ts$/, '.js')}`);
 
 	const buildOutput: string = await build(inputFilePath, outputFilePath);
+
 	const babelFileResult: BabelFileResult = (await babel.transformAsync(
 		buildOutput,
 		babelTransformOptions
 	)) as BabelFileResult;
 	const {code} = babelFileResult;
 
-	writeFile(code as string, outputFilePath, {
+	const bundleOutput: string = await bundle(inputFilePath, code as string);
+
+	writeFile(bundleOutput as string, outputFilePath, {
 		licenseText,
 		contentType: 'application/javascript',
 	});
