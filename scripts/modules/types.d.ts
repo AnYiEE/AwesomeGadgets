@@ -41,7 +41,6 @@ interface DefaultDefinition {
 	hidden: boolean;
 	namespaces: false | number[];
 	peers: string[];
-	requiresES6: boolean;
 	rights: string[];
 	skins: string[];
 	supportsUrlLoad: boolean;

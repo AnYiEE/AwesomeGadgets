@@ -41,7 +41,6 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
     	"namespaces": [0], // or false
     	"package": false,
     	"peers": ["peers"],
-    	"requiresES6": false,
     	"rights": ["rollback"],
     	"skins": ["vector"]
     }

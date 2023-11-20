@@ -38,11 +38,11 @@ const DEFAULT_DEFINITION: DefaultDefinition = {
 	hidden: false,
 	namespaces: false,
 	peers: [],
-	requiresES6: false,
 	rights: [],
 	skins: [],
 	supportsUrlLoad: false,
 	// package: boolean -> 无需指定，在 TypeScript 中可以引用任何东西 / No need to specify, just import anything in TypeScript
+	// requiresES6: boolean -> 无需指定，构建时将用 Babel/core-js 为代码填充 polyfill / No need to specify, will be polyfilled by babel/core-js when building
 	// targets: 'desktop' | 'mobile' -> 已弃用，转用 skins 参数 / Deprecated, switch to the "skins" parameter
 	// type: 'general' | 'styles' -> 自动识别，无需指定 / Automatically recognized, no need to specify <https://github.com/wikimedia/mediawiki-extensions-Gadgets/blob/master/includes/Gadget.php#L514>
 };

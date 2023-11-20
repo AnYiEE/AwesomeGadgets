@@ -71,10 +71,6 @@
 				"type": "string"
 			}
 		},
-		"requiresES6": {
-			"type": "boolean",
-			"default": false
-		},
 		"rights": {
 			"type": "array",
 			"default": [],
