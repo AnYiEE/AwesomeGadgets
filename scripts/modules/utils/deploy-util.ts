@@ -23,7 +23,7 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
 
 	for (const definition of definitions) {
 		const [_, name, files, description] = definition.match(
-			/^\*\s(\S+?)\[\S+?]\|(\S+?)#\S*?#(.*?)$/
+			/^\*\s(\S+?)\[\S+?]\|(\S+?)☀\S*?☀(.+?)$/
 		) as RegExpMatchArray;
 
 		targets[name] = {} as DeploymentTargets[''];
@@ -33,7 +33,7 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
 				return !!file;
 			})
 			.map((file: string): string => {
-				return file.replace(/\S+?<>/, '');
+				return file.replace(/\S+?❄/, '');
 			});
 		targets[name].description = description || name;
 	}

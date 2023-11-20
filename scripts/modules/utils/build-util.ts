@@ -236,11 +236,12 @@ const findSourceFile = (currentPath = 'src'): SourceFiles => {
 
 /**
  * @param {string} name The gadget name
- * @param {string?} definition The definition file name of this gadget
- * @return {string} The gadget definition fragment
+ * @param {string|undefined} definition The definition file name of this gadget
+ * @param {string} files All files used by this gadget
+ * @return {string} The Gadget definition (in the format of MediaWiki:Gadgets-definition item)
  */
-const generateDefinitionFragment = (name: string, definition?: string): string => {
-	let definitionText = '';
+const generateDefinitionItem = (name: string, definition: string | undefined, files: string): string => {
+	let definitionText = '|';
 
 	let definitionJsonText = '{}';
 	try {
@@ -298,45 +299,18 @@ const generateDefinitionFragment = (name: string, definition?: string): string =
 	definitionText = definitionText.replace(/\|$/, '');
 
 	const cleanInvalidCharacters = (text: string): string => {
-		return text.replace(/#|==|<>/g, '').trim();
+		return text.replace(/☀|❀/g, '').trim();
 	};
 
 	let descriptionText: string = cleanInvalidCharacters(definitionObject.description);
-	descriptionText = descriptionText ? `#${descriptionText}` : '#';
+	descriptionText = descriptionText ? `☀${descriptionText}` : `☀${name}`;
 
 	let sectionText: string = cleanInvalidCharacters(definitionObject.section);
-	sectionText = sectionText ? `#${sectionText}` : '#appear';
+	sectionText = sectionText ? `☀${sectionText}` : '☀appear';
 
-	return `* ${name}[ResourceLoader|$1$2]|$3$4$5`
-		.replace('$1', definitionText)
-		.replace('$4', sectionText)
-		.replace('$5', descriptionText);
-};
-
-/**
- * @param {string} name The gadget name
- * @param {string|undefined} definition The definition file name of this gadget
- * @param {string} files All files used by this gadget
- * @return {string} The Gadget definition (in the format of MediaWiki:Gadgets-definition item)
- */
-const generateDefinitionItem = (name: string, definition: string | undefined, files: string): string => {
-	const definitionFragment: string = generateDefinitionFragment(name, definition);
-
-	const isStyleOnly = !/\.[jt]s\|/.test(files);
-	let definitionItem: string = definitionFragment
-		.replace('$2', isStyleOnly ? '|type=styles' : '')
-		.replace('$3', files);
-	if (isStyleOnly) {
-		definitionItem = definitionItem.replace(/[|\]]dependencies=\S+?([|\]])/, '$1');
-	}
-
-	return definitionItem
-		.replace(/\|\|/, '|')
-		.replace(/\|]/, ']')
-		.replace(/\|#/, '#')
-		.replace(/\.ts([|#])/g, '.js$1')
-		.replace(/\.less([|#])/g, '.css$1')
-		.trim();
+	return `* ${name}[ResourceLoader${definitionText}]${files}${sectionText}${descriptionText}`
+		.replace(/\.ts([|☀])/g, '.js$1')
+		.replace(/\.less([|☀])/g, '.css$1');
 };
 
 /**
@@ -346,7 +320,7 @@ const generateDefinitionItem = (name: string, definition: string | undefined, fi
  */
 const removeDuplicateFileName = (name: string, file: string): string => {
 	const fileNameSplit: string[] = file.split('.');
-	return `${name}<>${fileNameSplit.shift() === name ? `.${fileNameSplit.join('.')}` : file}`;
+	return `${name}❄${fileNameSplit.shift() === name ? `.${fileNameSplit.join('.')}` : file}`;
 };
 
 /**
@@ -385,9 +359,9 @@ const getLicense = (name: string, license?: string): string | undefined => {
 const setDefinition = (definitions: string[]): void => {
 	const definitionObject: Record<string, typeof definitions> = {};
 	for (const definition of definitions) {
-		const [, section] = definition.match(/.*?#(\S+?)#/) as RegExpExecArray;
+		const [, section] = definition.match(/.*?☀(\S+?)☀/) as RegExpExecArray;
 		definitionObject[section] ??= [];
-		definitionObject[section].push(definition.replace(/#.*/, ''));
+		definitionObject[section].push(definition.replace(/☀.*/, ''));
 	}
 
 	const definitionObjectSorted: typeof definitionObject = {};
@@ -406,7 +380,7 @@ const setDefinition = (definitions: string[]): void => {
 			}
 		}
 	}
-	definitionText = definitionText.replace(/<>/g, '-').replace(/-\./g, '.');
+	definitionText = definitionText.replace(/❄/g, '-').replace(/-\./g, '.');
 	definitionText = `${BANNER.replace(/[=]=/g, '').trim()}\n${definitionText}`;
 
 	const definitionPath: string = path.join(__dirname, 'dist/definition.txt');

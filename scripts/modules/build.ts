@@ -22,7 +22,7 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 	console.log(chalk.yellow('--- starting build ---'));
 
 	for (const [name, {definition, license, script, scripts, style, styles}] of Object.entries(sourceFiles)) {
-		let definitionItemFiles = '';
+		let definitionItemFiles = '|';
 		const licenseText: string | undefined = getLicense(name, license);
 
 		if (script || scripts) {
@@ -46,6 +46,8 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 				})
 			);
 		}
+
+		definitionItemFiles = definitionItemFiles.replace(/\|$/, '');
 
 		const definitionItem: string = generateDefinitionItem(name, definition, definitionItemFiles);
 		// Exclude empty definitions (when the gadget is disabled, it will return an empty string)
