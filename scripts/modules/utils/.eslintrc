@@ -1,6 +1,5 @@
 {
 	"rules": {
-		"compat/compat": "off",
 		"security/detect-non-literal-fs-filename": "off"
 	}
 }

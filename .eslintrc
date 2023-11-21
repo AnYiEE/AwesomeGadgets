@@ -143,6 +143,8 @@
 			}
 		],
 
+		"compat/compat": "off",
+
 		"jsdoc/check-tag-names": "off",
 		"jsdoc/no-undefined-types": "off",
 
