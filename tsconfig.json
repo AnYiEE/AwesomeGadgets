@@ -29,6 +29,7 @@
 		"checkJs": true,
 
 		"esModuleInterop": true,
+		"isolatedModules": true,
 
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"target": "ESNext",
