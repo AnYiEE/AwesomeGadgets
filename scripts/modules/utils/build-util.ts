@@ -14,7 +14,7 @@ const writeFile = (
 	outputFilePath: string,
 	{
 		contentType,
-		licenseText,
+		licenseText = '',
 	}: {
 		contentType?: 'application/javascript' | 'text/css';
 		licenseText?: string;
@@ -24,7 +24,7 @@ const writeFile = (
 
 	switch (contentType) {
 		case 'application/javascript': {
-			const licenseTextTrim = licenseText?.trim();
+			const licenseTextTrim = licenseText.trim();
 			licenseText = licenseTextTrim ? `${licenseTextTrim}\n` : '';
 			fileContent = `${licenseText}${WARNING}\n${HEADER}\n(function () {\n\n${sourceCode}\n\n})();\n${FOOTER}\n`;
 			break;
