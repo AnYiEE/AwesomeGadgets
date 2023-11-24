@@ -20,24 +20,23 @@ const writeFile = (
 		licenseText?: string;
 	} = {}
 ): void => {
-	let fileContent = '';
+	const licenseTextTrim = licenseText.trim();
+	licenseText = licenseTextTrim ? `${licenseTextTrim}\n` : '';
 
+	let fileContent = '';
 	switch (contentType) {
-		case 'application/javascript': {
-			const licenseTextTrim = licenseText.trim();
-			licenseText = licenseTextTrim ? `${licenseTextTrim}\n` : '';
-			fileContent = `${licenseText}${WARNING}\n${HEADER}\n(function () {\n\n${sourceCode}\n\n})();\n${FOOTER}\n`;
-			break;
-		}
+		case 'application/javascript':
 		case 'text/css':
-			fileContent = `${licenseText}${WARNING}\n\n${HEADER}\n\n${sourceCode}\n${FOOTER}\n`;
+			fileContent = `${licenseText}${WARNING}\n${HEADER}\n\n${sourceCode}\n${FOOTER}\n`;
 			break;
 		default:
 			fileContent = sourceCode;
 	}
 
 	const outputDirectoryPath = path.dirname(outputFilePath);
-	fs.mkdirSync(outputDirectoryPath, {recursive: true});
+	fs.mkdirSync(outputDirectoryPath, {
+		recursive: true,
+	});
 
 	const fileDescriptor: PathOrFileDescriptor = fs.openSync(outputFilePath, 'w');
 	fs.writeFileSync(fileDescriptor, fileContent);
