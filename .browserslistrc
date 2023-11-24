@@ -1,2 +1,4 @@
-> 0.2%
-defaults
+# 注意：通常情况下不应修改此文件，如需修改，应先阅读 scripts/constant.ts 中`GLOBAL_REQUIRES_ES6`的相关说明
+# Note: Rrefrain from modifying this file under normal circumstances. If modification becomes necessary, refer to the instructions in scripts/constant.ts regarding `GLOBAL_REQUIRES_ES6` before proceeding
+
+fully supports es5 and not dead

@@ -1,4 +1,4 @@
-import {BANNER, DEFAULT_DEFINITION, FOOTER, HEADER, WARNING} from '../../constant';
+import {BANNER, DEFAULT_DEFINITION, FOOTER, GLOBAL_REQUIRES_ES6, HEADER, WARNING} from '../../constant';
 import type {DefaultDefinition, SourceFiles} from '../types';
 import babel, {type BabelFileResult, type TransformOptions} from '@babel/core';
 import esbuild, {type OutputFile} from 'esbuild';
@@ -280,6 +280,7 @@ const generateDefinitionItem = (name: string, definition: string | undefined, fi
 	const definitionObject: DefaultDefinition = {
 		...DEFAULT_DEFINITION,
 		...JSON.parse(definitionJsonText),
+		requiresES6: GLOBAL_REQUIRES_ES6,
 	};
 
 	for (const [key, value] of Object.entries(definitionObject)) {

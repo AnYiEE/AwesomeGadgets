@@ -30,7 +30,7 @@ const BANNER = `<div class="mw-message-box mw-message-box-notice">
 const DEFAULT_DEFINITION: DefaultDefinition = {
 	enable: true,
 	description: '', // 回落值为小工具名称 / Fallback value: the name of the current gadget
-	section: '', // 回落值为appear / Fallback value: appear
+	section: '', // 回落值为 appear / Fallback value: appear
 	actions: [],
 	contentModels: [],
 	default: false,
@@ -42,7 +42,7 @@ const DEFAULT_DEFINITION: DefaultDefinition = {
 	skins: [],
 	supportsUrlLoad: false,
 	// package: boolean -> 无需指定，在 TypeScript 中可以引用任何东西 / No need to specify, just import anything in TypeScript
-	// requiresES6: boolean -> 无需指定，构建时将用 Babel/core-js 为代码填充 polyfill / No need to specify, will be polyfilled by babel/core-js when building
+	// requiresES6: boolean -> 无需指定，以下方`GLOBAL_REQUIRES_ES6`为准 / No need to specify, the following is based on `GLOBAL_REQUIRES_ES6`
 	// targets: 'desktop' | 'mobile' -> 已弃用，转用 skins 参数 / Deprecated, switch to the "skins" parameter
 	// type: 'general' | 'styles' -> 自动识别，无需指定 / Automatically recognized, no need to specify <https://github.com/wikimedia/mediawiki-extensions-Gadgets/blob/master/includes/Gadget.php#L514>
 };
@@ -65,6 +65,28 @@ const DEFINITION_SECTION_MAP: DefaultSectionMap = {
 };
 
 const DEPLOY_USER_AGENT = 'AnYiEE/AwesomeGadgets (https://github.com/AnYiEE/AwesomeGadgets; i@anyi.in)';
+
+/**
+ * 启用此选项会为全部小工具设置`requiresES6`标识，禁用 Gadget 扩展的语法检查功能以允许使用 ES6 语法（即使经过编译）
+ *
+ * 需要目标 MediaWiki 网站版本大于等于 1.40.0-wmf.7
+ *
+ * 如需自定义`.browserslistrc`，应启用此选项
+ *
+ * 注意：Gadget 扩展默认不支持小工具同时存在`default`和`requiresES6`标识，如需为存在`default`标识的小工具绕过服务端语法检查，应自行修改 Gadget 扩展，否则**不应**将此选项设置为 true
+ *
+ * Allow the use of ES6 syntax (ES2015) in all gadgets
+ *
+ * Enabling this option will set the `requiresES6` flag for all gadgets, which means that server-side syntax validation is skipped to allow the use of ES6 syntax (even after compilation)
+ *
+ * Requires target MediaWiki version greater than or equal to 1.40.0-wmf.7
+ *
+ * If you want to customize `.browserslistrc`, enable this option
+ *
+ * Note: By default, Gadget extensions do not support gadgets that have both the `default` and `requiresES6` flags. If you need to bypass server-side syntax validation for gadgets with the `default` flag, you should modify the Gadget extension yourself. Otherwise, **DO NOT** set this option to true
+ *
+ */
+const GLOBAL_REQUIRES_ES6 = false;
 
 /**
  * 是否自动转换`MediaWiki:Gadget-${gadgetName}`和`MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}`页面的语言变体
@@ -92,6 +114,7 @@ export {
 	DEFAULT_DEFINITION,
 	DEFINITION_SECTION_MAP,
 	DEPLOY_USER_AGENT,
+	GLOBAL_REQUIRES_ES6,
 	IS_CONVERT_VARIANT,
 	MAX_CONCURRENCY,
 };
