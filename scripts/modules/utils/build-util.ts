@@ -1,6 +1,6 @@
 import {BANNER, DEFAULT_DEFINITION, FOOTER, GLOBAL_REQUIRES_ES6, HEADER, WARNING} from '../../constant';
 import type {DefaultDefinition, SourceFiles} from '../types';
-import babel, {type BabelFileResult, type TransformOptions} from '@babel/core';
+import babel, {type BabelFileResult} from '@babel/core';
 import esbuild, {type OutputFile} from 'esbuild';
 import fs, {type PathOrFileDescriptor, type Stats} from 'node:fs';
 import chalk from 'chalk';
@@ -59,7 +59,7 @@ const bundle = async (inputFilePath: string, code: string): Promise<string> => {
 		...esbuildOptions,
 		stdin: {
 			contents: code,
-			resolveDir: 'node_modules',
+			resolveDir: __dirname,
 			sourcefile: inputFilePath,
 		},
 		target: 'es5',
@@ -68,59 +68,34 @@ const bundle = async (inputFilePath: string, code: string): Promise<string> => {
 	return (buildResult.outputFiles as OutputFile[])[0].text;
 };
 
+const transform = async (inputFilePath: string, code: string): Promise<string> => {
+	const babelFileResult: BabelFileResult = (await babel.transformAsync(code, {
+		cwd: __dirname,
+		filename: inputFilePath,
+	})) as BabelFileResult;
+	const {code: transformOutput} = babelFileResult;
+
+	return transformOutput as string;
+};
+
 /**
  * @param {string} name The gadget name
  * @param {string} script The script file name of this gadget
  * @param {{licenseText?:string; babelTransformOptions:TransformOptions}} object The license file content of this gadget and the `.babelrc` file parsed object
  */
-const buildScript = async (
-	name: string,
-	script: string,
-	{licenseText, babelTransformOptions}: {licenseText?: string; babelTransformOptions: TransformOptions}
-): Promise<void> => {
+const buildScript = async (name: string, script: string, {licenseText}: {licenseText?: string}): Promise<void> => {
 	const inputFilePath: string = path.join(__dirname, `src/${name}/${script}`);
 	// The TypeScript file is always compiled into a JavaScript file, so replace the extension directly
 	const outputFilePath: string = path.join(__dirname, `dist/${name}/${script.replace(/\.ts$/, '.js')}`);
 
 	const buildOutput: string = await build(inputFilePath, outputFilePath);
-
-	const babelFileResult: BabelFileResult = (await babel.transformAsync(
-		buildOutput,
-		babelTransformOptions
-	)) as BabelFileResult;
-	const {code} = babelFileResult;
-
-	const bundleOutput: string = await bundle(inputFilePath, code as string);
+	const transformOutput: string = await transform(inputFilePath, buildOutput);
+	const bundleOutput: string = await bundle(inputFilePath, transformOutput);
 
 	writeFile(bundleOutput as string, outputFilePath, {
 		licenseText,
 		contentType: 'application/javascript',
 	});
-};
-
-/**
- * @param {string} name The gadget name
- * @param {string[]} scripts Array of script file names for this gadget
- * @param {{licenseText?:string}?} object The license file content of this gadget
- * @return {Promise<void>[]} The build tasks
- */
-const buildScripts = (name: string, scripts: string[], {licenseText}: {licenseText?: string} = {}): Promise<void>[] => {
-	// Load outside the loop for optimizing I/O performance
-	const babelTransformOptions: TransformOptions = JSON.parse(
-		fs.readFileSync(path.join(__dirname, '.babelrc')).toString()
-	);
-
-	const buildQueue: Promise<void>[] = [];
-	for (const script of scripts) {
-		buildQueue.push(
-			buildScript(name, script, {
-				licenseText,
-				babelTransformOptions,
-			})
-		);
-	}
-
-	return buildQueue;
 };
 
 /**
@@ -143,15 +118,21 @@ const buildStyle = async (name: string, style: string, {licenseText}: {licenseTe
 
 /**
  * @param {string} name The gadget name
- * @param {string[]} styles Array of style sheet file names for a gadget
- * @param {{licenseText?:string}?} object The license file content of this gadget
+ * @param {'script'|'style'} type The type of target files
+ * @param {{files:string[]; licenseText?:string}} object The license file content of this gadget and the array of file names for this gadget
  * @return {Promise<void>[]} The build tasks
  */
-const buildStyles = (name: string, styles: string[], {licenseText}: {licenseText?: string} = {}): Promise<void>[] => {
+const buildFiles = (
+	name: string,
+	type: 'script' | 'style',
+	{files, licenseText}: {files: string[]; licenseText?: string}
+): Promise<void>[] => {
+	const buildFile: typeof buildScript | typeof buildStyle = type === 'script' ? buildScript : buildStyle;
+
 	const buildQueue: Promise<void>[] = [];
-	for (const style of styles) {
+	for (const file of files) {
 		buildQueue.push(
-			buildStyle(name, style, {
+			buildFile(name, file, {
 				licenseText,
 			})
 		);
@@ -407,12 +388,4 @@ const setDefinition = (definitions: string[]): void => {
 	fs.closeSync(fileDescriptor);
 };
 
-export {
-	buildScripts,
-	buildStyles,
-	findSourceFile,
-	generateDefinitionItem,
-	generateFileNames,
-	getLicense,
-	setDefinition,
-};
+export {buildFiles, findSourceFile, generateDefinitionItem, generateFileNames, getLicense, setDefinition};

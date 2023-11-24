@@ -1,11 +1,4 @@
-import {
-	buildScripts,
-	buildStyles,
-	generateDefinitionItem,
-	generateFileNames,
-	getLicense,
-	setDefinition,
-} from './utils/build-util';
+import {buildFiles, generateDefinitionItem, generateFileNames, getLicense, setDefinition} from './utils/build-util';
 import type {SourceFiles} from './types';
 import chalk from 'chalk';
 
@@ -30,8 +23,9 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 			const scriptFiles: string = generateFileNames(name, scriptFileArray);
 			definitionItemFiles += scriptFiles ? `${scriptFiles}|` : '';
 			buildPromiseArray.push(
-				...buildScripts(name, scriptFileArray, {
+				...buildFiles(name, 'script', {
 					licenseText,
+					files: scriptFileArray,
 				})
 			);
 		}
@@ -41,8 +35,9 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 			const styleFiles: string = generateFileNames(name, styleFileArray);
 			definitionItemFiles += styleFiles ? `${styleFiles}|` : '';
 			buildPromiseArray.push(
-				...buildStyles(name, styleFileArray, {
+				...buildFiles(name, 'style', {
 					licenseText,
+					files: styleFileArray,
 				})
 			);
 		}
