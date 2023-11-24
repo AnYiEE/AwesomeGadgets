@@ -47,6 +47,7 @@
 		"id-length": "off",
 		"id-match": "error",
 		"init-declarations": "off",
+		"lines-between-class-members": "off",
 		"logical-assignment-operators": "error",
 		"max-classes-per-file": "off",
 		"max-depth": "off",
@@ -120,6 +121,7 @@
 		"spaced-comment": "off",
 		"strict": "off",
 		"symbol-description": "error",
+		"template-curly-spacing": ["error", "never"],
 
 		"@typescript-eslint/ban-ts-comment": "warn",
 		"@typescript-eslint/no-empty-function": [

@@ -46,7 +46,7 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
  *
  * @param {Record<string, unknown>} config To be completed configuration
  * @param {boolean} checkApiUrlOnly Only check `config.apiUrl` is empty or not
- * @returns {Promise<{apiUrl:string; username:string; password:string}>} Completed configuration
+ * @return {Promise<{apiUrl:string; username:string; password:string}>} Completed configuration
  */
 const checkConfig = async (
 	config: Partial<CredentialsOnlyPassword>,
@@ -89,7 +89,7 @@ const loadConfig = (): Partial<Credentials> => {
 /**
  * Make editing summary
  *
- * @returns {Promise<string>} The editing summary
+ * @return {Promise<string>} The editing summary
  */
 const makeEditSummary = async (): Promise<string> => {
 	let sha = '';

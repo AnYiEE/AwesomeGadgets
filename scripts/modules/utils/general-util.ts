@@ -6,7 +6,7 @@ import prompts, {type Answers, type PromptType} from 'prompts';
  * @param {string} message The message to be displayed to the user
  * @param {PromptType} type Defines the type of prompt to display
  * @param {string} initial Optional default prompt value
- * @returns {Promise<string>}
+ * @return {Promise<string>}
  * @see https://www.npmjs.com/package/prompts
  */
 const prompt = async (message: string, type: PromptType = 'text', initial = ''): Promise<string> => {
