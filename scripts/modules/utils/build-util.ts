@@ -1,4 +1,4 @@
-import {BANNER, DEFAULT_DEFINITION, FOOTER, GLOBAL_REQUIRES_ES6, HEADER, WARNING} from '../../constant';
+import {BANNER, DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER} from '../../constant';
 import type {DefaultDefinition, SourceFiles} from '../types';
 import babel, {type BabelFileResult} from '@babel/core';
 import esbuild, {type OutputFile} from 'esbuild';
@@ -9,25 +9,30 @@ import path from 'node:path';
 import process from 'node:process';
 const __dirname = path.resolve();
 
+const trim = (string?: string): string => {
+	const stringTrim: string = (string ?? '').trim();
+
+	return stringTrim ? `${stringTrim}\n` : '';
+};
+
 const writeFile = (
 	sourceCode: string,
 	outputFilePath: string,
 	{
 		contentType,
-		licenseText = '',
+		licenseText,
 	}: {
 		contentType?: 'application/javascript' | 'text/css';
 		licenseText?: string;
 	} = {}
 ): void => {
-	const licenseTextTrim = licenseText.trim();
-	licenseText = licenseTextTrim ? `${licenseTextTrim}\n` : '';
-
 	let fileContent = '';
+	sourceCode = trim(sourceCode);
+
 	switch (contentType) {
 		case 'application/javascript':
 		case 'text/css':
-			fileContent = `${licenseText}${WARNING}\n${HEADER}\n\n${sourceCode}\n${FOOTER}\n`;
+			fileContent = `${trim(licenseText)}${trim(HEADER)}/* <nowiki> */\n\n${sourceCode}\n/* </nowiki> */\n`;
 			break;
 		default:
 			fileContent = sourceCode;
@@ -379,7 +384,7 @@ const setDefinition = (definitions: string[]): void => {
 		}
 	}
 	definitionText = definitionText.replace(/❄/g, '-').replace(/-\./g, '.');
-	definitionText = `${BANNER.replace(/[=]=/g, '').trim()}\n${definitionText}`;
+	definitionText = `${trim(BANNER)}${definitionText}`;
 
 	const definitionPath: string = path.join(__dirname, 'dist/definition.txt');
 	const fileDescriptor: PathOrFileDescriptor = fs.openSync(definitionPath, 'w');

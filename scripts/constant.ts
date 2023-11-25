@@ -1,8 +1,22 @@
 import type {DefaultDefinition, DefaultSectionMap} from './modules/types';
 
-const HEADER = '/* <nowiki> */';
+/**
+ * `MediaWiki:Gadgets-definition`页面最上方的文本
+ *
+ * The content above the `MediaWiki:Gadgets-definition` page
+ */
+const BANNER = `<div class="mw-message-box mw-message-box-notice">
+<big>本页面内容由脚本自动生成，维护于Git仓库内。对本页面内容的变更，应通知技术团队，以免在代码部署时被误覆盖。</big>
+* 若需要查看本地小工具使用情况，请前往[[Special:GadgetUsage|“小工具使用统计”界面]]。
+* 若需要设置您所需启用或关闭的小工具，请前往[[Special:参数设置#mw-prefsection-gadgets|参数设置]]。
+</div>`;
 
-const WARNING = `/**
+/**
+ * 小工具脚本和样式文件上方的文本，需为 JavaScript 和 CSS 所兼容的注释
+ *
+ * The content above each gadget (.css and .js files), should be compatible comments for JavaScript and CSS
+ */
+const HEADER = `/**
  * +--------------------------------------------------------+
  * |         === WARNING: GLOBAL GADGET FILE ===            |
  * +--------------------------------------------------------+
@@ -13,19 +27,6 @@ const WARNING = `/**
  * |  Please discuss changes at talk page before editing.   |
  * +--------------------------------------------------------+
  */`;
-
-const FOOTER = '/* </nowiki> */';
-
-/**
- * `MediaWiki:Gadgets-definition`页面最上方的文本
- *
- * The content at the top of the `MediaWiki:Gadgets-definition` page
- */
-const BANNER = `<div class="mw-message-box mw-message-box-notice">
-<big>本页面内容由脚本自动生成，维护于Git仓库内。对本页面内容的变更，应通知技术团队，以免在代码部署时被误覆盖。</big>
-* 若需要查看本地小工具使用情况，请前往[[Special:GadgetUsage|“小工具使用统计”界面]]。
-* 若需要设置您所需启用或关闭的小工具，请前往[[Special:参数设置#mw-prefsection-gadgets|参数设置]]。
-</div>`;
 
 const DEFAULT_DEFINITION: DefaultDefinition = {
 	enable: true,
@@ -107,10 +108,8 @@ const IS_CONVERT_VARIANT = false;
 const MAX_CONCURRENCY = 16;
 
 export {
-	HEADER,
-	WARNING,
-	FOOTER,
 	BANNER,
+	HEADER,
 	DEFAULT_DEFINITION,
 	DEFINITION_SECTION_MAP,
 	DEPLOY_USER_AGENT,
