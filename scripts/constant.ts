@@ -12,9 +12,9 @@ const BANNER = `<div class="mw-message-box mw-message-box-notice">
 </div>`;
 
 /**
- * 小工具脚本和样式文件上方的文本，需为 JavaScript 和 CSS 所兼容的注释
+ * 小工具样式和脚本文件上方的文本，需为 CSS 和 JavaScript 所兼容的注释
  *
- * The content above each gadget (.css and .js files), should be compatible comments for JavaScript and CSS
+ * The content above each gadget (CSS and JavaScript files), should be compatible comments for CSS and JavaScript
  */
 const HEADER = `/**
  * +--------------------------------------------------------+
@@ -42,7 +42,7 @@ const DEFAULT_DEFINITION: DefaultDefinition = {
 	rights: [],
 	skins: [],
 	supportsUrlLoad: false,
-	// package: boolean -> 无需指定，在 TypeScript 中可以引用任何东西 / No need to specify, just import anything in TypeScript
+	// package: boolean -> 已弃用，在 TypeScript 中可以引用任何东西 / Deprecated, just import anything in TypeScript
 	// requiresES6: boolean -> 无需指定，以下方`GLOBAL_REQUIRES_ES6`为准 / No need to specify, the following is based on `GLOBAL_REQUIRES_ES6`
 	// targets: 'desktop' | 'mobile' -> 已弃用，转用 skins 参数 / Deprecated, switch to the "skins" parameter
 	// type: 'general' | 'styles' -> 自动识别，无需指定 / Automatically recognized, no need to specify <https://github.com/wikimedia/mediawiki-extensions-Gadgets/blob/master/includes/Gadget.php#L514>

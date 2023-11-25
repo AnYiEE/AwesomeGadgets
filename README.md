@@ -11,6 +11,7 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
     -   `MediaWiki:Gadget-section-*`（支持自动转换中文变体）/ (with automatic conversion for Chinese variations)
     -   `MediaWiki:Gadget-*`（支持自动转换中文变体）/ (with automatic conversion for Chinese variations)
     -   `MediaWiki:Gadget-*.{js, css}`
+-   部署后将自动从网站内删除曾经部署过但现在不再需要的页面<br>After deployment, it automatically deletes pages from the website that have been deployed but are no longer needed
 
 ### 用法 / Usage
 
@@ -46,9 +47,11 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
     }
     ```
 
-5. 运行`pnpm run build`以格式化代码、检查语法、测试编译<br>Run `pnpm run build` to format the code, check syntax, and test the compilation.
+5. 目录下可以创建`LICENSE`以标注小工具的版权信息（可选），文件中的内容会在部署时自动添加到对应小工具文件的顶部<br>In the directory, you have the option to create a `LICENSE` file to indicate the copyright information of your gadget. The content in this file will be automatically added to the top of the gadget file when it is deployed
 
-6. 向上游发起 Pull Request<br>Initiate a Pull Request to the upstream
+6. 运行`pnpm run build`以格式化代码、检查语法、测试编译<br>Run `pnpm run build` to format the code, check syntax, and test the compilation
+
+7. 向上游发起 Pull Request<br>Initiate a Pull Request to the upstream
 
 > 脚本可以是 ts 或 js，可以使用 ESNext 所支持的语法（如`import`，支持跨目录导入）；导入的图片将被自动转换成 Data URLs（如`data:image/png;base64,...`）<br>The scripts can be in either TypeScript or JavaScript and can utilize the syntax supported by ESNext, such as import, which allows importing across directories. Imported images will be automatically converted to Data URLs, like `data:image/png;base64,...`.
 >
@@ -97,3 +100,7 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
 > 请网站维护者注意：在 Fork 本仓库后，本仓库的 Actions 将自动同步上游变更。这意味着在一般情况下，不需要改动除了`src`文件夹和`scripts/constant.js`之外的东西，以免发生合并冲突。<br>Please note that the Actions of this repository will automatically sync upstream changes. This means that in general, there is no need to modify anything except the `src` directory and `scripts/constant.js` to avoid merge conflicts.
 >
 > 建议网站维护者只接受 Pull request，以便 Actions 自动检查并指出代码语法和格式的错误。如果检查未能通过，也不应修改本仓库的相关规则。未通过意味着代码本身存在问题，而不应该将问题归咎于严格的规则。<br>It is recommended for website maintainers to only accept pull requests, so that the Actions can automatically check and report syntax and formatting errors. If a check fails, it should not result in modifying the relevant rules of this repository. A failure indicates an issue with the code itself and should not be attributed to strict rules.
+
+### 最佳实践 / Best practices
+
+-   [QiuwenGadgets](https://github.com/qiuwenbaike/QiuwenGadgets) ([@qiuwenbaike](https://github.com/qiuwenbaike))
