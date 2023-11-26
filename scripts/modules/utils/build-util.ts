@@ -67,7 +67,7 @@ const bundle = async (inputFilePath: string, code: string): Promise<string> => {
 			resolveDir: __dirname,
 			sourcefile: inputFilePath,
 		},
-		target: 'es5',
+		target: GLOBAL_REQUIRES_ES6 ? undefined : 'es5',
 	});
 
 	return (buildResult.outputFiles as OutputFile[])[0].text;
