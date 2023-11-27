@@ -29,7 +29,7 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
         2. 只存在`index.{js, ts, css, less}`，将最终生成`小工具名-index.{js, css}`，其他的脚本/样式是否被编译将取决于其是否被`index.{js, ts, css, less}`导入<br>Only exists `index.{js, ts, css, less}`, the final generation will be `GadgetName-index.{js, css}`. The compilation of other scripts/styles will depend on whether they are imported by `index.{js, ts, css, less}`
         3. 二者同时存在，将最终生成`小工具名-index.{js, css}`，`小工具名.{js, ts, css, less}`和其他的脚本/样式是否被编译将取决于其是否被`index.{js, ts, css, less}`导入<br>Both exist, the final generation will be `GadgetName-index.{js, css}`, `GadgetName.{js, ts, css, less}`. The compilation of other scripts/styles will depend on whether they are imported by `index.{js, ts, css, less}`
 
-    2. 不存在入口文件时，所有的脚本/样式均会被编译，生成`对应文件名.{js, css}`<br>If no entry file exists, all scripts/styles will be compiled, generating `CorrespondingFileName.{js, css}`
+    2. 不存在入口文件时，所有的脚本/样式均会被编译，生成`小工具名-对应文件名.{js, css}`<br>If no entry file exists, all scripts/styles will be compiled, generating `GadgetName-CorrespondingFileName.{js, css}`
 
 4. 目录下可以创建`definition.json`以手动指定小工具定义（可选）<br>In the directory, you have the option to create a `definition.json` file to manually specify the gadget definition
 
