@@ -95,6 +95,16 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
     }
     ```
 
+    根据工具需要，你应该授予机器人账号以下额外权限<br>Grant the robot account the following additional permissions:
+
+    - 大量编辑<br>High-volume editing
+    - 编辑存在的页面<br>Edit existing pages
+    - 编辑受保护的页面<br>Edit protected pages
+    - 编辑MediaWiki命名空间和全站/用户的JSON<br>Edit the MediaWiki namespace and sitewide/user JSON
+    - 编辑全站和用户的CSS/JS<br>Edit sitewide and user CSS/JS
+    - 创建、编辑和移动页面<br>Create, edit, and move pages
+    - 删除页面、修订和日志记录<br>Delete pages, revisions, and log entries
+
 5. 运行`pnpm run deploy`以检查语法、格式化代码、编译源码、并向网站部署<br>Run `pnpm run deploy` to check syntax, format code, compile the source code, and deploy to the website
 
 > 请网站维护者注意：在 Fork 本仓库后，本仓库的 Actions 将自动同步上游变更。这意味着在一般情况下，不需要改动除了`src`文件夹和`scripts/constant.js`之外的东西，以免发生合并冲突。<br>Please note that the Actions of this repository will automatically sync upstream changes. This means that in general, there is no need to modify anything except the `src` directory and `scripts/constant.js` to avoid merge conflicts.
