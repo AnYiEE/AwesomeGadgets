@@ -1,8 +1,9 @@
 import {BANNER, DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER} from '../../constant';
 import type {DefaultDefinition, SourceFiles} from '../types';
-import babel, {type BabelFileResult} from '@babel/core';
+import babel, {type BabelFileResult, type PluginItem, type TransformOptions} from '@babel/core';
 import esbuild, {type OutputFile} from 'esbuild';
 import fs, {type PathOrFileDescriptor, type Stats} from 'node:fs';
+import PACKAGE from '../../../package.json' assert {type: 'json'};
 import chalk from 'chalk';
 import {esbuildOptions} from '../build-esbuild_options';
 import path from 'node:path';
@@ -73,8 +74,40 @@ const bundle = async (inputFilePath: string, code: string): Promise<string> => {
 	return (buildResult.outputFiles as OutputFile[])[0].text;
 };
 
+const generateTransformOptions = (): TransformOptions => {
+	const transformOptions: TransformOptions = {
+		presets: [
+			[
+				'@babel/preset-env',
+				{
+					bugfixes: true,
+					corejs: {
+						version: PACKAGE.devDependencies['core-js'].match(/\d+(?:.\d+){0,2}/)?.[0],
+					},
+					modules: false,
+					useBuiltIns: 'usage',
+				},
+			],
+		],
+		compact: false,
+	};
+
+	if (GLOBAL_REQUIRES_ES6) {
+		(transformOptions.presets as NonNullable<PluginItem>)[0][1].exclude = ['es.array.push'];
+	} else {
+		transformOptions.plugins = [
+			'@babel/plugin-transform-member-expression-literals',
+			'@babel/plugin-transform-property-literals',
+			'@babel/plugin-transform-reserved-words',
+		];
+	}
+
+	return transformOptions;
+};
+
 const transform = async (inputFilePath: string, code: string): Promise<string> => {
 	const babelFileResult: BabelFileResult = (await babel.transformAsync(code, {
+		...generateTransformOptions(),
 		cwd: __dirname,
 		filename: inputFilePath,
 	})) as BabelFileResult;
