@@ -5,8 +5,7 @@
 			{
 				"bugfixes": true,
 				"corejs": {
-					"version": "3.33",
-					"proposals": true
+					"version": "3.33"
 				},
 				"modules": false,
 				"useBuiltIns": "usage"
