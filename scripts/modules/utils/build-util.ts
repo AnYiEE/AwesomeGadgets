@@ -93,7 +93,7 @@ const generateTransformOptions = (): TransformOptions => {
 	};
 
 	if (GLOBAL_REQUIRES_ES6) {
-		(transformOptions.presets as NonNullable<PluginItem>)[0][1].exclude = ['es.array.push'];
+		(transformOptions.presets as PluginItem[])[0][1].exclude = ['es.array.push'];
 	} else {
 		transformOptions.plugins = [
 			'@babel/plugin-transform-member-expression-literals',
