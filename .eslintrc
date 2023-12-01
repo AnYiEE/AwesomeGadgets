@@ -13,7 +13,6 @@
 	"parserOptions": {
 		"parser": "@typescript-eslint/parser"
 	},
-	"globals": {},
 	"rules": {
 		"array-callback-return": [
 			"error",
@@ -189,7 +188,6 @@
 		"unicorn/no-unreadable-array-destructuring": "off",
 		"unicorn/no-unsafe-regex": "off",
 		"unicorn/no-unused-properties": "off",
-		"unicorn/prefer-at": "off",
 		"unicorn/prefer-regexp-test": "off",
 		"unicorn/prefer-set-has": "off",
 		"unicorn/prefer-string-replace-all": "off",
