@@ -94,11 +94,36 @@ const generateTransformOptions = (): TransformOptions => {
 
 	if (GLOBAL_REQUIRES_ES6) {
 		(transformOptions.presets as PluginItem[])[0][1].exclude = ['es.array.push'];
-	} else {
+		// 以下关键字和运算符无法被 MediaWiki（>= 1.39）的 JavaScript 压缩器良好支持，即使设置了 requiresES6 标识
+		// The following keywords and operators are not well supported by MediaWiki's (>= 1.40) JavaScript minifier, even if the `requiresES6` flag is true
 		transformOptions.plugins = [
-			'@babel/plugin-transform-member-expression-literals',
-			'@babel/plugin-transform-property-literals',
-			'@babel/plugin-transform-reserved-words',
+			// keywords
+			// ES2015
+			'@babel/plugin-transform-for-of', // transform for-of loops
+			'@babel/plugin-transform-template-literals', // `foo${bar}` -> 'foo'.concat(bar)
+			// ES2017
+			'@babel/plugin-transform-async-to-generator', // transform async/await to generator
+			// ES2018
+			'@babel/plugin-transform-async-generator-functions', // transform async generator to normal generator
+			// ES2020
+			'@babel/plugin-transform-optional-chaining', // foo?.bar
+			// operators
+			// ES2020
+			'@babel/plugin-transform-nullish-coalescing-operator', // foo ?? bar
+			// ES2021
+			'@babel/plugin-transform-logical-assignment-operators', // foo ??= bar
+			'@babel/plugin-transform-numeric-separator', // 1_000 -> 1000
+		];
+	} else {
+		// 以下关键字无法被旧版本的 MediaWiki（< 1.39）的 JavaScript 压缩器良好支持
+		// The following keywords are not well supported by the JavaScript minifier in older versions of MediaWiki (< 1.40)
+		transformOptions.plugins = [
+			...(transformOptions.plugins as string[]),
+			// keywords
+			// ES3
+			'@babel/plugin-transform-member-expression-literals', // obj.const -> obj['const']
+			'@babel/plugin-transform-property-literals', // {const: 1} -> {'const': 1}
+			'@babel/plugin-transform-reserved-words', // const abstract = 1 -> const _abstract = 1
 		];
 	}
 
