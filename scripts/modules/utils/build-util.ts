@@ -118,7 +118,6 @@ const generateTransformOptions = (): TransformOptions => {
 		// 以下关键字无法被旧版本的 MediaWiki（< 1.39）的 JavaScript 压缩器良好支持
 		// The following keywords are not well supported by the JavaScript minifier in older versions of MediaWiki (< 1.40)
 		transformOptions.plugins = [
-			...(transformOptions.plugins as string[]),
 			// keywords
 			// ES3
 			'@babel/plugin-transform-member-expression-literals', // obj.const -> obj['const']
