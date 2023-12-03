@@ -61,9 +61,9 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
 
 1. Fork 本仓库<br>Fork this repository
 
-2. 根据实际情况更改各个小工具的`definition.json`，可选值及默认值可见于`scripts/constant.js` - `DEFAULT_DEFINITION`<br>Modify the definition.json for each gadget according to your specific requirements. Optional values and their default values can be found in `scripts/constant.js` - `DEFAULT_DEFINITION`
+2. 根据实际情况更改各个小工具的`definition.json`，可选值及默认值可见于`scripts/constant.ts` - `DEFAULT_DEFINITION`<br>Modify the definition.json for each gadget according to your specific requirements. Optional values and their default values can be found in `scripts/constant.ts` - `DEFAULT_DEFINITION`
 
-3. 根据实际情况更改`scripts/constant.js`中的信息<br>Update the information in `scripts/constant.js` based on your specific needs
+3. 根据实际情况更改`scripts/constant.ts`中的信息<br>Update the information in `scripts/constant.ts` based on your specific needs
 
 4. 在`script`文件夹下新建`credentials.json`文件（多选一，取决于你的登录方式。存在多种登录凭据时，OAuth2 优先于 OAuth1.0a 优先于机器人账号密码）<br>Create a `credentials.json` file in the `script` directory (choose one based on your login method. If multiple login credentials are available, OAuth2 takes precedence over OAuth1.0a, which takes precedence over bot password)
 
@@ -107,7 +107,7 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
 
 5. 运行`pnpm run deploy`以检查语法、格式化代码、编译源码、并向网站部署<br>Run `pnpm run deploy` to check syntax, format code, compile the source code, and deploy to the website
 
-> 请网站维护者注意：在 Fork 本仓库后，本仓库的 Actions 将自动同步上游变更。这意味着在一般情况下，不需要改动除了`src`文件夹和`scripts/constant.js`之外的东西，以免发生合并冲突。<br>Please note that the Actions of this repository will automatically sync upstream changes. This means that in general, there is no need to modify anything except the `src` directory and `scripts/constant.js` to avoid merge conflicts.
+> 请网站维护者注意：在 Fork 本仓库后，本仓库的 Actions 将自动同步上游变更。这意味着在一般情况下，不需要改动除了`src`文件夹和`scripts/constant.ts`之外的东西，以免发生合并冲突。<br>Please note that the Actions of this repository will automatically sync upstream changes. This means that in general, there is no need to modify anything except the `src` directory and `scripts/constant.ts` to avoid merge conflicts.
 >
 > 建议网站维护者只接受 Pull request，以便 Actions 自动检查并指出代码语法和格式的错误。如果检查未能通过，也不应修改本仓库的相关规则。未通过意味着代码本身存在问题，而不应该将问题归咎于严格的规则。<br>It is recommended for website maintainers to only accept pull requests, so that the Actions can automatically check and report syntax and formatting errors. If a check fails, it should not result in modifying the relevant rules of this repository. A failure indicates an issue with the code itself and should not be attributed to strict rules.
 
