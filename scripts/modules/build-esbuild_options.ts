@@ -22,6 +22,7 @@ const esbuildOptions: BuildOptions = {
 	loader,
 	bundle: true,
 	charset: 'utf8',
+	legalComments: 'inline',
 	plugins: [
 		postcss(),
 		lessLoader({
