@@ -42,9 +42,5 @@
 		"node_modules/@types/jqueryui",
 		"node_modules/@types/oojs-ui",
 		"src/**/*"
-	],
-	"ts-node": {
-		"experimentalSpecifierResolution": "node",
-		"transpileOnly": true
-	}
+	]
 }

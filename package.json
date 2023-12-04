@@ -4,8 +4,8 @@
 	"description": "Storage, management, compilation, and automatic deployment of MediaWiki gadgets.",
 	"type": "module",
 	"scripts": {
-		"build": "pnpm format && node --no-warnings --loader ts-node/esm scripts/build.ts",
-		"deploy": "pnpm format && node --no-warnings --loader ts-node/esm scripts/deploy.ts",
+		"build": "pnpm format && tsx scripts/build.ts",
+		"deploy": "pnpm format && tsx scripts/deploy.ts",
 		"format": "prettier --cache --write . && pnpm lint:fix && tsc",
 		"eslint": "eslint --cache .",
 		"eslint:fix": "eslint --cache --fix .",
@@ -80,7 +80,7 @@
 		"prompts": "^2.4.2",
 		"stylelint": "^15.11.0",
 		"stylelint-config-wikimedia": "latest",
-		"ts-node": "^10.9.1",
+		"tsx": "^4.6.2",
 		"types-mediawiki-renovate": "latest",
 		"typescript": "^5.3.2"
 	},
@@ -98,6 +98,7 @@
 			"color-name@<2": "^1.1.4",
 			"debug": "latest",
 			"emoji-regex": "latest",
+			"esbuild": "^0.19.8",
 			"escape-string-regexp@<5": "^4.0.0",
 			"eslint-config-wikimedia": "latest",
 			"file-entry-cache@<8": "^7.0.2",
