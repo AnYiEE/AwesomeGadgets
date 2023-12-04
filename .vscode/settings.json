@@ -8,6 +8,9 @@
 	"editor.guides.bracketPairs": "active",
 	"editor.insertSpaces": false,
 	"editor.linkedEditing": true,
+	"editor.quickSuggestions": {
+		"strings": "on"
+	},
 	"editor.renderWhitespace": "all",
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"git.autoStash": true,
