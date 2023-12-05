@@ -2197,8 +2197,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@mdn/browser-compat-data@5.4.3:
-    resolution: {integrity: sha512-+VnaO5zYUwFQVuRqp2qLPGR5GwhhJ/lrp0yEmamJ/nI15P2GKwGBEWRDiITZR8i6AYxeiQSu2rOi/gqxehnPuA==}
+  /@mdn/browser-compat-data@5.4.4:
+    resolution: {integrity: sha512-ykYCVBr3CjyKHiXefqyl3SuSpoib/5ViBZ2kjD18xbZFJpnSSJZg1deq+lirYN0vheKhj7BU+29qjAusfZalOA==}
     dev: true
 
   /@nodelib/fs.scandir@2.1.5:
@@ -2563,7 +2563,7 @@ packages:
   /ast-metadata-inferer@0.8.0:
     resolution: {integrity: sha512-jOMKcHht9LxYIEQu+RVd22vtgrPaVCtDRQ/16IGmurdzxvYbDd5ynxjnyrzLnieG96eTcAyaoj/wN/4/1FyyeA==}
     dependencies:
-      '@mdn/browser-compat-data': 5.4.3
+      '@mdn/browser-compat-data': 5.4.4
     dev: true
 
   /astral-regex@2.0.0:
@@ -3237,7 +3237,7 @@ packages:
     peerDependencies:
       eslint: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
-      '@mdn/browser-compat-data': 5.4.3
+      '@mdn/browser-compat-data': 5.4.4
       ast-metadata-inferer: 0.8.0
       browserslist: 4.22.2
       caniuse-lite: 1.0.30001566
