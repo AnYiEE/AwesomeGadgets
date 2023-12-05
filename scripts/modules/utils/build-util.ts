@@ -1,21 +1,36 @@
 import {BANNER, DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER} from '../../constant';
 import type {DefaultDefinition, SourceFiles} from '../types';
 import babel, {type BabelFileResult, type PluginItem, type TransformOptions} from '@babel/core';
-import esbuild, {type OutputFile} from 'esbuild';
+import esbuild, {type BuildResult, type OutputFile} from 'esbuild';
 import fs, {type PathOrFileDescriptor, type Stats} from 'node:fs';
 import PACKAGE from '../../../package.json' assert {type: 'json'};
 import chalk from 'chalk';
 import {esbuildOptions} from '../build-esbuild_options';
 import path from 'node:path';
 import process from 'node:process';
+
+/**
+ * @private
+ */
 const __dirname = path.resolve();
 
+/**
+ * @private
+ * @param {string} [string]
+ * @return {string}
+ */
 const trim = (string?: string): string => {
 	const stringTrim: string = (string ?? '').trim();
 
 	return stringTrim ? `${stringTrim}\n` : '';
 };
 
+/**
+ * @private
+ * @param {string} sourceCode
+ * @param {string} outputFilePath
+ * @param {{contentType?:'application/javascript'|'text/css'; licenseText:string}} [object]
+ */
 const writeFile = (
 	sourceCode: string,
 	outputFilePath: string,
@@ -27,7 +42,7 @@ const writeFile = (
 		licenseText?: string;
 	} = {}
 ): void => {
-	let fileContent = '';
+	let fileContent: string = '';
 	sourceCode = trim(sourceCode);
 
 	switch (contentType) {
@@ -39,7 +54,7 @@ const writeFile = (
 			fileContent = sourceCode;
 	}
 
-	const outputDirectoryPath = path.dirname(outputFilePath);
+	const outputDirectoryPath: string = path.dirname(outputFilePath);
 	fs.mkdirSync(outputDirectoryPath, {
 		recursive: true,
 	});
@@ -50,8 +65,14 @@ const writeFile = (
 	fs.closeSync(fileDescriptor);
 };
 
+/**
+ * @private
+ * @param {string} inputFilePath
+ * @param {string} outputFilePath
+ * @return {Promise<string>}
+ */
 const build = async (inputFilePath: string, outputFilePath: string): Promise<string> => {
-	const buildResult = await esbuild.build({
+	const buildResult: BuildResult = await esbuild.build({
 		...esbuildOptions,
 		entryPoints: [inputFilePath],
 		outfile: outputFilePath,
@@ -60,8 +81,14 @@ const build = async (inputFilePath: string, outputFilePath: string): Promise<str
 	return (buildResult.outputFiles as OutputFile[])[0].text;
 };
 
+/**
+ * @private
+ * @param {string} inputFilePath
+ * @param {string} code
+ * @return {Promise<string>}
+ */
 const bundle = async (inputFilePath: string, code: string): Promise<string> => {
-	const buildResult = await esbuild.build({
+	const buildResult: BuildResult = await esbuild.build({
 		...esbuildOptions,
 		stdin: {
 			contents: code,
@@ -74,6 +101,10 @@ const bundle = async (inputFilePath: string, code: string): Promise<string> => {
 	return (buildResult.outputFiles as OutputFile[])[0].text;
 };
 
+/**
+ * @private
+ * @return {TransformOptions}
+ */
 const generateTransformOptions = (): TransformOptions => {
 	const options: TransformOptions = {
 		presets: [
@@ -129,7 +160,17 @@ const generateTransformOptions = (): TransformOptions => {
 	return options;
 };
 
+/**
+ * @private
+ */
 const transformOptions: TransformOptions = generateTransformOptions();
+
+/**
+ * @private
+ * @param {string} inputFilePath
+ * @param {string} code
+ * @return {Promise<string>}
+ */
 const transform = async (inputFilePath: string, code: string): Promise<string> => {
 	const babelFileResult: BabelFileResult = (await babel.transformAsync(code, {
 		...transformOptions,
@@ -144,9 +185,9 @@ const transform = async (inputFilePath: string, code: string): Promise<string> =
 /**
  * @param {string} name The gadget name
  * @param {string} script The script file name of this gadget
- * @param {{licenseText?:string; babelTransformOptions:TransformOptions}} object The license file content of this gadget and the `.babelrc` file parsed object
+ * @param {{licenseText?:string}} [object={}] The license file content of this gadget
  */
-const buildScript = async (name: string, script: string, {licenseText}: {licenseText?: string}): Promise<void> => {
+const buildScript = async (name: string, script: string, {licenseText}: {licenseText?: string} = {}): Promise<void> => {
 	const inputFilePath: string = path.join(__dirname, `src/${name}/${script}`);
 	// The TypeScript file is always compiled into a JavaScript file, so replace the extension directly
 	const outputFilePath: string = path.join(__dirname, `dist/${name}/${script.replace(/\.ts$/, '.js')}`);
@@ -164,7 +205,7 @@ const buildScript = async (name: string, script: string, {licenseText}: {license
 /**
  * @param {string} name The gadget name
  * @param {string} style The style sheet file name of this gadget
- * @param {{licenseText?:string}?} object The license file content of this gadget
+ * @param {{licenseText?:string}} [object={}] The license file content of this gadget
  */
 const buildStyle = async (name: string, style: string, {licenseText}: {licenseText?: string} = {}): Promise<void> => {
 	const inputFilePath: string = path.join(__dirname, `src/${name}/${style}`);
@@ -204,15 +245,19 @@ const buildFiles = (
 	return buildQueue;
 };
 
-const sourceFiles: SourceFiles = {};
 /**
- * @param {string?} [currentPath=src] The path of the current source file
+ * @private
+ */
+const sourceFiles: SourceFiles = {};
+
+/**
+ * @param {string} [currentPath=src] The path of the current source file
  *
  * @summary DO NOT set this parameter when calling the function directly, it is only used for recursion
  *
  * @return {SourceFiles} An object used to describe source files
  */
-const findSourceFile = (currentPath = 'src'): SourceFiles => {
+const findSourceFile = (currentPath: string = 'src'): SourceFiles => {
 	const subDirAndFileNameArray: string[] = fs.readdirSync(currentPath);
 	for (const subDirOrFileName of subDirAndFileNameArray) {
 		const fullPath: string = path.join(currentPath, subDirOrFileName);
@@ -301,9 +346,9 @@ const findSourceFile = (currentPath = 'src'): SourceFiles => {
  * @return {string} The Gadget definition (in the format of MediaWiki:Gadgets-definition item)
  */
 const generateDefinitionItem = (name: string, definition: string | undefined, files: string): string => {
-	let definitionText = '|';
+	let definitionText: string = '|';
 
-	let definitionJsonText = '{}';
+	let definitionJsonText: string = '{}';
 	try {
 		if (!definition) {
 			throw new ReferenceError('definition.json is missing.');
@@ -381,6 +426,7 @@ const generateDefinitionItem = (name: string, definition: string | undefined, fi
  */
 const removeDuplicateFileName = (name: string, file: string): string => {
 	const fileNameSplit: string[] = file.split('.');
+
 	return `${name}❄${fileNameSplit.shift() === name ? `.${fileNameSplit.join('.')}` : file}`;
 };
 
@@ -399,7 +445,7 @@ const generateFileNames = (name: string, files: string[]): string => {
 
 /**
  * @param {string} name The gadget name
- * @param {string?} license The license file name of this gadget
+ * @param {string} [license] The license file name of this gadget
  * @return {string|undefined} The gadget license file content
  */
 const getLicense = (name: string, license?: string): string | undefined => {
@@ -409,6 +455,7 @@ const getLicense = (name: string, license?: string): string | undefined => {
 
 	const licenseFilePath: string = path.join(__dirname, `src/${name}/${license}`);
 	const fileBuffer: Buffer = fs.readFileSync(licenseFilePath);
+
 	return fileBuffer.toString().trim() ? `${fileBuffer}\n` : undefined;
 };
 
@@ -430,7 +477,7 @@ const setDefinition = (definitions: string[]): void => {
 		definitionObjectSorted[key] = definitionObject[key];
 	}
 
-	let definitionText = '';
+	let definitionText: string = '';
 	for (const [section, definitionItems] of Object.entries(definitionObjectSorted)) {
 		const sectionHeader = `== ${section} ==`;
 		for (const definition of definitionItems) {

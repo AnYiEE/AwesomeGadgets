@@ -5,7 +5,7 @@ import type {DefaultDefinition, DefaultSectionMap} from './modules/types';
  *
  * The content above the `MediaWiki:Gadgets-definition` page
  */
-const BANNER = `<div class="mw-message-box mw-message-box-notice">
+const BANNER: string = `<div class="mw-message-box mw-message-box-notice">
 <big>本页面内容由脚本自动生成，维护于Git仓库内。对本页面内容的变更，应通知技术团队，以免在代码部署时被误覆盖。</big>
 * 若需要查看本地小工具使用情况，请前往[[Special:GadgetUsage|“小工具使用统计”界面]]。
 * 若需要设置您所需启用或关闭的小工具，请前往[[Special:参数设置#mw-prefsection-gadgets|参数设置]]。
@@ -16,7 +16,7 @@ const BANNER = `<div class="mw-message-box mw-message-box-notice">
  *
  * The content above each gadget (CSS and JavaScript files), should be compatible comments for CSS and JavaScript
  */
-const HEADER = `/**
+const HEADER: string = `/**
  * +--------------------------------------------------------+
  * |         === WARNING: GLOBAL GADGET FILE ===            |
  * +--------------------------------------------------------+
@@ -65,20 +65,22 @@ const DEFINITION_SECTION_MAP: DefaultSectionMap = {
 	sysop: '管理类小工具',
 };
 
-const DEPLOY_USER_AGENT = 'AnYiEE/AwesomeGadgets (https://github.com/AnYiEE/AwesomeGadgets; i@anyi.in)';
+const DEPLOY_USER_AGENT: string = 'AnYiEE/AwesomeGadgets (https://github.com/AnYiEE/AwesomeGadgets; i@anyi.in)';
 
 /**
  * 启用此选项会为全部小工具设置`requiresES6`标识，禁用 Gadget 扩展的语法检查功能以允许使用 ES6 及以上版本语法（即使经过编译）
  *
- * 需要 MediaWiki 版本大于 1.40.0-wmf.7
+ * 需要 Gadget 扩展所对应的分支版本大于 1.40.0-wmf.7，或自行从主线合并相关代码
+ * @see {@link https://git.qiuwen.net.cn/Fork/mediawiki-extensions-Gadgets/commit/bbf7ba5}
  *
  * 如需自定义`.browserslistrc`，应启用此选项
  *
  * 注意：Gadget 扩展默认不支持小工具同时存在`default`和`requiresES6`标识，如需为存在`default`标识的小工具绕过服务端语法检查，应自行修改 Gadget 扩展，否则**不应**将此选项设置为 true
+ * @see {@link https://git.qiuwen.net.cn/Fork/mediawiki-extensions-Gadgets/commit/21e2b34} example commit
  *
  * Allow the use of ES6+ syntax in all gadgets
  *
- * Requires MediaWiki version greater than or equal to 1.40.0-wmf.7
+ * Requires Gadget extension branch version greater than or equal to 1.40.0-wmf.7, or merge the relevant code from the mainline by yourself
  *
  * Enabling this option will set the `requiresES6` flag for all gadgets, which means that server-side syntax validation is skipped to allow the use of ES6+ syntax (even after compilation)
  *
@@ -87,7 +89,7 @@ const DEPLOY_USER_AGENT = 'AnYiEE/AwesomeGadgets (https://github.com/AnYiEE/Awes
  * Note: By default, Gadget extensions do not support gadgets that have both the `default` and `requiresES6` flags. If you need to bypass server-side syntax validation for gadgets with the `default` flag, you should modify the Gadget extension yourself. Otherwise, **DO NOT** set this option to true
  *
  */
-const GLOBAL_REQUIRES_ES6 = false;
+const GLOBAL_REQUIRES_ES6: boolean = false;
 
 /**
  * 是否自动转换`MediaWiki:Gadget-${gadgetName}`和`MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}`页面的语言变体
@@ -98,14 +100,14 @@ const GLOBAL_REQUIRES_ES6 = false;
  *
  * The target MediaWiki site needs to have the NoteTA template and the IT and MediaWiki public conversion group
  */
-const IS_CONVERT_VARIANT = false;
+const IS_CONVERT_VARIANT: boolean = false;
 
 /**
  * 部署时请求目标 MediaWiki 网站 API 的最大并发数，上限为 256
  *
  * The maximum concurrency number of requests to the API during deployment, the upper limit is 256
  */
-const MAX_CONCURRENCY = 16;
+const MAX_CONCURRENCY: number = 16;
 
 export {
 	BANNER,

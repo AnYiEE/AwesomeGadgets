@@ -18,11 +18,21 @@ import chalk from 'chalk';
 import {prompt} from './utils/general-util';
 import {setTimeout} from 'node:timers/promises';
 
+/**
+ * @private
+ */
 const concurrency: number = MAX_CONCURRENCY > 256 ? 256 : MAX_CONCURRENCY;
 
+/**
+ * @private
+ */
 const deletePageQueue: PQueue = new PQueue({
 	concurrency,
 });
+
+/**
+ * @private
+ */
 const deploymentQueue: PQueue = new PQueue({
 	concurrency,
 });

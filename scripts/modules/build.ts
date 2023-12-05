@@ -15,7 +15,7 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 	console.log(chalk.yellow('--- starting build ---'));
 
 	for (const [name, {definition, license, script, scripts, style, styles}] of Object.entries(sourceFiles)) {
-		let definitionItemFiles = '|';
+		let definitionItemFiles: string = '|';
 		const licenseText: string | undefined = getLicense(name, license);
 
 		if (script || scripts) {

@@ -8,8 +8,11 @@ import {execSync} from 'node:child_process';
 import path from 'node:path';
 import {prompt} from './general-util';
 import {setTimeout} from 'node:timers/promises';
-const __dirname = path.resolve();
+const __dirname: string = path.resolve();
 
+/**
+ * @private
+ */
 const deployPages: string[] = [];
 
 /**
@@ -45,12 +48,12 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
  * Check the integrity of configuration items
  *
  * @param {Record<string, unknown>} config To be completed configuration
- * @param {boolean} checkApiUrlOnly Only check `config.apiUrl` is empty or not
+ * @param {boolean} [checkApiUrlOnly=false] Only check `config.apiUrl` is empty or not
  * @return {Promise<{apiUrl:string; username:string; password:string}>} Completed configuration
  */
 const checkConfig = async (
 	config: Partial<CredentialsOnlyPassword>,
-	checkApiUrlOnly = false
+	checkApiUrlOnly: boolean = false
 ): Promise<CredentialsOnlyPassword> => {
 	if (checkApiUrlOnly) {
 		if (!config.apiUrl) {
@@ -74,7 +77,7 @@ const checkConfig = async (
  * @return {Partial<Credentials>} The result of parsing the credentials.json file
  */
 const loadConfig = (): Partial<Credentials> => {
-	let credentialsJsonText = '{}';
+	let credentialsJsonText: string = '{}';
 	try {
 		const credentialsFilePath: string = path.join(__dirname, 'scripts/credentials.json');
 		const fileBuffer: Buffer = fs.readFileSync(credentialsFilePath);
@@ -92,15 +95,15 @@ const loadConfig = (): Partial<Credentials> => {
  * @return {Promise<string>} The editing summary
  */
 const makeEditSummary = async (): Promise<string> => {
-	let sha = '';
-	let summary = '';
+	let sha: string = '';
+	let summary: string = '';
 	try {
 		sha = execSync('git rev-parse --short HEAD').toString('utf8').trim();
 		summary = execSync('git log --pretty=format:"%s" HEAD -1').toString('utf8').trim();
 	} catch {}
 
 	const customSummary: string = await prompt('> Custom editing summary message (optional):');
-	const editSummary = customSummary.trim() ? customSummary : `${sha ? `Git commit ${sha}: ` : ''}${summary}`;
+	const editSummary: string = customSummary.trim() ? customSummary : `${sha ? `Git commit ${sha}: ` : ''}${summary}`;
 	console.log(chalk.white(`Editing summary is: ${chalk.bold(editSummary)}`));
 
 	await prompt('> Press [Enter] to continue deploying or quickly press [ctrl + C] twice to cancel');
@@ -146,7 +149,7 @@ const readFileText = (name: string, file: string): string => {
  */
 const convertVariant = (pageTitle: string, content: string, {api, editSummary, queue}: ApiQueue): void => {
 	/**
-	 * @base <https://zh.wikipedia.org/wiki/User:Xiplus/js/TranslateVariants>
+	 * @see {@link https://zh.wikipedia.org/wiki/User:Xiplus/js/TranslateVariants}
 	 * @license CC-BY-SA-4.0
 	 */
 	content = content
@@ -181,7 +184,7 @@ const convertVariant = (pageTitle: string, content: string, {api, editSummary, q
 		document.body.innerHTML = `<div>${parsedHtml}</div>`;
 		const convertedDescription: string = document.querySelector('.convertVariant').textContent.replace(/-{}-/g, '');
 
-		const convertPageTitle = `${pageTitle}/${variant}`;
+		const convertPageTitle: string = `${pageTitle}/${variant}`;
 		deployPages.push(convertPageTitle);
 
 		const response: ApiEditResponse = await api.save(convertPageTitle, convertedDescription, editSummary);
@@ -198,7 +201,7 @@ const convertVariant = (pageTitle: string, content: string, {api, editSummary, q
 
 	queue
 		.addAll(taskQueue)
-		.then((nochanges): void => {
+		.then((nochanges: boolean[]): void => {
 			const isNoChange: boolean = nochanges.every(Boolean);
 			if (isNoChange) {
 				console.log(chalk.yellow(`━ No change converting ${chalk.bold(pageTitle)}`));
@@ -219,7 +222,7 @@ const convertVariant = (pageTitle: string, content: string, {api, editSummary, q
  * @param {ApiQueue} object The api instance, the editing summary used by this api instance and the deployment queue
  */
 const saveDefinition = (definitionText: string, {api, editSummary, queue}: ApiQueue): void => {
-	const pageTitle = 'MediaWiki:Gadgets-definition';
+	const pageTitle: string = 'MediaWiki:Gadgets-definition';
 	deployPages.push(pageTitle);
 
 	queue.add(async (): Promise<void> => {
@@ -291,7 +294,7 @@ const saveDefinitionSectionPage = (definitionText: string, {api, editSummary, qu
  * @param {ApiQueue} object The api instance, the editing summary used by the api instance and the deployment queue
  */
 const saveDescription = (name: string, description: string, {api, editSummary, queue}: ApiQueue): void => {
-	const pageTitle = `MediaWiki:Gadget-${name}`;
+	const pageTitle: string = `MediaWiki:Gadget-${name}`;
 	deployPages.push(pageTitle);
 
 	queue.add(async (): Promise<void> => {
@@ -326,12 +329,12 @@ const saveDescription = (name: string, description: string, {api, editSummary, q
  * @param {ApiQueue} api The api instance, the editing summary used by this api instance and the deployment queue
  */
 const saveFiles = (name: string, file: string, fileContent: string, {api, editSummary, queue}: ApiQueue): void => {
-	let fileName = `${name}-${file}`;
+	let fileName: string = `${name}-${file}`;
 	if (file.split('.')[0] === name) {
 		fileName = file;
 	}
 
-	const pageTitle = `MediaWiki:Gadget-${fileName}`;
+	const pageTitle: string = `MediaWiki:Gadget-${fileName}`;
 	deployPages.push(pageTitle);
 
 	queue.add(async (): Promise<void> => {

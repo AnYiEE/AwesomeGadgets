@@ -1,4 +1,4 @@
-import type {Mwn} from 'mwn';
+import {type Mwn} from 'mwn';
 import type PQueue from 'p-queue';
 
 interface ApiQueue {
