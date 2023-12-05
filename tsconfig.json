@@ -16,8 +16,14 @@
 		"strict": true,
 
 		"allowImportingTsExtensions": true,
+		"baseUrl": ".",
 		"module": "ESNext",
 		"moduleResolution": "Node",
+		"paths": {
+			"types-mediawiki": ["node_modules/types-mediawiki-renovate"],
+			"types-mediawiki/*": ["node_modules/types-mediawiki-renovate/*"],
+			"~/*": ["src/*"]
+		},
 		"resolveJsonModule": true,
 
 		"downlevelIteration": true,

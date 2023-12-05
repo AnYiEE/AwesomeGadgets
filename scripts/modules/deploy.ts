@@ -52,7 +52,7 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 		userAgent: DEPLOY_USER_AGENT,
 	});
 
-	let isUseOAuth = false;
+	let isUseOAuth: boolean = false;
 	try {
 		api.initOAuth();
 		isUseOAuth = true;

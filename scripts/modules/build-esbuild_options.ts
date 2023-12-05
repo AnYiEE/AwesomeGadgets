@@ -30,7 +30,7 @@ const esbuildOptions: BuildOptions = {
 		lessLoader({
 			plugins: [
 				new LessPluginPresetEnv() as unknown as Less.Plugin,
-				new LessPluginNpmImport({prefix: '~'}) as unknown as Less.Plugin,
+				new LessPluginNpmImport() as unknown as Less.Plugin,
 			],
 		}),
 	],

@@ -12,7 +12,7 @@ import process from 'node:process';
 /**
  * @private
  */
-const __dirname = path.resolve();
+const __dirname: string = path.resolve();
 
 /**
  * @private
@@ -479,7 +479,7 @@ const saveDefinition = (definitions: string[]): void => {
 
 	let definitionText: string = '';
 	for (const [section, definitionItems] of Object.entries(definitionObjectSorted)) {
-		const sectionHeader = `== ${section} ==`;
+		const sectionHeader: string = `== ${section} ==`;
 		for (const definition of definitionItems) {
 			if (definitionText.includes(sectionHeader)) {
 				definitionText += `${definition}\n`;
