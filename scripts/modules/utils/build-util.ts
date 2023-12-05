@@ -460,11 +460,11 @@ const getLicense = (name: string, license?: string): string | undefined => {
 };
 
 /**
- * Temporarily set `dist/definition.txt` and wait for it to be deployed for use
+ * Save `dist/definition.txt`
  *
  * @param {string[]} definitions The gadget definitions array (in the format of MediaWiki:Gadgets-definition item)
  */
-const setDefinition = (definitions: string[]): void => {
+const saveDefinition = (definitions: string[]): void => {
 	const definitionObject: Record<string, typeof definitions> = {};
 	for (const definition of definitions) {
 		const [, section] = definition.match(/.*?☀(\S+?)☀/) as RegExpExecArray;
@@ -492,10 +492,20 @@ const setDefinition = (definitions: string[]): void => {
 	definitionText = `${trim(BANNER)}${definitionText}`;
 
 	const definitionPath: string = path.join(__dirname, 'dist/definition.txt');
-	const fileDescriptor: PathOrFileDescriptor = fs.openSync(definitionPath, 'w');
-	fs.writeFileSync(fileDescriptor, definitionText);
-	fs.fdatasyncSync(fileDescriptor);
-	fs.closeSync(fileDescriptor);
+	try {
+		const fileDescriptor: PathOrFileDescriptor = fs.openSync(definitionPath, 'w');
+		fs.writeFileSync(fileDescriptor, definitionText);
+		fs.fdatasyncSync(fileDescriptor);
+		fs.closeSync(fileDescriptor);
+	} catch {
+		console.log(
+			chalk.yellow(
+				`Failed to save ${chalk.italic(
+					'definition.txt'
+				)}, please confirm if any files that need to be compiled exist.`
+			)
+		);
+	}
 };
 
-export {buildFiles, findSourceFile, generateDefinitionItem, generateFileNames, getLicense, setDefinition};
+export {buildFiles, findSourceFile, generateDefinitionItem, generateFileNames, getLicense, saveDefinition};
