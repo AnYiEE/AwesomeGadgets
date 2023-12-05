@@ -65,13 +65,29 @@ const DEFINITION_SECTION_MAP: DefaultSectionMap = {
 	sysop: '管理类小工具',
 };
 
+/**
+ * 部署时使用的`User-Agent`标头
+ *
+ * The `User-Agent` header used when deploying
+ */
 const DEPLOY_USER_AGENT: string = 'AnYiEE/AwesomeGadgets (https://github.com/AnYiEE/AwesomeGadgets; i@anyi.in)';
+
+/**
+ * 是否自动转换`MediaWiki:Gadget-${gadgetName}`和`MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}`页面的语言变体
+ *
+ * 需要目标 MediaWiki 网站存在 NoteTA 模板和 IT 以及 MediaWiki 公共转换组
+ *
+ * Whether to automatically convert the language variants of the `MediaWiki:Gadget-${gadgetName}` and `MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}` pages
+ *
+ * The target MediaWiki site needs to have the NoteTA template and the IT and MediaWiki public conversion group
+ */
+const CONVERT_VARIANT: boolean = false;
 
 /**
  * 启用此选项会为全部小工具设置`requiresES6`标识，禁用 Gadget 扩展的语法检查功能以允许使用 ES6 及以上版本语法（即使经过编译）
  *
  * 需要 Gadget 扩展所对应的分支版本大于 1.40.0-wmf.7，或自行从主线合并相关代码
- * @see {@link https://git.qiuwen.net.cn/Fork/mediawiki-extensions-Gadgets/commit/bbf7ba5}
+ * @see {@link https://git.qiuwen.net.cn/Fork/mediawiki-extensions-Gadgets/commit/bbf7ba5} example commit
  *
  * 如需自定义`.browserslistrc`，应启用此选项
  *
@@ -92,17 +108,6 @@ const DEPLOY_USER_AGENT: string = 'AnYiEE/AwesomeGadgets (https://github.com/AnY
 const GLOBAL_REQUIRES_ES6: boolean = false;
 
 /**
- * 是否自动转换`MediaWiki:Gadget-${gadgetName}`和`MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}`页面的语言变体
- *
- * 需要目标 MediaWiki 网站存在 NoteTA 模板和 IT 以及 MediaWiki 公共转换组
- *
- * Whether to automatically convert the language variants of the `MediaWiki:Gadget-${gadgetName}` and `MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}` pages
- *
- * The target MediaWiki site needs to have the NoteTA template and the IT and MediaWiki public conversion group
- */
-const IS_CONVERT_VARIANT: boolean = false;
-
-/**
  * 部署时请求目标 MediaWiki 网站 API 的最大并发数，上限为 256
  *
  * The maximum concurrency number of requests to the API during deployment, the upper limit is 256
@@ -115,7 +120,7 @@ export {
 	DEFAULT_DEFINITION,
 	DEFINITION_SECTION_MAP,
 	DEPLOY_USER_AGENT,
+	CONVERT_VARIANT,
 	GLOBAL_REQUIRES_ES6,
-	IS_CONVERT_VARIANT,
 	MAX_CONCURRENCY,
 };

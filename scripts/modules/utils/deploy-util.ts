@@ -1,5 +1,5 @@
 import type {ApiQueue, Credentials, CredentialsOnlyPassword, DeploymentTargets} from '../types';
-import {DEFINITION_SECTION_MAP, IS_CONVERT_VARIANT} from '../../constant';
+import {CONVERT_VARIANT, DEFINITION_SECTION_MAP} from '../../constant';
 import fs, {type PathOrFileDescriptor} from 'node:fs';
 import {type ApiEditResponse} from 'mwn';
 import {Window} from 'happy-dom';
@@ -276,7 +276,7 @@ const saveDefinitionSectionPage = (definitionText: string, {api, editSummary, qu
 			}
 		});
 
-		if (IS_CONVERT_VARIANT) {
+		if (CONVERT_VARIANT) {
 			convertVariant(pageTitle, sectionText, {
 				api,
 				editSummary,
@@ -311,7 +311,7 @@ const saveDescription = (name: string, description: string, {api, editSummary, q
 		}
 	});
 
-	if (IS_CONVERT_VARIANT) {
+	if (CONVERT_VARIANT) {
 		convertVariant(pageTitle, description, {
 			api,
 			editSummary,
