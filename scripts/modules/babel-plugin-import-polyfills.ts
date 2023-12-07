@@ -132,16 +132,22 @@ const addImport = (
 	path,
 	types,
 	{
+		defauls,
 		entry,
 		packageName,
 	}: {
+		defauls?: true;
 		entry?: string;
 		packageName: string;
 	}
 ): void => {
 	const stringLiteral = types.stringLiteral(packageName);
 	const importDeclaration = types.importDeclaration(
-		entry ? [types.importSpecifier(types.identifier(entry), types.identifier(entry))] : [],
+		defauls
+			? [types.importDefaultSpecifier(types.identifier(entry))]
+			: entry
+			  ? [types.importSpecifier(types.identifier(entry), types.identifier(entry))]
+			  : [],
 		stringLiteral
 	);
 
@@ -161,7 +167,7 @@ export default declare((api) => {
 					node: {callee, arguments: args},
 				} = path;
 
-				for (const [name, {entry, package: packageName, type}] of Object.entries(polyfills)) {
+				for (const [name, {defauls, entry, package: packageName, type}] of Object.entries(polyfills)) {
 					if (type !== 'CallExpression' || !needPolyfills.has(name)) {
 						continue;
 					}
@@ -196,6 +202,7 @@ export default declare((api) => {
 					}
 
 					addImport(path, types, {
+						defauls,
 						entry,
 						packageName,
 					});
@@ -205,12 +212,13 @@ export default declare((api) => {
 			NewExpression(path) {
 				const {callee} = path.node;
 
-				for (const [name, {entry, package: packageName, type}] of Object.entries(polyfills)) {
+				for (const [name, {defauls, entry, package: packageName, type}] of Object.entries(polyfills)) {
 					if (type !== 'NewExpression' || !needPolyfills.has(name) || !types.isIdentifier(callee, {name})) {
 						continue;
 					}
 
 					addImport(path, types, {
+						defauls,
 						entry,
 						packageName,
 					});
