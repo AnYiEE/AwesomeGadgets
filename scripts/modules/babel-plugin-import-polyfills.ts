@@ -1,66 +1,53 @@
+/* eslint-disable camelcase */
 /**
  * @file Automatically import any missing polyfills
  * @see {@link https://github.com/zloirock/core-js#missing-polyfills}
  */
+import {type BrowserSupport, getSupport} from 'caniuse-api';
 import {declare} from '@babel/helper-plugin-utils';
 import {filterItems} from '@babel/helper-compilation-targets';
 
-const compatData: Record<
-	string,
-	{
-		chrome: string;
-		edge: string;
-		firefox: string;
-		opera: string;
-		safari: string;
+type PolyfillFeatures = 'AbortController' | 'fetch' | 'IntersectionObserver' | 'normalize' | 'Proxy' | 'ResizeObserver';
+
+const getTargets = <T extends Exclude<PolyfillFeatures, 'normalize'>>(feature: T): Record<string, string> => {
+	const browserSupport: BrowserSupport = getSupport(feature.toLowerCase());
+
+	const result: Record<string, string> = {};
+	for (const [browser, versions] of Object.entries(browserSupport)) {
+		const version: string = versions.y?.toString() ?? '';
+		if (!version) {
+			continue;
+		}
+
+		result[browser] = versions.y?.toString() ?? '';
 	}
-> = {
-	AbortController: {
-		chrome: '66',
-		edge: '16',
-		firefox: '57',
-		opera: '53',
-		safari: '12.1',
-	},
-	fetch: {
-		chrome: '42',
-		edge: '12',
-		firefox: '39',
-		opera: '29',
-		safari: '10.1',
-	},
-	IntersectionObserver: {
-		chrome: '58',
-		edge: '16',
-		firefox: '55',
-		opera: '45',
-		safari: '12.1',
-	},
+
+	return result;
+};
+
+const compatData: Record<PolyfillFeatures, ReturnType<typeof getTargets>> = {
+	AbortController: getTargets('AbortController'),
+	fetch: getTargets('fetch'),
+	IntersectionObserver: getTargets('IntersectionObserver'),
 	normalize: {
+		and_chr: '119',
+		and_ff: '119',
+		android: '119',
 		chrome: '34',
 		edge: '12',
 		firefox: '31',
+		ios_saf: '10',
+		op_mob: '73',
 		opera: '21',
 		safari: '10',
+		samsung: '10',
 	},
-	Proxy: {
-		chrome: '49',
-		edge: '12',
-		firefox: '18',
-		opera: '36',
-		safari: '10',
-	},
-	ResizeObserver: {
-		chrome: '64',
-		edge: '79',
-		firefox: '69',
-		opera: '52',
-		safari: '13.1',
-	},
-} as const;
+	Proxy: getTargets('Proxy'),
+	ResizeObserver: getTargets('ResizeObserver'),
+};
 
 const polyfills: Record<
-	keyof typeof compatData,
+	PolyfillFeatures,
 	{
 		entry?: string;
 		package: string;
