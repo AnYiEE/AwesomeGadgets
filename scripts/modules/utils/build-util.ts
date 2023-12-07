@@ -121,6 +121,7 @@ const generateTransformOptions = (): TransformOptions => {
 			],
 		],
 		compact: false,
+		plugins: [`${__dirname}/scripts/modules/babel-plugin-import-polyfills.ts`],
 	};
 
 	if (GLOBAL_REQUIRES_ES6) {
@@ -128,6 +129,7 @@ const generateTransformOptions = (): TransformOptions => {
 		// 以下关键字和运算符无法被 MediaWiki（>= 1.39）的 JavaScript 压缩器良好支持，即使设置了 requiresES6 标识
 		// The following keywords and operators are not well supported by MediaWiki's (>= 1.39) JavaScript minifier, even if the `requiresES6` flag is true
 		options.plugins = [
+			...(options.plugins as string[]),
 			// keywords
 			// ES2015
 			'@babel/plugin-transform-for-of', // transform for-of loops
@@ -149,6 +151,7 @@ const generateTransformOptions = (): TransformOptions => {
 		// 以下关键字无法被旧版本的 MediaWiki（< 1.39）的 JavaScript 压缩器良好支持
 		// The following keywords are not well supported by the JavaScript minifier in older versions of MediaWiki (< 1.39)
 		options.plugins = [
+			...(options.plugins as string[]),
 			// keywords
 			// ES3
 			'@babel/plugin-transform-member-expression-literals', // obj.const -> obj['const']
