@@ -7,9 +7,19 @@ import {type BrowserSupport, getSupport} from 'caniuse-api';
 import {declare} from '@babel/helper-plugin-utils';
 import {filterItems} from '@babel/helper-compilation-targets';
 
-type PolyfillFeatures = 'AbortController' | 'fetch' | 'IntersectionObserver' | 'normalize' | 'Proxy' | 'ResizeObserver';
+type PolyfillFeatures =
+	| 'AbortController'
+	| 'BroadcastChannel'
+	| 'fetch'
+	| 'IntersectionObserver'
+	| 'normalize'
+	| 'Proxy'
+	| 'ResizeObserver'
+	| 'sendBeacon'
+	| 'TextDecoder'
+	| 'TextEncoder';
 
-const getTargets = <T extends Exclude<PolyfillFeatures, 'normalize'>>(feature: T): Record<string, string> => {
+const getTargets = (feature: Exclude<PolyfillFeatures, 'normalize' | 'sendBeacon'>): Record<string, string> => {
 	const browserSupport: BrowserSupport = getSupport(feature.toLowerCase());
 
 	const result: Record<string, string> = {};
@@ -27,6 +37,7 @@ const getTargets = <T extends Exclude<PolyfillFeatures, 'normalize'>>(feature: T
 
 const compatData: Record<PolyfillFeatures, ReturnType<typeof getTargets>> = {
 	AbortController: getTargets('AbortController'),
+	BroadcastChannel: getTargets('BroadcastChannel'),
 	fetch: getTargets('fetch'),
 	IntersectionObserver: getTargets('IntersectionObserver'),
 	normalize: {
@@ -44,11 +55,31 @@ const compatData: Record<PolyfillFeatures, ReturnType<typeof getTargets>> = {
 	},
 	Proxy: getTargets('Proxy'),
 	ResizeObserver: getTargets('ResizeObserver'),
+	sendBeacon: {
+		and_chr: '119',
+		and_ff: '119',
+		and_qq: '13.1',
+		and_uc: '15.5',
+		android: '119',
+		baidu: '13.18',
+		chrome: '39',
+		edge: '14',
+		firefox: '31',
+		ios_saf: '11.3',
+		kaios: '2.5',
+		op_mob: '73',
+		opera: '26',
+		safari: '4',
+		samsung: '10',
+	},
+	TextDecoder: getTargets('TextEncoder'),
+	TextEncoder: getTargets('TextEncoder'),
 };
 
 const polyfills: Record<
 	PolyfillFeatures,
 	{
+		defauls?: true;
 		entry?: string;
 		package: string;
 		type: 'CallExpression' | 'NewExpression';
@@ -56,6 +87,10 @@ const polyfills: Record<
 > = {
 	AbortController: {
 		package: 'abortcontroller-polyfill/dist/abortcontroller-polyfill-only',
+		type: 'NewExpression',
+	},
+	BroadcastChannel: {
+		package: 'broadcastchannel-polyfill',
 		type: 'NewExpression',
 	},
 	fetch: {
@@ -77,6 +112,18 @@ const polyfills: Record<
 	ResizeObserver: {
 		entry: 'ResizeObserver',
 		package: '@juggle/resize-observer',
+		type: 'NewExpression',
+	},
+	sendBeacon: {
+		package: 'navigator.sendbeacon',
+		type: 'CallExpression',
+	},
+	TextDecoder: {
+		package: 'fast-text-encoding',
+		type: 'NewExpression',
+	},
+	TextEncoder: {
+		package: 'fast-text-encoding',
 		type: 'NewExpression',
 	},
 } as const;
@@ -115,11 +162,21 @@ export default declare((api) => {
 				} = path;
 
 				for (const [name, {entry, package: packageName, type}] of Object.entries(polyfills)) {
-					if (type !== 'CallExpression' || !needPolyfills.has(name) || !args.length) {
+					if (type !== 'CallExpression' || !needPolyfills.has(name)) {
 						continue;
 					}
 
 					switch (name) {
+						// polyfill call expressions in navigator object
+						case 'sendBeacon':
+							if (
+								!types.isMemberExpression(callee) ||
+								!types.isIdentifier(callee.object, {name: 'navigator'}) ||
+								!types.isIdentifier(callee.property, {name})
+							) {
+								continue;
+							}
+							break;
 						// polyfill call expressions in prototypes
 						case 'normalize':
 							if (
@@ -133,7 +190,7 @@ export default declare((api) => {
 							break;
 						// polyfill other call expressions
 						default:
-							if (!types.isIdentifier(callee, {name})) {
+							if (!args.length || !types.isIdentifier(callee, {name})) {
 								continue;
 							}
 					}
