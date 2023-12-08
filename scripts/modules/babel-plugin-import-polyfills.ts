@@ -9,15 +9,18 @@ import {filterItems} from '@babel/helper-compilation-targets';
 
 type Features =
 	| 'AbortController'
+	| 'AudioContext'
 	| 'BroadcastChannel'
 	| 'fetch'
 	| 'IntersectionObserver'
-	| 'normalize'
 	| 'Proxy'
 	| 'ResizeObserver'
-	| 'sendBeacon'
 	| 'TextDecoder'
-	| 'TextEncoder';
+	| 'TextEncoder'
+	// navigator.sendBeacon
+	| 'sendBeacon'
+	// String.prototype.normalize
+	| 'normalize';
 
 const getTargets = (feature: Exclude<Features, 'normalize' | 'sendBeacon'>): Record<string, string> => {
 	const browserSupport: BrowserSupport = getSupport(feature.toLowerCase());
@@ -37,24 +40,28 @@ const getTargets = (feature: Exclude<Features, 'normalize' | 'sendBeacon'>): Rec
 
 const compatData: Record<Features, ReturnType<typeof getTargets>> = {
 	AbortController: getTargets('AbortController'),
+	AudioContext: {
+		and_chr: '119',
+		and_ff: '119',
+		and_uc: '15.5',
+		android: '119',
+		chrome: '42',
+		edge: '14',
+		firefox: '40',
+		ios_saf: '9',
+		op_mob: '73',
+		opera: '29',
+		safari: '9',
+		samsung: '4',
+	},
 	BroadcastChannel: getTargets('BroadcastChannel'),
 	fetch: getTargets('fetch'),
 	IntersectionObserver: getTargets('IntersectionObserver'),
-	normalize: {
-		and_chr: '119',
-		and_ff: '119',
-		android: '119',
-		chrome: '34',
-		edge: '12',
-		firefox: '31',
-		ios_saf: '10',
-		op_mob: '73',
-		opera: '21',
-		safari: '10',
-		samsung: '10',
-	},
 	Proxy: getTargets('Proxy'),
 	ResizeObserver: getTargets('ResizeObserver'),
+	TextDecoder: getTargets('TextEncoder'),
+	TextEncoder: getTargets('TextEncoder'),
+	// navigator.sendBeacon
 	sendBeacon: {
 		and_chr: '119',
 		and_ff: '119',
@@ -69,11 +76,23 @@ const compatData: Record<Features, ReturnType<typeof getTargets>> = {
 		kaios: '2.5',
 		op_mob: '73',
 		opera: '26',
-		safari: '4',
+		safari: '11.1',
+		samsung: '4',
+	},
+	// String.prototype.normalize
+	normalize: {
+		and_chr: '119',
+		and_ff: '119',
+		android: '119',
+		chrome: '34',
+		edge: '12',
+		firefox: '31',
+		ios_saf: '10',
+		op_mob: '73',
+		opera: '21',
+		safari: '10',
 		samsung: '10',
 	},
-	TextDecoder: getTargets('TextEncoder'),
-	TextEncoder: getTargets('TextEncoder'),
 };
 
 const polyfills: Record<
@@ -89,6 +108,10 @@ const polyfills: Record<
 		package: 'abortcontroller-polyfill/dist/abortcontroller-polyfill-only',
 		type: 'NewExpression',
 	},
+	AudioContext: {
+		package: 'audio-context-polyfill',
+		type: 'NewExpression',
+	},
 	BroadcastChannel: {
 		package: 'broadcastchannel-polyfill',
 		type: 'NewExpression',
@@ -101,10 +124,6 @@ const polyfills: Record<
 		package: 'intersection-observer',
 		type: 'NewExpression',
 	},
-	normalize: {
-		package: 'unorm',
-		type: 'CallExpression',
-	},
 	Proxy: {
 		package: 'proxy-polyfill/proxy.min',
 		type: 'NewExpression',
@@ -114,10 +133,6 @@ const polyfills: Record<
 		package: '@juggle/resize-observer',
 		type: 'NewExpression',
 	},
-	sendBeacon: {
-		package: 'navigator.sendbeacon',
-		type: 'CallExpression',
-	},
 	TextDecoder: {
 		package: 'fast-text-encoding',
 		type: 'NewExpression',
@@ -125,6 +140,16 @@ const polyfills: Record<
 	TextEncoder: {
 		package: 'fast-text-encoding',
 		type: 'NewExpression',
+	},
+	// navigator.sendBeacon
+	sendBeacon: {
+		package: 'navigator.sendbeacon',
+		type: 'CallExpression',
+	},
+	// String.prototype.normalize
+	normalize: {
+		package: 'unorm',
+		type: 'CallExpression',
 	},
 } as const;
 
