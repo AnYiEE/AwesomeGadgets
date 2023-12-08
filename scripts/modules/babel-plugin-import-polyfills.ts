@@ -8,21 +8,13 @@ import {declare} from '@babel/helper-plugin-utils';
 import {filterItems} from '@babel/helper-compilation-targets';
 
 type Features =
-	| 'AbortController'
 	| 'AudioContext'
 	| 'BroadcastChannel'
-	| 'fetch'
-	| 'IntersectionObserver'
 	| 'Proxy'
-	| 'ResizeObserver'
-	| 'TextDecoder'
-	| 'TextEncoder'
-	// navigator.sendBeacon
-	| 'sendBeacon'
 	// String.prototype.normalize
 	| 'normalize';
 
-const getTargets = (feature: Exclude<Features, 'normalize' | 'sendBeacon'>): Record<string, string> => {
+const getTargets = (feature: Exclude<Features, 'normalize'>): Record<string, string> => {
 	const browserSupport: BrowserSupport = getSupport(feature.toLowerCase());
 
 	const result: Record<string, string> = {};
@@ -39,7 +31,6 @@ const getTargets = (feature: Exclude<Features, 'normalize' | 'sendBeacon'>): Rec
 };
 
 const compatData: Record<Features, ReturnType<typeof getTargets>> = {
-	AbortController: getTargets('AbortController'),
 	AudioContext: {
 		and_chr: '119',
 		and_ff: '119',
@@ -55,30 +46,7 @@ const compatData: Record<Features, ReturnType<typeof getTargets>> = {
 		samsung: '4',
 	},
 	BroadcastChannel: getTargets('BroadcastChannel'),
-	fetch: getTargets('fetch'),
-	IntersectionObserver: getTargets('IntersectionObserver'),
 	Proxy: getTargets('Proxy'),
-	ResizeObserver: getTargets('ResizeObserver'),
-	TextDecoder: getTargets('TextEncoder'),
-	TextEncoder: getTargets('TextEncoder'),
-	// navigator.sendBeacon
-	sendBeacon: {
-		and_chr: '119',
-		and_ff: '119',
-		and_qq: '13.1',
-		and_uc: '15.5',
-		android: '119',
-		baidu: '13.18',
-		chrome: '39',
-		edge: '14',
-		firefox: '31',
-		ios_saf: '11.3',
-		kaios: '2.5',
-		op_mob: '73',
-		opera: '26',
-		safari: '11.1',
-		samsung: '4',
-	},
 	// String.prototype.normalize
 	normalize: {
 		and_chr: '119',
@@ -98,16 +66,10 @@ const compatData: Record<Features, ReturnType<typeof getTargets>> = {
 const polyfills: Record<
 	Features,
 	{
-		defauls?: true;
-		entry?: string;
 		package: string;
 		type: 'CallExpression' | 'NewExpression';
 	}
 > = {
-	AbortController: {
-		package: 'abortcontroller-polyfill/dist/abortcontroller-polyfill-only',
-		type: 'NewExpression',
-	},
 	AudioContext: {
 		package: 'audio-context-polyfill',
 		type: 'NewExpression',
@@ -116,35 +78,9 @@ const polyfills: Record<
 		package: 'broadcastchannel-polyfill',
 		type: 'NewExpression',
 	},
-	fetch: {
-		package: 'whatwg-fetch',
-		type: 'CallExpression',
-	},
-	IntersectionObserver: {
-		package: 'intersection-observer',
-		type: 'NewExpression',
-	},
 	Proxy: {
 		package: 'proxy-polyfill/proxy.min',
 		type: 'NewExpression',
-	},
-	ResizeObserver: {
-		entry: 'ResizeObserver',
-		package: '@juggle/resize-observer',
-		type: 'NewExpression',
-	},
-	TextDecoder: {
-		package: 'fast-text-encoding',
-		type: 'NewExpression',
-	},
-	TextEncoder: {
-		package: 'fast-text-encoding',
-		type: 'NewExpression',
-	},
-	// navigator.sendBeacon
-	sendBeacon: {
-		package: 'navigator.sendbeacon',
-		type: 'CallExpression',
 	},
 	// String.prototype.normalize
 	normalize: {
@@ -153,28 +89,9 @@ const polyfills: Record<
 	},
 } as const;
 
-const addImport = (
-	path,
-	types,
-	{
-		defauls,
-		entry,
-		packageName,
-	}: {
-		defauls?: true;
-		entry?: string;
-		packageName: string;
-	}
-): void => {
+const addImport = (path, types, packageName: string): void => {
 	const stringLiteral = types.stringLiteral(packageName);
-	const importDeclaration = types.importDeclaration(
-		defauls
-			? [types.importDefaultSpecifier(types.identifier(entry))]
-			: entry
-			  ? [types.importSpecifier(types.identifier(entry), types.identifier(entry))]
-			  : [],
-		stringLiteral
-	);
+	const importDeclaration = types.importDeclaration([], stringLiteral);
 
 	path.findParent((parent) => {
 		return parent.isProgram();
@@ -192,22 +109,12 @@ export default declare((api) => {
 					node: {callee, arguments: args},
 				} = path;
 
-				for (const [name, {defauls, entry, package: packageName, type}] of Object.entries(polyfills)) {
+				for (const [name, {package: packageName, type}] of Object.entries(polyfills)) {
 					if (type !== 'CallExpression' || !needPolyfills.has(name)) {
 						continue;
 					}
 
 					switch (name) {
-						// polyfill call expressions in `navigator` object
-						case 'sendBeacon':
-							if (
-								!types.isIdentifier(callee.object, {name: 'navigator'}) ||
-								!types.isMemberExpression(callee) ||
-								!types.isIdentifier(callee.property, {name})
-							) {
-								continue;
-							}
-							break;
 						// polyfill call expressions in `String.prototype`
 						case 'normalize':
 							if (
@@ -226,27 +133,19 @@ export default declare((api) => {
 							}
 					}
 
-					addImport(path, types, {
-						defauls,
-						entry,
-						packageName,
-					});
+					addImport(path, types, packageName);
 				}
 			},
 
 			NewExpression(path) {
 				const {callee} = path.node;
 
-				for (const [name, {defauls, entry, package: packageName, type}] of Object.entries(polyfills)) {
+				for (const [name, {package: packageName, type}] of Object.entries(polyfills)) {
 					if (type !== 'NewExpression' || !needPolyfills.has(name) || !types.isIdentifier(callee, {name})) {
 						continue;
 					}
 
-					addImport(path, types, {
-						defauls,
-						entry,
-						packageName,
-					});
+					addImport(path, types, packageName);
 				}
 			},
 		},
