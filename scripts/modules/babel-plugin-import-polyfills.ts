@@ -7,7 +7,7 @@ import {type BrowserSupport, getSupport} from 'caniuse-api';
 import {declare} from '@babel/helper-plugin-utils';
 import {filterItems} from '@babel/helper-compilation-targets';
 
-type PolyfillFeatures =
+type Features =
 	| 'AbortController'
 	| 'BroadcastChannel'
 	| 'fetch'
@@ -19,23 +19,23 @@ type PolyfillFeatures =
 	| 'TextDecoder'
 	| 'TextEncoder';
 
-const getTargets = (feature: Exclude<PolyfillFeatures, 'normalize' | 'sendBeacon'>): Record<string, string> => {
+const getTargets = (feature: Exclude<Features, 'normalize' | 'sendBeacon'>): Record<string, string> => {
 	const browserSupport: BrowserSupport = getSupport(feature.toLowerCase());
 
 	const result: Record<string, string> = {};
 	for (const [browser, versions] of Object.entries(browserSupport)) {
-		const version: string = versions.y?.toString() ?? '';
-		if (!version) {
+		const target: string = versions.y?.toString() ?? '';
+		if (!target) {
 			continue;
 		}
 
-		result[browser] = versions.y?.toString() ?? '';
+		result[browser] = target;
 	}
 
 	return result;
 };
 
-const compatData: Record<PolyfillFeatures, ReturnType<typeof getTargets>> = {
+const compatData: Record<Features, ReturnType<typeof getTargets>> = {
 	AbortController: getTargets('AbortController'),
 	BroadcastChannel: getTargets('BroadcastChannel'),
 	fetch: getTargets('fetch'),
@@ -77,7 +77,7 @@ const compatData: Record<PolyfillFeatures, ReturnType<typeof getTargets>> = {
 };
 
 const polyfills: Record<
-	PolyfillFeatures,
+	Features,
 	{
 		defauls?: true;
 		entry?: string;
@@ -173,17 +173,17 @@ export default declare((api) => {
 					}
 
 					switch (name) {
-						// polyfill call expressions in navigator object
+						// polyfill call expressions in `navigator` object
 						case 'sendBeacon':
 							if (
-								!types.isMemberExpression(callee) ||
 								!types.isIdentifier(callee.object, {name: 'navigator'}) ||
+								!types.isMemberExpression(callee) ||
 								!types.isIdentifier(callee.property, {name})
 							) {
 								continue;
 							}
 							break;
-						// polyfill call expressions in prototypes
+						// polyfill call expressions in `String.prototype`
 						case 'normalize':
 							if (
 								args.length !== 1 ||
