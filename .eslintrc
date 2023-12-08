@@ -183,6 +183,7 @@
 		"unicorn/filename-case": "off",
 		"unicorn/no-abusive-eslint-disable": "off",
 		"unicorn/no-array-callback-reference": "off",
+		"unicorn/no-array-reduce": "off",
 		"unicorn/no-document-cookie": "off",
 		"unicorn/no-hex-escape": "off",
 		"unicorn/no-keyword-prefix": "off",
@@ -198,6 +199,7 @@
 		"unicorn/prefer-ternary": "off",
 		"unicorn/prefer-top-level-await": "off",
 		"unicorn/prevent-abbreviations": "off",
+		"unicorn/require-post-message-target-origin": "off",
 		"unicorn/string-content": "off",
 		"unicorn/switch-case-braces": ["error", "avoid"],
 
