@@ -4,7 +4,6 @@ import babel, {type BabelFileResult, type PluginItem, type TransformOptions} fro
 import esbuild, {type BuildResult, type OutputFile} from 'esbuild';
 import fs, {type PathOrFileDescriptor, type Stats} from 'node:fs';
 import PACKAGE from '../../../package.json' assert {type: 'json'};
-import browserslist from 'browserslist';
 import chalk from 'chalk';
 import {esbuildOptions} from '../build-esbuild_options';
 import path from 'node:path';
@@ -123,59 +122,7 @@ const generateTransformOptions = (): TransformOptions => {
 			],
 		],
 		compact: false,
-		plugins: [
-			[
-				'@mrhenry/core-web',
-				{
-					browsers: [
-						...new Set(
-							browserslist()
-								.filter((browser: string): boolean => {
-									return !/^(?:and_qq|and_uc|kaios)/.test(browser);
-								})
-								.map((browser: string): string => {
-									const browserMatchArray: RegExpMatchArray | null = browser.match(/(\S+)\s/);
-									if (!browserMatchArray) {
-										return browser;
-									}
-
-									const [, browserName] = browserMatchArray;
-									let name: string = browserName;
-									switch (browserName) {
-										case 'and_chr':
-											name = 'android';
-											break;
-										case 'and_ff':
-											name = 'firefox_mob';
-											break;
-										case 'samsung':
-											name = 'samsung_mob';
-											break;
-									}
-
-									return browser.replace(browserName, name);
-								})
-						),
-					]
-						.sort()
-						.reduce(
-							(computedBrowsers, browser: string): typeof computedBrowsers => {
-								const [browserName, BrowserVersion] = browser.split(' ');
-								const [version] = BrowserVersion.split('-');
-
-								const currentVersion: string = computedBrowsers[browserName];
-								if (!currentVersion || Number.parseFloat(version) < Number.parseFloat(currentVersion)) {
-									computedBrowsers[browserName] = version;
-								}
-
-								return computedBrowsers;
-							},
-							{} as Record<string, string>
-						),
-				},
-			],
-			`${__dirname}/scripts/modules/babel-plugin-import-polyfills.ts`,
-		],
+		plugins: ['@mrhenry/core-web', `${__dirname}/scripts/modules/babel-plugin-import-polyfills.ts`],
 	};
 
 	if (GLOBAL_REQUIRES_ES6) {
