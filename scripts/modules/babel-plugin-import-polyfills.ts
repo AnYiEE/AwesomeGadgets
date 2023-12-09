@@ -6,6 +6,7 @@
 import {type BrowserSupport, getSupport} from 'caniuse-api';
 import {declare} from '@babel/helper-plugin-utils';
 import {filterItems} from '@babel/helper-compilation-targets';
+import nodePath from 'node:path';
 
 type Features =
 	| 'AudioContext'
@@ -71,7 +72,7 @@ const polyfills: Record<
 	}
 > = {
 	AudioContext: {
-		package: 'audio-context-polyfill',
+		package: `${nodePath.resolve()}/scripts/modules/polyfills/AudioContext`,
 		type: 'NewExpression',
 	},
 	BroadcastChannel: {

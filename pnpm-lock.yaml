@@ -123,9 +123,6 @@ devDependencies:
   '@typescript-eslint/parser':
     specifier: ^6.13.2
     version: 6.13.2(eslint@8.55.0)(typescript@5.3.3)
-  audio-context-polyfill:
-    specifier: ^1.0.0
-    version: 1.0.0
   broadcastchannel-polyfill:
     specifier: ^1.0.1
     version: 1.0.1
@@ -2628,10 +2625,6 @@ packages:
 
   /asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
-    dev: true
-
-  /audio-context-polyfill@1.0.0:
-    resolution: {integrity: sha512-Ex1jZc8e3AIiOBm8Tn0oS4yZ8aT5VCLygaov+fxJ4ymgUB2GPqW5DtQ8NBpR2dfvSR6RjWvMU8+nDwIE/he49w==}
     dev: true
 
   /autoprefixer@10.4.16(postcss@8.4.32):
