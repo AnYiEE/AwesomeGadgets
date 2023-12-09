@@ -94,11 +94,11 @@ devDependencies:
     specifier: ^18.4.3
     version: 18.4.3
   '@mrhenry/babel-plugin-core-web':
-    specifier: ^1.2.0
-    version: 1.2.0
+    specifier: ^1.2.1
+    version: 1.2.1
   '@mrhenry/core-web':
-    specifier: ^1.2.0
-    version: 1.2.0
+    specifier: ^1.2.1
+    version: 1.2.1
   '@types/babel__core':
     specifier: ^7.20.5
     version: 7.20.5
@@ -2229,21 +2229,21 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@mdn/browser-compat-data@5.4.4:
-    resolution: {integrity: sha512-ykYCVBr3CjyKHiXefqyl3SuSpoib/5ViBZ2kjD18xbZFJpnSSJZg1deq+lirYN0vheKhj7BU+29qjAusfZalOA==}
+  /@mdn/browser-compat-data@5.4.5:
+    resolution: {integrity: sha512-n3/+wko8WFd/fbiPCOuBB6HfKL6hTcygFEZ/MpmvpMRbgDSdlNMopDFGjsoTYqCbzTVTX9TL/StXco4yx2v58Q==}
     dev: true
 
-  /@mrhenry/babel-plugin-core-web@1.2.0:
-    resolution: {integrity: sha512-k29l4Hddqs5ueeJPG/BGijqfIRV9RXwtyPonM6NX1tmsqbRvcIVC+VkD5N52FjTS+nD266lR+er3FY5qmV38bA==}
+  /@mrhenry/babel-plugin-core-web@1.2.1:
+    resolution: {integrity: sha512-5MePelFQ0HRLX1OrBfGw6YRjduFttvr4cHsP4Q8dGjBfS/mhF5c8R3EmrJhNX/IUnalmLXTsGCy8Oc3V0nf/FQ==}
     dependencies:
       '@babel/helper-module-imports': 7.22.15
       '@babel/types': 7.23.5
-      '@mrhenry/core-web': 1.2.0
+      '@mrhenry/core-web': 1.2.1
       fast-deep-equal: 3.1.3
     dev: true
 
-  /@mrhenry/core-web@1.2.0:
-    resolution: {integrity: sha512-CybFmYo5tb8Zdr0uLQp7w+LZXmiZtgFJe9xxUeS4nDxuchumDI5NFdROEaWWI7TCQnRl2Ny6aMmU7XzzyMdDCA==}
+  /@mrhenry/core-web@1.2.1:
+    resolution: {integrity: sha512-44E4FmCBfHkpyQxvSCb8RynjcdFGZNoCn3Un2FT/gnh+nVLPr3EtBoPuAeGa0FTty/uD6Ui6Xz9/0Dao0ckJSA==}
     dependencies:
       browserslist: 4.22.2
       semver: 7.5.4
@@ -2615,7 +2615,7 @@ packages:
   /ast-metadata-inferer@0.8.0:
     resolution: {integrity: sha512-jOMKcHht9LxYIEQu+RVd22vtgrPaVCtDRQ/16IGmurdzxvYbDd5ynxjnyrzLnieG96eTcAyaoj/wN/4/1FyyeA==}
     dependencies:
-      '@mdn/browser-compat-data': 5.4.4
+      '@mdn/browser-compat-data': 5.4.5
     dev: true
 
   /astral-regex@2.0.0:
@@ -3300,7 +3300,7 @@ packages:
     peerDependencies:
       eslint: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
-      '@mdn/browser-compat-data': 5.4.4
+      '@mdn/browser-compat-data': 5.4.5
       ast-metadata-inferer: 0.8.0
       browserslist: 4.22.2
       caniuse-lite: 1.0.30001566
