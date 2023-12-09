@@ -114,7 +114,7 @@ const generateTransformOptions = (): TransformOptions => {
 				{
 					bugfixes: true,
 					corejs: {
-						version: PACKAGE.devDependencies['core-js'].match(/\d+(?:.\d+){0,2}/)?.[0],
+						version: PACKAGE.devDependencies['core-js'].match(/\d+(?:.\d+){0,2}/)?.[0] ?? '3.34',
 					},
 					exclude: ['web.dom-collections.for-each', 'web.dom-collections.iterator'],
 					modules: false,
