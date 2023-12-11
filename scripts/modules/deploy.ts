@@ -97,7 +97,7 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 
 		for (let file of files) {
 			if (/^\./.test(file)) {
-				file = `${name}${file}`;
+				file = name + file;
 			}
 
 			const fileText: string = readFileText(name, file);

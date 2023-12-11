@@ -494,7 +494,7 @@ const saveDefinition = (definitions: string[]): void => {
 		}
 	}
 	definitionText = definitionText.replace(/❄/g, '-').replace(/-\./g, '.');
-	definitionText = `${trim(BANNER)}${definitionText}`;
+	definitionText = trim(BANNER) + definitionText;
 
 	const definitionPath: string = path.join(__dirname, 'dist/definition.txt');
 	try {
