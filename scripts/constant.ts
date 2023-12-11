@@ -17,15 +17,15 @@ const BANNER: string = `<div class="mw-message-box mw-message-box-notice">
  * The content above each gadget (CSS and JavaScript files), should be compatible comments for CSS and JavaScript
  */
 const HEADER: string = `/**
- * +--------------------------------------------------------+
- * |         === WARNING: GLOBAL GADGET FILE ===            |
- * +--------------------------------------------------------+
- * |      All changes should be made in the repository,     |
- * |              otherwise they will be lost.              |
- * +--------------------------------------------------------+
- * |      Changes to this page may affect many users.       |
- * |  Please discuss changes at talk page before editing.   |
- * +--------------------------------------------------------+
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
  */`;
 
 const DEFAULT_DEFINITION: DefaultDefinition = {
