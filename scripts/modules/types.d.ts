@@ -68,7 +68,7 @@ interface SourceFiles {
 	};
 }
 
-export {
+export type {
 	ApiQueue,
 	Credentials,
 	CredentialsOnlyPassword,
