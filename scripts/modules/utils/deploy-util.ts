@@ -18,7 +18,7 @@ const deployPages: string[] = [];
 /**
  * Generate deployment targets based on the definitions
  *
- * @param {string[]} definitions Array of gadget definitions (in the format of MediaWiki:Gadgets-definition item)
+ * @param {string[]} definitions Array of gadget definition (in the format of MediaWiki:Gadgets-definition item)
  * @return {DeploymentTargets} Deployment targets
  */
 const generateTargets = (definitions: string[]): DeploymentTargets => {

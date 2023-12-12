@@ -228,7 +228,7 @@ const buildStyle = async (name: string, style: string, {licenseText}: {licenseTe
 /**
  * @param {string} name The gadget name
  * @param {'script'|'style'} type The type of target files
- * @param {{files:string[]; licenseText?:string}} object The license file content of this gadget and the array of file names for this gadget
+ * @param {{files:string[]; licenseText?:string}} object The license file content of this gadget and the array of file name for this gadget
  * @return {Promise<void>[]} The build tasks
  */
 const buildFiles = (
@@ -436,9 +436,18 @@ const removeDuplicateFileName = (name: string, file: string): string => {
 };
 
 /**
+ * @param {string|undefined} file The index file name
+ * @param {string[]} files The other file name array
+ * @return {string[]} The generated file name array
+ */
+const generateFileArray = (file: string | undefined, files: string[]): string[] => {
+	return file ? [file] : files;
+};
+
+/**
  * @param {string} name The gadget name
- * @param {string[]} files The file names array
- * @return {string} The generated file names string
+ * @param {string[]} files The file name array
+ * @return {string} The generated file name string
  */
 const generateFileNames = (name: string, files: string[]): string => {
 	return files
@@ -513,4 +522,12 @@ const saveDefinition = (definitions: string[]): void => {
 	}
 };
 
-export {buildFiles, findSourceFile, generateDefinitionItem, generateFileNames, getLicense, saveDefinition};
+export {
+	buildFiles,
+	findSourceFile,
+	generateDefinitionItem,
+	generateFileArray,
+	generateFileNames,
+	getLicense,
+	saveDefinition,
+};

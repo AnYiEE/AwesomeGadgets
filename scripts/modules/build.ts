@@ -1,4 +1,11 @@
-import {buildFiles, generateDefinitionItem, generateFileNames, getLicense, saveDefinition} from './utils/build-util';
+import {
+	buildFiles,
+	generateDefinitionItem,
+	generateFileArray,
+	generateFileNames,
+	getLicense,
+	saveDefinition,
+} from './utils/build-util';
 import type {SourceFiles} from './types';
 import chalk from 'chalk';
 
@@ -6,7 +13,7 @@ import chalk from 'chalk';
  * Compile scripts and styles and generate corresponding definitions
  *
  * @param {SourceFiles} sourceFiles Return value of `findSourceFile(/path/to/gadget_files)`
- * @return {string[]} Array of gadget definitions (in the format of MediaWiki:Gadgets-definition item)
+ * @return {string[]} Array of gadget definition (in the format of MediaWiki:Gadgets-definition item)
  */
 const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 	const buildPromiseArray: Promise<void>[] = [];
@@ -19,7 +26,7 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 		const licenseText: string | undefined = getLicense(name, license);
 
 		if (script || scripts) {
-			const scriptFileArray: string[] = script ? [script] : scripts;
+			const scriptFileArray: string[] = generateFileArray(script, scripts);
 			const scriptFiles: string = generateFileNames(name, scriptFileArray);
 			definitionItemFiles += scriptFiles ? `${scriptFiles}|` : '';
 			buildPromiseArray.push(
@@ -31,7 +38,7 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 		}
 
 		if (style || styles) {
-			const styleFileArray: string[] = style ? [style] : styles;
+			const styleFileArray: string[] = generateFileArray(style, styles);
 			const styleFiles: string = generateFileNames(name, styleFileArray);
 			definitionItemFiles += styleFiles ? `${styleFiles}|` : '';
 			buildPromiseArray.push(
