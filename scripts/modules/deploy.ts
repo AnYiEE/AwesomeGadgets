@@ -76,7 +76,7 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 	}
 
 	await prompt('> Press [Enter] to start deploying or quickly press [ctrl + C] twice to cancel');
-	await setTimeout(1000);
+	await setTimeout(1 * 1000);
 
 	console.log(chalk.yellow('--- starting deployment ---'));
 

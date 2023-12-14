@@ -263,7 +263,7 @@ const findSourceFile = (currentPath: string = 'src'): SourceFiles => {
 			}
 
 			const [_rootDir, gadgetName, fileName] = pathSplitArray;
-			sourceFiles[gadgetName] ??= {} as SourceFiles[''];
+			sourceFiles[gadgetName] ??= {} as SourceFiles[keyof SourceFiles];
 
 			switch (fileName) {
 				case 'definition.json':

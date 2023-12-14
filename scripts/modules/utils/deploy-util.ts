@@ -29,7 +29,7 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
 			/^\*\s(\S+?)\[\S+?]\|(\S+?)☀\S*?☀(.+?)$/
 		) as RegExpMatchArray;
 
-		targets[name] = {} as DeploymentTargets[''];
+		targets[name] = {} as DeploymentTargets[keyof DeploymentTargets];
 		targets[name].files = files
 			.split('|')
 			.filter((file: string): boolean => {
@@ -109,7 +109,7 @@ const makeEditSummary = async (): Promise<string> => {
 	await prompt('> Press [Enter] to continue deploying or quickly press [ctrl + C] twice to cancel');
 
 	console.log(chalk.yellow('--- deployment will continue in three seconds ---'));
-	await setTimeout(3000);
+	await setTimeout(3 * 1000);
 
 	return editSummary;
 };
@@ -390,10 +390,10 @@ const deleteUnusedPages = async ({api, editSummary, queue}: ApiQueue): Promise<v
 
 	process.stdout.write(`The following pages will be deleted:\n${needToDeletePages.join('\n')}\n`);
 	await prompt('> Press [Enter] to continue deleting or quickly press [ctrl + C] twice to cancel');
-	await setTimeout(1000);
+	await setTimeout(1 * 1000);
 
 	console.log(chalk.yellow('--- deleting will continue in three seconds ---'));
-	await setTimeout(3000);
+	await setTimeout(3 * 1000);
 
 	const deletePage = async (pageTitle: string): Promise<void> => {
 		try {
@@ -405,14 +405,11 @@ const deleteUnusedPages = async ({api, editSummary, queue}: ApiQueue): Promise<v
 		}
 	};
 
-	const taskQueue: (() => Promise<void>)[] = [];
 	for (const page of needToDeletePages) {
-		taskQueue.push((): Promise<void> => {
-			return deletePage(page);
+		queue.add(async (): Promise<void> => {
+			await deletePage(page);
 		});
 	}
-
-	queue.addAll(taskQueue);
 };
 
 export {
