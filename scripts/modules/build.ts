@@ -6,8 +6,14 @@ import {
 	getLicense,
 	saveDefinition,
 } from './utils/build-util';
+import PQueue from 'p-queue';
 import type {SourceFiles} from './types';
 import chalk from 'chalk';
+
+/**
+ * @private
+ */
+const buildQueue: PQueue = new PQueue();
 
 /**
  * Compile scripts and styles and generate corresponding definitions
@@ -16,7 +22,6 @@ import chalk from 'chalk';
  * @return {string[]} Array of gadget definition (in the format of MediaWiki:Gadgets-definition item)
  */
 const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
-	const buildPromiseArray: Promise<void>[] = [];
 	const definitions: string[] = [];
 
 	console.log(chalk.yellow('--- starting build ---'));
@@ -29,24 +34,22 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 			const scriptFileArray: string[] = generateFileArray(script, scripts);
 			const scriptFiles: string = generateFileNames(name, scriptFileArray);
 			definitionItemFiles += scriptFiles ? `${scriptFiles}|` : '';
-			buildPromiseArray.push(
-				...buildFiles(name, 'script', {
-					licenseText,
-					files: scriptFileArray,
-				})
-			);
+			buildFiles(name, 'script', {
+				licenseText,
+				files: scriptFileArray,
+				queue: buildQueue,
+			});
 		}
 
 		if (style || styles) {
 			const styleFileArray: string[] = generateFileArray(style, styles);
 			const styleFiles: string = generateFileNames(name, styleFileArray);
 			definitionItemFiles += styleFiles ? `${styleFiles}|` : '';
-			buildPromiseArray.push(
-				...buildFiles(name, 'style', {
-					licenseText,
-					files: styleFileArray,
-				})
-			);
+			buildFiles(name, 'style', {
+				licenseText,
+				files: styleFileArray,
+				queue: buildQueue,
+			});
 		}
 
 		definitionItemFiles = definitionItemFiles.replace(/\|$/, '');
@@ -58,7 +61,7 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 		}
 	}
 
-	await Promise.all(buildPromiseArray);
+	await buildQueue.onIdle();
 	saveDefinition(definitions);
 
 	console.log(chalk.yellow('--- end of build ---'));

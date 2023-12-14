@@ -21,4 +21,16 @@ const prompt = async (message: string, type: PromptType = 'text', initial: strin
 	return answers[name];
 };
 
-export {prompt};
+/**
+ * Trim and generate a string ending with a newline character
+ *
+ * @param {string} [string]
+ * @return {string}
+ */
+const trim = (string?: string): string => {
+	const stringTrim: string = (string ?? '').trim();
+
+	return stringTrim ? `${stringTrim}\n` : '';
+};
+
+export {prompt, trim};
