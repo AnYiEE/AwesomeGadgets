@@ -2,6 +2,7 @@ import type {ApiQueue, Credentials, CredentialsOnlyPassword, DeploymentTargets} 
 import {CONVERT_VARIANT, DEFINITION_SECTION_MAP} from '../../constant';
 import fs, {type PathOrFileDescriptor} from 'node:fs';
 import {type ApiEditResponse} from 'mwn';
+import {MwnError} from 'mwn/build/error';
 import {Window} from 'happy-dom';
 import chalk from 'chalk';
 import {execSync} from 'node:child_process';
@@ -400,8 +401,12 @@ const deleteUnusedPages = async ({api, editSummary, queue}: ApiQueue): Promise<v
 			await api.delete(pageTitle, editSummary);
 			console.log(chalk.green(`✔ Successfully deleted ${chalk.bold(pageTitle)}`));
 		} catch (error: unknown) {
-			console.log(chalk.red(`✘ Failed to delete ${chalk.bold(pageTitle)}`));
-			console.error(error);
+			if (error instanceof MwnError && error.code === 'missingtitle') {
+				console.log(chalk.yellow(`━ Page ${chalk.bold(pageTitle)} no need to delete`));
+			} else {
+				console.log(chalk.red(`✘ Failed to delete ${chalk.bold(pageTitle)}`));
+				console.error(error);
+			}
 		}
 	};
 
