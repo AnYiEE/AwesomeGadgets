@@ -102,6 +102,9 @@ devDependencies:
   '@types/babel__core':
     specifier: ^7.20.5
     version: 7.20.5
+  '@types/babel__helper-plugin-utils':
+    specifier: ^7.10.3
+    version: 7.10.3
   '@types/caniuse-api':
     specifier: ^3.0.6
     version: 3.0.6
@@ -2282,6 +2285,12 @@ packages:
     resolution: {integrity: sha512-6Sfsq+EaaLrw4RmdFWE9Onp63TOUue71AWb4Gpa6JxzgTYtimbM086WnYTy2U67AofR++QKCo08ZP6pwx8YFHQ==}
     dependencies:
       '@babel/types': 7.23.6
+    dev: true
+
+  /@types/babel__helper-plugin-utils@7.10.3:
+    resolution: {integrity: sha512-FcLBBPXInqKfULB2nvOBskQPcnSMZ0s1Y2q76u9H1NPPWaLcTeq38xBeKfF/RBUECK333qeaqRdYoPSwW7rTNQ==}
+    dependencies:
+      '@types/babel__core': 7.20.5
     dev: true
 
   /@types/babel__template@7.4.4:

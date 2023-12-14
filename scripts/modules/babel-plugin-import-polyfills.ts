@@ -3,8 +3,11 @@
  * @file Automatically import any missing polyfills
  * @see {@link https://github.com/zloirock/core-js#missing-polyfills}
  */
+import {type BabelAPI, declare} from '@babel/helper-plugin-utils';
 import {type BrowserSupport, getSupport} from 'caniuse-api';
-import {declare} from '@babel/helper-plugin-utils';
+/**
+ * @see {@link https://babeljs.io/docs/babel-helper-compilation-targets#filteritems}
+ */
 import {filterItems} from '@babel/helper-compilation-targets';
 import nodePath from 'node:path';
 
@@ -90,18 +93,25 @@ const polyfills: Record<
 	},
 } as const;
 
-const addImport = (path, types, packageName: string): void => {
+const addImport = (path, types: BabelAPI['types'], packageName: (typeof polyfills)[Features]['package']): void => {
 	const stringLiteral = types.stringLiteral(packageName);
 	const importDeclaration = types.importDeclaration([], stringLiteral);
 
-	path.findParent((parent) => {
-		return parent.isProgram();
-	}).unshiftContainer('body', importDeclaration);
+	path
+		.findParent((parent): boolean => {
+			return parent.isProgram();
+		})
+		?.unshiftContainer('body', importDeclaration);
 };
 
-export default declare((api) => {
+export default declare((api: BabelAPI) => {
 	const {types} = api;
-	const needPolyfills: Set<string> = filterItems(compatData, new Set(), new Set(), api.targets());
+	const needPolyfills: Set<string> = filterItems(
+		compatData,
+		new Set(),
+		new Set(),
+		(api as unknown as {targets: () => Record<string, string>}).targets()
+	);
 
 	return {
 		visitor: {
@@ -120,16 +130,23 @@ export default declare((api) => {
 						case 'normalize':
 							if (
 								args.length !== 1 ||
-								!types.isStringLiteral(args[0]) ||
-								!types.isMemberExpression(callee) ||
-								!types.isIdentifier(callee.property, {name})
+								!types.isStringLiteral(args[0]) || // `''`
+								!types.isMemberExpression(callee) || // `''.`
+								!types.isIdentifier(callee.property, {
+									name, // `''.normalize()`
+								})
 							) {
 								continue;
 							}
 							break;
 						// polyfill other call expressions
 						default:
-							if (!args.length || !types.isIdentifier(callee, {name})) {
+							if (
+								!args.length ||
+								!types.isIdentifier(callee, {
+									name, // `name()`
+								})
+							) {
 								continue;
 							}
 					}
@@ -142,7 +159,13 @@ export default declare((api) => {
 				const {callee} = path.node;
 
 				for (const [name, {package: packageName, type}] of Object.entries(polyfills)) {
-					if (type !== 'NewExpression' || !needPolyfills.has(name) || !types.isIdentifier(callee, {name})) {
+					if (
+						type !== 'NewExpression' ||
+						!needPolyfills.has(name) ||
+						!types.isIdentifier(callee, {
+							name, // `new name()`
+						})
+					) {
 						continue;
 					}
 
