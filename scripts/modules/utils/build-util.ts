@@ -1,20 +1,31 @@
 import {BANNER, DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER} from '../../constant';
+import {type BabelFileResult, type PluginItem, type TransformOptions, transformAsync} from '@babel/core';
+import {type BuildResult, type OutputFile, build as esbuild} from 'esbuild';
 import type {DefaultDefinition, ExcludeItem, SourceFiles} from '../types';
-import babel, {type BabelFileResult, type PluginItem, type TransformOptions} from '@babel/core';
-import esbuild, {type BuildResult, type OutputFile} from 'esbuild';
-import fs, {type PathOrFileDescriptor, type Stats} from 'node:fs';
+import {
+	type PathOrFileDescriptor,
+	type Stats,
+	closeSync,
+	fdatasyncSync,
+	mkdirSync,
+	openSync,
+	readFileSync,
+	readdirSync,
+	statSync,
+	writeFileSync,
+} from 'node:fs';
+import {dirname, join, resolve} from 'node:path';
 import PACKAGE from '../../../package.json' assert {type: 'json'};
 import type PQueue from 'p-queue';
 import chalk from 'chalk';
 import {esbuildOptions} from '../build-esbuild_options';
-import path from 'node:path';
-import process from 'node:process';
+import {platform} from 'node:process';
 import {trim} from './general-util';
 
 /**
  * @private
  */
-const __dirname: string = path.resolve();
+const __dirname: string = resolve();
 
 /**
  * @private
@@ -27,15 +38,15 @@ const writeFile = (sourceCode: string, outputFilePath: string, licenseText: stri
 		sourceCode
 	)}\n/* </nowiki> */\n`;
 
-	const outputDirectoryPath: string = path.dirname(outputFilePath);
-	fs.mkdirSync(outputDirectoryPath, {
+	const outputDirectoryPath: string = dirname(outputFilePath);
+	mkdirSync(outputDirectoryPath, {
 		recursive: true,
 	});
 
-	const fileDescriptor: PathOrFileDescriptor = fs.openSync(outputFilePath, 'w');
-	fs.writeFileSync(fileDescriptor, fileContent);
-	fs.fdatasyncSync(fileDescriptor);
-	fs.closeSync(fileDescriptor);
+	const fileDescriptor: PathOrFileDescriptor = openSync(outputFilePath, 'w');
+	writeFileSync(fileDescriptor, fileContent);
+	fdatasyncSync(fileDescriptor);
+	closeSync(fileDescriptor);
 };
 
 /**
@@ -57,7 +68,7 @@ const getBuildResult = (buildResult: BuildResult): string => {
  * @return {Promise<string>}
  */
 const build = async (inputFilePath: string, outputFilePath: string): Promise<string> => {
-	const buildResult: BuildResult = await esbuild.build({
+	const buildResult: BuildResult = await esbuild({
 		...esbuildOptions,
 		entryPoints: [inputFilePath],
 		outfile: outputFilePath,
@@ -73,7 +84,7 @@ const build = async (inputFilePath: string, outputFilePath: string): Promise<str
  * @return {Promise<string>}
  */
 const bundle = async (inputFilePath: string, code: string): Promise<string> => {
-	const buildResult: BuildResult = await esbuild.build({
+	const buildResult: BuildResult = await esbuild({
 		...esbuildOptions,
 		stdin: {
 			contents: code,
@@ -162,7 +173,7 @@ const transformOptions: TransformOptions = generateTransformOptions();
  * @return {Promise<string>}
  */
 const transform = async (inputFilePath: string, code: string): Promise<string> => {
-	const babelFileResult: BabelFileResult = (await babel.transformAsync(code, {
+	const babelFileResult: BabelFileResult = (await transformAsync(code, {
 		...transformOptions,
 		cwd: __dirname,
 		filename: inputFilePath,
@@ -179,9 +190,9 @@ const transform = async (inputFilePath: string, code: string): Promise<string> =
  * @param {string|undefined} licenseText The license file content of this gadget
  */
 const buildScript = async (name: string, script: string, licenseText: string | undefined): Promise<void> => {
-	const inputFilePath: string = path.join(__dirname, `src/${name}/${script}`);
+	const inputFilePath: string = join(__dirname, `src/${name}/${script}`);
 	// The TypeScript file is always compiled into a JavaScript file, so replace the extension directly
-	const outputFilePath: string = path.join(__dirname, `dist/${name}/${script.replace(/\.ts$/, '.js')}`);
+	const outputFilePath: string = join(__dirname, `dist/${name}/${script.replace(/\.ts$/, '.js')}`);
 
 	const buildOutput: string = await build(inputFilePath, outputFilePath);
 	const transformOutput: string = await transform(inputFilePath, buildOutput);
@@ -197,9 +208,9 @@ const buildScript = async (name: string, script: string, licenseText: string | u
  * @param {string|undefined} licenseText The license file content of this gadget
  */
 const buildStyle = async (name: string, style: string, licenseText: string | undefined): Promise<void> => {
-	const inputFilePath: string = path.join(__dirname, `src/${name}/${style}`);
+	const inputFilePath: string = join(__dirname, `src/${name}/${style}`);
 	// The Less file is always compiled into a CSS file, so replace the extension directly
-	const outputFilePath: string = path.join(__dirname, `dist/${name}/${style.replace(/\.less$/, '.css')}`);
+	const outputFilePath: string = join(__dirname, `dist/${name}/${style.replace(/\.less$/, '.css')}`);
 
 	const buildOutput: string = await build(inputFilePath, outputFilePath);
 
@@ -246,15 +257,15 @@ const sourceFiles: SourceFiles = {};
  * @return {SourceFiles} An object used to describe source files
  */
 const findSourceFile = (currentPath: string = 'src'): SourceFiles => {
-	const subDirAndFileNameArray: string[] = fs.readdirSync(currentPath);
+	const subDirAndFileNameArray: string[] = readdirSync(currentPath);
 	for (const subDirOrFileName of subDirAndFileNameArray) {
-		const fullPath: string = path.join(currentPath, subDirOrFileName);
+		const fullPath: string = join(currentPath, subDirOrFileName);
 
-		const stats: Stats = fs.statSync(fullPath);
+		const stats: Stats = statSync(fullPath);
 		if (stats.isDirectory()) {
 			findSourceFile(fullPath);
 		} else if (!/\.d\.ts$/.test(subDirOrFileName)) {
-			const pathSplitArray: string[] = fullPath.split(process.platform === 'win32' ? '\\' : '/');
+			const pathSplitArray: string[] = fullPath.split(platform === 'win32' ? '\\' : '/');
 
 			// 仅支持形如`src/gadget/index.ts`的“一层”路径，因为考虑到子文件夹可能被父文件夹的脚本导入
 			// Only supports "one-layer" paths like `src/gadget/index.ts`, because it considers that subfolders may be imported by scripts in parent folders
@@ -341,8 +352,8 @@ const generateDefinitionItem = (name: string, definition: string | undefined, fi
 		if (!definition) {
 			throw new ReferenceError('definition.json is missing.');
 		}
-		const definitionFilePath: string = path.join(__dirname, `src/${name}/${definition}`);
-		const fileBuffer: Buffer = fs.readFileSync(definitionFilePath);
+		const definitionFilePath: string = join(__dirname, `src/${name}/${definition}`);
+		const fileBuffer: Buffer = readFileSync(definitionFilePath);
 		definitionJsonText = fileBuffer.toString();
 	} catch {
 		console.log(
@@ -451,8 +462,8 @@ const getLicense = (name: string, license: string | undefined): string | undefin
 		return;
 	}
 
-	const licenseFilePath: string = path.join(__dirname, `src/${name}/${license}`);
-	const fileBuffer: Buffer = fs.readFileSync(licenseFilePath);
+	const licenseFilePath: string = join(__dirname, `src/${name}/${license}`);
+	const fileBuffer: Buffer = readFileSync(licenseFilePath);
 
 	return fileBuffer.toString().trim() ? `${fileBuffer}\n` : undefined;
 };
@@ -489,12 +500,12 @@ const saveDefinition = (definitions: string[]): void => {
 	definitionText = definitionText.replace(/❄/g, '-').replace(/-\./g, '.');
 	definitionText = trim(BANNER) + definitionText;
 
-	const definitionPath: string = path.join(__dirname, 'dist/definition.txt');
+	const definitionPath: string = join(__dirname, 'dist/definition.txt');
 	try {
-		const fileDescriptor: PathOrFileDescriptor = fs.openSync(definitionPath, 'w');
-		fs.writeFileSync(fileDescriptor, definitionText);
-		fs.fdatasyncSync(fileDescriptor);
-		fs.closeSync(fileDescriptor);
+		const fileDescriptor: PathOrFileDescriptor = openSync(definitionPath, 'w');
+		writeFileSync(fileDescriptor, definitionText);
+		fdatasyncSync(fileDescriptor);
+		closeSync(fileDescriptor);
 	} catch {
 		console.log(
 			chalk.yellow(

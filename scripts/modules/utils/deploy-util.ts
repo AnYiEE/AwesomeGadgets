@@ -1,15 +1,19 @@
 import type {ApiQueue, Credentials, CredentialsOnlyPassword, DeploymentTargets} from '../types';
 import {CONVERT_VARIANT, DEFINITION_SECTION_MAP} from '../../constant';
-import fs, {type PathOrFileDescriptor} from 'node:fs';
+import {type PathOrFileDescriptor, closeSync, fdatasyncSync, openSync, readFileSync, writeFileSync} from 'node:fs';
+import {join, resolve} from 'node:path';
 import {type ApiEditResponse} from 'mwn';
 import {MwnError} from 'mwn/build/error';
 import {Window} from 'happy-dom';
 import chalk from 'chalk';
 import {execSync} from 'node:child_process';
-import path from 'node:path';
 import {prompt} from './general-util';
 import {setTimeout} from 'node:timers/promises';
-const __dirname: string = path.resolve();
+
+/**
+ * @private
+ */
+const __dirname: string = resolve();
 
 /**
  * @private
@@ -80,8 +84,8 @@ const checkConfig = async (
 const loadConfig = (): Partial<Credentials> => {
 	let credentialsJsonText: string = '{}';
 	try {
-		const credentialsFilePath: string = path.join(__dirname, 'scripts/credentials.json');
-		const fileBuffer: Buffer = fs.readFileSync(credentialsFilePath);
+		const credentialsFilePath: string = join(__dirname, 'scripts/credentials.json');
+		const fileBuffer: Buffer = readFileSync(credentialsFilePath);
 		credentialsJsonText = fileBuffer.toString();
 	} catch {
 		console.log(chalk.red(`${chalk.italic('credentials.json')} is missing, a empty object will be used.`));
@@ -121,8 +125,8 @@ const makeEditSummary = async (): Promise<string> => {
  * @return {string} Gadget definitions (in the format of MediaWiki:Gadgets-definition item)
  */
 const readDefinition = (): string => {
-	const definitionPath: string = path.join(__dirname, 'dist/definition.txt');
-	const fileBuffer: Buffer = fs.readFileSync(definitionPath);
+	const definitionPath: string = join(__dirname, 'dist/definition.txt');
+	const fileBuffer: Buffer = readFileSync(definitionPath);
 
 	return fileBuffer.toString();
 };
@@ -135,8 +139,8 @@ const readDefinition = (): string => {
  * @return {string} The file content
  */
 const readFileText = (name: string, file: string): string => {
-	const filePath: string = path.join(__dirname, `dist/${name}/${file}`);
-	const fileBuffer: Buffer = fs.readFileSync(filePath);
+	const filePath: string = join(__dirname, `dist/${name}/${file}`);
+	const fileBuffer: Buffer = readFileSync(filePath);
 
 	return fileBuffer.toString();
 };
@@ -359,21 +363,21 @@ const saveFiles = (name: string, file: string, fileContent: string, {api, editSu
  * @param {ApiQueue} object The api instance, the editing summary used by this api instance and the delete page queue
  */
 const deleteUnusedPages = async ({api, editSummary, queue}: ApiQueue): Promise<void> => {
-	const storeFilePath: string = path.join(__dirname, 'dist/store.txt');
+	const storeFilePath: string = join(__dirname, 'dist/store.txt');
 
 	let lastDeployPages: string[] = [];
 	try {
-		const fileBuffer: Buffer = fs.readFileSync(storeFilePath);
+		const fileBuffer: Buffer = readFileSync(storeFilePath);
 		const fileContent: string = fileBuffer.toString();
 		lastDeployPages = fileContent.split('\n').filter((lineConent: string): boolean => {
 			return !!lineConent;
 		});
 	} catch {}
 
-	const fileDescriptor: PathOrFileDescriptor = fs.openSync(storeFilePath, 'w');
-	fs.writeFileSync(fileDescriptor, deployPages.sort().join('\n'));
-	fs.fdatasyncSync(fileDescriptor);
-	fs.closeSync(fileDescriptor);
+	const fileDescriptor: PathOrFileDescriptor = openSync(storeFilePath, 'w');
+	writeFileSync(fileDescriptor, deployPages.sort().join('\n'));
+	fdatasyncSync(fileDescriptor);
+	closeSync(fileDescriptor);
 
 	if (!lastDeployPages.length) {
 		console.log(chalk.yellow('━ No deployment log found'));
