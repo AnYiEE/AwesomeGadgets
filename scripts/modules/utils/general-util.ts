@@ -24,10 +24,10 @@ const prompt = async (message: string, type: PromptType = 'text', initial: strin
 /**
  * Trim and generate a string ending with a newline character
  *
- * @param {string} [string]
+ * @param {string|undefined} string
  * @return {string}
  */
-const trim = (string?: string): string => {
+const trim = (string: string | undefined): string => {
 	const stringTrim: string = (string ?? '').trim();
 
 	return stringTrim ? `${stringTrim}\n` : '';

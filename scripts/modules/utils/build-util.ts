@@ -20,9 +20,9 @@ const __dirname: string = path.resolve();
  * @private
  * @param {string} sourceCode
  * @param {string} outputFilePath
- * @param {string} [licenseText]
+ * @param {string|undefined} licenseText
  */
-const writeFile = (sourceCode: string, outputFilePath: string, licenseText?: string): void => {
+const writeFile = (sourceCode: string, outputFilePath: string, licenseText: string | undefined): void => {
 	const fileContent: string = `${trim(licenseText)}${trim(HEADER)}/* <nowiki> */\n\n${trim(
 		sourceCode
 	)}\n/* </nowiki> */\n`;
@@ -176,9 +176,9 @@ const transform = async (inputFilePath: string, code: string): Promise<string> =
  * @private
  * @param {string} name The gadget name
  * @param {string} script The script file name of this gadget
- * @param {string} [licenseText] The license file content of this gadget
+ * @param {string|undefined} licenseText The license file content of this gadget
  */
-const buildScript = async (name: string, script: string, licenseText?: string): Promise<void> => {
+const buildScript = async (name: string, script: string, licenseText: string | undefined): Promise<void> => {
 	const inputFilePath: string = path.join(__dirname, `src/${name}/${script}`);
 	// The TypeScript file is always compiled into a JavaScript file, so replace the extension directly
 	const outputFilePath: string = path.join(__dirname, `dist/${name}/${script.replace(/\.ts$/, '.js')}`);
@@ -194,9 +194,9 @@ const buildScript = async (name: string, script: string, licenseText?: string): 
  * @private
  * @param {string} name The gadget name
  * @param {string} style The style sheet file name of this gadget
- * @param {string} [licenseText] The license file content of this gadget
+ * @param {string|undefined} licenseText The license file content of this gadget
  */
-const buildStyle = async (name: string, style: string, licenseText?: string): Promise<void> => {
+const buildStyle = async (name: string, style: string, licenseText: string | undefined): Promise<void> => {
 	const inputFilePath: string = path.join(__dirname, `src/${name}/${style}`);
 	// The Less file is always compiled into a CSS file, so replace the extension directly
 	const outputFilePath: string = path.join(__dirname, `dist/${name}/${style.replace(/\.less$/, '.css')}`);
@@ -209,7 +209,7 @@ const buildStyle = async (name: string, style: string, licenseText?: string): Pr
 /**
  * @param {string} name The gadget name
  * @param {'script'|'style'} type The type of target files
- * @param {{files:string[]; licenseText?:string; queue:PQueue}} object The license file content of this gadget, the array of file name for this gadget and the build queue
+ * @param {{files:string[]; licenseText:string|undefined; queue:PQueue}} object The license file content of this gadget, the array of file name for this gadget and the build queue
  */
 const buildFiles = (
 	name: string,
@@ -220,7 +220,7 @@ const buildFiles = (
 		queue,
 	}: {
 		files: string[];
-		licenseText?: string;
+		licenseText: string | undefined;
 		queue: PQueue;
 	}
 ): void => {
@@ -443,10 +443,10 @@ const generateFileNames = (name: string, files: string[]): string => {
 
 /**
  * @param {string} name The gadget name
- * @param {string} [license] The license file name of this gadget
+ * @param {string|undefined} license The license file name of this gadget
  * @return {string|undefined} The gadget license file content
  */
-const getLicense = (name: string, license?: string): string | undefined => {
+const getLicense = (name: string, license: string | undefined): string | undefined => {
 	if (!license) {
 		return;
 	}
