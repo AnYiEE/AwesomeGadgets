@@ -81,7 +81,8 @@
 		"less-plugin-npm-import": "^2.1.0",
 		"less-plugin-preset-env": "latest",
 		"mwn": "^2.0.1",
-		"p-queue": "^8.0.0",
+		"only-allow": "^1.2.1",
+		"p-queue": "^8.0.1",
 		"postcss-import": "^15.1.0",
 		"postcss-preset-env": "^9.3.0",
 		"prettier": "^3.1.1",
@@ -108,10 +109,10 @@
 			"color-name@<2": "^1.1.4",
 			"debug": "latest",
 			"emoji-regex": "latest",
-			"esbuild": "^0.19.9",
+			"esbuild": "$esbuild",
 			"escape-string-regexp@<5": "^4.0.0",
-			"eslint-config-wikimedia": "latest",
-			"eslint-plugin-unicorn": "latest",
+			"eslint-config-wikimedia": "$eslint-config-wikimedia",
+			"eslint-plugin-unicorn": "$eslint-plugin-unicorn",
 			"eslint-plugin-vue@<9": "^9.19.2",
 			"file-entry-cache@<8": "^7.0.2",
 			"find-up@<6": "^5.0.0",
@@ -124,8 +125,8 @@
 			"resolve-from@<6": "^5.0.0",
 			"resolve@<2": "^1.22.8",
 			"source-map": "latest",
-			"stylelint-config-wikimedia": "latest",
-			"types-mediawiki": "npm:types-mediawiki-renovate"
+			"stylelint-config-wikimedia": "$stylelint-config-wikimedia",
+			"types-mediawiki": "$types-mediawiki-renovate"
 		},
 		"patchedDependencies": {
 			"eslint-plugin-no-jquery@2.7.0": "patches/eslint-plugin-no-jquery@2.7.0.patch"
