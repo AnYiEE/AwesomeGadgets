@@ -15,11 +15,11 @@ import {
 	writeFileSync,
 } from 'node:fs';
 import {dirname, join, resolve} from 'node:path';
+import {exit, platform} from 'node:process';
 import PACKAGE from '../../../package.json' assert {type: 'json'};
 import type PQueue from 'p-queue';
 import chalk from 'chalk';
 import {esbuildOptions} from '../build-esbuild_options';
-import {platform} from 'node:process';
 import {trim} from './general-util';
 
 /**
@@ -508,12 +508,13 @@ const saveDefinition = (definitions: string[]): void => {
 		closeSync(fileDescriptor);
 	} catch {
 		console.log(
-			chalk.yellow(
+			chalk.red(
 				`Failed to save ${chalk.italic(
 					'definition.txt'
 				)}, please confirm if any files that need to be compiled exist.`
 			)
 		);
+		exit(1);
 	}
 };
 
