@@ -1,19 +1,19 @@
 import type {ApiQueue, Credentials, CredentialsOnlyPassword, DeploymentTargets} from '../types';
 import {CONVERT_VARIANT, DEFINITION_SECTION_MAP} from '../../constant';
 import {closeSync, fdatasyncSync, open, readFileSync, writeFileSync} from 'node:fs';
-import {join, resolve} from 'node:path';
+import {getRootDir, prompt} from './general-util';
 import {type ApiEditResponse} from 'mwn';
 import {MwnError} from 'mwn/build/error';
 import {Window} from 'happy-dom';
 import chalk from 'chalk';
 import {execSync} from 'node:child_process';
-import {prompt} from './general-util';
+import {join} from 'node:path';
 import {setTimeout} from 'node:timers/promises';
 
 /**
  * @private
  */
-const __dirname: string = resolve();
+const rootDir: string = getRootDir();
 
 /**
  * @private
@@ -84,7 +84,7 @@ const checkConfig = async (
 const loadConfig = (): Partial<Credentials> => {
 	let credentialsJsonText: string = '{}';
 	try {
-		const credentialsFilePath: string = join(__dirname, 'scripts/credentials.json');
+		const credentialsFilePath: string = join(rootDir, 'scripts/credentials.json');
 		const fileBuffer: Buffer = readFileSync(credentialsFilePath);
 		credentialsJsonText = fileBuffer.toString();
 	} catch {
@@ -125,7 +125,7 @@ const makeEditSummary = async (): Promise<string> => {
  * @return {string} Gadget definitions (in the format of MediaWiki:Gadgets-definition item)
  */
 const readDefinition = (): string => {
-	const definitionPath: string = join(__dirname, 'dist/definition.txt');
+	const definitionPath: string = join(rootDir, 'dist/definition.txt');
 	const fileBuffer: Buffer = readFileSync(definitionPath);
 
 	return fileBuffer.toString();
@@ -139,7 +139,7 @@ const readDefinition = (): string => {
  * @return {string} The file content
  */
 const readFileText = (name: string, file: string): string => {
-	const filePath: string = join(__dirname, `dist/${name}/${file}`);
+	const filePath: string = join(rootDir, `dist/${name}/${file}`);
 	const fileBuffer: Buffer = readFileSync(filePath);
 
 	return fileBuffer.toString();
@@ -363,7 +363,7 @@ const saveFiles = (name: string, file: string, fileContent: string, {api, editSu
  * @param {ApiQueue} object The api instance, the editing summary used by this api instance and the delete page queue
  */
 const deleteUnusedPages = async ({api, editSummary, queue}: ApiQueue): Promise<void> => {
-	const storeFilePath: string = join(__dirname, 'dist/store.txt');
+	const storeFilePath: string = join(rootDir, 'dist/store.txt');
 
 	let lastDeployPages: string[] = [];
 	try {

@@ -1,4 +1,16 @@
 import prompts, {type Answers, type PromptType} from 'prompts';
+import {resolve} from 'node:path';
+
+/**
+ * Get the root directory of the project
+ *
+ * @return {string} The root directory of the project
+ */
+const getRootDir = (): string => {
+	const rootDir: string = resolve();
+
+	return rootDir;
+};
 
 /**
  * Easy to use CLI prompts to enquire users for information
@@ -33,4 +45,4 @@ const trim = (string: string | undefined): string => {
 	return stringTrim ? `${stringTrim}\n` : '';
 };
 
-export {prompt, trim};
+export {getRootDir, prompt, trim};
