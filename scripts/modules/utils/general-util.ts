@@ -1,4 +1,6 @@
 import prompts, {type Answers, type PromptType} from 'prompts';
+import chalk from 'chalk';
+import {exit} from 'node:process';
 import {resolve} from 'node:path';
 
 /**
@@ -30,7 +32,14 @@ const prompt = async (message: string, type: PromptType = 'text', initial: strin
 		type,
 	});
 
-	return answers[name];
+	const answer: string | undefined = answers[name];
+	if (answer === undefined) {
+		// User pressed [ctrl + C]
+		console.log(chalk.red('Input cancelled, program terminated.'));
+		exit(1);
+	}
+
+	return answer;
 };
 
 /**
