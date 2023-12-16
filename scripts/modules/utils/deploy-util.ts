@@ -1,6 +1,6 @@
 import type {ApiQueue, Credentials, CredentialsOnlyPassword, DeploymentTargets} from '../types';
 import {CONVERT_VARIANT, DEFINITION_SECTION_MAP} from '../../constant';
-import {type PathOrFileDescriptor, closeSync, fdatasyncSync, openSync, readFileSync, writeFileSync} from 'node:fs';
+import {closeSync, fdatasyncSync, open, readFileSync, writeFileSync} from 'node:fs';
 import {join, resolve} from 'node:path';
 import {type ApiEditResponse} from 'mwn';
 import {MwnError} from 'mwn/build/error';
@@ -374,10 +374,15 @@ const deleteUnusedPages = async ({api, editSummary, queue}: ApiQueue): Promise<v
 		});
 	} catch {}
 
-	const fileDescriptor: PathOrFileDescriptor = openSync(storeFilePath, 'w');
-	writeFileSync(fileDescriptor, deployPages.sort().join('\n'));
-	fdatasyncSync(fileDescriptor);
-	closeSync(fileDescriptor);
+	open(storeFilePath, 'w', (err: NodeJS.ErrnoException | null, fd: number): void => {
+		if (err) {
+			console.error(err);
+			return;
+		}
+		writeFileSync(fd, deployPages.sort().join('\n'));
+		fdatasyncSync(fd);
+		closeSync(fd);
+	});
 
 	if (!lastDeployPages.length) {
 		console.log(chalk.yellow('━ No deployment log found'));
