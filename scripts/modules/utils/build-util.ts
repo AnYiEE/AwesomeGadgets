@@ -1,3 +1,4 @@
+import * as PACKAGE from '../../../package.json';
 import {BANNER, DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER} from '../../constant';
 import {type BabelFileResult, type PluginItem, type TransformOptions, transformAsync} from '@babel/core';
 import {type BuildResult, type OutputFile, build as esbuild} from 'esbuild';
@@ -17,7 +18,6 @@ import {
 import {dirname, join} from 'node:path';
 import {exit, platform} from 'node:process';
 import {getRootDir, trim} from './general-util';
-import PACKAGE from '../../../package.json' assert {type: 'json'};
 import type PQueue from 'p-queue';
 import chalk from 'chalk';
 import {esbuildOptions} from '../build-esbuild_options';
