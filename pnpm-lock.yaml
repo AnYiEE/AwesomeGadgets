@@ -170,7 +170,7 @@ devDependencies:
     version: 1.0.3
   mwn:
     specifier: ^2.0.1
-    version: 2.0.1
+    version: 2.0.2
   only-allow:
     specifier: ^1.2.1
     version: 1.2.1
@@ -4478,8 +4478,8 @@ packages:
       minimatch: 3.1.2
     dev: true
 
-  /mwn@2.0.1:
-    resolution: {integrity: sha512-pBKLWeN7XEizXC4evWNEwwNiUGa0Kz6f1e5wQlb+JdPNWaZipjLrBJhnresr4A+337i1ACTWeSOoVJEp5/V2oA==}
+  /mwn@2.0.2:
+    resolution: {integrity: sha512-idb5znyx9E+VrmOJsyrQJ8X/pnk0tFYXKwk0ETh3fswhf0Z81Gd2GDXBsI07oEtUz4lvsWqph+pR7ZxV85TDGA==}
     engines: {node: '>=10'}
     dependencies:
       '@types/node': 14.18.63
