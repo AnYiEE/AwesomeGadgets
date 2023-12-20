@@ -88,7 +88,9 @@ const loadConfig = (): Partial<Credentials> => {
 		const fileBuffer: Buffer = readFileSync(credentialsFilePath);
 		credentialsJsonText = fileBuffer.toString();
 	} catch {
-		console.log(chalk.red(`${chalk.italic('credentials.json')} is missing, a empty object will be used.`));
+		console.log(
+			chalk.yellow(`${chalk.italic('credentials.json')} is missing, credentials must be provided manually.`)
+		);
 	}
 
 	return JSON.parse(credentialsJsonText);
@@ -111,7 +113,7 @@ const makeEditSummary = async (): Promise<string> => {
 	const editSummary: string = customSummary.trim() ? customSummary : `${sha ? `Git commit ${sha}: ` : ''}${summary}`;
 	console.log(chalk.white(`Editing summary is: ${chalk.bold(editSummary)}`));
 
-	await prompt('> Press [Enter] to continue deploying or quickly press [ctrl + C] twice to cancel');
+	await prompt('> Confirm to continue deployment?', 'confirm', true);
 
 	console.log(chalk.yellow('--- deployment will continue in three seconds ---'));
 	await setTimeout(3 * 1000);
@@ -399,8 +401,7 @@ const deleteUnusedPages = async ({api, editSummary, queue}: ApiQueue): Promise<v
 	}
 
 	process.stdout.write(`The following pages will be deleted:\n${needToDeletePages.join('\n')}\n`);
-	await prompt('> Press [Enter] to continue deleting or quickly press [ctrl + C] twice to cancel');
-	await setTimeout(1 * 1000);
+	await prompt('> Confirm to continue deleting?', 'confirm', true);
 
 	console.log(chalk.yellow('--- deleting will continue in three seconds ---'));
 	await setTimeout(3 * 1000);

@@ -23,7 +23,7 @@ const getRootDir = (): string => {
  * @return {Promise<string>}
  * @see {@link https://www.npmjs.com/package/prompts}
  */
-const prompt = async (message: string, type: PromptType = 'text', initial: string = ''): Promise<string> => {
+const prompt = async (message: string, type: PromptType = 'text', initial: boolean | string = ''): Promise<string> => {
 	const name: string = Math.random().toString();
 	const answers: Answers<string> = await prompts({
 		initial,
@@ -33,8 +33,8 @@ const prompt = async (message: string, type: PromptType = 'text', initial: strin
 	});
 
 	const answer: string | undefined = answers[name];
-	if (answer === undefined) {
-		// User pressed [ctrl + C]
+	if (answer === undefined || (type === 'confirm' && !answer)) {
+		// User pressed [ctrl + C] or not confirmed
 		console.log(chalk.red('Input cancelled, program terminated.'));
 		exit(1);
 	}

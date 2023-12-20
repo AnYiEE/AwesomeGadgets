@@ -15,8 +15,8 @@ import {
 import {Mwn} from 'mwn';
 import PQueue from 'p-queue';
 import chalk from 'chalk';
+import {exit} from 'node:process';
 import {prompt} from './utils/general-util';
-import {setTimeout} from 'node:timers/promises';
 
 /**
  * @private
@@ -72,11 +72,10 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 	} catch (error: unknown) {
 		console.log(chalk.red('--- log in failed ---'));
 		console.error(error);
-		return;
+		exit(1);
 	}
 
-	await prompt('> Press [Enter] to start deploying or quickly press [ctrl + C] twice to cancel');
-	await setTimeout(1 * 1000);
+	await prompt('> Confirm start deployment?', 'confirm', true);
 
 	console.log(chalk.yellow('--- starting deployment ---'));
 
