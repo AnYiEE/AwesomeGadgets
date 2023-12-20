@@ -200,7 +200,7 @@ devDependencies:
     version: 0.16.1(postcss-less@6.0.0)(typescript@5.3.3)
   tsx:
     specifier: ^4.6.2
-    version: 4.6.2
+    version: 4.7.0
   types-mediawiki-renovate:
     specifier: latest
     version: 2.1.0
@@ -5872,8 +5872,8 @@ packages:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
     dev: true
 
-  /tsx@4.6.2:
-    resolution: {integrity: sha512-QPpBdJo+ZDtqZgAnq86iY/PD2KYCUPSUGIunHdGwyII99GKH+f3z3FZ8XNFLSGQIA4I365ui8wnQpl8OKLqcsg==}
+  /tsx@4.7.0:
+    resolution: {integrity: sha512-I+t79RYPlEYlHn9a+KzwrvEwhJg35h/1zHsLC2JXvhC2mdynMv6Zxzvhv5EMV6VF5qJlLlkSnMVvdZV3PSIGcg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
