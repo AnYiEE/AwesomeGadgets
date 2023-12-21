@@ -56,13 +56,6 @@ interface DeploymentTargets {
 	};
 }
 
-type ExcludeItem = [
-	string,
-	{
-		exclude: string[];
-	},
-][];
-
 interface SourceFiles {
 	[key: string]: {
 		definition?: string;
@@ -81,6 +74,5 @@ export type {
 	DefaultDefinition,
 	DefaultSectionMap,
 	DeploymentTargets,
-	ExcludeItem,
 	SourceFiles,
 };

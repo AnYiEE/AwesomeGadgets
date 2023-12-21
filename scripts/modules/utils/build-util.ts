@@ -2,7 +2,7 @@ import * as PACKAGE from '../../../package.json';
 import {BANNER, DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER} from '../../constant';
 import {type BabelFileResult, type TransformOptions, transformAsync} from '@babel/core';
 import {type BuildResult, type OutputFile, build as esbuild} from 'esbuild';
-import type {DefaultDefinition, ExcludeItem, SourceFiles} from '../types';
+import type {DefaultDefinition, SourceFiles} from '../types';
 import {
 	type PathOrFileDescriptor,
 	type Stats,
@@ -102,7 +102,7 @@ const bundle = async (inputFilePath: string, code: string): Promise<string> => {
  * @return {TransformOptions}
  */
 const generateTransformOptions = (): TransformOptions => {
-	const options: TransformOptions = {
+	const options = {
 		presets: [
 			[
 				'@babel/preset-env',
@@ -119,15 +119,13 @@ const generateTransformOptions = (): TransformOptions => {
 		],
 		compact: false,
 		plugins: ['@mrhenry/core-web', join(rootDir, 'scripts/modules/babel-plugin-import-polyfills.ts')],
-	};
+	} satisfies TransformOptions;
 
 	if (GLOBAL_REQUIRES_ES6) {
-		const [, {exclude}] = options.presets as ExcludeItem[0];
-		(options.presets as ExcludeItem[0])[1].exclude = [...exclude, 'es.array.push'];
+		options.presets[0]![1].exclude.push('es.array.push');
 		// 以下关键字和运算符无法被 MediaWiki（>= 1.39）的 JavaScript 压缩器良好支持，即使设置了 requiresES6 标识
 		// The following keywords and operators are not well supported by MediaWiki's (>= 1.39) JavaScript minifier, even if the `requiresES6` flag is true
-		options.plugins = [
-			...(options.plugins as string[]),
+		options.plugins.push(
 			// keywords
 			// ES2015
 			'@babel/plugin-transform-for-of', // transform for-of loops
@@ -143,19 +141,18 @@ const generateTransformOptions = (): TransformOptions => {
 			'@babel/plugin-transform-nullish-coalescing-operator', // foo ?? bar
 			// ES2021
 			'@babel/plugin-transform-logical-assignment-operators', // foo ??= bar
-			'@babel/plugin-transform-numeric-separator', // 1_000 -> 1000
-		];
+			'@babel/plugin-transform-numeric-separator' // 1_000 -> 1000
+		);
 	} else {
 		// 以下关键字无法被旧版本的 MediaWiki（< 1.39）的 JavaScript 压缩器良好支持
 		// The following keywords are not well supported by the JavaScript minifier in older versions of MediaWiki (< 1.39)
-		options.plugins = [
-			...(options.plugins as string[]),
+		options.plugins.push(
 			// keywords
 			// ES3
 			'@babel/plugin-transform-member-expression-literals', // obj.const -> obj['const']
 			'@babel/plugin-transform-property-literals', // {const: 1} -> {'const': 1}
-			'@babel/plugin-transform-reserved-words', // const abstract = 1 -> const _abstract = 1
-		];
+			'@babel/plugin-transform-reserved-words' // const abstract = 1 -> const _abstract = 1
+		);
 	}
 
 	return options;
