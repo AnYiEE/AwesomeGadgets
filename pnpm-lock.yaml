@@ -154,7 +154,7 @@ devDependencies:
     version: 0.26.0(@typescript-eslint/eslint-plugin@6.15.0)(typescript@5.3.3)
   eslint-plugin-unicorn:
     specifier: latest
-    version: 49.0.0(eslint@8.56.0)
+    version: 50.0.1(eslint@8.56.0)
   happy-dom:
     specifier: ^12.10.3
     version: 12.10.3
@@ -166,7 +166,7 @@ devDependencies:
     version: 2.1.0
   less-plugin-preset-env:
     specifier: latest
-    version: 1.0.3
+    version: 1.1.0
   mwn:
     specifier: ^2.0.2
     version: 2.0.2
@@ -202,7 +202,7 @@ devDependencies:
     version: 4.7.0
   types-mediawiki-renovate:
     specifier: latest
-    version: 2.1.0
+    version: 2.2.0
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -2838,8 +2838,8 @@ packages:
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
     dev: true
 
-  /ci-info@3.9.0:
-    resolution: {integrity: sha512-NIxF55hv4nSqQswkAeiOi1r83xy8JldOFDTWiug55KBu9Jnblncd2U6ViHmYgHf01TPZS77NJBhBMKdWj9HQMQ==}
+  /ci-info@4.0.0:
+    resolution: {integrity: sha512-TdHqgGf9odd8SXNuxtUBVx8Nv+qZOejE6qyqiy5NtbYYQOeFa6zmHkxlPzmaLxWWHsU6nJmB7AETdVPi+2NBUg==}
     engines: {node: '>=8'}
     dev: true
 
@@ -3298,11 +3298,11 @@ packages:
       eslint-plugin-json-es: 1.5.7(eslint@8.56.0)
       eslint-plugin-mediawiki: 0.5.0(eslint@8.56.0)
       eslint-plugin-mocha: 10.2.0(eslint@8.56.0)
-      eslint-plugin-n: 16.4.0(eslint@8.56.0)
+      eslint-plugin-n: 16.5.0(eslint@8.56.0)
       eslint-plugin-no-jquery: 2.7.0(patch_hash=v4iv7q4nqe6fm4j4rtzs7s6leq)(eslint@8.56.0)
       eslint-plugin-qunit: 7.3.4(eslint@8.56.0)
       eslint-plugin-security: 1.7.1
-      eslint-plugin-unicorn: 49.0.0(eslint@8.56.0)
+      eslint-plugin-unicorn: 50.0.1(eslint@8.56.0)
       eslint-plugin-vue: 9.19.2(eslint@8.56.0)
       eslint-plugin-wdio: 7.25.3
       eslint-plugin-yml: 1.11.0(eslint@8.56.0)
@@ -3414,8 +3414,8 @@ packages:
       rambda: 7.5.0
     dev: true
 
-  /eslint-plugin-n@16.4.0(eslint@8.56.0):
-    resolution: {integrity: sha512-IkqJjGoWYGskVaJA7WQuN8PINIxc0N/Pk/jLeYT4ees6Fo5lAhpwGsYek6gS9tCUxgDC4zJ+OwY2bY/6/9OMKQ==}
+  /eslint-plugin-n@16.5.0(eslint@8.56.0):
+    resolution: {integrity: sha512-Hw02Bj1QrZIlKyj471Tb1jSReTl4ghIMHGuBGiMVmw+s0jOPbI4CBuYpGbZr+tdQ+VAvSK6FDSta3J4ib/SKHQ==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       eslint: '>=7.0.0'
@@ -3458,16 +3458,18 @@ packages:
       safe-regex: 2.1.1
     dev: true
 
-  /eslint-plugin-unicorn@49.0.0(eslint@8.56.0):
-    resolution: {integrity: sha512-0fHEa/8Pih5cmzFW5L7xMEfUTvI9WKeQtjmKpTUmY+BiFCDxkxrTdnURJOHKykhtwIeyYsxnecbGvDCml++z4Q==}
+  /eslint-plugin-unicorn@50.0.1(eslint@8.56.0):
+    resolution: {integrity: sha512-KxenCZxqSYW0GWHH18okDlOQcpezcitm5aOSz6EnobyJ6BIByiPDviQRjJIUAjG/tMN11958MxaQ+qCoU6lfDA==}
     engines: {node: '>=16'}
     peerDependencies:
-      eslint: '>=8.52.0'
+      eslint: '>=8.56.0'
     dependencies:
       '@babel/helper-validator-identifier': 7.22.20
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.56.0)
-      ci-info: 3.9.0
+      '@eslint/eslintrc': 2.1.4
+      ci-info: 4.0.0
       clean-regexp: 1.0.0
+      core-js-compat: 3.34.0
       eslint: 8.56.0
       esquery: 1.5.0
       indent-string: 4.0.0
@@ -3479,6 +3481,8 @@ packages:
       regjsparser: 0.10.0
       semver: 7.5.4
       strip-indent: 3.0.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /eslint-plugin-vue@9.19.2(eslint@8.56.0):
@@ -4215,8 +4219,8 @@ packages:
       resolve: 1.22.8
     dev: true
 
-  /less-plugin-preset-env@1.0.3:
-    resolution: {integrity: sha512-MV3IZ99h6l/CWKVwkPRnJQxus8Hi13YmilP8CkukVHNKxV2AVz1k+ES0CWalwmd+M/QvtV9ZtHfs/sxq1yIWcg==}
+  /less-plugin-preset-env@1.1.0:
+    resolution: {integrity: sha512-FZDPFBtqcN8UJaI5hRc0U42iZTnFDI6u9wbAdGBwgGUrwPrpbg6FzP72KM7GwxSEnyRCaZwupbIrLNtyBaMnDw==}
     dependencies:
       postcss: 8.4.32
       postcss-preset-env: 9.3.0(postcss@8.4.32)
@@ -5872,8 +5876,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /types-mediawiki-renovate@2.1.0:
-    resolution: {integrity: sha512-h76aWLAq8GI1S2I9in0akOqbUYyS/PHG/h5YH8iHda9m9pgmj8h8HYivehrUDuAgm9MoBcqqeNdxxbg0Ip/JFA==}
+  /types-mediawiki-renovate@2.2.0:
+    resolution: {integrity: sha512-9VTDwCd3EEaTmVFwELxMdG1ty98je8vchHDJ0CyfyqGkzuskXDwMgRp7f4a71RkHYnPKMXhfNi+2oT12ta66Rw==}
     dependencies:
       '@types/jquery': 3.5.29
     dev: true
