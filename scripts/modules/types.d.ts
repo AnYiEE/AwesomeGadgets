@@ -3,7 +3,6 @@ import type PQueue from 'p-queue';
 
 interface ApiQueue {
 	api: Mwn;
-	editSummary: string;
 	queue: PQueue;
 }
 

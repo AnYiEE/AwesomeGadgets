@@ -83,16 +83,15 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 
 	const apiDeploymentQueue: ApiQueue = {
 		api,
-		editSummary,
 		queue: deploymentQueue,
 	};
 
 	const definitionText: string = readDefinition();
-	saveDefinition(definitionText, apiDeploymentQueue);
-	saveDefinitionSectionPage(definitionText, apiDeploymentQueue);
+	saveDefinition(definitionText, apiDeploymentQueue, editSummary);
+	saveDefinitionSectionPage(definitionText, apiDeploymentQueue, editSummary);
 
 	for (const [name, {description, files}] of Object.entries(targets)) {
-		saveDescription(name, description, apiDeploymentQueue);
+		saveDescription(name, description, apiDeploymentQueue, await makeEditSummary(name, editSummary));
 
 		for (let file of files) {
 			if (/^\./.test(file)) {
@@ -100,7 +99,13 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 			}
 
 			const fileText: string = readFileText(name, file);
-			saveFiles(name, file, fileText, apiDeploymentQueue);
+			saveFiles(
+				name,
+				file,
+				fileText,
+				apiDeploymentQueue,
+				await makeEditSummary(name, editSummary, file.endsWith('.css'))
+			);
 		}
 	}
 
@@ -112,10 +117,9 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 
 	const apiDeletePageQueue: ApiQueue = {
 		api,
-		editSummary,
 		queue: deletePageQueue,
 	};
-	await deleteUnusedPages(apiDeletePageQueue);
+	await deleteUnusedPages(apiDeletePageQueue, editSummary);
 
 	await deletePageQueue.onIdle();
 
