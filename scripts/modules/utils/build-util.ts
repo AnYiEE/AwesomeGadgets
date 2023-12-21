@@ -91,7 +91,7 @@ const bundle = async (inputFilePath: string, code: string): Promise<string> => {
 			resolveDir: rootDir,
 			sourcefile: inputFilePath,
 		},
-		target: GLOBAL_REQUIRES_ES6 ? 'exnext' : 'es5',
+		target: GLOBAL_REQUIRES_ES6 ? 'esnext' : 'es5',
 	});
 
 	return getBuildResult(buildResult);
