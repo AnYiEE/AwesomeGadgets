@@ -47,6 +47,7 @@
 		"node_modules/types-mediawiki-renovate",
 		"node_modules/@types/jqueryui",
 		"node_modules/@types/oojs-ui",
+		"scripts/**/*",
 		"src/**/*"
 	]
 }
