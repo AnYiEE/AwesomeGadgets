@@ -32,7 +32,7 @@ const prompt = async (message: string, type: PromptType = 'text', initial: boole
 		type,
 	});
 
-	const answer: string | undefined = answers[name];
+	const answer: string | undefined = answers[name] as string | undefined;
 	if (answer === undefined || (type === 'confirm' && !answer)) {
 		// User pressed [ctrl + C] or not confirmed
 		console.log(chalk.red('Input cancelled, program terminated.'));

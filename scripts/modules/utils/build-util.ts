@@ -1,6 +1,6 @@
 import * as PACKAGE from '../../../package.json';
 import {BANNER, DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER} from '../../constant';
-import {type BabelFileResult, type PluginItem, type TransformOptions, transformAsync} from '@babel/core';
+import {type BabelFileResult, type TransformOptions, transformAsync} from '@babel/core';
 import {type BuildResult, type OutputFile, build as esbuild} from 'esbuild';
 import type {DefaultDefinition, ExcludeItem, SourceFiles} from '../types';
 import {
@@ -56,7 +56,7 @@ const writeFile = (sourceCode: string, outputFilePath: string, licenseText: stri
  */
 const getBuildResult = (buildResult: BuildResult): string => {
 	const outputFiles: OutputFile[] = buildResult.outputFiles as OutputFile[];
-	const [{text}] = outputFiles;
+	const {text} = outputFiles[0] as OutputFile;
 
 	return text;
 };
@@ -91,7 +91,7 @@ const bundle = async (inputFilePath: string, code: string): Promise<string> => {
 			resolveDir: rootDir,
 			sourcefile: inputFilePath,
 		},
-		target: GLOBAL_REQUIRES_ES6 ? undefined : 'es5',
+		target: GLOBAL_REQUIRES_ES6 ? 'exnext' : 'es5',
 	});
 
 	return getBuildResult(buildResult);
@@ -122,8 +122,8 @@ const generateTransformOptions = (): TransformOptions => {
 	};
 
 	if (GLOBAL_REQUIRES_ES6) {
-		const [[, {exclude}]] = options.presets as ExcludeItem;
-		(options.presets as PluginItem[])[0][1].exclude = [...exclude, 'es.array.push'];
+		const [, {exclude}] = options.presets as ExcludeItem[0];
+		(options.presets as ExcludeItem[0])[1].exclude = [...exclude, 'es.array.push'];
 		// 以下关键字和运算符无法被 MediaWiki（>= 1.39）的 JavaScript 压缩器良好支持，即使设置了 requiresES6 标识
 		// The following keywords and operators are not well supported by MediaWiki's (>= 1.39) JavaScript minifier, even if the `requiresES6` flag is true
 		options.plugins = [
@@ -238,7 +238,7 @@ const buildFiles = (
 	const buildFile: typeof buildScript | typeof buildStyle = type === 'script' ? buildScript : buildStyle;
 
 	for (const file of files) {
-		queue.add(async (): Promise<void> => {
+		void queue.add(async (): Promise<void> => {
 			await buildFile(name, file, licenseText);
 		});
 	}
@@ -273,61 +273,65 @@ const findSourceFile = (currentPath: string = 'src'): SourceFiles => {
 				continue;
 			}
 
-			const [_rootDir, gadgetName, fileName] = pathSplitArray;
+			const [_rootDir, gadgetName, fileName] = pathSplitArray as [string, string, string];
 			sourceFiles[gadgetName] ??= {} as SourceFiles[keyof SourceFiles];
 
 			switch (fileName) {
 				case 'definition.json':
-					sourceFiles[gadgetName].definition = fileName;
+					(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).definition = fileName;
 					break;
 				case 'index.js':
 				case 'index.ts':
-					sourceFiles[gadgetName].script = fileName;
+					(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).script = fileName;
 					break;
 				case `${gadgetName}.js`:
 				case `${gadgetName}.ts`:
-					if (!sourceFiles[gadgetName].script) {
-						sourceFiles[gadgetName].script = fileName;
+					if (!(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).script) {
+						(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).script = fileName;
 					}
 					break;
 				case 'index.css':
 				case 'index.less':
-					sourceFiles[gadgetName].style = fileName;
+					(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).style = fileName;
 					break;
 				case `${gadgetName}.css`:
 				case `${gadgetName}.less`:
-					if (!sourceFiles[gadgetName].style) {
-						sourceFiles[gadgetName].style = fileName;
+					if (!(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).style) {
+						(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).style = fileName;
 					}
 					break;
 				case 'LICENSE':
-					sourceFiles[gadgetName].license = fileName;
+					(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).license = fileName;
 					break;
 			}
 
-			sourceFiles[gadgetName].scripts ??= [];
+			(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).scripts ??= [];
 			if (/\.[jt]s$/.test(fileName)) {
-				sourceFiles[gadgetName].scripts.push(fileName);
+				(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).scripts.push(fileName);
 				if (/\.ts$/.test(fileName)) {
-					sourceFiles[gadgetName].scripts = [
+					(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).scripts = [
 						...new Set(
-							sourceFiles[gadgetName].scripts.filter((script: string): boolean => {
-								return script !== fileName.replace(/\.ts$/, '.js');
-							})
+							(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).scripts.filter(
+								(script: string): boolean => {
+									return script !== fileName.replace(/\.ts$/, '.js');
+								}
+							)
 						),
 					];
 				}
 			}
 
-			sourceFiles[gadgetName].styles ??= [];
+			(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).styles ??= [];
 			if (/\.(?:css|less)$/.test(fileName)) {
-				sourceFiles[gadgetName].styles.push(fileName);
+				(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).styles.push(fileName);
 				if (/\.less$/.test(fileName)) {
-					sourceFiles[gadgetName].styles = [
+					(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).styles = [
 						...new Set(
-							sourceFiles[gadgetName].styles.filter((style: string): boolean => {
-								return style !== fileName.replace(/\.less$/, '.css');
-							})
+							(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).styles.filter(
+								(style: string): boolean => {
+									return style !== fileName.replace(/\.less$/, '.css');
+								}
+							)
 						),
 					];
 				}
@@ -364,9 +368,9 @@ const generateDefinitionItem = (name: string, definition: string | undefined, fi
 			)
 		);
 	}
-	const definitionObject: DefaultDefinition = {
+	const definitionObject: DefaultDefinition & {requiresES6: boolean} = {
 		...DEFAULT_DEFINITION,
-		...JSON.parse(definitionJsonText),
+		...(JSON.parse(definitionJsonText) as DefaultDefinition),
 		requiresES6: GLOBAL_REQUIRES_ES6,
 	};
 
@@ -378,8 +382,8 @@ const generateDefinitionItem = (name: string, definition: string | undefined, fi
 		const isArray: boolean = Array.isArray(value);
 		if (
 			['description', 'section', 'type'].includes(key) ||
-			[false, undefined].includes(value) ||
-			(isArray && !value.length)
+			[false, undefined].includes(value as boolean | undefined) ||
+			(isArray && !(value as []).length)
 		) {
 			continue;
 		}
@@ -392,7 +396,7 @@ const generateDefinitionItem = (name: string, definition: string | undefined, fi
 				break;
 			case 'object':
 				if (isArray) {
-					definitionText += `${key}=${value.join(',')}|`;
+					definitionText += `${key}=${(value as []).join(',')}|`;
 				}
 				break;
 			case 'string':
@@ -465,7 +469,7 @@ const getLicense = (name: string, license: string | undefined): string | undefin
 	const licenseFilePath: string = join(rootDir, `src/${name}/${license}`);
 	const fileBuffer: Buffer = readFileSync(licenseFilePath);
 
-	return fileBuffer.toString().trim() ? `${fileBuffer}\n` : undefined;
+	return fileBuffer.toString().trim() ? `${fileBuffer.toString()}\n` : undefined;
 };
 
 /**
@@ -476,14 +480,14 @@ const getLicense = (name: string, license: string | undefined): string | undefin
 const saveDefinition = (definitions: string[]): void => {
 	const definitionObject: Record<string, typeof definitions> = {};
 	for (const definition of definitions) {
-		const [, section] = definition.match(/.*?☀(\S+?)☀/) as RegExpExecArray;
+		const [, section] = definition.match(/.*?☀(\S+?)☀/) as [string, string];
 		definitionObject[section] ??= [];
-		definitionObject[section].push(definition.replace(/☀.*/, ''));
+		(definitionObject[section] as string[]).push(definition.replace(/☀.*/, ''));
 	}
 
 	const definitionObjectSorted: typeof definitionObject = {};
 	for (const key of Object.keys(definitionObject).sort()) {
-		definitionObjectSorted[key] = definitionObject[key];
+		definitionObjectSorted[key] = definitionObject[key] as string[];
 	}
 
 	let definitionText: string = '';

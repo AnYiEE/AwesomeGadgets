@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* eslint-disable camelcase, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return */
 /**
  * @file Automatically import any missing polyfills
  * @see {@link https://github.com/zloirock/core-js#missing-polyfills}
@@ -8,6 +8,7 @@ import {type BrowserSupport, getSupport} from 'caniuse-api';
 /**
  * @see {@link https://babeljs.io/docs/babel-helper-compilation-targets#filteritems}
  */
+// @ts-expect-error TS7016
 import {filterItems} from '@babel/helper-compilation-targets';
 import {getRootDir} from './utils/general-util';
 import {join} from 'node:path';
@@ -119,11 +120,13 @@ const polyfills: Record<
  * @param {Object} types
  * @param {string} packageName
  */
+// @ts-expect-error TS7006
 const addImport = (path, types: BabelAPI['types'], packageName: (typeof polyfills)[Features]['package']): void => {
 	const stringLiteral = types.stringLiteral(packageName);
 	const importDeclaration = types.importDeclaration([], stringLiteral);
 
 	path
+		// @ts-expect-error TS7006
 		.findParent((parent): boolean => {
 			return parent.isProgram();
 		})

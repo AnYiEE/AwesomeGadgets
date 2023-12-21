@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import {type BuildOptions} from 'esbuild';
+// @ts-expect-error TS7016
 import LessPluginNpmImport from 'less-plugin-npm-import';
+// @ts-expect-error TS7016
 import LessPluginPresetEnv from 'less-plugin-preset-env';
 import {lessLoader} from 'esbuild-plugin-less';
 import postcss from 'esbuild-postcss';

@@ -30,12 +30,15 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
 	const targets: DeploymentTargets = {};
 
 	for (const definition of definitions) {
-		const [_, name, files, description] = definition.match(
-			/^\*\s(\S+?)\[\S+?]\|(\S+?)☀\S*?☀(.+?)$/
-		) as RegExpMatchArray;
+		const [_, name, files, description] = definition.match(/^\*\s(\S+?)\[\S+?]\|(\S+?)☀\S*?☀(.+?)$/) as [
+			string,
+			string,
+			string,
+			string,
+		];
 
 		targets[name] = {} as DeploymentTargets[keyof DeploymentTargets];
-		targets[name].files = files
+		(targets[name] as DeploymentTargets[keyof DeploymentTargets]).files = files
 			.split('|')
 			.filter((file: string): boolean => {
 				return !!file;
@@ -43,7 +46,7 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
 			.map((file: string): string => {
 				return file.replace(/\S+?❄/, '');
 			});
-		targets[name].description = description || name;
+		(targets[name] as DeploymentTargets[keyof DeploymentTargets]).description = description || name;
 	}
 
 	return targets;
@@ -93,7 +96,7 @@ const loadConfig = (): Partial<Credentials> => {
 		);
 	}
 
-	return JSON.parse(credentialsJsonText);
+	return JSON.parse(credentialsJsonText) as ReturnType<typeof loadConfig>;
 };
 
 /**
@@ -242,7 +245,7 @@ const convertVariant = (pageTitle: string, content: string, {api, queue}: ApiQue
 		);
 
 		const window: Window = new Window({
-			url: api.options.apiUrl,
+			url: api.options.apiUrl as string,
 		});
 		const {document} = window;
 		document.body.innerHTML = `<div>${parsedHtml}</div>`;
@@ -290,7 +293,7 @@ const saveDefinition = (definitionText: string, {api, queue}: ApiQueue, editSumm
 	const pageTitle: string = 'MediaWiki:Gadgets-definition';
 	deployPages.push(pageTitle);
 
-	queue.add(async (): Promise<void> => {
+	void queue.add(async (): Promise<void> => {
 		try {
 			const response: ApiEditResponse = await api.save(pageTitle, definitionText, editSummary);
 			if (response.nochange) {
@@ -325,10 +328,10 @@ const saveDefinitionSectionPage = (definitionText: string, apiQueue: ApiQueue, e
 	for (const [index, section] of sections.entries()) {
 		const sectionText: string = DEFINITION_SECTION_MAP[section] || section;
 
-		const pageTitle: string = pageTitles[index];
+		const pageTitle: string = pageTitles[index] as string;
 		deployPages.push(pageTitle);
 
-		apiQueue.queue.add(async (): Promise<void> => {
+		void apiQueue.queue.add(async (): Promise<void> => {
 			try {
 				const response: ApiEditResponse = await apiQueue.api.save(pageTitle, sectionText, editSummary);
 				if (response.nochange) {
@@ -360,7 +363,7 @@ const saveDescription = (name: string, description: string, apiQueue: ApiQueue, 
 	const pageTitle: string = `MediaWiki:Gadget-${name}`;
 	deployPages.push(pageTitle);
 
-	apiQueue.queue.add(async (): Promise<void> => {
+	void apiQueue.queue.add(async (): Promise<void> => {
 		try {
 			const response: ApiEditResponse = await apiQueue.api.save(pageTitle, description, editSummary);
 			if (response.nochange) {
@@ -403,7 +406,7 @@ const saveFiles = (
 	const pageTitle: string = `MediaWiki:Gadget-${fileName}`;
 	deployPages.push(pageTitle);
 
-	queue.add(async (): Promise<void> => {
+	void queue.add(async (): Promise<void> => {
 		try {
 			const response: ApiEditResponse = await api.save(pageTitle, fileContent, editSummary);
 			if (response.nochange) {
@@ -481,7 +484,7 @@ const deleteUnusedPages = async ({api, queue}: ApiQueue, editSummary: string): P
 	};
 
 	for (const page of needToDeletePages) {
-		queue.add(async (): Promise<void> => {
+		void queue.add(async (): Promise<void> => {
 			await deletePage(page);
 		});
 	}
