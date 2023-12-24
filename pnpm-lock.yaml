@@ -146,6 +146,9 @@ devDependencies:
   esbuild-postcss:
     specifier: ^0.0.4
     version: 0.0.4(esbuild@0.19.10)(postcss@8.4.32)
+  eslint:
+    specifier: ^8.56.0
+    version: 8.56.0
   eslint-config-prettier:
     specifier: ^9.1.0
     version: 9.1.0(eslint@8.56.0)
@@ -202,7 +205,7 @@ devDependencies:
     version: 4.7.0
   types-mediawiki-renovate:
     specifier: latest
-    version: 2.2.0
+    version: 2.3.0
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -2241,8 +2244,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@mdn/browser-compat-data@5.5.1:
-    resolution: {integrity: sha512-uKCxAlG5dqNEuCqGSAHa8cSFCZujnv0SRBOuMWMLiza4YK/eSiyNlMwXtWJSrRmeCT+33DBk1VUtAcZdSRdA+g==}
+  /@mdn/browser-compat-data@5.5.2:
+    resolution: {integrity: sha512-HZX4YUlQXDrtuuyAw3ZrzS3LIlsBVL5AhRTROa9cwn6rUpBgtrMWy63S+ahvYhrJgbLmsrEmYwsd5YJBGk5btg==}
     dev: true
 
   /@mrhenry/babel-plugin-core-web@1.2.1:
@@ -2633,7 +2636,7 @@ packages:
   /ast-metadata-inferer@0.8.0:
     resolution: {integrity: sha512-jOMKcHht9LxYIEQu+RVd22vtgrPaVCtDRQ/16IGmurdzxvYbDd5ynxjnyrzLnieG96eTcAyaoj/wN/4/1FyyeA==}
     dependencies:
-      '@mdn/browser-compat-data': 5.5.1
+      '@mdn/browser-compat-data': 5.5.2
     dev: true
 
   /astral-regex@2.0.0:
@@ -2653,7 +2656,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.22.2
-      caniuse-lite: 1.0.30001570
+      caniuse-lite: 1.0.30001571
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -2755,8 +2758,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001570
-      electron-to-chromium: 1.4.615
+      caniuse-lite: 1.0.30001571
+      electron-to-chromium: 1.4.616
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.2)
     dev: true
@@ -2796,13 +2799,13 @@ packages:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
     dependencies:
       browserslist: 4.22.2
-      caniuse-lite: 1.0.30001570
+      caniuse-lite: 1.0.30001571
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
     dev: true
 
-  /caniuse-lite@1.0.30001570:
-    resolution: {integrity: sha512-+3e0ASu4sw1SWaoCtvPeyXp+5PsjigkSt8OXZbF9StH5pQWbxEjLAZE3n8Aup5udop1uRiKA7a4utUk/uoSpUw==}
+  /caniuse-lite@1.0.30001571:
+    resolution: {integrity: sha512-tYq/6MoXhdezDLFZuCO/TKboTzuQ/xR5cFdgXPfDtM7/kchBO3b4VWghE/OAi/DV7tTdhmLjZiZBZi1fA/GheQ==}
     dev: true
 
   /chalk@1.1.3:
@@ -3125,7 +3128,7 @@ packages:
     hasBin: true
     dependencies:
       browserslist: 4.22.2
-      caniuse-lite: 1.0.30001570
+      caniuse-lite: 1.0.30001571
       css-rule-stream: 1.1.0
       duplexer2: 0.0.2
       ldjson-stream: 1.2.1
@@ -3176,8 +3179,8 @@ packages:
       readable-stream: 1.1.14
     dev: true
 
-  /electron-to-chromium@1.4.615:
-    resolution: {integrity: sha512-/bKPPcgZVUziECqDc+0HkT87+0zhaWSZHNXqF8FLd2lQcptpmUFwoCSWjCdOng9Gdq+afKArPdEg/0ZW461Eng==}
+  /electron-to-chromium@1.4.616:
+    resolution: {integrity: sha512-1n7zWYh8eS0L9Uy+GskE0lkBUNK83cXTVJI0pU3mGprFsbfSdAc15VTFbo+A+Bq4pwstmL30AVcEU3Fo463lNg==}
     dev: true
 
   /emoji-regex@10.3.0:
@@ -3319,10 +3322,10 @@ packages:
     peerDependencies:
       eslint: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
-      '@mdn/browser-compat-data': 5.5.1
+      '@mdn/browser-compat-data': 5.5.2
       ast-metadata-inferer: 0.8.0
       browserslist: 4.22.2
-      caniuse-lite: 1.0.30001570
+      caniuse-lite: 1.0.30001571
       eslint: 8.56.0
       find-up: 5.0.0
       lodash.memoize: 4.1.2
@@ -5876,8 +5879,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /types-mediawiki-renovate@2.2.0:
-    resolution: {integrity: sha512-9VTDwCd3EEaTmVFwELxMdG1ty98je8vchHDJ0CyfyqGkzuskXDwMgRp7f4a71RkHYnPKMXhfNi+2oT12ta66Rw==}
+  /types-mediawiki-renovate@2.3.0:
+    resolution: {integrity: sha512-HbEioDSlyQRvSMd8l2wg6yIMZBWsFQIgiWihzTNbj2Vpfn8gxQA0OmYDmrDFu40T3YXYIGDK+e7BR4FZnPvBkA==}
     dependencies:
       '@types/jquery': 3.5.29
     dev: true
