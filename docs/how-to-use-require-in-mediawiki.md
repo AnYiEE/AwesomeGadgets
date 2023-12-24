@@ -2,7 +2,7 @@
 
 > 警告：实验性功能，不作任何保证。<br>Warning: Experimental feature, no guarantees.
 
-自 MediaWiki 1.38 起，存在一个名为`require`的全局函数，用来导入被标记为[`packaged`](<https://www.mediawiki.org/wiki/ResourceLoader/Migration_guide_(users)#Package_Gadgets>)的其他小工具。<br>Since MediaWiki 1.38, there is a global function called `require` used to import other gadgets marked as [`packaged`](<https://www.mediawiki.org/wiki/ResourceLoader/Migration_guide_(users)#Package_Gadgets>).
+自 MediaWiki 1.38 起，存在一个名为`require`的全局函数，用来导入被标记为[`packaged`](<https://www.mediawiki.org/wiki/ResourceLoader/Migration_guide_(users)#Package_Gadgets>)的其他小工具或内置模块。<br>Since MediaWiki 1.38, there is a global function called `require` used to import other gadgets marked as [`packaged`](<https://www.mediawiki.org/wiki/ResourceLoader/Migration_guide_(users)#Package_Gadgets>) or built-in modules.
 
 在本仓库中使用`require()`，你需要<br>To use `require()` in this repository, you need to
 
@@ -38,6 +38,6 @@ const {CdxButton} = _require_<typeof Codex>('@wikimedia/codex');
 console.log(CdxButton);
 
 // For non-npm package
-const {func} = _require_<typeof import('ext.gadget.any_package')>('@wikimedia/codex');
+const {func} = _require_<typeof import('ext.gadget.any_package')>('ext.gadget.any_package');
 console.log(func);
 ```
