@@ -8,3 +8,10 @@ declare module '*.jpg';
 declare module '*.jpeg';
 declare module '*.png';
 declare module '*.svg';
+
+/**
+ * @see ../docs/how-to-use-require-in-mediawiki.md
+ * @param {string} name - The dependency name
+ * @return {T} - The dependency methods
+ */
+declare function _require_<T>(name: string): T;

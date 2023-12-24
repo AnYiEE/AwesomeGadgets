@@ -94,7 +94,7 @@ const bundle = async (inputFilePath: string, code: string): Promise<string> => {
 		target: GLOBAL_REQUIRES_ES6 ? 'esnext' : 'es5',
 	});
 
-	return getBuildResult(buildResult);
+	return getBuildResult(buildResult).replace(/_require_\((.+?)\)/g, 'require($1)');
 };
 
 /**
