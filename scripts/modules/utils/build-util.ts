@@ -3,24 +3,22 @@ import {BANNER, DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER} from '../../con
 import {type BabelFileResult, type TransformOptions, transformAsync} from '@babel/core';
 import {type BuildResult, type OutputFile, build as esbuild} from 'esbuild';
 import type {DefaultDefinition, SourceFiles} from '../types';
+import {type Path, globSync} from 'glob';
 import {
 	type PathOrFileDescriptor,
-	type Stats,
 	closeSync,
 	fdatasyncSync,
 	mkdirSync,
 	openSync,
 	readFileSync,
-	readdirSync,
-	statSync,
 	writeFileSync,
 } from 'node:fs';
 import {dirname, join} from 'node:path';
-import {exit, platform} from 'node:process';
 import {getRootDir, trim} from './general-util';
 import type PQueue from 'p-queue';
 import chalk from 'chalk';
 import {esbuildOptions} from '../build-esbuild_options';
+import {exit} from 'node:process';
 
 /**
  * @private
@@ -242,107 +240,95 @@ const buildFiles = (
 };
 
 /**
- * @private
- */
-const sourceFiles: SourceFiles = {};
-
-/**
- * @param {string} [currentPath=src] The path of the current source file
- *
- * @summary **DO NOT** set this parameter when calling the function directly, it is only used for recursion
- *
  * @return {SourceFiles} An object used to describe source files
  */
-const findSourceFile = (currentPath: string = 'src'): SourceFiles => {
-	const subDirAndFileNameArray: string[] = readdirSync(currentPath);
-	for (const subDirOrFileName of subDirAndFileNameArray) {
-		const fullPath: string = join(currentPath, subDirOrFileName);
+const findSourceFile = (): SourceFiles => {
+	const sourceFiles: SourceFiles = {};
 
-		const stats: Stats = statSync(fullPath);
-		if (stats.isDirectory()) {
-			findSourceFile(fullPath);
-		} else if (!/\.d\.ts$/.test(subDirOrFileName)) {
-			const pathSplitArray: string[] = fullPath.split(platform === 'win32' ? '\\' : '/');
+	const files: Path[] = globSync(['*/*.{js,ts,css,less}', '*/definition.json', '*/LICENSE'], {
+		cwd: join(rootDir, 'src'),
+		withFileTypes: true,
+	});
 
-			// 仅支持形如`src/gadget/index.ts`的“一层”路径，因为考虑到子文件夹可能被父文件夹的脚本导入
-			// Only supports "one-layer" paths like `src/gadget/index.ts`, because it considers that subfolders may be imported by scripts in parent folders
-			if (pathSplitArray.length !== 3) {
-				continue;
-			}
+	for (const file of files) {
+		const fileName: string = file.name;
+		if (fileName.endsWith('.d.ts')) {
+			continue;
+		}
 
-			const [_rootDir, gadgetName, fileName] = pathSplitArray as [string, string, string];
-			if (!/^[A-Za-z][A-Za-z0-9\-_.]*$/.test(gadgetName)) {
-				/**
-				 * @see {@link https://www.mediawiki.org/wiki/Extension:Gadgets#Definition_format}
-				 * @see {@link https://www.w3.org/TR/html4/types.html#type-id}
-				 */
-				console.log(
-					chalk.yellow(`The folder name ${chalk.bold(gadgetName)} contains illegal characters, skip it.`)
-				);
-				continue;
-			}
+		const gadgetName: string = file.parent!.name;
+		if (!/^[A-Za-z][A-Za-z0-9\-_.]*$/.test(gadgetName)) {
+			/**
+			 * @see {@link https://www.mediawiki.org/wiki/Extension:Gadgets#Definition_format}
+			 * @see {@link https://www.w3.org/TR/html4/types.html#type-id}
+			 */
+			console.log(
+				chalk.yellow(`The folder name ${chalk.bold(gadgetName)} contains illegal characters, skip it.`)
+			);
+			continue;
+		}
 
-			sourceFiles[gadgetName] ??= {} as SourceFiles[keyof SourceFiles];
+		sourceFiles[gadgetName] ??= {} as SourceFiles[keyof SourceFiles];
+		const targetGadget = sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles];
 
-			switch (fileName) {
-				case 'definition.json':
-					(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).definition = fileName;
-					break;
-				case 'index.js':
-				case 'index.ts':
-					(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).script = fileName;
-					break;
-				case `${gadgetName}.js`:
-				case `${gadgetName}.ts`:
-					if (!(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).script) {
-						(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).script = fileName;
-					}
-					break;
-				case 'index.css':
-				case 'index.less':
-					(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).style = fileName;
-					break;
-				case `${gadgetName}.css`:
-				case `${gadgetName}.less`:
-					if (!(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).style) {
-						(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).style = fileName;
-					}
-					break;
-				case 'LICENSE':
-					(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).license = fileName;
-					break;
-			}
-
-			(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).scripts ??= [];
-			if (/\.[jt]s$/.test(fileName)) {
-				(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).scripts.push(fileName);
-				if (/\.ts$/.test(fileName)) {
-					(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).scripts = [
-						...new Set(
-							(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).scripts.filter(
-								(script: string): boolean => {
-									return script !== fileName.replace(/\.ts$/, '.js');
-								}
-							)
-						),
-					];
+		switch (fileName) {
+			case 'definition.json':
+				targetGadget.definition = fileName;
+				break;
+			case 'index.js':
+			case 'index.ts':
+				targetGadget.script = fileName;
+				break;
+			case `${gadgetName}.js`:
+			case `${gadgetName}.ts`: {
+				const scriptName: string | undefined = targetGadget.script;
+				if ((scriptName && !/^index\.[jt]s/.test(scriptName)) || !scriptName) {
+					targetGadget.script = fileName;
 				}
+				break;
 			}
-
-			(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).styles ??= [];
-			if (/\.(?:css|less)$/.test(fileName)) {
-				(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).styles.push(fileName);
-				if (/\.less$/.test(fileName)) {
-					(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).styles = [
-						...new Set(
-							(sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles]).styles.filter(
-								(style: string): boolean => {
-									return style !== fileName.replace(/\.less$/, '.css');
-								}
-							)
-						),
-					];
+			case 'index.css':
+			case 'index.less':
+				targetGadget.style = fileName;
+				break;
+			case `${gadgetName}.css`:
+			case `${gadgetName}.less`: {
+				const styleName: string | undefined = targetGadget.style;
+				if ((styleName && !/^index\.(?:css|less)/.test(styleName)) || !styleName) {
+					targetGadget.style = fileName;
 				}
+				break;
+			}
+			case 'LICENSE':
+				targetGadget.license = fileName;
+				break;
+		}
+
+		targetGadget.scripts ??= [];
+		if (fileName.endsWith('.js') || fileName.endsWith('.ts')) {
+			targetGadget.scripts.push(fileName);
+			if (fileName.endsWith('.ts')) {
+				targetGadget.scripts = [
+					...new Set(
+						targetGadget.scripts.filter((script: string): boolean => {
+							return script !== fileName.replace(/\.ts$/, '.js');
+						})
+					),
+				];
+			}
+		}
+
+		targetGadget.styles ??= [];
+		if (fileName.endsWith('.css') || fileName.endsWith('.less')) {
+			targetGadget.styles.push(fileName);
+			if (fileName.endsWith('.less')) {
+				targetGadget.styles = [
+					...new Set(
+						targetGadget.styles.filter((style: string): boolean => {
+							return style !== fileName.replace(/\.less$/, '.css');
+						})
+					),
+				];
 			}
 		}
 	}
