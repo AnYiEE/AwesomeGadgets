@@ -38,7 +38,7 @@ const getTargets = (feature: Exclude<Features, 'normalize'>): Record<string, str
 
 	const result: Record<string, string> = {};
 	for (const [browser, versions] of Object.entries(browserSupport)) {
-		const target: string = versions.y?.toString() ?? '';
+		const target: string | undefined = versions.y?.toString();
 		if (!target) {
 			continue;
 		}
@@ -52,7 +52,7 @@ const getTargets = (feature: Exclude<Features, 'normalize'>): Record<string, str
 /**
  * @private
  */
-const compatData: Record<Features, ReturnType<typeof getTargets>> = {
+const compatData = {
 	AudioContext: {
 		and_chr: '119',
 		and_ff: '119',
@@ -83,18 +83,12 @@ const compatData: Record<Features, ReturnType<typeof getTargets>> = {
 		safari: '10',
 		samsung: '10',
 	},
-};
+} as const satisfies Record<Features, ReturnType<typeof getTargets>>;
 
 /**
  * @private
  */
-const polyfills: Record<
-	Features,
-	{
-		package: string;
-		type: 'CallExpression' | 'NewExpression';
-	}
-> = {
+const polyfills = {
 	AudioContext: {
 		package: join(rootDir, 'scripts/modules/polyfills/AudioContext'),
 		type: 'NewExpression',
@@ -112,7 +106,13 @@ const polyfills: Record<
 		package: 'unorm',
 		type: 'CallExpression',
 	},
-} as const;
+} as const satisfies Record<
+	Features,
+	{
+		package: string;
+		type: 'CallExpression' | 'NewExpression';
+	}
+>;
 
 /**
  * @private

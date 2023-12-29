@@ -326,7 +326,7 @@ const saveDefinitionSectionPage = (definitionText: string, apiQueue: ApiQueue, e
 	});
 
 	for (const [index, section] of sections.entries()) {
-		const sectionText: string = DEFINITION_SECTION_MAP[section] || section;
+		const sectionText: string = DEFINITION_SECTION_MAP[section as keyof typeof DEFINITION_SECTION_MAP] || section;
 
 		const pageTitle: string = pageTitles[index] as string;
 		deployPages.push(pageTitle);

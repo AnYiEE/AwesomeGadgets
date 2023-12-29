@@ -11,19 +11,19 @@ import postcss from 'esbuild-postcss';
  * @summary Do not forget to declare these file extensions in `src/global.d.ts`
  * @see {@link https://esbuild.github.io/api/#loader}
  */
-const loader: BuildOptions['loader'] = {
+const loader = {
 	'.gif': 'dataurl',
 	'.ico': 'dataurl',
 	'.jpg': 'dataurl',
 	'.jpeg': 'dataurl',
 	'.png': 'dataurl',
 	'.svg': 'text',
-};
+} as const satisfies BuildOptions['loader'];
 
 /**
  * @see {@link https://esbuild.github.io/api/#general-options}
  */
-const esbuildOptions: BuildOptions = {
+const esbuildOptions = {
 	loader,
 	bundle: true,
 	charset: 'utf8',
@@ -39,6 +39,6 @@ const esbuildOptions: BuildOptions = {
 	],
 	treeShaking: true,
 	write: false,
-};
+} as const satisfies BuildOptions;
 
 export {esbuildOptions};

@@ -45,8 +45,9 @@ const writeFile = (
 	let fileContent: string = '';
 	switch (contentType) {
 		case 'application/javascript': {
-			const strictMode: string = '"use strict";';
+			const strictMode = '"use strict";' satisfies string;
 			fileContent = `${trim(licenseText)}${trim(HEADER)}/* <nowiki> */\n\n${
+				// Always invoke strict mode after esbuild bundling, but Bebel may have added it
 				sourceCode.includes(strictMode) ? '' : `${strictMode}\n\n`
 			}${trim(sourceCode)}\n/* </nowiki> */\n`;
 			break;
@@ -138,7 +139,7 @@ const bundle = async (inputFilePath: string, code: string, dependencies: Depende
  * @param {boolean} isPackage
  * @return {TransformOptions}
  */
-const generateTransformOptions = (isPackage: boolean): TransformOptions => {
+const generateTransformOptions = (isPackage: boolean): typeof options => {
 	const options = {
 		presets: [
 			[
@@ -160,7 +161,7 @@ const generateTransformOptions = (isPackage: boolean): TransformOptions => {
 			join(rootDir, 'scripts/modules/plugins/babel-plugin-convert-comments.ts'),
 			join(rootDir, 'scripts/modules/plugins/babel-plugin-import-polyfills.ts'),
 		],
-	} satisfies TransformOptions;
+	} as const satisfies TransformOptions;
 
 	if (GLOBAL_REQUIRES_ES6) {
 		options.presets[0]![1].exclude.push('es.array.push');
@@ -207,7 +208,7 @@ const generateTransformOptions = (isPackage: boolean): TransformOptions => {
  * @return {Promise<string>}
  */
 const transform = async (inputFilePath: string, code: string, isPackage: boolean): Promise<string> => {
-	const transformOptions: TransformOptions = generateTransformOptions(isPackage);
+	const transformOptions = generateTransformOptions(isPackage);
 
 	const babelFileResult: BabelFileResult = (await transformAsync(code, {
 		...transformOptions,
@@ -610,8 +611,9 @@ const getLicense = (name: string, license: string | undefined): string | undefin
 
 	const licenseFilePath: string = join(rootDir, `src/${name}/${license}`);
 	const fileBuffer: Buffer = readFileSync(licenseFilePath);
+	const fileContent: string = fileBuffer.toString();
 
-	return fileBuffer.toString().trim() ? `${fileBuffer.toString()}\n` : undefined;
+	return fileContent.trim() ? `${fileContent}\n` : undefined;
 };
 
 /**

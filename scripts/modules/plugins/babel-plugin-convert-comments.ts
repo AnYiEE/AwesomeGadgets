@@ -6,7 +6,7 @@ import {declare} from '@babel/helper-plugin-utils';
 const plugin = declare(() => {
 	return {
 		visitor: {
-			Program(path) {
+			Program(path): void {
 				path.traverse({
 					enter(p) {
 						const {node} = p;
