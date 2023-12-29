@@ -224,7 +224,7 @@ const transform = async (inputFilePath: string, code: string, isPackage: boolean
  * @private
  * @param {string} name The gadget name
  * @param {string} script The script file name of this gadget
- * @param {{dependencies?:Dependencies; isPackage:boolean; licenseText:string|undefined}} object
+ * @param {{dependencies:Dependencies; isPackage:boolean; licenseText:string|undefined}} object
  */
 const buildScript = async (
 	name: string,
@@ -278,7 +278,7 @@ const buildStyle = async (name: string, style: string, licenseText: string | und
 /**
  * @param {string} name The gadget name
  * @param {'script'|'style'} type The type of target files
- * @param {{dependencies?:Dependencies; files:string[]; isPackage:boolean; licenseText:string|undefined; queue:PQueue}} object The dependencies of this gadget, the array of file name for this gadget, the flag of packaged gadget, the license file content of this gadget and the build queue
+ * @param {{dependencies?:Dependencies; files:string[]; isPackage?:boolean; licenseText:string|undefined; queue:PQueue}} object The dependencies of this gadget, the array of file name for this gadget, the flag of packaged gadget, the license file content of this gadget and the build queue
  */
 function buildFiles(
 	name: string,
@@ -417,7 +417,7 @@ const findSourceFile = (): SourceFiles => {
 						chalk.yellow(
 							`${chalk.italic('definition.json')} of ${chalk.bold(
 								gadgetName
-							)} is damaged, the default definition will be used.`
+							)} is broken, the default definition will be used.`
 						)
 					);
 				}
@@ -428,28 +428,50 @@ const findSourceFile = (): SourceFiles => {
 				};
 				break;
 			}
-			// After the loop is completed, `*.{less,ts}` will eventually overwrite `*.{css,js}` according to alphabetical order,
-			// so further judgment is unnecessary
-			case 'index.js':
-			case 'index.ts':
-				targetGadget.script = fileName;
-				break;
-			case `${gadgetName}.js`:
-			case `${gadgetName}.ts`: {
-				const scriptFileName: string | undefined = targetGadget.script;
-				if ((scriptFileName && !/^index\.[jt]s$/.test(scriptFileName)) || !scriptFileName) {
+			case 'index.js': {
+				const {script} = targetGadget;
+				if (!script || script !== 'index.ts') {
 					targetGadget.script = fileName;
 				}
 				break;
 			}
-			case 'index.css':
+			case 'index.ts':
+				targetGadget.script = fileName;
+				break;
+			case `${gadgetName}.js`: {
+				const {script} = targetGadget;
+				if (!script) {
+					targetGadget.script = fileName;
+				}
+				break;
+			}
+			case `${gadgetName}.ts`: {
+				const {script} = targetGadget;
+				if (!script || !/^index\.[jt]s$/.test(script)) {
+					targetGadget.script = fileName;
+				}
+				break;
+			}
+			case 'index.css': {
+				const {style} = targetGadget;
+				if (!style || style !== 'index.less') {
+					targetGadget.script = fileName;
+				}
+				break;
+			}
 			case 'index.less':
 				targetGadget.style = fileName;
 				break;
-			case `${gadgetName}.css`:
+			case `${gadgetName}.css`: {
+				const {style} = targetGadget;
+				if (!style) {
+					targetGadget.style = fileName;
+				}
+				break;
+			}
 			case `${gadgetName}.less`: {
-				const styleFileName: string | undefined = targetGadget.style;
-				if ((styleFileName && !/^index\.(?:css|less)/.test(styleFileName)) || !styleFileName) {
+				const {style} = targetGadget;
+				if (!style || !/^index\.(?:css|less)/.test(style)) {
 					targetGadget.style = fileName;
 				}
 				break;
