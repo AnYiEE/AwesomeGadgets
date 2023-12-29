@@ -1,6 +1,6 @@
 {
 	"name": "awesome-gadgets",
-	"version": "2.36.3",
+	"version": "2.37.0",
 	"description": "Storage, management, compilation, and automatic deployment of MediaWiki gadgets.",
 	"type": "module",
 	"scripts": {
