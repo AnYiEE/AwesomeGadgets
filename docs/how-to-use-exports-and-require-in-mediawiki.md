@@ -71,7 +71,6 @@ declare module 'ext.gadget.any_package' {
 最后，使用`import`来导入依赖项，如：<br> Finally, use `import` to import the dependency. For example:
 
 ```ts
-// For npm package
 import {CdxButton} from '@wikimedia/codex';
 import {func} from 'ext.gadget.any_package';
 
