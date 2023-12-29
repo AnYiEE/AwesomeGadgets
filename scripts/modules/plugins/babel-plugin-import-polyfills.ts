@@ -10,7 +10,7 @@ import {type BrowserSupport, getSupport} from 'caniuse-api';
  */
 // @ts-expect-error TS7016
 import {filterItems} from '@babel/helper-compilation-targets';
-import {getRootDir} from './utils/general-util';
+import {getRootDir} from '../utils/general-util';
 import {join} from 'node:path';
 
 /**

@@ -155,7 +155,11 @@ const generateTransformOptions = (isPackage: boolean): TransformOptions => {
 			],
 		],
 		compact: false,
-		plugins: ['@mrhenry/core-web', join(rootDir, 'scripts/modules/babel-plugin-import-polyfills.ts')],
+		plugins: [
+			'@mrhenry/core-web',
+			join(rootDir, 'scripts/modules/plugins/babel-plugin-convert-comments.ts'),
+			join(rootDir, 'scripts/modules/plugins/babel-plugin-import-polyfills.ts'),
+		],
 	} satisfies TransformOptions;
 
 	if (GLOBAL_REQUIRES_ES6) {
