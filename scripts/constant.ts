@@ -87,23 +87,21 @@ const CONVERT_VARIANT = false satisfies boolean;
 /**
  * 启用此选项会为全部小工具设置`requiresES6`标识，禁用 Gadget 扩展的语法检查功能以允许使用 ES6 及以上版本语法（即使经过编译）
  *
- * 需要 Gadget 扩展所对应的分支版本大于 1.40.0-wmf.7，或自行从主线合并相关代码
- * @see {@link https://git.qiuwen.net.cn/Fork/mediawiki-extensions-Gadgets/commit/bbf7ba5} example commit
+ * 需要 Gadget 扩展所对应的分支版本大于 1.40.0-wmf.7，或[自行从主线合并相关代码](https://git.qiuwen.net.cn/Fork/mediawiki-extensions-Gadgets/commit/bbf7ba5)
  *
  * 如需自定义`.browserslistrc`，应启用此选项
  *
- * 注意：Gadget 扩展默认不支持小工具同时存在`default`和`requiresES6`标识，如需为存在`default`标识的小工具绕过服务端语法检查，应自行修改 Gadget 扩展，否则**不应**将此选项设置为 true
- * @see {@link https://git.qiuwen.net.cn/Fork/mediawiki-extensions-Gadgets/commit/21e2b34} example commit
+ * 注意：Gadget 扩展默认不支持小工具同时存在`default`和`requiresES6`标识，如需为存在`default`标识的小工具绕过服务端语法检查，应[自行修改](https://git.qiuwen.net.cn/Fork/mediawiki-extensions-Gadgets/commit/21e2b34) Gadget 扩展，否则**不应**将此选项设置为 true
  *
  * Allow the use of ES6+ syntax in all gadgets
  *
- * Requires Gadget extension branch version greater than or equal to 1.40.0-wmf.7, or merge the relevant code from the mainline by yourself
+ * Requires Gadget extension branch version greater than or equal to 1.40.0-wmf.7, or [merge the relevant code from the mainline by yourself](https://git.qiuwen.net.cn/Fork/mediawiki-extensions-Gadgets/commit/bbf7ba5)
  *
  * Enabling this option will set the `requiresES6` flag for all gadgets, which means that server-side syntax validation is skipped to allow the use of ES6+ syntax (even after compilation)
  *
  * If you want to customize `.browserslistrc`, enable this option
  *
- * Note: By default, Gadget extensions do not support gadgets that have both the `default` and `requiresES6` flags. If you need to bypass server-side syntax validation for gadgets with the `default` flag, you should modify the Gadget extension yourself. Otherwise, **DO NOT** set this option to true
+ * Note: By default, Gadget extensions do not support gadgets that have both the `default` and `requiresES6` flags. If you need to bypass server-side syntax validation for gadgets with the `default` flag, you should [modify the Gadget extension yourself](https://git.qiuwen.net.cn/Fork/mediawiki-extensions-Gadgets/commit/21e2b34). Otherwise, **DO NOT** set this option to true
  *
  */
 const GLOBAL_REQUIRES_ES6 = false satisfies boolean;
