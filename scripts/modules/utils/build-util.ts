@@ -2,7 +2,7 @@ import * as PACKAGE from '../../../package.json';
 import {BANNER, DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER} from '../../constant';
 import {type BabelFileResult, type TransformOptions, transformAsync} from '@babel/core';
 import {type BuildResult, type OutputFile, build as esbuild} from 'esbuild';
-import type {DefaultDefinition, SourceFiles} from '../types';
+import type {DefaultDefinition, Dependencies, SourceFiles} from '../types';
 import {type Path, globSync} from 'glob';
 import {
 	type PathOrFileDescriptor,
@@ -29,12 +29,34 @@ const rootDir: string = getRootDir();
  * @private
  * @param {string} sourceCode
  * @param {string} outputFilePath
- * @param {string|undefined} licenseText
+ * @param {{contentType?:'application/javascript'|'text/css'; licenseText?:string|undefined}} [object]
  */
-const writeFile = (sourceCode: string, outputFilePath: string, licenseText: string | undefined): void => {
-	const fileContent: string = `${trim(licenseText)}${trim(HEADER)}/* <nowiki> */\n\n${trim(
-		sourceCode
-	)}\n/* </nowiki> */\n`;
+const writeFile = (
+	sourceCode: string,
+	outputFilePath: string,
+	{
+		contentType,
+		licenseText,
+	}: {
+		contentType?: 'application/javascript' | 'text/css';
+		licenseText?: string | undefined;
+	} = {}
+): void => {
+	let fileContent: string = '';
+	switch (contentType) {
+		case 'application/javascript': {
+			const strictMode: string = '"use strict";';
+			fileContent = `${trim(licenseText)}${trim(HEADER)}/* <nowiki> */\n\n${
+				sourceCode.includes(strictMode) ? '' : `${strictMode}\n\n`
+			}${trim(sourceCode)}\n/* </nowiki> */\n`;
+			break;
+		}
+		case 'text/css':
+			fileContent = `${trim(licenseText)}${trim(HEADER)}/* <nowiki> */\n\n${trim(sourceCode)}\n/* </nowiki> */\n`;
+			break;
+		default:
+			fileContent = sourceCode;
+	}
 
 	const outputDirectoryPath: string = dirname(outputFilePath);
 	mkdirSync(outputDirectoryPath, {
@@ -63,11 +85,24 @@ const getBuildResult = (buildResult: BuildResult): string => {
  * @private
  * @param {string} inputFilePath
  * @param {string} outputFilePath
+ * @param {{dependencies?:Dependencies; isPackage:boolean}} [object]
  * @return {Promise<string>}
  */
-const build = async (inputFilePath: string, outputFilePath: string): Promise<string> => {
+const build = async (
+	inputFilePath: string,
+	outputFilePath: string,
+	{
+		dependencies,
+		isPackage,
+	}: {
+		dependencies?: Dependencies;
+		isPackage?: boolean;
+	} = {}
+): Promise<string> => {
 	const buildResult: BuildResult = await esbuild({
 		...esbuildOptions,
+		external: dependencies ?? [],
+		format: isPackage ? 'cjs' : 'iife',
 		entryPoints: [inputFilePath],
 		outfile: outputFilePath,
 	});
@@ -79,11 +114,14 @@ const build = async (inputFilePath: string, outputFilePath: string): Promise<str
  * @private
  * @param {string} inputFilePath
  * @param {string} code
+ * @param {Dependencies} dependencies
  * @return {Promise<string>}
  */
-const bundle = async (inputFilePath: string, code: string): Promise<string> => {
+const bundle = async (inputFilePath: string, code: string, dependencies: Dependencies): Promise<string> => {
 	const buildResult: BuildResult = await esbuild({
 		...esbuildOptions,
+		external: dependencies,
+		format: 'cjs',
 		stdin: {
 			contents: code,
 			resolveDir: rootDir,
@@ -92,14 +130,15 @@ const bundle = async (inputFilePath: string, code: string): Promise<string> => {
 		target: GLOBAL_REQUIRES_ES6 ? 'esnext' : 'es5',
 	});
 
-	return getBuildResult(buildResult).replace(/_require_\((.+?)\)/g, 'require($1)');
+	return getBuildResult(buildResult);
 };
 
 /**
  * @private
+ * @param {boolean} isPackage
  * @return {TransformOptions}
  */
-const generateTransformOptions = (): TransformOptions => {
+const generateTransformOptions = (isPackage: boolean): TransformOptions => {
 	const options = {
 		presets: [
 			[
@@ -110,7 +149,7 @@ const generateTransformOptions = (): TransformOptions => {
 						version: PACKAGE.devDependencies['core-js'].match(/\d+(?:.\d+){0,2}/)?.[0] ?? '3.34',
 					},
 					exclude: ['web.dom-collections.for-each', 'web.dom-collections.iterator'],
-					modules: false,
+					modules: isPackage ? 'commonjs' : false,
 					useBuiltIns: 'usage',
 				},
 			],
@@ -158,16 +197,14 @@ const generateTransformOptions = (): TransformOptions => {
 
 /**
  * @private
- */
-const transformOptions: TransformOptions = generateTransformOptions();
-
-/**
- * @private
  * @param {string} inputFilePath
  * @param {string} code
+ * @param {boolean} isPackage
  * @return {Promise<string>}
  */
-const transform = async (inputFilePath: string, code: string): Promise<string> => {
+const transform = async (inputFilePath: string, code: string, isPackage: boolean): Promise<string> => {
+	const transformOptions: TransformOptions = generateTransformOptions(isPackage);
+
 	const babelFileResult: BabelFileResult = (await transformAsync(code, {
 		...transformOptions,
 		cwd: rootDir,
@@ -182,25 +219,43 @@ const transform = async (inputFilePath: string, code: string): Promise<string> =
  * @private
  * @param {string} name The gadget name
  * @param {string} script The script file name of this gadget
- * @param {string|undefined} licenseText The license file content of this gadget
+ * @param {{dependencies?:Dependencies; isPackage:boolean; licenseText:string|undefined}} object
  */
-const buildScript = async (name: string, script: string, licenseText: string | undefined): Promise<void> => {
+const buildScript = async (
+	name: string,
+	script: string,
+	{
+		dependencies,
+		isPackage,
+		licenseText,
+	}: {
+		dependencies: Dependencies;
+		isPackage: boolean;
+		licenseText: string | undefined;
+	}
+): Promise<void> => {
 	const inputFilePath: string = join(rootDir, `src/${name}/${script}`);
 	// The TypeScript file is always compiled into a JavaScript file, so replace the extension directly
 	const outputFilePath: string = join(rootDir, `dist/${name}/${script.replace(/\.ts$/, '.js')}`);
 
-	const buildOutput: string = await build(inputFilePath, outputFilePath);
-	const transformOutput: string = await transform(inputFilePath, buildOutput);
-	const bundleOutput: string = await bundle(inputFilePath, transformOutput);
+	const buildOutput: string = await build(inputFilePath, outputFilePath, {
+		dependencies,
+		isPackage,
+	});
+	const transformOutput: string = await transform(inputFilePath, buildOutput, isPackage);
+	const bundleOutput: string = await bundle(inputFilePath, transformOutput, dependencies);
 
-	writeFile(bundleOutput, outputFilePath, licenseText);
+	writeFile(bundleOutput, outputFilePath, {
+		licenseText,
+		contentType: 'application/javascript',
+	});
 };
 
 /**
  * @private
- * @param {string} name The gadget name
- * @param {string} style The style sheet file name of this gadget
- * @param {string|undefined} licenseText The license file content of this gadget
+ * @param {string} name
+ * @param {string} style
+ * @param {string|undefined} licenseText
  */
 const buildStyle = async (name: string, style: string, licenseText: string | undefined): Promise<void> => {
 	const inputFilePath: string = join(rootDir, `src/${name}/${style}`);
@@ -209,17 +264,37 @@ const buildStyle = async (name: string, style: string, licenseText: string | und
 
 	const buildOutput: string = await build(inputFilePath, outputFilePath);
 
-	writeFile(buildOutput, outputFilePath, licenseText);
+	writeFile(buildOutput, outputFilePath, {
+		licenseText,
+		contentType: 'text/css',
+	});
 };
 
 /**
  * @param {string} name The gadget name
  * @param {'script'|'style'} type The type of target files
- * @param {{files:string[]; licenseText:string|undefined; queue:PQueue}} object The license file content of this gadget, the array of file name for this gadget and the build queue
+ * @param {{dependencies?:Dependencies; files:string[]; isPackage:boolean; licenseText:string|undefined; queue:PQueue}} object The dependencies of this gadget, the array of file name for this gadget, the flag of packaged gadget, the license file content of this gadget and the build queue
  */
-const buildFiles = (
+function buildFiles(
 	name: string,
-	type: 'script' | 'style',
+	type: 'script',
+	{
+		dependencies,
+		files,
+		isPackage,
+		licenseText,
+		queue,
+	}: {
+		dependencies: Dependencies;
+		files: string[];
+		isPackage: boolean;
+		licenseText: string | undefined;
+		queue: PQueue;
+	}
+): void;
+function buildFiles(
+	name: string,
+	type: 'style',
 	{
 		files,
 		licenseText,
@@ -229,13 +304,62 @@ const buildFiles = (
 		licenseText: string | undefined;
 		queue: PQueue;
 	}
-): void => {
-	const buildFile: typeof buildScript | typeof buildStyle = type === 'script' ? buildScript : buildStyle;
-
+): void;
+// eslint-disable-next-line func-style
+function buildFiles(
+	name: string,
+	type: 'script' | 'style',
+	{
+		dependencies,
+		files,
+		isPackage,
+		licenseText,
+		queue,
+	}: {
+		dependencies?: Dependencies;
+		files: string[];
+		isPackage?: boolean;
+		licenseText: string | undefined;
+		queue: PQueue;
+	}
+): void {
 	for (const file of files) {
 		void queue.add(async (): Promise<void> => {
-			await buildFile(name, file, licenseText);
+			if (type === 'script' && dependencies && isPackage !== undefined) {
+				await buildScript(name, file, {
+					dependencies,
+					isPackage,
+					licenseText,
+				});
+			} else {
+				await buildStyle(name, file, licenseText);
+			}
 		});
+	}
+}
+
+/**
+ * @private
+ * @param {SourceFiles} sourceFiles
+ */
+const fallbackDefinition = (sourceFiles: SourceFiles): void => {
+	for (const [gadgetName, gadgetFiles] of Object.entries(sourceFiles)) {
+		if (gadgetFiles.definition) {
+			continue;
+		}
+
+		gadgetFiles.definition = {
+			...DEFAULT_DEFINITION,
+			requiresES6: GLOBAL_REQUIRES_ES6,
+		};
+
+		console.log(
+			chalk.yellow(
+				`${chalk.italic('definition.json')} of ${chalk.bold(
+					gadgetName
+				)} is missing, the default definition will be used.`
+			)
+		);
 	}
 };
 
@@ -253,12 +377,14 @@ const findSourceFile = (): SourceFiles => {
 	for (const file of files) {
 		const fileName: string = file.name;
 		if (fileName.endsWith('.d.ts')) {
+			// Skip typescript declaration files, no need when compiling
 			continue;
 		}
 
-		const gadgetName: string = file.parent!.name;
+		const gadgetName: string = file.parent!.name; // The parent folder name of the file
 		if (!/^[A-Za-z][A-Za-z0-9\-_.]*$/.test(gadgetName)) {
 			/**
+			 * @summary Skip folder names that contain illegal characters not supported by the Gadget extension
 			 * @see {@link https://www.mediawiki.org/wiki/Extension:Gadgets#Definition_format}
 			 * @see {@link https://www.w3.org/TR/html4/types.html#type-id}
 			 */
@@ -272,17 +398,39 @@ const findSourceFile = (): SourceFiles => {
 		const targetGadget = sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles];
 
 		switch (fileName) {
-			case 'definition.json':
-				targetGadget.definition = fileName;
+			case 'definition.json': {
+				const definitionFilePath: string = join(rootDir, `src/${gadgetName}/definition.json`);
+				const definitionJsonText: string = readFileSync(definitionFilePath).toString();
+				let definition: DefaultDefinition;
+				try {
+					definition = JSON.parse(definitionJsonText) as DefaultDefinition;
+				} catch {
+					definition = DEFAULT_DEFINITION;
+					console.log(
+						chalk.yellow(
+							`${chalk.italic('definition.json')} of ${chalk.bold(
+								gadgetName
+							)} is damaged, the default definition will be used.`
+						)
+					);
+				}
+				targetGadget.definition = {
+					...DEFAULT_DEFINITION,
+					...definition,
+					requiresES6: GLOBAL_REQUIRES_ES6,
+				};
 				break;
+			}
+			// After the loop is completed, `*.{less,ts}` will eventually overwrite `*.{css,js}` according to alphabetical order,
+			// so further judgment is unnecessary
 			case 'index.js':
 			case 'index.ts':
 				targetGadget.script = fileName;
 				break;
 			case `${gadgetName}.js`:
 			case `${gadgetName}.ts`: {
-				const scriptName: string | undefined = targetGadget.script;
-				if ((scriptName && !/^index\.[jt]s/.test(scriptName)) || !scriptName) {
+				const scriptFileName: string | undefined = targetGadget.script;
+				if ((scriptFileName && !/^index\.[jt]s$/.test(scriptFileName)) || !scriptFileName) {
 					targetGadget.script = fileName;
 				}
 				break;
@@ -293,8 +441,8 @@ const findSourceFile = (): SourceFiles => {
 				break;
 			case `${gadgetName}.css`:
 			case `${gadgetName}.less`: {
-				const styleName: string | undefined = targetGadget.style;
-				if ((styleName && !/^index\.(?:css|less)/.test(styleName)) || !styleName) {
+				const styleFileName: string | undefined = targetGadget.style;
+				if ((styleFileName && !/^index\.(?:css|less)/.test(styleFileName)) || !styleFileName) {
 					targetGadget.style = fileName;
 				}
 				break;
@@ -306,12 +454,14 @@ const findSourceFile = (): SourceFiles => {
 
 		targetGadget.scripts ??= [];
 		if (fileName.endsWith('.js') || fileName.endsWith('.ts')) {
-			targetGadget.scripts.push(fileName);
+			const {scripts} = targetGadget;
+			scripts.push(fileName);
+			// If there are files with the same name in both JavaScript and TypeScript, only retain the TypeScript file
 			if (fileName.endsWith('.ts')) {
 				targetGadget.scripts = [
 					...new Set(
-						targetGadget.scripts.filter((script: string): boolean => {
-							return script !== fileName.replace(/\.ts$/, '.js');
+						scripts.filter((scriptFileName: string): boolean => {
+							return scriptFileName !== fileName.replace(/\.ts$/, '.js');
 						})
 					),
 				];
@@ -320,11 +470,13 @@ const findSourceFile = (): SourceFiles => {
 
 		targetGadget.styles ??= [];
 		if (fileName.endsWith('.css') || fileName.endsWith('.less')) {
-			targetGadget.styles.push(fileName);
+			const {styles} = targetGadget;
+			styles.push(fileName);
+			// If there are files with the same name in both CSS and Less, only retain the Less file
 			if (fileName.endsWith('.less')) {
 				targetGadget.styles = [
 					...new Set(
-						targetGadget.styles.filter((style: string): boolean => {
+						styles.filter((style: string): boolean => {
 							return style !== fileName.replace(/\.less$/, '.css');
 						})
 					),
@@ -333,49 +485,34 @@ const findSourceFile = (): SourceFiles => {
 		}
 	}
 
+	// After completing the loop, if `targetGadget.definition` is undefined, utilize the default definition
+	// NOTE: No need for assignment, this is object reference
+	fallbackDefinition(sourceFiles);
+
 	return sourceFiles;
 };
 
 /**
  * @param {string} name The gadget name
- * @param {string|undefined} definition The definition file name of this gadget
+ * @param {Object} definition The parsed `definition.json`
  * @param {string} files All files used by this gadget
  * @return {string} The Gadget definition (in the format of MediaWiki:Gadgets-definition item)
  */
-const generateDefinitionItem = (name: string, definition: string | undefined, files: string): string => {
+const generateDefinitionItem = (
+	name: string,
+	definition: SourceFiles[keyof SourceFiles]['definition'],
+	files: string
+): string => {
 	let definitionText: string = '|';
 
-	let definitionJsonText: string = '{}';
-	try {
-		if (!definition) {
-			throw new ReferenceError('definition.json is missing.');
-		}
-		const definitionFilePath: string = join(rootDir, `src/${name}/${definition}`);
-		const fileBuffer: Buffer = readFileSync(definitionFilePath);
-		definitionJsonText = fileBuffer.toString();
-	} catch {
-		console.log(
-			chalk.yellow(
-				`${chalk.italic('definition.json')} for ${chalk.bold(
-					name
-				)} is missing, the default definition will be used.`
-			)
-		);
-	}
-	const definitionObject: DefaultDefinition & {requiresES6: boolean} = {
-		...DEFAULT_DEFINITION,
-		...(JSON.parse(definitionJsonText) as DefaultDefinition),
-		requiresES6: GLOBAL_REQUIRES_ES6,
-	};
-
-	for (const [key, value] of Object.entries(definitionObject)) {
+	for (const [key, value] of Object.entries(definition)) {
 		if (key === 'enable' && value === false) {
 			return '';
 		}
 
 		const isArray: boolean = Array.isArray(value);
 		if (
-			['description', 'section', 'type'].includes(key) ||
+			['description', 'section'].includes(key) ||
 			[false, undefined].includes(value as boolean | undefined) ||
 			(isArray && !(value as []).length)
 		) {
@@ -405,10 +542,10 @@ const generateDefinitionItem = (name: string, definition: string | undefined, fi
 		return text.replace(/☀|❀/g, '').trim();
 	};
 
-	let descriptionText: string = cleanInvalidCharacters(definitionObject.description);
+	let descriptionText: string = cleanInvalidCharacters(definition.description);
 	descriptionText = descriptionText ? `☀${descriptionText}` : `☀${name}`;
 
-	let sectionText: string = cleanInvalidCharacters(definitionObject.section);
+	let sectionText: string = cleanInvalidCharacters(definition.section);
 	sectionText = sectionText ? `☀${sectionText}` : '☀appear';
 
 	return `* ${name}[ResourceLoader${definitionText}]${files}${sectionText}${descriptionText}`

@@ -39,6 +39,7 @@ interface DefaultDefinition {
 	dependencies: string[];
 	hidden: boolean;
 	namespaces: false | number[];
+	package: boolean;
 	peers: string[];
 	rights: string[];
 	skins: string[];
@@ -49,6 +50,8 @@ interface DefaultSectionMap {
 	[key: DefaultDefinition['section']]: string;
 }
 
+type Dependencies = DefaultDefinition['dependencies'];
+
 interface DeploymentTargets {
 	[key: string]: {
 		description: string;
@@ -58,7 +61,9 @@ interface DeploymentTargets {
 
 interface SourceFiles {
 	[key: string]: {
-		definition?: string;
+		definition: DefaultDefinition & {
+			requiresES6: boolean;
+		};
 		license?: string;
 		script?: string;
 		scripts: string[];
@@ -73,6 +78,7 @@ export type {
 	CredentialsOnlyPassword,
 	DefaultDefinition,
 	DefaultSectionMap,
+	Dependencies,
 	DeploymentTargets,
 	SourceFiles,
 };

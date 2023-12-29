@@ -38,11 +38,11 @@ const DEFAULT_DEFINITION: DefaultDefinition = {
 	dependencies: [],
 	hidden: false,
 	namespaces: false,
+	package: false,
 	peers: [],
 	rights: [],
 	skins: [],
 	supportsUrlLoad: false,
-	// package: boolean -> 已弃用，在 TypeScript 中可以引用任何东西 / Deprecated, just import anything in TypeScript
 	// requiresES6: boolean -> 无需指定，以下方`GLOBAL_REQUIRES_ES6`为准 / No need to specify, the following is based on `GLOBAL_REQUIRES_ES6`
 	// targets: 'desktop' | 'mobile' -> 已弃用，转用 skins 参数 / Deprecated, switch to the "skins" parameter
 	// type: 'general' | 'styles' -> 自动识别，无需指定 / Automatically recognized, no need to specify <https://github.com/wikimedia/mediawiki-extensions-Gadgets/blob/master/includes/Gadget.php#L514>

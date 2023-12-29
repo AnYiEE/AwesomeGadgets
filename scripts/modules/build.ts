@@ -36,7 +36,9 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 			definitionItemFiles += scriptFiles ? `${scriptFiles}|` : '';
 			buildFiles(name, 'script', {
 				licenseText,
+				dependencies: definition.dependencies,
 				files: scriptFileArray,
+				isPackage: definition.package,
 				queue: buildQueue,
 			});
 		}
