@@ -1,0 +1,15 @@
+diff --git a/mediawiki/common.js b/mediawiki/common.js
+index cceffd3ef277aaa8149ff1039c186fa5c0ebc2d4..c87ddc4faba1d84e1420d4deeadd0f0470baf7aa 100644
+--- a/mediawiki/common.js
++++ b/mediawiki/common.js
+@@ -35,10 +35,6 @@ const config = {
+ 						"normal": "never",
+ 						"component": "never"
+ 					}
+-				} ],
+-				"vue/component-name-in-template-casing": [ "error", "kebab-case" ],
+-				"vue/no-child-content": [ "error", {
+-					"additionalDirectives": [ "i18n-html" ]
+ 				} ]
+ 			}
+ 		}

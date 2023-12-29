@@ -36,6 +36,9 @@ overrides:
   types-mediawiki: npm:types-mediawiki-renovate
 
 patchedDependencies:
+  eslint-config-wikimedia@0.26.0:
+    hash: iaiepfmd777wt5zivqax6j6mj4
+    path: patches/eslint-config-wikimedia@0.26.0.patch
   eslint-plugin-no-jquery@2.7.0:
     hash: v4iv7q4nqe6fm4j4rtzs7s6leq
     path: patches/eslint-plugin-no-jquery@2.7.0.patch
@@ -154,7 +157,7 @@ devDependencies:
     version: 9.1.0(eslint@8.56.0)
   eslint-config-wikimedia:
     specifier: latest
-    version: 0.26.0(@typescript-eslint/eslint-plugin@6.16.0)(typescript@5.3.3)
+    version: 0.26.0(patch_hash=iaiepfmd777wt5zivqax6j6mj4)(@typescript-eslint/eslint-plugin@6.16.0)(typescript@5.3.3)
   eslint-plugin-unicorn:
     specifier: latest
     version: 50.0.1(eslint@8.56.0)
@@ -3332,7 +3335,7 @@ packages:
       eslint: 8.56.0
     dev: true
 
-  /eslint-config-wikimedia@0.26.0(@typescript-eslint/eslint-plugin@6.16.0)(typescript@5.3.3):
+  /eslint-config-wikimedia@0.26.0(patch_hash=iaiepfmd777wt5zivqax6j6mj4)(@typescript-eslint/eslint-plugin@6.16.0)(typescript@5.3.3):
     resolution: {integrity: sha512-TAXTySls9k3oWs754rIjlcd9PBLvYeMvjqjiuU8u4gweu0UDgBJGslf+zcvVNXEooAtyLZdENjrzDDjG8ssS7Q==}
     dependencies:
       browserslist-config-wikimedia: 0.5.1
@@ -3358,6 +3361,7 @@ packages:
       - supports-color
       - typescript
     dev: true
+    patched: true
 
   /eslint-plugin-compat@4.2.0(eslint@8.56.0):
     resolution: {integrity: sha512-RDKSYD0maWy5r7zb5cWQS+uSPc26mgOzdORJ8hxILmWM7S/Ncwky7BcAtXVY5iRbKjBdHsWU8Yg7hfoZjtkv7w==}

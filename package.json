@@ -130,7 +130,8 @@
 			"types-mediawiki": "npm:types-mediawiki-renovate"
 		},
 		"patchedDependencies": {
-			"eslint-plugin-no-jquery@2.7.0": "patches/eslint-plugin-no-jquery@2.7.0.patch"
+			"eslint-plugin-no-jquery@2.7.0": "patches/eslint-plugin-no-jquery@2.7.0.patch",
+			"eslint-config-wikimedia@0.26.0": "patches/eslint-config-wikimedia@0.26.0.patch"
 		}
 	}
 }
