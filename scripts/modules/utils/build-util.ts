@@ -147,9 +147,10 @@ const generateTransformOptions = (isPackage: boolean): typeof options => {
 				{
 					bugfixes: true, // FIXME: Remove when updating to Babel 8
 					corejs: {
-						version: PACKAGE.devDependencies['core-js'].match(/\d+(?:.\d+){0,2}/)?.[0] ?? '3.34',
+						version: PACKAGE.devDependencies['core-js'].match(/\d+(?:.\d+){0,2}/)?.[0] ?? '3.35',
 					},
 					exclude: ['web.dom-collections.for-each', 'web.dom-collections.iterator'],
+					include: [] as string[],
 					modules: isPackage ? 'commonjs' : false,
 					useBuiltIns: 'usage',
 				},
@@ -164,36 +165,35 @@ const generateTransformOptions = (isPackage: boolean): typeof options => {
 	} as const satisfies TransformOptions;
 
 	if (GLOBAL_REQUIRES_ES6) {
-		options.presets[0]![1].exclude.push('es.array.push');
 		// 以下关键字和运算符无法被 MediaWiki（>= 1.39）的 JavaScript 压缩器良好支持，即使设置了 requiresES6 标识
 		// The following keywords and operators are not well supported by MediaWiki's (>= 1.39) JavaScript minifier, even if the `requiresES6` flag is true
-		options.plugins.push(
+		options.presets[0]![1].include.push(
 			// keywords
 			// ES2015
-			'@babel/plugin-transform-for-of', // transform for-of loops
-			'@babel/plugin-transform-template-literals', // `foo${bar}` -> 'foo'.concat(bar)
+			'transform-for-of', // transform for-of loops
+			'transform-template-literals', // `foo${bar}` -> 'foo'.concat(bar)
 			// ES2017
-			'@babel/plugin-transform-async-to-generator', // transform async/await to generator
+			'transform-async-to-generator', // transform async/await to generator
 			// ES2018
-			'@babel/plugin-transform-async-generator-functions', // transform async generator to normal generator
+			'transform-async-generator-functions', // transform async generator to normal generator
 			// ES2020
-			'@babel/plugin-transform-optional-chaining', // foo?.bar
+			'transform-optional-chaining', // foo?.bar
 			// operators
 			// ES2020
-			'@babel/plugin-transform-nullish-coalescing-operator', // foo ?? bar
+			'transform-nullish-coalescing-operator', // foo ?? bar
 			// ES2021
-			'@babel/plugin-transform-logical-assignment-operators', // foo ??= bar
-			'@babel/plugin-transform-numeric-separator' // 1_000 -> 1000
+			'transform-logical-assignment-operators', // foo ??= bar
+			'transform-numeric-separator' // 1_000 -> 1000
 		);
 	} else {
 		// 以下关键字无法被旧版本的 MediaWiki（< 1.39）的 JavaScript 压缩器良好支持
 		// The following keywords are not well supported by the JavaScript minifier in older versions of MediaWiki (< 1.39)
-		options.plugins.push(
+		options.presets[0]![1].include.push(
 			// keywords
 			// ES3
-			'@babel/plugin-transform-member-expression-literals', // obj.const -> obj['const']
-			'@babel/plugin-transform-property-literals', // {const: 1} -> {'const': 1}
-			'@babel/plugin-transform-reserved-words' // const abstract = 1 -> const _abstract = 1
+			'transform-member-expression-literals', // obj.const -> obj['const']
+			'transform-property-literals', // {const: 1} -> {'const': 1}
+			'transform-reserved-words' // const abstract = 1 -> const _abstract = 1
 		);
 	}
 
