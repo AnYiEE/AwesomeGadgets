@@ -369,6 +369,8 @@ const fallbackDefinition = (sourceFiles: SourceFiles): void => {
 const findSourceFile = (): SourceFiles => {
 	const sourceFiles: SourceFiles = {};
 
+	type Gadget = SourceFiles[keyof SourceFiles];
+
 	const files: Path[] = globSync(['*/*.{js,ts,css,less}', '*/definition.json', '*/LICENSE'], {
 		cwd: join(rootDir, 'src'),
 		withFileTypes: true,
@@ -394,8 +396,8 @@ const findSourceFile = (): SourceFiles => {
 			continue;
 		}
 
-		sourceFiles[gadgetName] ??= {} as SourceFiles[keyof SourceFiles];
-		const targetGadget = sourceFiles[gadgetName] as SourceFiles[keyof SourceFiles];
+		sourceFiles[gadgetName] ??= {} as Gadget;
+		const targetGadget = sourceFiles[gadgetName] as Gadget;
 
 		switch (fileName) {
 			case 'definition.json': {
@@ -489,7 +491,12 @@ const findSourceFile = (): SourceFiles => {
 	// NOTE: No need for assignment, this is object reference
 	fallbackDefinition(sourceFiles);
 
-	return sourceFiles;
+	const sourceFilesSorted: SourceFiles = {};
+	for (const gadgetName of Object.keys(sourceFiles).sort()) {
+		sourceFilesSorted[gadgetName] = sourceFiles[gadgetName] as Gadget;
+	}
+
+	return sourceFilesSorted;
 };
 
 /**
@@ -609,16 +616,18 @@ const getLicense = (name: string, license: string | undefined): string | undefin
  * @param {string[]} definitions The gadget definitions array (in the format of MediaWiki:Gadgets-definition item)
  */
 const saveDefinition = (definitions: string[]): void => {
-	const definitionObject: Record<string, typeof definitions> = {};
+	type Gadgets = typeof definitions;
+
+	const definitionObject: Record<string, Gadgets> = {};
 	for (const definition of definitions) {
 		const [, section] = definition.match(/.*?☀(\S+?)☀/) as [string, string];
 		definitionObject[section] ??= [];
-		(definitionObject[section] as string[]).push(definition.replace(/☀.*/, ''));
+		(definitionObject[section] as Gadgets).push(definition.replace(/☀.*/, ''));
 	}
 
 	const definitionObjectSorted: typeof definitionObject = {};
-	for (const key of Object.keys(definitionObject).sort()) {
-		definitionObjectSorted[key] = definitionObject[key] as string[];
+	for (const section of Object.keys(definitionObject).sort()) {
+		definitionObjectSorted[section] = definitionObject[section] as Gadgets;
 	}
 
 	let definitionText: string = '';
