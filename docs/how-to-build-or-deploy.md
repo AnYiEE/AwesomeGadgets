@@ -18,7 +18,7 @@
 
 4. 目录下可以创建`definition.json`以手动指定小工具定义（可选）<br>In the directory, you have the option to create a `definition.json` file to manually specify the gadget definition
 
-    ```json
+    ```jsonc
     {
     	// 示例 / Example
     	"actions": ["view", "edit"],
@@ -52,7 +52,7 @@
 
 4. 在`script`文件夹下新建`credentials.json`文件（多选一，取决于你的登录方式。存在多种登录凭据时，OAuth2 优先于 OAuth1.0a 优先于机器人账号密码）<br>Create a `credentials.json` file in the `script` directory (choose one based on your login method. If multiple login credentials are available, OAuth2 takes precedence over OAuth1.0a, which takes precedence over bot password)
 
-    ```json
+    ```jsonc
     {
     	"apiUrl": "https://your.wiki/api.php", // 根据实际情况修改 / Modify according to actual needs
     	"username": "", // 填入机器人账号和密码（可以在[[Special:BotPasswords]]获取）/ Enter the robot account and password (you can get it from [[Special:BotPasswords]])
@@ -60,14 +60,14 @@
     }
     ```
 
-    ```json
+    ```jsonc
     {
     	"apiUrl": "https://your.wiki/api.php", // 根据实际情况修改 / Modify according to actual needs
     	"OAuth2AccessToken": "" // 填入 OAuth2 访问密钥 / Enter the OAuth2 access token
     }
     ```
 
-    ```json
+    ```jsonc
     {
     	"apiUrl": "https://your.wiki/api.php", // 根据实际情况修改 / Modify according to actual needs
     	"OAuthCredentials": {
@@ -93,5 +93,3 @@
 5. 运行`pnpm run deploy`以检查语法、格式化代码、编译源码、并向网站部署<br>Run `pnpm run deploy` to check syntax, format code, compile the source code, and deploy to the website
 
 > 请网站维护者注意：在 Fork 本仓库后，本仓库的 Actions 将自动同步上游变更。这意味着在一般情况下，不需要改动除了`src`文件夹和`scripts/constant.ts`之外的东西，以免发生合并冲突。<br>Please note that the Actions of this repository will automatically sync upstream changes. This means that in general, there is no need to modify anything except the `src` directory and `scripts/constant.ts` to avoid merge conflicts.
->
-> 建议网站维护者只接受 Pull request，以便 Actions 自动检查并指出代码语法和格式的错误。如果检查未能通过，也不应修改本仓库的相关规则。未通过意味着代码本身存在问题，而不应该将问题归咎于严格的规则。<br>It is recommended for website maintainers to only accept pull requests, so that the Actions can automatically check and report syntax and formatting errors. If a check fails, it should not result in modifying the relevant rules of this repository. A failure indicates an issue with the code itself and should not be attributed to strict rules.
