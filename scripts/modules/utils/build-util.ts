@@ -561,11 +561,20 @@ const generateDefinitionItem = (
 				break;
 			case 'object':
 				if (isArray) {
-					definitionText += `${key}=${(value as []).join(',')}|`;
+					const valueFiltered: string = (value as [])
+						.filter((item: string): boolean => {
+							return ['boolean', 'number', 'string'].includes(typeof item) && !!item.toString();
+						})
+						.join(',');
+					if (valueFiltered) {
+						definitionText += `${key}=${valueFiltered}|`;
+					}
 				}
 				break;
 			case 'string':
-				definitionText += `${key}=${value}|`;
+				if (value) {
+					definitionText += `${key}=${value}|`;
+				}
 				break;
 		}
 	}
