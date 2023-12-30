@@ -24,10 +24,11 @@
     	"actions": ["view", "edit"],
     	"contentModels": ["wikitext"],
     	"dependencies": ["mediawiki.util"],
-    	"namespaces": [0], // or false
+    	"namespaces": [0],
     	"peers": ["peers"],
     	"rights": ["rollback"],
     	"skins": ["vector"]
+    	// 空数组（`[]`或`[""]`）等同于未作设置 / An empty array (`[]` or `[""]`) is equivalent to not setting the corresponding key
     }
     ```
 

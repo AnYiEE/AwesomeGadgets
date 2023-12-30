@@ -37,7 +37,7 @@ const DEFAULT_DEFINITION = {
 	default: false,
 	dependencies: [],
 	hidden: false,
-	namespaces: false,
+	namespaces: [],
 	peers: [],
 	rights: [],
 	skins: [],
