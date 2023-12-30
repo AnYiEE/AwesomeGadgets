@@ -102,19 +102,19 @@ const build = async (inputFilePath: string, outputFilePath: string, dependencies
 
 /**
  * @private
- * @param {string} inputFilePath
+ * @param {string} outputFilePath
  * @param {string} code
  * @param {Dependencies} dependencies
  * @return {Promise<string>}
  */
-const bundle = async (inputFilePath: string, code: string, dependencies: Dependencies): Promise<string> => {
+const bundle = async (outputFilePath: string, code: string, dependencies: Dependencies): Promise<string> => {
 	const buildResult: BuildResult = await esbuild({
 		...esbuildOptions,
 		external: dependencies,
 		stdin: {
 			contents: code,
 			resolveDir: rootDir,
-			sourcefile: inputFilePath,
+			sourcefile: outputFilePath,
 		},
 		target: GLOBAL_REQUIRES_ES6 ? 'esnext' : 'es5',
 	});
@@ -232,7 +232,7 @@ const buildScript = async (
 
 	const buildOutput: string = await build(inputFilePath, outputFilePath, dependencies);
 	const transformOutput: string = await transform(inputFilePath, buildOutput);
-	const bundleOutput: string = await bundle(inputFilePath, transformOutput, dependencies);
+	const bundleOutput: string = await bundle(outputFilePath, transformOutput, dependencies);
 
 	writeFile(bundleOutput, outputFilePath, {
 		licenseText,
