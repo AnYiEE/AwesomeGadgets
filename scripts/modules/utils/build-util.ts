@@ -408,11 +408,10 @@ const findSourceFile = (): SourceFiles => {
 			case 'definition.json': {
 				const definitionFilePath: string = join(rootDir, `src/${gadgetName}/definition.json`);
 				const definitionJsonText: string = readFileSync(definitionFilePath).toString();
-				let definition: DefaultDefinition;
+				let definition: DefaultDefinition = DEFAULT_DEFINITION;
 				try {
 					definition = JSON.parse(definitionJsonText) as DefaultDefinition;
 				} catch {
-					definition = DEFAULT_DEFINITION;
 					console.log(
 						chalk.yellow(
 							`${chalk.italic('definition.json')} of ${chalk.bold(

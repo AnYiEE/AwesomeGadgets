@@ -29,6 +29,8 @@ const deployPages: string[] = [];
 const generateTargets = (definitions: string[]): DeploymentTargets => {
 	const targets: DeploymentTargets = {};
 
+	type Target = DeploymentTargets[keyof DeploymentTargets];
+
 	for (const definition of definitions) {
 		const [_, name, files, description] = definition.match(/^\*\s(\S+?)\[\S+?]\|(\S+?)☀\S*?☀(.+?)$/) as [
 			string,
@@ -37,8 +39,8 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
 			string,
 		];
 
-		targets[name] = {} as DeploymentTargets[keyof DeploymentTargets];
-		(targets[name] as DeploymentTargets[keyof DeploymentTargets]).files = files
+		targets[name] = {} as Target;
+		(targets[name] as Target).files = files
 			.split('|')
 			.filter((file: string): boolean => {
 				return !!file;
@@ -46,7 +48,7 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
 			.map((file: string): string => {
 				return file.replace(/\S+?❄/, '');
 			});
-		(targets[name] as DeploymentTargets[keyof DeploymentTargets]).description = description || name;
+		(targets[name] as Target).description = description || name;
 	}
 
 	return targets;
@@ -57,7 +59,7 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
  *
  * @param {Record<string, unknown>} config To be completed configuration
  * @param {boolean} [checkApiUrlOnly=false] Only check `config.apiUrl` is empty or not
- * @return {Promise<{apiUrl:string; username:string; password:string}>} Completed configuration
+ * @return {Promise<CredentialsOnlyPassword>} Completed configuration
  */
 const checkConfig = async (
 	config: Partial<CredentialsOnlyPassword>,
@@ -85,26 +87,37 @@ const checkConfig = async (
  * @return {Partial<Credentials>} The result of parsing the credentials.json file
  */
 const loadConfig = (): Partial<Credentials> => {
+	const logError = (reason: string): void => {
+		console.log(
+			chalk.yellow(`${chalk.italic('credentials.json')} is ${reason}, credentials must be provided manually.`)
+		);
+	};
+
 	let credentialsJsonText: string = '{}';
 	try {
 		const credentialsFilePath: string = join(rootDir, 'scripts/credentials.json');
 		const fileBuffer: Buffer = readFileSync(credentialsFilePath);
 		credentialsJsonText = fileBuffer.toString();
 	} catch {
-		console.log(
-			chalk.yellow(`${chalk.italic('credentials.json')} is missing, credentials must be provided manually.`)
-		);
+		logError('missing');
 	}
 
-	return JSON.parse(credentialsJsonText) as ReturnType<typeof loadConfig>;
+	let credentials: Partial<Credentials> = {};
+	try {
+		credentials = JSON.parse(credentialsJsonText) as Partial<Credentials>;
+	} catch {
+		logError('broken');
+	}
+
+	return credentials;
 };
 
 /**
  * Make editing summary
  *
- * @param {string} name The gadget name
- * @param {string} fallbackEditSummary The fallback editing summary
- * @param {boolean} isStyle Whether the file is a style sheet
+ * @param {string} [name] The gadget name
+ * @param {string} [fallbackEditSummary] The fallback editing summary
+ * @param {boolean} [isStyle=false] Whether the file is a style sheet
  * @return {Promise<string>} The editing summary
  */
 const makeEditSummary = async (
@@ -239,7 +252,7 @@ const convertVariant = (pageTitle: string, content: string, {api, queue}: ApiQue
 		const parsedHtml: string = await api.parseWikitext(
 			`{{NoteTA|G1=IT|G2=MediaWiki}}<div class="convertVariant">${content}</div>`,
 			{
-				prop: 'text',
+				prop: ['text'],
 				uselang: variant,
 			}
 		);
@@ -388,7 +401,7 @@ const saveDescription = (name: string, description: string, apiQueue: ApiQueue, 
  * @param {string} name The gadget name
  * @param {string} file The target file name
  * @param {string} fileContent The target file content
- * @param {ApiQueue} api The api instance and the deployment queue
+ * @param {ApiQueue} object The api instance and the deployment queue
  * @param {string} editSummary The editing summary used by the api instance
  */
 const saveFiles = (
