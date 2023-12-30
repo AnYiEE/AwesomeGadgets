@@ -47,8 +47,8 @@ const writeFile = (
 		case 'application/javascript': {
 			const strictMode = '"use strict";' satisfies string;
 			fileContent = `${trim(licenseText)}${trim(HEADER)}/* <nowiki> */\n\n${
-				// Always invoke strict mode after esbuild bundling, but Bebel may have added it
-				sourceCode.includes(strictMode) ? '' : `${strictMode}\n\n`
+				// Always invoke strict mode after esbuild bundling
+				sourceCode.trim().startsWith(strictMode) ?? sourceCode.includes(strictMode) ? '' : `${strictMode}\n\n`
 			}${trim(sourceCode)}\n/* </nowiki> */\n`;
 			break;
 		}
