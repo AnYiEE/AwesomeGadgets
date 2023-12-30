@@ -139,7 +139,11 @@ const plugin = declare((api: BabelAPI) => {
 		compatData,
 		new Set(),
 		new Set(),
-		(api as unknown as {targets: () => Record<string, string>}).targets()
+		(
+			api as unknown as {
+				targets: () => Record<string, string>;
+			}
+		).targets()
 	);
 
 	return {

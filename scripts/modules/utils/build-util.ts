@@ -13,7 +13,7 @@ import {
 	readFileSync,
 	writeFileSync,
 } from 'node:fs';
-import {dirname, join} from 'node:path';
+import {dirname, extname, join} from 'node:path';
 import {getRootDir, trim} from './general-util';
 import type PQueue from 'p-queue';
 import chalk from 'chalk';
@@ -49,7 +49,10 @@ const writeFile = (
 			fileContent = `${trim(licenseText)}${trim(HEADER)}/* <nowiki> */\n\n${
 				// Always invoke strict mode after esbuild bundling
 				sourceCode.trim().startsWith(strictMode) ?? sourceCode.includes(strictMode) ? '' : `${strictMode}\n\n`
-			}${GLOBAL_REQUIRES_ES6 ? '(() => {' : '(function () {'}\n\n${trim(sourceCode)}\n})();\n\n/* </nowiki> */\n`;
+			}${
+				// Always wrap the code in an IIFE to avoid variable and method leakage into the global scope
+				GLOBAL_REQUIRES_ES6 ? '(() => {' : '(function () {'
+			}\n\n${trim(sourceCode)}\n})();\n\n/* </nowiki> */\n`;
 			break;
 		}
 		case 'text/css':
@@ -151,10 +154,12 @@ const generateTransformOptions = (): typeof options => {
 		],
 	} as const satisfies TransformOptions;
 
+	type Parset = (typeof options.presets)[0];
+
 	if (GLOBAL_REQUIRES_ES6) {
 		// 以下关键字和运算符无法被 MediaWiki（>= 1.39）的 JavaScript 压缩器良好支持，即使设置了 requiresES6 标识
 		// The following keywords and operators are not well supported by MediaWiki's (>= 1.39) JavaScript minifier, even if the `requiresES6` flag is true
-		options.presets[0]![1].include.push(
+		(options.presets[0] as Parset)[1].include.push(
 			// keywords
 			// ES2015
 			'transform-for-of', // transform for-of loops
@@ -175,7 +180,7 @@ const generateTransformOptions = (): typeof options => {
 	} else {
 		// 以下关键字无法被旧版本的 MediaWiki（< 1.39）的 JavaScript 压缩器良好支持
 		// The following keywords are not well supported by the JavaScript minifier in older versions of MediaWiki (< 1.39)
-		options.presets[0]![1].include.push(
+		(options.presets[0] as Parset)[1].include.push(
 			// keywords
 			// ES3
 			'transform-member-expression-literals', // obj.const -> obj['const']
@@ -211,8 +216,8 @@ const transform = async (inputFilePath: string, code: string): Promise<string> =
 
 /**
  * @private
- * @param {string} name The gadget name
- * @param {string} script The script file name of this gadget
+ * @param {string} name
+ * @param {string} script
  * @param {{dependencies:Dependencies; licenseText:string|undefined}} object
  */
 const buildScript = async (
@@ -348,6 +353,22 @@ const fallbackDefinition = (sourceFiles: SourceFiles): void => {
 };
 
 /**
+ * @private
+ * @param {SourceFiles} sourceFiles
+ */
+const filterOutInvalidDependencies = (sourceFiles: SourceFiles): void => {
+	for (const [_gadgetName, gadgetFiles] of Object.entries(sourceFiles)) {
+		const {
+			definition: {dependencies},
+		} = gadgetFiles;
+
+		gadgetFiles.definition.dependencies = dependencies.filter((dependency: string): boolean => {
+			return typeof dependency === 'string' && !!dependency;
+		});
+	}
+};
+
+/**
  * @return {SourceFiles} An object used to describe source files
  */
 const findSourceFile = (): SourceFiles => {
@@ -361,13 +382,13 @@ const findSourceFile = (): SourceFiles => {
 	});
 
 	for (const file of files) {
-		const fileName: string = file.name;
+		const {name: fileName} = file;
 		if (fileName.endsWith('.d.ts')) {
 			// Skip typescript declaration files, no need when compiling
 			continue;
 		}
 
-		const gadgetName: string = file.parent!.name; // The parent folder name of the file
+		const {name: gadgetName} = file.parent as NonNullable<typeof file.parent>; // The parent folder name of the file
 		if (!/^[A-Za-z][A-Za-z0-9\-_.]*$/.test(gadgetName)) {
 			/**
 			 * @summary Skip folder names that contain illegal characters not supported by the Gadget extension
@@ -460,35 +481,34 @@ const findSourceFile = (): SourceFiles => {
 				break;
 		}
 
+		const fileExt: string = extname(fileName);
+		const removeFiles = (currentFiles: string[], ext: string): string[] => {
+			return [
+				...new Set(
+					currentFiles.filter((currentFile: string): boolean => {
+						return currentFile !== fileName.replace(new RegExp(`\\${fileExt}$`), ext);
+					})
+				),
+			];
+		};
+
 		targetGadget.scripts ??= [];
-		if (fileName.endsWith('.js') || fileName.endsWith('.ts')) {
+		if (['.js', '.ts'].includes(fileExt)) {
 			const {scripts} = targetGadget;
 			scripts.push(fileName);
 			// If there are files with the same name in both JavaScript and TypeScript, only retain the TypeScript file
-			if (fileName.endsWith('.ts')) {
-				targetGadget.scripts = [
-					...new Set(
-						scripts.filter((scriptFileName: string): boolean => {
-							return scriptFileName !== fileName.replace(/\.ts$/, '.js');
-						})
-					),
-				];
+			if (fileExt === '.ts') {
+				targetGadget.scripts = removeFiles(scripts, '.js');
 			}
 		}
 
 		targetGadget.styles ??= [];
-		if (fileName.endsWith('.css') || fileName.endsWith('.less')) {
+		if (['.css', '.less'].includes(fileExt)) {
 			const {styles} = targetGadget;
 			styles.push(fileName);
 			// If there are files with the same name in both CSS and Less, only retain the Less file
-			if (fileName.endsWith('.less')) {
-				targetGadget.styles = [
-					...new Set(
-						styles.filter((style: string): boolean => {
-							return style !== fileName.replace(/\.less$/, '.css');
-						})
-					),
-				];
+			if (fileExt === '.less') {
+				targetGadget.styles = removeFiles(styles, '.css');
 			}
 		}
 	}
@@ -496,6 +516,9 @@ const findSourceFile = (): SourceFiles => {
 	// After completing the loop, if `targetGadget.definition` is undefined, utilize the default definition
 	// NOTE: No need for assignment, this is object reference
 	fallbackDefinition(sourceFiles);
+
+	// Filter out invalid dependencies, only allow non-empty string
+	filterOutInvalidDependencies(sourceFiles);
 
 	const sourceFilesSorted: SourceFiles = {};
 	for (const gadgetName of Object.keys(sourceFiles).sort()) {
@@ -525,7 +548,17 @@ const generateDefinitionItem = (
 
 		const isArray: boolean = Array.isArray(value);
 		if (
-			['description', 'section'].includes(key) ||
+			[
+				// Keys for internal use
+				'description',
+				'section',
+				// Keys that no need to be specified
+				'package',
+				'requiresES6',
+				'targets',
+				'top',
+				'type',
+			].includes(key) ||
 			[false, undefined].includes(value as boolean | undefined) ||
 			(isArray && !(value as []).length)
 		) {
@@ -541,7 +574,7 @@ const generateDefinitionItem = (
 			case 'object':
 				if (isArray) {
 					const valueFiltered: string = (value as [])
-						.filter((item: string): boolean => {
+						.filter((item: keyof []): boolean => {
 							return ['boolean', 'number', 'string'].includes(typeof item) && !!item.toString();
 						})
 						.join(',');
