@@ -49,7 +49,7 @@ const writeFile = (
 			fileContent = `${trim(licenseText)}${trim(HEADER)}/* <nowiki> */\n\n${
 				// Always invoke strict mode after esbuild bundling
 				sourceCode.trim().startsWith(strictMode) ?? sourceCode.includes(strictMode) ? '' : `${strictMode}\n\n`
-			}${trim(sourceCode)}\n/* </nowiki> */\n`;
+			}${GLOBAL_REQUIRES_ES6 ? '(() => {' : '(function () {'}\n\n${trim(sourceCode)}\n})();\n\n/* </nowiki> */\n`;
 			break;
 		}
 		case 'text/css':
