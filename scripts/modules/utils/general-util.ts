@@ -19,11 +19,18 @@ const getRootDir = (): string => {
  *
  * @param {string} message The message to be displayed to the user
  * @param {PromptType} [type='text'] Defines the type of prompt to display
- * @param {string} [initial=''] Optional default prompt value
- * @return {Promise<string>}
+ * @param {boolean|string} [initial=''] Optional default prompt value
+ * @return {Promise<boolean|string>}
  * @see {@link https://www.npmjs.com/package/prompts}
  */
-const prompt = async (message: string, type: PromptType = 'text', initial: boolean | string = ''): Promise<string> => {
+async function prompt(message: string, type?: Exclude<PromptType, 'confirm'>, initial?: string): Promise<string>;
+async function prompt(message: string, type: 'confirm', initial?: boolean): Promise<boolean>;
+// eslint-disable-next-line func-style
+async function prompt(
+	message: string,
+	type: PromptType = 'text',
+	initial: boolean | string = ''
+): Promise<boolean | string> {
 	const name: string = Math.random().toString();
 	const answers: Answers<string> = await prompts({
 		initial,
@@ -32,15 +39,15 @@ const prompt = async (message: string, type: PromptType = 'text', initial: boole
 		type,
 	});
 
-	const answer: string | undefined = answers[name] as string | undefined;
-	if (answer === undefined || (type === 'confirm' && !answer)) {
+	const answer = answers[name] as boolean | string | undefined;
+	if (answer === undefined || (type === 'confirm' && (!answer as boolean))) {
 		// User pressed [ctrl + C] or not confirmed
 		console.log(chalk.red('Input cancelled, program terminated.'));
 		exit(1);
 	}
 
 	return answer;
-};
+}
 
 /**
  * Trim and generate a string ending with a newline character
