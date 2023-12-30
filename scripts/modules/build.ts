@@ -38,7 +38,6 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 				licenseText,
 				dependencies: definition.dependencies,
 				files: scriptFileArray,
-				isPackage: definition.package,
 				queue: buildQueue,
 			});
 		}

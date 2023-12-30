@@ -86,24 +86,13 @@ const getBuildResult = (buildResult: BuildResult): string => {
  * @private
  * @param {string} inputFilePath
  * @param {string} outputFilePath
- * @param {{dependencies?:Dependencies; isPackage:boolean}} [object]
+ * @param {Dependencies} [dependencies]
  * @return {Promise<string>}
  */
-const build = async (
-	inputFilePath: string,
-	outputFilePath: string,
-	{
-		dependencies,
-		isPackage,
-	}: {
-		dependencies?: Dependencies;
-		isPackage?: boolean;
-	} = {}
-): Promise<string> => {
+const build = async (inputFilePath: string, outputFilePath: string, dependencies?: Dependencies): Promise<string> => {
 	const buildResult: BuildResult = await esbuild({
 		...esbuildOptions,
 		external: dependencies ?? [],
-		format: isPackage ? 'cjs' : 'iife',
 		entryPoints: [inputFilePath],
 		outfile: outputFilePath,
 	});
@@ -122,7 +111,6 @@ const bundle = async (inputFilePath: string, code: string, dependencies: Depende
 	const buildResult: BuildResult = await esbuild({
 		...esbuildOptions,
 		external: dependencies,
-		format: 'cjs',
 		stdin: {
 			contents: code,
 			resolveDir: rootDir,
@@ -136,10 +124,9 @@ const bundle = async (inputFilePath: string, code: string, dependencies: Depende
 
 /**
  * @private
- * @param {boolean} isPackage
  * @return {TransformOptions}
  */
-const generateTransformOptions = (isPackage: boolean): typeof options => {
+const generateTransformOptions = (): typeof options => {
 	const options = {
 		presets: [
 			[
@@ -151,7 +138,7 @@ const generateTransformOptions = (isPackage: boolean): typeof options => {
 					},
 					exclude: ['web.dom-collections.for-each', 'web.dom-collections.iterator'],
 					include: [] as string[],
-					modules: isPackage ? 'commonjs' : false,
+					modules: 'commonjs',
 					useBuiltIns: 'usage',
 				},
 			],
@@ -202,14 +189,16 @@ const generateTransformOptions = (isPackage: boolean): typeof options => {
 
 /**
  * @private
+ */
+const transformOptions = generateTransformOptions();
+
+/**
+ * @private
  * @param {string} inputFilePath
  * @param {string} code
- * @param {boolean} isPackage
  * @return {Promise<string>}
  */
-const transform = async (inputFilePath: string, code: string, isPackage: boolean): Promise<string> => {
-	const transformOptions = generateTransformOptions(isPackage);
-
+const transform = async (inputFilePath: string, code: string): Promise<string> => {
 	const babelFileResult: BabelFileResult = (await transformAsync(code, {
 		...transformOptions,
 		cwd: rootDir,
@@ -224,18 +213,16 @@ const transform = async (inputFilePath: string, code: string, isPackage: boolean
  * @private
  * @param {string} name The gadget name
  * @param {string} script The script file name of this gadget
- * @param {{dependencies:Dependencies; isPackage:boolean; licenseText:string|undefined}} object
+ * @param {{dependencies:Dependencies; licenseText:string|undefined}} object
  */
 const buildScript = async (
 	name: string,
 	script: string,
 	{
 		dependencies,
-		isPackage,
 		licenseText,
 	}: {
 		dependencies: Dependencies;
-		isPackage: boolean;
 		licenseText: string | undefined;
 	}
 ): Promise<void> => {
@@ -243,11 +230,8 @@ const buildScript = async (
 	// The TypeScript file is always compiled into a JavaScript file, so replace the extension directly
 	const outputFilePath: string = join(rootDir, `dist/${name}/${script.replace(/\.ts$/, '.js')}`);
 
-	const buildOutput: string = await build(inputFilePath, outputFilePath, {
-		dependencies,
-		isPackage,
-	});
-	const transformOutput: string = await transform(inputFilePath, buildOutput, isPackage);
+	const buildOutput: string = await build(inputFilePath, outputFilePath, dependencies);
+	const transformOutput: string = await transform(inputFilePath, buildOutput);
 	const bundleOutput: string = await bundle(inputFilePath, transformOutput, dependencies);
 
 	writeFile(bundleOutput, outputFilePath, {
@@ -278,7 +262,7 @@ const buildStyle = async (name: string, style: string, licenseText: string | und
 /**
  * @param {string} name The gadget name
  * @param {'script'|'style'} type The type of target files
- * @param {{dependencies?:Dependencies; files:string[]; isPackage?:boolean; licenseText:string|undefined; queue:PQueue}} object The dependencies of this gadget, the array of file name for this gadget, the flag of packaged gadget, the license file content of this gadget and the build queue
+ * @param {{dependencies?:Dependencies; files:string[]; licenseText:string|undefined; queue:PQueue}} object The dependencies of this gadget, the array of file name for this gadget, the flag of packaged gadget, the license file content of this gadget and the build queue
  */
 function buildFiles(
 	name: string,
@@ -286,13 +270,11 @@ function buildFiles(
 	{
 		dependencies,
 		files,
-		isPackage,
 		licenseText,
 		queue,
 	}: {
 		dependencies: Dependencies;
 		files: string[];
-		isPackage: boolean;
 		licenseText: string | undefined;
 		queue: PQueue;
 	}
@@ -317,23 +299,20 @@ function buildFiles(
 	{
 		dependencies,
 		files,
-		isPackage,
 		licenseText,
 		queue,
 	}: {
 		dependencies?: Dependencies;
 		files: string[];
-		isPackage?: boolean;
 		licenseText: string | undefined;
 		queue: PQueue;
 	}
 ): void {
 	for (const file of files) {
 		void queue.add(async (): Promise<void> => {
-			if (type === 'script' && dependencies && isPackage !== undefined) {
+			if (type === 'script' && dependencies) {
 				await buildScript(name, file, {
 					dependencies,
-					isPackage,
 					licenseText,
 				});
 			} else {

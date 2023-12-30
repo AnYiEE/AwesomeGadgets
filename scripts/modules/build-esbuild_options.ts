@@ -27,6 +27,7 @@ const esbuildOptions = {
 	loader,
 	bundle: true,
 	charset: 'utf8',
+	format: 'cjs',
 	legalComments: 'inline',
 	plugins: [
 		postcss(),
