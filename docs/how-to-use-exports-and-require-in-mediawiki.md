@@ -6,15 +6,7 @@
 
 在本仓库中使用`module.exports`，你需要<br>To use `module.exports` in this repository, you need to
 
-1. 确保目标 MediaWiki 的版本至少为 1.38<br>Ensure that the target MediaWiki version is at least 1.38
-2. 在小工具对应的`definition.json`中，添加如下属性<br>In the corresponding `definition.json` of the gadget, add the following properties
-
-```jsonc
-{
-	"package": true
-	// Other properties...
-}
-```
+首先，确保目标 MediaWiki 的版本至少为 1.38<br>Ensure that the target MediaWiki version is at least 1.38
 
 然后，如果需要让仓库中的其他小工具使用导出的变量和方法，则应该在小工具的`types.d.ts`中声明相关类型，如：<br>Then, if you need other gadgets in this repository to use the exported variables and methods, you should declare the relevant types in the gadget's `types.d.ts`, for example:
 
@@ -43,7 +35,7 @@ export {func};
 
 ```jsonc
 {
-	"dependencies": ["@wikimedia/codex", "ext.gadget.any_package]
+	"dependencies": ["@wikimedia/codex", "ext.gadget.any_package"]
 	// Other properties...
 }
 ```

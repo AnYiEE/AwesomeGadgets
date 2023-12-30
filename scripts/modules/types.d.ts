@@ -39,7 +39,6 @@ interface DefaultDefinition {
 	dependencies: string[];
 	hidden: boolean;
 	namespaces: false | number[];
-	package: boolean;
 	peers: string[];
 	rights: string[];
 	skins: string[];

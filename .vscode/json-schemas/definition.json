@@ -64,10 +64,6 @@
 				}
 			]
 		},
-		"package": {
-			"type": "boolean",
-			"default": false
-		},
 		"peers": {
 			"type": "array",
 			"default": [],

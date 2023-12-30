@@ -25,7 +25,6 @@
     	"contentModels": ["wikitext"],
     	"dependencies": ["mediawiki.util"],
     	"namespaces": [0], // or false
-    	"package": false,
     	"peers": ["peers"],
     	"rights": ["rollback"],
     	"skins": ["vector"]
