@@ -182,11 +182,11 @@ const makeEditSummary = async (
 	} catch {}
 
 	const customSummary: string = await prompt('> Custom editing summary message (optional):');
-	const editSummary: string = trim(customSummary, {
+	const customSummaryTrimmed: string = trim(customSummary, {
 		addNewline: false,
-	})
-		? customSummary
-		: `${sha ? `Git commit ${sha}: ` : ''}${summary}`;
+	});
+	// If trimmed input is an empty string, use the message from the last git commit
+	const editSummary: string = customSummaryTrimmed || `${sha ? `Git commit ${sha}: ` : ''}${summary}`;
 	console.log(chalk.white(`Editing summary is: ${chalk.bold(editSummary)}`));
 
 	await prompt('> Confirm to continue deployment?', 'confirm', true);
