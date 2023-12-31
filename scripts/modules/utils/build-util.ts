@@ -553,7 +553,6 @@ const generateDefinitionItem = (
 				'section',
 				// Keys that no need to be specified
 				'package',
-				'requiresES6',
 				'targets',
 				'top',
 				'type',
