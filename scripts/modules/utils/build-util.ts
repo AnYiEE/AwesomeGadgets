@@ -363,7 +363,7 @@ const filterOutInvalidDependencies = (sourceFiles: SourceFiles): void => {
 		} = gadgetFiles;
 
 		gadgetFiles.definition.dependencies = dependencies.filter((dependency: string): boolean => {
-			return typeof dependency === 'string' && !!dependency;
+			return typeof dependency === 'string' && !!dependency.trim();
 		});
 	}
 };
@@ -573,7 +573,7 @@ const generateDefinitionItem = (
 				if (isArray) {
 					const valueFiltered: string = (value as [])
 						.filter((item: keyof []): boolean => {
-							return ['boolean', 'number', 'string'].includes(typeof item) && !!item.toString();
+							return ['boolean', 'number', 'string'].includes(typeof item) && !!item.toString().trim();
 						})
 						.join(',');
 					if (valueFiltered) {
@@ -581,11 +581,13 @@ const generateDefinitionItem = (
 					}
 				}
 				break;
-			case 'string':
-				if (value) {
-					definitionText += `${key}=${value}|`;
+			case 'string': {
+				const valueTrimmed: string = value.trim();
+				if (valueTrimmed) {
+					definitionText += `${key}=${valueTrimmed}|`;
 				}
 				break;
+			}
 		}
 	}
 
