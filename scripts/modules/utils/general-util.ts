@@ -76,7 +76,8 @@ const trim = (
 	}
 
 	if (stripControlCharacters) {
-		stringTrimmed = stringTrimmed.replace(/\u001Bc*\[*[0-9]*[ABCDEFGHJKSU];*[0-9]*/gi, '');
+		// Strip control characters other than HT (\t) and LF (\n)
+		stringTrimmed = stringTrimmed.replace(/[\x00-\x08\x0B-\x1F\x7F-\x9F]/g, '');
 	}
 	if (!stringTrimmed) {
 		return addNewline ? '\n' : '';
