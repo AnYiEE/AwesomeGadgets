@@ -1,7 +1,7 @@
 import type {ApiQueue, Credentials, CredentialsOnlyPassword, DeploymentTargets} from '../types';
 import {CONVERT_VARIANT, DEFINITION_SECTION_MAP} from '../../constant';
 import {closeSync, existsSync, fdatasyncSync, open, readFileSync, writeFileSync} from 'node:fs';
-import {getRootDir, prompt} from './general-util';
+import {getRootDir, prompt, trim} from './general-util';
 import {type ApiEditResponse} from 'mwn';
 import {MwnError} from 'mwn/build/error';
 import {Window} from 'happy-dom';
@@ -182,7 +182,11 @@ const makeEditSummary = async (
 	} catch {}
 
 	const customSummary: string = await prompt('> Custom editing summary message (optional):');
-	const editSummary: string = customSummary.trim() ? customSummary : `${sha ? `Git commit ${sha}: ` : ''}${summary}`;
+	const editSummary: string = trim(customSummary, {
+		addNewline: false,
+	})
+		? customSummary
+		: `${sha ? `Git commit ${sha}: ` : ''}${summary}`;
 	console.log(chalk.white(`Editing summary is: ${chalk.bold(editSummary)}`));
 
 	await prompt('> Confirm to continue deployment?', 'confirm', true);

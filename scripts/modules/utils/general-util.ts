@@ -50,15 +50,43 @@ async function prompt(
 }
 
 /**
- * Trim and generate a string ending with a newline character
+ * Trim and generate a string, with the option to keep a line break and keep/strip control characters
  *
  * @param {string|undefined} string
+ * @param {{addNewline?:boolean; stripControlCharacters?:boolean}} [object]
  * @return {string}
  */
-const trim = (string: string | undefined): string => {
-	const stringTrim: string = (string ?? '').trim();
+const trim = (
+	string: string | undefined,
+	{
+		addNewline = true,
+		stripControlCharacters = true,
+	}: {
+		addNewline?: boolean;
+		stripControlCharacters?: boolean;
+	} = {}
+): string => {
+	if (string === undefined) {
+		return '';
+	}
 
-	return stringTrim ? `${stringTrim}\n` : '';
+	let stringTrimmed: string = string.trim();
+	if (!stringTrimmed) {
+		return addNewline ? '\n' : '';
+	}
+
+	if (stripControlCharacters) {
+		stringTrimmed = stringTrimmed.replace(/\u001Bc*\[*[0-9]*[ABCDEFGHJKSU];*[0-9]*/gi, '');
+	}
+	if (!stringTrimmed) {
+		return addNewline ? '\n' : '';
+	}
+
+	if (addNewline) {
+		stringTrimmed += '\n';
+	}
+
+	return stringTrimmed;
 };
 
 export {getRootDir, prompt, trim};

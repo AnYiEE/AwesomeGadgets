@@ -42,21 +42,26 @@ const writeFile = (
 		licenseText?: string | undefined;
 	} = {}
 ): void => {
+	licenseText = licenseText ? trim(licenseText) : '';
+	sourceCode = trim(sourceCode, {
+		stripControlCharacters: false,
+	});
+
 	let fileContent: string = '';
 	switch (contentType) {
 		case 'application/javascript': {
 			const strictMode = '"use strict";' satisfies string;
-			fileContent = `${trim(licenseText)}${trim(HEADER)}/* <nowiki> */\n\n${
+			fileContent = `${licenseText}${trim(HEADER)}/* <nowiki> */\n\n${
 				// Always invoke strict mode after esbuild bundling
-				sourceCode.trim().startsWith(strictMode) ?? sourceCode.includes(strictMode) ? '' : `${strictMode}\n\n`
+				sourceCode.startsWith(strictMode) ?? sourceCode.includes(strictMode) ? '' : `${strictMode}\n\n`
 			}${
 				// Always wrap the code in an IIFE to avoid variable and method leakage into the global scope
 				GLOBAL_REQUIRES_ES6 ? '(() => {' : '(function () {'
-			}\n\n${trim(sourceCode)}\n})();\n\n/* </nowiki> */\n`;
+			}\n\n${sourceCode}\n})();\n\n/* </nowiki> */\n`;
 			break;
 		}
 		case 'text/css':
-			fileContent = `${trim(licenseText)}${trim(HEADER)}/* <nowiki> */\n\n${trim(sourceCode)}\n/* </nowiki> */\n`;
+			fileContent = `${trim(licenseText)}${trim(HEADER)}/* <nowiki> */\n\n${sourceCode}\n/* </nowiki> */\n`;
 			break;
 		default:
 			fileContent = sourceCode;
@@ -362,9 +367,15 @@ const filterOutInvalidDependencies = (sourceFiles: SourceFiles): void => {
 			definition: {dependencies},
 		} = gadgetFiles;
 
-		gadgetFiles.definition.dependencies = dependencies.filter((dependency: string): boolean => {
-			return typeof dependency === 'string' && !!dependency.trim();
-		});
+		gadgetFiles.definition.dependencies = dependencies
+			.filter((dependency: string): boolean => {
+				return typeof dependency === 'string' && !!dependency.trim();
+			})
+			.map((dependency: string): string => {
+				return trim(dependency, {
+					addNewline: false,
+				});
+			});
 	}
 };
 
@@ -575,6 +586,14 @@ const generateDefinitionItem = (
 						.filter((item: keyof []): boolean => {
 							return ['boolean', 'number', 'string'].includes(typeof item) && !!item.toString().trim();
 						})
+						.map(<T extends 'boolean' | 'number' | 'string'>(item: T): T => {
+							if (typeof item === 'string') {
+								return trim(item, {
+									addNewline: false,
+								}) as T;
+							}
+							return item;
+						})
 						.join(',');
 					if (valueFiltered) {
 						definitionText += `${key}=${valueFiltered}|`;
@@ -582,7 +601,9 @@ const generateDefinitionItem = (
 				}
 				break;
 			case 'string': {
-				const valueTrimmed: string = value.trim();
+				const valueTrimmed: string = trim(value, {
+					addNewline: false,
+				});
 				if (valueTrimmed) {
 					definitionText += `${key}=${valueTrimmed}|`;
 				}
@@ -594,7 +615,9 @@ const generateDefinitionItem = (
 	definitionText = definitionText.replace(/\|$/, '');
 
 	const cleanInvalidCharacters = (text: string): string => {
-		return text.replace(/☀|❀/g, '').trim();
+		return trim(text.replace(/☀|❀/g, ''), {
+			addNewline: false,
+		});
 	};
 
 	let descriptionText: string = cleanInvalidCharacters(definition.description);
@@ -656,7 +679,7 @@ const getLicense = (name: string, license: string | undefined): string | undefin
 	const fileBuffer: Buffer = readFileSync(licenseFilePath);
 	const fileContent: string = fileBuffer.toString();
 
-	return fileContent.trim() ? `${fileContent}\n` : undefined;
+	return fileContent.trim() ? fileContent : undefined;
 };
 
 /**
