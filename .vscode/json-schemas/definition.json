@@ -49,20 +49,11 @@
 			"default": false
 		},
 		"namespaces": {
-			"title": "加载当前小工具的命名空间，值为 false 时等同于未作设置 / The namespace to load the current gadget, set to `false` to be the same as not setting",
-			"default": false,
-			"anyOf": [
-				{
-					"type": "array",
-					"items": {
-						"type": "number"
-					}
-				},
-				{
-					"type": "boolean",
-					"enum": [false]
-				}
-			]
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "number"
+			}
 		},
 		"peers": {
 			"type": "array",

@@ -15,14 +15,24 @@ import {
 import {Mwn} from 'mwn';
 import PQueue from 'p-queue';
 import chalk from 'chalk';
+import {exit} from 'node:process';
 import {prompt} from './utils/general-util';
-import {setTimeout} from 'node:timers/promises';
 
+/**
+ * @private
+ */
 const concurrency: number = MAX_CONCURRENCY > 256 ? 256 : MAX_CONCURRENCY;
 
+/**
+ * @private
+ */
 const deletePageQueue: PQueue = new PQueue({
 	concurrency,
 });
+
+/**
+ * @private
+ */
 const deploymentQueue: PQueue = new PQueue({
 	concurrency,
 });
@@ -42,7 +52,7 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 		userAgent: DEPLOY_USER_AGENT,
 	});
 
-	let isUseOAuth = false;
+	let isUseOAuth: boolean = false;
 	try {
 		api.initOAuth();
 		isUseOAuth = true;
@@ -62,11 +72,10 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 	} catch (error: unknown) {
 		console.log(chalk.red('--- log in failed ---'));
 		console.error(error);
-		return;
+		exit(1);
 	}
 
-	await prompt('> Press [Enter] to start deploying or quickly press [ctrl + C] twice to cancel');
-	await setTimeout(1000);
+	await prompt('> Confirm start deployment?', 'confirm', true);
 
 	console.log(chalk.yellow('--- starting deployment ---'));
 
@@ -74,24 +83,29 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 
 	const apiDeploymentQueue: ApiQueue = {
 		api,
-		editSummary,
 		queue: deploymentQueue,
 	};
 
 	const definitionText: string = readDefinition();
-	saveDefinition(definitionText, apiDeploymentQueue);
-	saveDefinitionSectionPage(definitionText, apiDeploymentQueue);
+	saveDefinition(definitionText, apiDeploymentQueue, editSummary);
+	saveDefinitionSectionPage(definitionText, apiDeploymentQueue, editSummary);
 
 	for (const [name, {description, files}] of Object.entries(targets)) {
-		saveDescription(name, description, apiDeploymentQueue);
+		saveDescription(name, description, apiDeploymentQueue, await makeEditSummary(name, editSummary));
 
 		for (let file of files) {
 			if (/^\./.test(file)) {
-				file = `${name}${file}`;
+				file = name + file;
 			}
 
 			const fileText: string = readFileText(name, file);
-			saveFiles(name, file, fileText, apiDeploymentQueue);
+			saveFiles(
+				name,
+				file,
+				fileText,
+				apiDeploymentQueue,
+				await makeEditSummary(name, editSummary, file.endsWith('.css'))
+			);
 		}
 	}
 
@@ -103,10 +117,9 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 
 	const apiDeletePageQueue: ApiQueue = {
 		api,
-		editSummary,
 		queue: deletePageQueue,
 	};
-	await deleteUnusedPages(apiDeletePageQueue);
+	await deleteUnusedPages(apiDeletePageQueue, editSummary);
 
 	await deletePageQueue.onIdle();
 

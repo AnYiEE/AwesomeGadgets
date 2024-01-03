@@ -6,14 +6,24 @@
 		"wikimedia/language/es2022",
 		"wikimedia/mediawiki",
 		"wikimedia/jquery",
-		"plugin:@typescript-eslint/recommended",
+		"plugin:@typescript-eslint/recommended-type-checked",
 		"plugin:unicorn/all",
 		"prettier"
 	],
-	"parserOptions": {
-		"parser": "@typescript-eslint/parser"
+	"env": {
+		"es2024": true
 	},
-	"globals": {},
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaVersion": "latest",
+		"project": true
+	},
+	"overrides": [
+		{
+			"files": ["*.js"],
+			"extends": ["plugin:@typescript-eslint/disable-type-checked"]
+		}
+	],
 	"rules": {
 		"array-callback-return": [
 			"error",
@@ -96,6 +106,12 @@
 		"no-useless-constructor": "error",
 		"no-useless-rename": "error",
 		"no-useless-return": "error",
+		"no-void": [
+			"error",
+			{
+				"allowAsStatement": true
+			}
+		],
 		"no-warning-comments": "off",
 		"object-shorthand": "error",
 		"operator-assignment": "error",
@@ -131,13 +147,24 @@
 			}
 		],
 		"@typescript-eslint/no-explicit-any": "warn",
+		"@typescript-eslint/no-floating-promises": [
+			"warn",
+			{
+				"ignoreIIFE": true
+			}
+		],
+		"@typescript-eslint/no-misused-promises": "warn",
 		"@typescript-eslint/no-this-alias": [
 			"error",
 			{
-				"allowDestructuring": false,
 				"allowedNames": ["self"]
 			}
 		],
+		"@typescript-eslint/no-unsafe-argument": "warn",
+		"@typescript-eslint/no-unsafe-assignment": "warn",
+		"@typescript-eslint/no-unsafe-call": "warn",
+		"@typescript-eslint/no-unsafe-member-access": "warn",
+		"@typescript-eslint/no-unsafe-return": "warn",
 		"@typescript-eslint/no-unused-vars": [
 			"warn",
 			{
@@ -180,6 +207,7 @@
 		"unicorn/filename-case": "off",
 		"unicorn/no-abusive-eslint-disable": "off",
 		"unicorn/no-array-callback-reference": "off",
+		"unicorn/no-array-reduce": "off",
 		"unicorn/no-document-cookie": "off",
 		"unicorn/no-hex-escape": "off",
 		"unicorn/no-keyword-prefix": "off",
@@ -189,13 +217,13 @@
 		"unicorn/no-unreadable-array-destructuring": "off",
 		"unicorn/no-unsafe-regex": "off",
 		"unicorn/no-unused-properties": "off",
-		"unicorn/prefer-at": "off",
 		"unicorn/prefer-regexp-test": "off",
 		"unicorn/prefer-set-has": "off",
 		"unicorn/prefer-string-replace-all": "off",
 		"unicorn/prefer-ternary": "off",
 		"unicorn/prefer-top-level-await": "off",
 		"unicorn/prevent-abbreviations": "off",
+		"unicorn/require-post-message-target-origin": "off",
 		"unicorn/string-content": "off",
 		"unicorn/switch-case-braces": ["error", "avoid"],
 

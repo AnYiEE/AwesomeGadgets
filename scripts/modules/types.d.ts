@@ -1,9 +1,8 @@
-import type {Mwn} from 'mwn';
+import {type Mwn} from 'mwn';
 import type PQueue from 'p-queue';
 
 interface ApiQueue {
 	api: Mwn;
-	editSummary: string;
 	queue: PQueue;
 }
 
@@ -39,7 +38,7 @@ interface DefaultDefinition {
 	default: boolean;
 	dependencies: string[];
 	hidden: boolean;
-	namespaces: false | number[];
+	namespaces: number[];
 	peers: string[];
 	rights: string[];
 	skins: string[];
@@ -50,6 +49,8 @@ interface DefaultSectionMap {
 	[key: DefaultDefinition['section']]: string;
 }
 
+type Dependencies = DefaultDefinition['dependencies'];
+
 interface DeploymentTargets {
 	[key: string]: {
 		description: string;
@@ -59,7 +60,9 @@ interface DeploymentTargets {
 
 interface SourceFiles {
 	[key: string]: {
-		definition?: string;
+		definition: DefaultDefinition & {
+			requiresES6: boolean;
+		};
 		license?: string;
 		script?: string;
 		scripts: string[];
@@ -68,12 +71,13 @@ interface SourceFiles {
 	};
 }
 
-export {
+export type {
 	ApiQueue,
 	Credentials,
 	CredentialsOnlyPassword,
 	DefaultDefinition,
 	DefaultSectionMap,
+	Dependencies,
 	DeploymentTargets,
 	SourceFiles,
 };

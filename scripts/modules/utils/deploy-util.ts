@@ -1,33 +1,46 @@
 import type {ApiQueue, Credentials, CredentialsOnlyPassword, DeploymentTargets} from '../types';
-import {DEFINITION_SECTION_MAP, IS_CONVERT_VARIANT} from '../../constant';
-import fs, {type PathOrFileDescriptor} from 'node:fs';
+import {CONVERT_VARIANT, DEFINITION_SECTION_MAP} from '../../constant';
+import {closeSync, existsSync, fdatasyncSync, open, readFileSync, writeFileSync} from 'node:fs';
+import {getRootDir, prompt, trim} from './general-util';
 import {type ApiEditResponse} from 'mwn';
+import {MwnError} from 'mwn/build/error';
 import {Window} from 'happy-dom';
 import chalk from 'chalk';
 import {execSync} from 'node:child_process';
-import path from 'node:path';
-import {prompt} from './general-util';
+import {join} from 'node:path';
 import {setTimeout} from 'node:timers/promises';
-const __dirname = path.resolve();
 
+/**
+ * @private
+ */
+const rootDir: string = getRootDir();
+
+/**
+ * @private
+ */
 const deployPages: string[] = [];
 
 /**
  * Generate deployment targets based on the definitions
  *
- * @param {string[]} definitions Array of gadget definitions (in the format of MediaWiki:Gadgets-definition item)
+ * @param {string[]} definitions Array of gadget definition (in the format of MediaWiki:Gadgets-definition item)
  * @return {DeploymentTargets} Deployment targets
  */
 const generateTargets = (definitions: string[]): DeploymentTargets => {
 	const targets: DeploymentTargets = {};
 
-	for (const definition of definitions) {
-		const [_, name, files, description] = definition.match(
-			/^\*\s(\S+?)\[\S+?]\|(\S+?)☀\S*?☀(.+?)$/
-		) as RegExpMatchArray;
+	type Target = DeploymentTargets[keyof DeploymentTargets];
 
-		targets[name] = {} as DeploymentTargets[''];
-		targets[name].files = files
+	for (const definition of definitions) {
+		const [_, name, files, description] = definition.match(/^\*\s(\S+?)\[\S+?]\|(\S+?)☀\S*?☀(.+?)$/) as [
+			string,
+			string,
+			string,
+			string,
+		];
+
+		targets[name] = {} as Target;
+		(targets[name] as Target).files = files
 			.split('|')
 			.filter((file: string): boolean => {
 				return !!file;
@@ -35,7 +48,7 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
 			.map((file: string): string => {
 				return file.replace(/\S+?❄/, '');
 			});
-		targets[name].description = description || name;
+		(targets[name] as Target).description = description || name;
 	}
 
 	return targets;
@@ -45,12 +58,12 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
  * Check the integrity of configuration items
  *
  * @param {Record<string, unknown>} config To be completed configuration
- * @param {boolean} checkApiUrlOnly Only check `config.apiUrl` is empty or not
- * @return {Promise<{apiUrl:string; username:string; password:string}>} Completed configuration
+ * @param {boolean} [checkApiUrlOnly=false] Only check `config.apiUrl` is empty or not
+ * @return {Promise<CredentialsOnlyPassword>} Completed configuration
  */
 const checkConfig = async (
 	config: Partial<CredentialsOnlyPassword>,
-	checkApiUrlOnly = false
+	checkApiUrlOnly: boolean = false
 ): Promise<CredentialsOnlyPassword> => {
 	if (checkApiUrlOnly) {
 		if (!config.apiUrl) {
@@ -74,39 +87,112 @@ const checkConfig = async (
  * @return {Partial<Credentials>} The result of parsing the credentials.json file
  */
 const loadConfig = (): Partial<Credentials> => {
-	let credentialsJsonText = '{}';
+	const logError = (reason: string): void => {
+		console.log(
+			chalk.yellow(`${chalk.italic('credentials.json')} is ${reason}, credentials must be provided manually.`)
+		);
+	};
+
+	let credentialsJsonText: string = '{}';
 	try {
-		const credentialsFilePath: string = path.join(__dirname, 'scripts/credentials.json');
-		const fileBuffer: Buffer = fs.readFileSync(credentialsFilePath);
+		const credentialsFilePath: string = join(rootDir, 'scripts/credentials.json');
+		const fileBuffer: Buffer = readFileSync(credentialsFilePath);
 		credentialsJsonText = fileBuffer.toString();
 	} catch {
-		console.log(chalk.red(`${chalk.italic('credentials.json')} is missing, a empty object will be used.`));
+		logError('missing');
 	}
 
-	return JSON.parse(credentialsJsonText);
+	let credentials: Partial<Credentials> = {};
+	try {
+		credentials = JSON.parse(credentialsJsonText) as Partial<Credentials>;
+	} catch {
+		logError('broken');
+	}
+
+	return credentials;
 };
 
 /**
  * Make editing summary
  *
+ * @param {string} [name] The gadget name
+ * @param {string} [fallbackEditSummary] The fallback editing summary
+ * @param {boolean} [isStyle=false] Whether the file is a style sheet
  * @return {Promise<string>} The editing summary
  */
-const makeEditSummary = async (): Promise<string> => {
-	let sha = '';
-	let summary = '';
+const makeEditSummary = async (
+	name?: string,
+	fallbackEditSummary?: string,
+	isStyle: boolean = false
+): Promise<string> => {
+	const execLog = (filePath: string): string => {
+		try {
+			const log: string = execSync(`git log --pretty=format:"%H %s" -1 -- ${filePath}`).toString('utf8').trim();
+			if (!log) {
+				return '';
+			}
+			const logSplit: string[] = log.split(' ');
+			return `Git commit ${execSync(`git rev-parse --short ${logSplit.shift()}`)
+				.toString('utf8')
+				.trim()}: ${logSplit.join(' ')}`;
+		} catch {
+			return '';
+		}
+	};
+	const getLog = (gadgetName: string, fileName: string): string => {
+		const filePath: string = join(rootDir, `src/${gadgetName}/${fileName}`);
+		if (!existsSync(filePath)) {
+			return '';
+		}
+		const log: string = execLog(filePath);
+		if (!log) {
+			return '';
+		}
+		return log;
+	};
+
+	if (name && fallbackEditSummary) {
+		if (!/^Git\scommit\S+?:\s/.test(fallbackEditSummary)) {
+			return fallbackEditSummary;
+		}
+
+		const fileNames: string[] = [name, 'index'];
+		const fileExts: string[] = isStyle ? ['.less', '.css'] : ['.ts', '.js'];
+		const files: string[] = [];
+		for (const fileName of fileNames) {
+			for (const fileExt of fileExts) {
+				files.push(fileName + fileExt);
+			}
+		}
+
+		for (const file of files) {
+			const log: string = getLog(name, file);
+			if (!log) {
+				continue;
+			}
+			return log;
+		}
+	}
+
+	let sha: string = '';
+	let summary: string = '';
 	try {
 		sha = execSync('git rev-parse --short HEAD').toString('utf8').trim();
 		summary = execSync('git log --pretty=format:"%s" HEAD -1').toString('utf8').trim();
 	} catch {}
 
 	const customSummary: string = await prompt('> Custom editing summary message (optional):');
-	const editSummary = customSummary.trim() ? customSummary : `${sha ? `Git commit ${sha}: ` : ''}${summary}`;
+	const customSummaryTrimmed: string = trim(customSummary, {
+		addNewline: false,
+	});
+	// If trimmed input is an empty string, use the message from the last git commit
+	const editSummary: string = customSummaryTrimmed || `${sha ? `Git commit ${sha}: ` : ''}${summary}`;
 	console.log(chalk.white(`Editing summary is: ${chalk.bold(editSummary)}`));
 
-	await prompt('> Press [Enter] to continue deploying or quickly press [ctrl + C] twice to cancel');
+	await prompt('> Confirm to continue deployment?', 'confirm', true);
 
 	console.log(chalk.yellow('--- deployment will continue in three seconds ---'));
-	await setTimeout(3000);
+	await setTimeout(3 * 1000);
 
 	return editSummary;
 };
@@ -117,8 +203,8 @@ const makeEditSummary = async (): Promise<string> => {
  * @return {string} Gadget definitions (in the format of MediaWiki:Gadgets-definition item)
  */
 const readDefinition = (): string => {
-	const definitionPath: string = path.join(__dirname, 'dist/definition.txt');
-	const fileBuffer: Buffer = fs.readFileSync(definitionPath);
+	const definitionPath: string = join(rootDir, 'dist/definition.txt');
+	const fileBuffer: Buffer = readFileSync(definitionPath);
 
 	return fileBuffer.toString();
 };
@@ -131,8 +217,8 @@ const readDefinition = (): string => {
  * @return {string} The file content
  */
 const readFileText = (name: string, file: string): string => {
-	const filePath: string = path.join(__dirname, `dist/${name}/${file}`);
-	const fileBuffer: Buffer = fs.readFileSync(filePath);
+	const filePath: string = join(rootDir, `dist/${name}/${file}`);
+	const fileBuffer: Buffer = readFileSync(filePath);
 
 	return fileBuffer.toString();
 };
@@ -142,11 +228,12 @@ const readFileText = (name: string, file: string): string => {
  *
  * @param {string} pageTitle The titie of this page
  * @param {string} content The content of this page
- * @param {ApiQueue} object The api instance, the editing summary used by this api instance and the deployment queue
+ * @param {ApiQueue} object The api instance and the deployment queue
+ * @param {string} editSummary The editing summary used by the api instance
  */
-const convertVariant = (pageTitle: string, content: string, {api, editSummary, queue}: ApiQueue): void => {
+const convertVariant = (pageTitle: string, content: string, {api, queue}: ApiQueue, editSummary: string): void => {
 	/**
-	 * @base <https://zh.wikipedia.org/wiki/User:Xiplus/js/TranslateVariants>
+	 * @see {@link https://zh.wikipedia.org/wiki/User:Xiplus/js/TranslateVariants}
 	 * @license CC-BY-SA-4.0
 	 */
 	content = content
@@ -169,19 +256,19 @@ const convertVariant = (pageTitle: string, content: string, {api, editSummary, q
 		const parsedHtml: string = await api.parseWikitext(
 			`{{NoteTA|G1=IT|G2=MediaWiki}}<div class="convertVariant">${content}</div>`,
 			{
-				prop: 'text',
+				prop: ['text'],
 				uselang: variant,
 			}
 		);
 
 		const window: Window = new Window({
-			url: api.options.apiUrl,
+			url: api.options.apiUrl as string,
 		});
 		const {document} = window;
 		document.body.innerHTML = `<div>${parsedHtml}</div>`;
 		const convertedDescription: string = document.querySelector('.convertVariant').textContent.replace(/-{}-/g, '');
 
-		const convertPageTitle = `${pageTitle}/${variant}`;
+		const convertPageTitle: string = `${pageTitle}/${variant}`;
 		deployPages.push(convertPageTitle);
 
 		const response: ApiEditResponse = await api.save(convertPageTitle, convertedDescription, editSummary);
@@ -198,7 +285,7 @@ const convertVariant = (pageTitle: string, content: string, {api, editSummary, q
 
 	queue
 		.addAll(taskQueue)
-		.then((nochanges): void => {
+		.then((nochanges: boolean[]): void => {
 			const isNoChange: boolean = nochanges.every(Boolean);
 			if (isNoChange) {
 				console.log(chalk.yellow(`━ No change converting ${chalk.bold(pageTitle)}`));
@@ -216,13 +303,14 @@ const convertVariant = (pageTitle: string, content: string, {api, editSummary, q
  * Save gadget definition
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {ApiQueue} object The api instance, the editing summary used by this api instance and the deployment queue
+ * @param {ApiQueue} object The api instance and the deployment queue
+ * @param {string} editSummary The editing summary used by this api instance
  */
-const saveDefinition = (definitionText: string, {api, editSummary, queue}: ApiQueue): void => {
-	const pageTitle = 'MediaWiki:Gadgets-definition';
+const saveDefinition = (definitionText: string, {api, queue}: ApiQueue, editSummary: string): void => {
+	const pageTitle: string = 'MediaWiki:Gadgets-definition';
 	deployPages.push(pageTitle);
 
-	queue.add(async (): Promise<void> => {
+	void queue.add(async (): Promise<void> => {
 		try {
 			const response: ApiEditResponse = await api.save(pageTitle, definitionText, editSummary);
 			if (response.nochange) {
@@ -241,9 +329,10 @@ const saveDefinition = (definitionText: string, {api, editSummary, queue}: ApiQu
  * Save gadget definition section pages
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {ApiQueue} object The api instance, the editing summary used by the api instance and the deployment queue
+ * @param {ApiQueue} apiQueue The api instance and the deployment queue
+ * @param {string} editSummary The editing summary used by this api instance
  */
-const saveDefinitionSectionPage = (definitionText: string, {api, editSummary, queue}: ApiQueue): void => {
+const saveDefinitionSectionPage = (definitionText: string, apiQueue: ApiQueue, editSummary: string): void => {
 	const sections: string[] = (definitionText.match(/^==([\S\s]+?)==$/gm) as RegExpMatchArray).map(
 		(sectionHeader: string): string => {
 			return sectionHeader.replace(/[=]=/g, '').trim();
@@ -254,14 +343,14 @@ const saveDefinitionSectionPage = (definitionText: string, {api, editSummary, qu
 	});
 
 	for (const [index, section] of sections.entries()) {
-		const sectionText: string = DEFINITION_SECTION_MAP[section] || section;
+		const sectionText: string = DEFINITION_SECTION_MAP[section as keyof typeof DEFINITION_SECTION_MAP] || section;
 
-		const pageTitle: string = pageTitles[index];
+		const pageTitle: string = pageTitles[index] as string;
 		deployPages.push(pageTitle);
 
-		queue.add(async (): Promise<void> => {
+		void apiQueue.queue.add(async (): Promise<void> => {
 			try {
-				const response: ApiEditResponse = await api.save(pageTitle, sectionText, editSummary);
+				const response: ApiEditResponse = await apiQueue.api.save(pageTitle, sectionText, editSummary);
 				if (response.nochange) {
 					console.log(chalk.yellow(`━ No change saving ${chalk.bold(pageTitle)}`));
 				} else {
@@ -273,12 +362,8 @@ const saveDefinitionSectionPage = (definitionText: string, {api, editSummary, qu
 			}
 		});
 
-		if (IS_CONVERT_VARIANT) {
-			convertVariant(pageTitle, sectionText, {
-				api,
-				editSummary,
-				queue,
-			});
+		if (CONVERT_VARIANT) {
+			convertVariant(pageTitle, sectionText, apiQueue, editSummary);
 		}
 	}
 };
@@ -288,15 +373,16 @@ const saveDefinitionSectionPage = (definitionText: string, {api, editSummary, qu
  *
  * @param {string} name The gadget name
  * @param {string} description The definition of this gadget
- * @param {ApiQueue} object The api instance, the editing summary used by the api instance and the deployment queue
+ * @param {ApiQueue} apiQueue The api instance and the deployment queue
+ * @param {string} editSummary The editing summary used by the api instance
  */
-const saveDescription = (name: string, description: string, {api, editSummary, queue}: ApiQueue): void => {
-	const pageTitle = `MediaWiki:Gadget-${name}`;
+const saveDescription = (name: string, description: string, apiQueue: ApiQueue, editSummary: string): void => {
+	const pageTitle: string = `MediaWiki:Gadget-${name}`;
 	deployPages.push(pageTitle);
 
-	queue.add(async (): Promise<void> => {
+	void apiQueue.queue.add(async (): Promise<void> => {
 		try {
-			const response: ApiEditResponse = await api.save(pageTitle, description, editSummary);
+			const response: ApiEditResponse = await apiQueue.api.save(pageTitle, description, editSummary);
 			if (response.nochange) {
 				console.log(chalk.yellow(`━ No change saving ${chalk.bold(`${name} description`)}`));
 			} else {
@@ -308,12 +394,8 @@ const saveDescription = (name: string, description: string, {api, editSummary, q
 		}
 	});
 
-	if (IS_CONVERT_VARIANT) {
-		convertVariant(pageTitle, description, {
-			api,
-			editSummary,
-			queue,
-		});
+	if (CONVERT_VARIANT) {
+		convertVariant(pageTitle, description, apiQueue, editSummary);
 	}
 };
 
@@ -323,18 +405,25 @@ const saveDescription = (name: string, description: string, {api, editSummary, q
  * @param {string} name The gadget name
  * @param {string} file The target file name
  * @param {string} fileContent The target file content
- * @param {ApiQueue} api The api instance, the editing summary used by this api instance and the deployment queue
+ * @param {ApiQueue} object The api instance and the deployment queue
+ * @param {string} editSummary The editing summary used by the api instance
  */
-const saveFiles = (name: string, file: string, fileContent: string, {api, editSummary, queue}: ApiQueue): void => {
-	let fileName = `${name}-${file}`;
+const saveFiles = (
+	name: string,
+	file: string,
+	fileContent: string,
+	{api, queue}: ApiQueue,
+	editSummary: string
+): void => {
+	let fileName: string = `${name}-${file}`;
 	if (file.split('.')[0] === name) {
 		fileName = file;
 	}
 
-	const pageTitle = `MediaWiki:Gadget-${fileName}`;
+	const pageTitle: string = `MediaWiki:Gadget-${fileName}`;
 	deployPages.push(pageTitle);
 
-	queue.add(async (): Promise<void> => {
+	void queue.add(async (): Promise<void> => {
 		try {
 			const response: ApiEditResponse = await api.save(pageTitle, fileContent, editSummary);
 			if (response.nochange) {
@@ -352,24 +441,30 @@ const saveFiles = (name: string, file: string, fileContent: string, {api, editSu
 /**
  * Delete unused pages from the target MediaWiki site
  *
- * @param {ApiQueue} object The api instance, the editing summary used by this api instance and the delete page queue
+ * @param {ApiQueue} object The api instance and the delete page queue
+ * @param {string} editSummary The editing summary used by this api instance
  */
-const deleteUnusedPages = async ({api, editSummary, queue}: ApiQueue): Promise<void> => {
-	const storeFilePath: string = path.join(__dirname, 'dist/store.txt');
+const deleteUnusedPages = async ({api, queue}: ApiQueue, editSummary: string): Promise<void> => {
+	const storeFilePath: string = join(rootDir, 'dist/store.txt');
 
 	let lastDeployPages: string[] = [];
 	try {
-		const fileBuffer: Buffer = fs.readFileSync(storeFilePath);
+		const fileBuffer: Buffer = readFileSync(storeFilePath);
 		const fileContent: string = fileBuffer.toString();
 		lastDeployPages = fileContent.split('\n').filter((lineConent: string): boolean => {
 			return !!lineConent;
 		});
 	} catch {}
 
-	const fileDescriptor: PathOrFileDescriptor = fs.openSync(storeFilePath, 'w');
-	fs.writeFileSync(fileDescriptor, deployPages.sort().join('\n'));
-	fs.fdatasyncSync(fileDescriptor);
-	fs.closeSync(fileDescriptor);
+	open(storeFilePath, 'w', (err: NodeJS.ErrnoException | null, fd: number): void => {
+		if (err) {
+			console.error(err);
+			return;
+		}
+		writeFileSync(fd, deployPages.sort().join('\n'));
+		fdatasyncSync(fd);
+		closeSync(fd);
+	});
 
 	if (!lastDeployPages.length) {
 		console.log(chalk.yellow('━ No deployment log found'));
@@ -386,30 +481,30 @@ const deleteUnusedPages = async ({api, editSummary, queue}: ApiQueue): Promise<v
 	}
 
 	process.stdout.write(`The following pages will be deleted:\n${needToDeletePages.join('\n')}\n`);
-	await prompt('> Press [Enter] to continue deleting or quickly press [ctrl + C] twice to cancel');
-	await setTimeout(1000);
+	await prompt('> Confirm to continue deleting?', 'confirm', true);
 
 	console.log(chalk.yellow('--- deleting will continue in three seconds ---'));
-	await setTimeout(3000);
+	await setTimeout(3 * 1000);
 
 	const deletePage = async (pageTitle: string): Promise<void> => {
 		try {
 			await api.delete(pageTitle, editSummary);
 			console.log(chalk.green(`✔ Successfully deleted ${chalk.bold(pageTitle)}`));
 		} catch (error: unknown) {
-			console.log(chalk.red(`✘ Failed to delete ${chalk.bold(pageTitle)}`));
-			console.error(error);
+			if (error instanceof MwnError && error.code === 'missingtitle') {
+				console.log(chalk.yellow(`━ Page ${chalk.bold(pageTitle)} no need to delete`));
+			} else {
+				console.log(chalk.red(`✘ Failed to delete ${chalk.bold(pageTitle)}`));
+				console.error(error);
+			}
 		}
 	};
 
-	const taskQueue: (() => Promise<void>)[] = [];
 	for (const page of needToDeletePages) {
-		taskQueue.push((): Promise<void> => {
-			return deletePage(page);
+		void queue.add(async (): Promise<void> => {
+			await deletePage(page);
 		});
 	}
-
-	queue.addAll(taskQueue);
 };
 
 export {
