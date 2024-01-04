@@ -60,7 +60,7 @@ const writeFile = (
 			break;
 		}
 		case 'text/css':
-			fileContent = `${trim(licenseText)}${trim(HEADER)}/* <nowiki> */\n\n${sourceCode}\n/* </nowiki> */\n`;
+			fileContent = `${licenseText}${trim(HEADER)}/* <nowiki> */\n\n${sourceCode}\n/* </nowiki> */\n`;
 			break;
 		default:
 			fileContent = sourceCode;
