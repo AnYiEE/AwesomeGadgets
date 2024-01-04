@@ -6,14 +6,8 @@ import {
 	getLicense,
 	saveDefinition,
 } from './utils/build-util';
-import PQueue from 'p-queue';
 import type {SourceFiles} from './types';
 import chalk from 'chalk';
-
-/**
- * @private
- */
-const buildQueue: PQueue = new PQueue();
 
 /**
  * Compile scripts and styles and generate corresponding definitions
@@ -31,26 +25,22 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 		const licenseText: string | undefined = getLicense(name, license);
 
 		if (script || scripts) {
-			const scriptFileArray: string[] = generateFileArray(script, scripts);
-			const scriptFiles: string = generateFileNames(name, scriptFileArray);
-			definitionItemFiles += scriptFiles ? `${scriptFiles}|` : '';
-			buildFiles(name, 'script', {
+			const scriptFileArray: string[] = await buildFiles(name, 'script', {
 				licenseText,
 				dependencies: definition.dependencies,
-				files: scriptFileArray,
-				queue: buildQueue,
+				files: generateFileArray(script, scripts),
 			});
+			const scriptFiles: string = generateFileNames(name, scriptFileArray);
+			definitionItemFiles += scriptFiles ? `${scriptFiles}|` : '';
 		}
 
 		if (style || styles) {
-			const styleFileArray: string[] = generateFileArray(style, styles);
+			const styleFileArray: string[] = await buildFiles(name, 'style', {
+				licenseText,
+				files: generateFileArray(style, styles),
+			});
 			const styleFiles: string = generateFileNames(name, styleFileArray);
 			definitionItemFiles += styleFiles ? `${styleFiles}|` : '';
-			buildFiles(name, 'style', {
-				licenseText,
-				files: styleFileArray,
-				queue: buildQueue,
-			});
 		}
 
 		definitionItemFiles = definitionItemFiles.replace(/\|$/, '');
@@ -62,7 +52,6 @@ const build = async (sourceFiles: SourceFiles): Promise<string[]> => {
 		}
 	}
 
-	await buildQueue.onIdle();
 	saveDefinition(definitions);
 
 	console.log(chalk.yellow('--- end of build ---'));

@@ -16,6 +16,8 @@
 
     2. 不存在入口文件时，所有的脚本/样式均会被编译，生成`小工具名-对应文件名.{js, css}`<br>If no entry file exists, all scripts/styles will be compiled, generating `GadgetName-CorrespondingFileName.{js, css}`
 
+    3. 当然，也可以在`*.{js, ts}`中导入`*.{css, less}`，生成`小工具名.css`。但建议将被导入的样式放在子文件夹中，因为父目录下的`小工具名.{css, less}`有着更高的优先级，会覆盖经编译所生成的`小工具名.css`。同时根据上述规则，如果不存在入口样式文件，将最终生成`小工具名.css`（脚本中导入的经编译所生成的）和父目录中其他的样式（`小工具名-对应文件名.css`）<br>Of course, you can also import `*.{css, less}` in `*.{js, ts}` and generate `GadgetName.css`. However, it is recommended to place the imported styles in a subfolder because the `GadgetName.{css, less}` in the parent directory has a higher priority and will override the compiled `GadgetName.css`. According to the above rules, if there is no entry style file, it will finally generate `GadgetName.css` (imported from scripts) and other styles in the parent directory (`GadgetName-CorrespondingFileName.css`)
+
 4. 目录下可以创建`definition.json`以手动指定小工具定义（可选）<br>In the directory, you have the option to create a `definition.json` file to manually specify the gadget definition
 
     ```jsonc

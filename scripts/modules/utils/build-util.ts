@@ -2,7 +2,7 @@ import * as PACKAGE from '../../../package.json';
 import {BANNER, DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER} from '../../constant';
 import {type BabelFileResult, type TransformOptions, transformAsync} from '@babel/core';
 import {type BuildResult, type OutputFile, build as esbuild} from 'esbuild';
-import type {DefaultDefinition, Dependencies, SourceFiles} from '../types';
+import type {BuiltFiles, DefaultDefinition, Dependencies, SourceFiles} from '../types';
 import {type Path, globSync} from 'glob';
 import {
 	type PathOrFileDescriptor,
@@ -13,9 +13,8 @@ import {
 	readFileSync,
 	writeFileSync,
 } from 'node:fs';
-import {dirname, extname, join} from 'node:path';
+import {basename, dirname, extname, join} from 'node:path';
 import {getRootDir, trim} from './general-util';
-import type PQueue from 'p-queue';
 import chalk from 'chalk';
 import {esbuildOptions} from '../build-esbuild_options';
 import {exit} from 'node:process';
@@ -80,24 +79,18 @@ const writeFile = (
 
 /**
  * @private
- * @param {BuildResult} buildResult
- * @return {string}
- */
-const getBuildResult = (buildResult: BuildResult): string => {
-	const outputFiles: OutputFile[] = buildResult.outputFiles as OutputFile[];
-	const {text} = outputFiles[0] as OutputFile;
-
-	return text;
-};
-
-/**
- * @private
  * @param {string} inputFilePath
  * @param {string} outputFilePath
  * @param {Dependencies} [dependencies]
- * @return {Promise<string>}
+ * @return {Promise<BuiltFiles>}
  */
-const build = async (inputFilePath: string, outputFilePath: string, dependencies?: Dependencies): Promise<string> => {
+const build = async (
+	inputFilePath: string,
+	outputFilePath: string,
+	dependencies?: Dependencies
+): Promise<BuiltFiles> => {
+	const builtFiles: BuiltFiles = [];
+
 	const buildResult: BuildResult = await esbuild({
 		...esbuildOptions,
 		external: dependencies ?? [],
@@ -105,7 +98,20 @@ const build = async (inputFilePath: string, outputFilePath: string, dependencies
 		outfile: outputFilePath,
 	});
 
-	return getBuildResult(buildResult);
+	const {outputFiles} = buildResult;
+	if (!outputFiles) {
+		return builtFiles;
+	}
+
+	for (const outputFile of outputFiles) {
+		const {path, text} = outputFile;
+		builtFiles.push({
+			path,
+			text,
+		});
+	}
+
+	return builtFiles;
 };
 
 /**
@@ -127,7 +133,14 @@ const bundle = async (outputFilePath: string, code: string, dependencies: Depend
 		target: GLOBAL_REQUIRES_ES6 ? 'esnext' : 'es5',
 	});
 
-	return getBuildResult(buildResult);
+	const {outputFiles} = buildResult;
+	if (!outputFiles) {
+		return '';
+	}
+
+	const {text} = outputFiles[0] as OutputFile;
+
+	return text;
 };
 
 /**
@@ -224,6 +237,7 @@ const transform = async (inputFilePath: string, code: string): Promise<string> =
  * @param {string} name
  * @param {string} script
  * @param {{dependencies:Dependencies; licenseText:string|undefined}} object
+ * @return {Promise<string[]>}
  */
 const buildScript = async (
 	name: string,
@@ -235,19 +249,44 @@ const buildScript = async (
 		dependencies: Dependencies;
 		licenseText: string | undefined;
 	}
-): Promise<void> => {
+): Promise<string[]> => {
+	const outputFiles: string[] = [];
+
 	const inputFilePath: string = join(rootDir, `src/${name}/${script}`);
 	// The TypeScript file is always compiled into a JavaScript file, so replace the extension directly
 	const outputFilePath: string = join(rootDir, `dist/${name}/${script.replace(/\.ts$/, '.js')}`);
 
-	const buildOutput: string = await build(inputFilePath, outputFilePath, dependencies);
-	const transformOutput: string = await transform(inputFilePath, buildOutput);
-	const bundleOutput: string = await bundle(outputFilePath, transformOutput, dependencies);
+	const builtFiles: BuiltFiles = await build(inputFilePath, outputFilePath, dependencies);
+	for (const builtFile of builtFiles) {
+		const {path, text} = builtFile;
 
-	writeFile(bundleOutput, outputFilePath, {
-		licenseText,
-		contentType: 'application/javascript',
-	});
+		const fileName: string = basename(path);
+		outputFiles.push(fileName);
+
+		const fileExt: string = extname(path);
+		switch (fileExt) {
+			case '.css':
+				writeFile(text, path, {
+					licenseText,
+					contentType: 'text/css',
+				});
+				break;
+			case '.js': {
+				const transformOutput: string = await transform(inputFilePath, text);
+				const bundleOutput: string = await bundle(outputFilePath, transformOutput, dependencies);
+				if (!bundleOutput) {
+					continue;
+				}
+				writeFile(bundleOutput, path, {
+					licenseText,
+					contentType: 'application/javascript',
+				});
+				break;
+			}
+		}
+	}
+
+	return outputFiles;
 };
 
 /**
@@ -255,81 +294,86 @@ const buildScript = async (
  * @param {string} name
  * @param {string} style
  * @param {string|undefined} licenseText
+ * @return {Promise<string>}
  */
-const buildStyle = async (name: string, style: string, licenseText: string | undefined): Promise<void> => {
-	const inputFilePath: string = join(rootDir, `src/${name}/${style}`);
+const buildStyle = async (name: string, style: string, licenseText: string | undefined): Promise<string> => {
 	// The Less file is always compiled into a CSS file, so replace the extension directly
-	const outputFilePath: string = join(rootDir, `dist/${name}/${style.replace(/\.less$/, '.css')}`);
+	const outputFile: string = style.replace(/\.less$/, '.css');
 
-	const buildOutput: string = await build(inputFilePath, outputFilePath);
+	const inputFilePath: string = join(rootDir, `src/${name}/${style}`);
+	const outputFilePath: string = join(rootDir, `dist/${name}/${outputFile}`);
+
+	const builtFiles: BuiltFiles = await build(inputFilePath, outputFilePath);
+	const buildOutput: string = builtFiles[0]!.text;
 
 	writeFile(buildOutput, outputFilePath, {
 		licenseText,
 		contentType: 'text/css',
 	});
+
+	return outputFile;
 };
 
 /**
  * @param {string} name The gadget name
  * @param {'script'|'style'} type The type of target files
- * @param {{dependencies?:Dependencies; files:string[]; licenseText:string|undefined; queue:PQueue}} object The dependencies of this gadget, the array of file name for this gadget, the license file content of this gadget and the build queue
+ * @param {{dependencies?:Dependencies; files:string[]; licenseText:string|undefined}} object The dependencies of this gadget, the array of file name for this gadget and the license file content of this gadget
+ * @return {Promise<string[]>} The array of built file names
  */
-function buildFiles(
+async function buildFiles(
 	name: string,
 	type: 'script',
 	{
 		dependencies,
 		files,
 		licenseText,
-		queue,
 	}: {
 		dependencies: Dependencies;
 		files: string[];
 		licenseText: string | undefined;
-		queue: PQueue;
 	}
-): void;
-function buildFiles(
+): Promise<string[]>;
+async function buildFiles(
 	name: string,
 	type: 'style',
 	{
 		files,
 		licenseText,
-		queue,
 	}: {
 		files: string[];
 		licenseText: string | undefined;
-		queue: PQueue;
 	}
-): void;
+): Promise<string[]>;
 // eslint-disable-next-line func-style
-function buildFiles(
+async function buildFiles(
 	name: string,
 	type: 'script' | 'style',
 	{
 		dependencies,
 		files,
 		licenseText,
-		queue,
 	}: {
 		dependencies?: Dependencies;
 		files: string[];
 		licenseText: string | undefined;
-		queue: PQueue;
 	}
-): void {
+): Promise<string[]> {
+	const outputFiles: string[] = [];
+
 	for (const file of files) {
-		void queue.add(async (): Promise<void> => {
-			if (type === 'script' && dependencies) {
-				await buildScript(name, file, {
+		if (type === 'script' && dependencies) {
+			outputFiles.push(
+				...(await buildScript(name, file, {
 					dependencies,
 					licenseText,
-				});
-			} else {
-				await buildStyle(name, file, licenseText);
-			}
-		});
+				}))
+			);
+		} else {
+			outputFiles.push(await buildStyle(name, file, licenseText));
+		}
 	}
+
+	return outputFiles;
 }
 
 /**

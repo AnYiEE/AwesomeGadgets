@@ -6,6 +6,11 @@ interface ApiQueue {
 	queue: PQueue;
 }
 
+type BuiltFiles = {
+	path: string;
+	text: string;
+}[];
+
 interface CredentialsOnlyOAuth {
 	apiUrl: string;
 	OAuthCredentials: {
@@ -73,6 +78,7 @@ interface SourceFiles {
 
 export type {
 	ApiQueue,
+	BuiltFiles,
 	Credentials,
 	CredentialsOnlyPassword,
 	DefaultDefinition,
