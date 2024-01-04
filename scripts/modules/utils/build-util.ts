@@ -254,7 +254,7 @@ const buildScript = async (
 
 	const inputFilePath: string = join(rootDir, `src/${name}/${script}`);
 	// The TypeScript file is always compiled into a JavaScript file, so replace the extension directly
-	const outputFilePath: string = join(rootDir, `dist/${name}/${script.replace(/\.ts$/, '.js')}`);
+	const outputFilePath: string = join(rootDir, `dist/${name}/${script.replace(/\.tsx?$/, '.js')}`);
 
 	const builtFiles: BuiltFiles = await build(inputFilePath, outputFilePath, dependencies);
 	for (const builtFile of builtFiles) {
@@ -431,7 +431,7 @@ const findSourceFile = (): SourceFiles => {
 
 	type Gadget = SourceFiles[keyof SourceFiles];
 
-	const files: Path[] = globSync(['*/*.{js,ts,css,less}', '*/definition.json', '*/LICENSE'], {
+	const files: Path[] = globSync(['*/*.{js,jsx,ts,tsx,css,less}', '*/definition.json', '*/LICENSE'], {
 		cwd: join(rootDir, 'src'),
 		withFileTypes: true,
 	});
@@ -484,12 +484,26 @@ const findSourceFile = (): SourceFiles => {
 			}
 			case 'index.js': {
 				const {script} = targetGadget;
-				if (!script || script !== 'index.ts') {
+				if (!script || !/^index\.[jt]sx?$/.test(script)) {
 					targetGadget.script = fileName;
 				}
 				break;
 			}
-			case 'index.ts':
+			case 'index.jsx': {
+				const {script} = targetGadget;
+				if (!script || !/^index\.tsx?$/.test(script)) {
+					targetGadget.script = fileName;
+				}
+				break;
+			}
+			case 'index.ts': {
+				const {script} = targetGadget;
+				if (!script || script !== 'index.tsx') {
+					targetGadget.script = fileName;
+				}
+				break;
+			}
+			case 'index.tsx':
 				targetGadget.script = fileName;
 				break;
 			case `${gadgetName}.js`: {
@@ -499,9 +513,23 @@ const findSourceFile = (): SourceFiles => {
 				}
 				break;
 			}
+			case `${gadgetName}.jsx`: {
+				const {script} = targetGadget;
+				if (!script || (!/\.tsx?$/.test(script) && script !== 'index.js')) {
+					targetGadget.script = fileName;
+				}
+				break;
+			}
 			case `${gadgetName}.ts`: {
 				const {script} = targetGadget;
-				if (!script || !/^index\.[jt]s$/.test(script)) {
+				if (!script || (!/^index\.[jt]sx?$/.test(script) && script !== `${gadgetName}.tsx`)) {
+					targetGadget.script = fileName;
+				}
+				break;
+			}
+			case `${gadgetName}.tsx`: {
+				const {script} = targetGadget;
+				if (!script || !/^index\.[jt]sx?$/.test(script)) {
 					targetGadget.script = fileName;
 				}
 				break;
@@ -547,12 +575,17 @@ const findSourceFile = (): SourceFiles => {
 		};
 
 		targetGadget.scripts ??= [];
-		if (['.js', '.ts'].includes(fileExt)) {
+		if (/^\.[jt]sx?$/.test(fileExt)) {
 			const {scripts} = targetGadget;
 			scripts.push(fileName);
 			// If there are files with the same name in both JavaScript and TypeScript, only retain the TypeScript file
-			if (fileExt === '.ts') {
-				targetGadget.scripts = removeFiles(scripts, '.js');
+			switch (fileExt) {
+				case '.ts':
+					targetGadget.scripts = removeFiles(scripts, '.js');
+					break;
+				case '.tsx':
+					targetGadget.scripts = removeFiles(scripts, '.jsx');
+					break;
 			}
 		}
 
@@ -671,7 +704,7 @@ const generateDefinitionItem = (
 	sectionText = sectionText ? `☀${sectionText}` : '☀appear';
 
 	return `* ${name}[ResourceLoader${definitionText}]${files}${sectionText}${descriptionText}`
-		.replace(/\.ts([|☀])/g, '.js$1')
+		.replace(/\.ts(x)?([|☀])/g, '.js$1$2')
 		.replace(/\.less([|☀])/g, '.css$1');
 };
 

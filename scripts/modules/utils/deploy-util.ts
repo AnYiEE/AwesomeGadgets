@@ -157,7 +157,7 @@ const makeEditSummary = async (
 		}
 
 		const fileNames: string[] = [name, 'index'];
-		const fileExts: string[] = isStyle ? ['.less', '.css'] : ['.ts', '.js'];
+		const fileExts: string[] = isStyle ? ['.less', '.css'] : ['.tsx', '.ts', 'jsx', '.js'];
 		const files: string[] = [];
 		for (const fileName of fileNames) {
 			for (const fileExt of fileExts) {
