@@ -177,6 +177,8 @@
 		"jsdoc/check-tag-names": "off",
 		"jsdoc/no-undefined-types": "off",
 
+		"mediawiki/class-doc": "warn",
+
 		"no-jquery/no-animate": [
 			"warn",
 			{
