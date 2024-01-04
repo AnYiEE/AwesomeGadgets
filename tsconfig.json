@@ -1,5 +1,15 @@
 {
 	"compilerOptions": {
+		"plugins": [
+			{
+				"name": "typescript-plugin-css-modules",
+				"options": {
+					"classnameTransform": "camelCaseOnly",
+					"namedExports": false
+				}
+			}
+		],
+
 		"allowUnreachableCode": false,
 		"allowUnusedLabels": false,
 		"alwaysStrict": true,

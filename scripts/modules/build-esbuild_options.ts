@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+import {type Targets, browserslistToTargets} from 'lightningcss';
 import {type BuildOptions} from 'esbuild';
+import CssModulesPlugin from 'esbuild-css-modules-plugin';
 // @ts-expect-error TS7016
 import LessPluginNpmImport from 'less-plugin-npm-import';
 // @ts-expect-error TS7016
 import LessPluginPresetEnv from 'less-plugin-preset-env';
+import browserslist from 'browserslist';
 import {lessLoader} from 'esbuild-plugin-less';
 import postcss from 'esbuild-postcss';
 
@@ -20,6 +23,8 @@ const loader = {
 	'.svg': 'text',
 } as const satisfies BuildOptions['loader'];
 
+const targets: Targets = browserslistToTargets(browserslist());
+
 /**
  * @see {@link https://esbuild.github.io/api/#general-options}
  */
@@ -30,6 +35,9 @@ const esbuildOptions = {
 	format: 'cjs',
 	legalComments: 'inline',
 	plugins: [
+		CssModulesPlugin({
+			targets,
+		}),
 		postcss(),
 		lessLoader({
 			plugins: [

@@ -73,5 +73,7 @@
 			"fileMatch": ["src/*/definition.json"],
 			"url": "./.vscode/json-schemas/definition.json"
 		}
-	]
+	],
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"typescript.tsdk": "./node_modules/typescript/lib"
 }
