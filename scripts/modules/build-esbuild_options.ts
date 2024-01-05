@@ -6,6 +6,7 @@ import CssModulesPlugin from 'esbuild-css-modules-plugin';
 import LessPluginNpmImport from 'less-plugin-npm-import';
 // @ts-expect-error TS7016
 import LessPluginPresetEnv from 'less-plugin-preset-env';
+import {SOURCE_MAP} from '../constant';
 import browserslist from 'browserslist';
 import {lessLoader} from 'esbuild-plugin-less';
 import postcss from 'esbuild-postcss';
@@ -46,6 +47,7 @@ const esbuildOptions = {
 			],
 		}),
 	],
+	sourcemap: SOURCE_MAP ? 'inline' : false,
 	treeShaking: true,
 	write: false,
 } as const satisfies BuildOptions;

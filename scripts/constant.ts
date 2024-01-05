@@ -74,11 +74,11 @@ const DEPLOY_USER_AGENT =
 	'AnYiEE/AwesomeGadgets (https://github.com/AnYiEE/AwesomeGadgets; i@anyi.in)' satisfies string;
 
 /**
- * 是否自动转换`MediaWiki:Gadget-${gadgetName}`和`MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}`页面的语言变体
+ * 启用此选项以自动转换`MediaWiki:Gadget-${gadgetName}`和`MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}`页面的语言变体
  *
  * 需要目标 MediaWiki 网站存在 NoteTA 模板和 IT 以及 MediaWiki 公共转换组
  *
- * Whether to automatically convert the language variants of the `MediaWiki:Gadget-${gadgetName}` and `MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}` pages
+ * Enable this option to automatically convert the language variants of the `MediaWiki:Gadget-${gadgetName}` and `MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}` pages
  *
  * The target MediaWiki site needs to have the NoteTA template and the IT and MediaWiki public conversion group
  */
@@ -113,6 +113,17 @@ const GLOBAL_REQUIRES_ES6 = false satisfies boolean;
  */
 const MAX_CONCURRENCY = 16 satisfies number;
 
+/**
+ * 启用此选项会为全部小工具生成内联源映射
+ *
+ * 注意：需要在网址中追加`debug=1`参数方可在浏览器控制台调试时有实际作用。因为内联源映射相当于一种注释，而 MediaWiki 的 JavaScript 压缩器默认会删除注释
+ *
+ * Enable this option to generate inline source maps for all gadgets
+ *
+ * Note: You need to append the `debug=1` parameter in the URL for it to have an actual effect when debugging in the browser console. This is because inline source mapping is treated as a type of comment, and MediaWiki's JavaScript minifier will delete comments by default
+ */
+const SOURCE_MAP = true satisfies boolean;
+
 export {
 	BANNER,
 	HEADER,
@@ -122,4 +133,5 @@ export {
 	CONVERT_VARIANT,
 	GLOBAL_REQUIRES_ES6,
 	MAX_CONCURRENCY,
+	SOURCE_MAP,
 };

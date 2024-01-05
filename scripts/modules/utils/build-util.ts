@@ -1,5 +1,5 @@
 import * as PACKAGE from '../../../package.json';
-import {BANNER, DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER} from '../../constant';
+import {BANNER, DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER, SOURCE_MAP} from '../../constant';
 import {type BabelFileResult, type TransformOptions, transformAsync} from '@babel/core';
 import {type BuildResult, type OutputFile, build as esbuild} from 'esbuild';
 import type {BuiltFiles, DefaultDefinition, Dependencies, SourceFiles} from '../types';
@@ -170,6 +170,7 @@ const generateTransformOptions = (): typeof options => {
 			join(rootDir, 'scripts/modules/plugins/babel-plugin-convert-comments.ts'),
 			join(rootDir, 'scripts/modules/plugins/babel-plugin-import-polyfills.ts'),
 		],
+		sourceMaps: SOURCE_MAP ? 'inline' : false,
 	} as const satisfies TransformOptions;
 
 	type Parset = (typeof options.presets)[0];
