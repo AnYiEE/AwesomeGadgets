@@ -53,8 +53,8 @@
 		"@types/node": "^20.10.6",
 		"@types/oojs-ui": "^0.47.6",
 		"@types/prompts": "^2.4.9",
-		"@typescript-eslint/eslint-plugin": "^6.17.0",
-		"@typescript-eslint/parser": "^6.17.0",
+		"@typescript-eslint/eslint-plugin": "^6.18.0",
+		"@typescript-eslint/parser": "^6.18.0",
 		"broadcastchannel-polyfill": "^1.0.1",
 		"browserslist": "^4.22.2",
 		"caniuse-api": "^3.0.0",
@@ -92,7 +92,7 @@
 	},
 	"pnpm": {
 		"overrides": {
-			"@typescript-eslint/utils": "^6.17.0",
+			"@typescript-eslint/utils": "^6.18.0",
 			"ansi-regex@<6": "^5.0.1",
 			"arrify@<3": "^2.0.1",
 			"balanced-match@<3": "^2.0.0",
