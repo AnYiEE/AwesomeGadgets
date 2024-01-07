@@ -72,6 +72,10 @@
 		{
 			"fileMatch": ["src/*/definition.json"],
 			"url": "./.vscode/json-schemas/definition.json"
+		},
+		{
+			"fileMatch": ["src/global.json"],
+			"url": "./.vscode/json-schemas/global.json"
 		}
 	],
 	"typescript.enablePromptUseWorkspaceTsdk": true,

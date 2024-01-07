@@ -1,7 +1,13 @@
-import type {ApiQueue, Credentials, CredentialsOnlyPassword, DeploymentTargets} from '../types';
+import type {
+	ApiQueue,
+	Credentials,
+	CredentialsOnlyPassword,
+	DeploymentGlobalTargets,
+	DeploymentTargets,
+} from '../types';
 import {CONVERT_VARIANT, DEFINITION_SECTION_MAP} from '../../constant';
 import {closeSync, existsSync, fdatasyncSync, open, readFileSync, writeFileSync} from 'node:fs';
-import {getRootDir, prompt, trim} from './general-util';
+import {getRootDir, processSourceCode, prompt, trim} from './general-util';
 import {type ApiEditResponse} from 'mwn';
 import {MwnError} from 'mwn/build/error';
 import {Window} from 'happy-dom';
@@ -49,6 +55,71 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
 				return file.replace(/\S+?❄/, '');
 			});
 		(targets[name] as Target).description = description || name;
+	}
+
+	return targets;
+};
+
+/**
+ * Generate direct deployment targets based on the `global.json`
+ *
+ * @return {Array} Direct deployment targets
+ */
+const generateDirectTargets = (): [string, string][] => {
+	const targets: [string, string][] = [];
+
+	let globalJsonObject: {
+		[K in keyof DeploymentGlobalTargets]: Omit<DeploymentGlobalTargets[K], 'contentType'>;
+	} = {};
+	try {
+		const globalJsonFilePath: string = join(rootDir, 'src/global.json');
+		const globalJsonText: string = readFileSync(globalJsonFilePath).toString();
+		try {
+			globalJsonObject = JSON.parse(globalJsonText) as typeof globalJsonObject;
+		} catch {
+			console.log(chalk.red(`✘ Failed to parse ${chalk.bold('global.json')}`));
+			return [];
+		}
+	} catch {
+		console.log(chalk.yellow(`━ No ${chalk.bold('global.json')} found`));
+		return [];
+	}
+
+	for (const [file, {enable, sourceCode, licenseText}] of Object.entries(globalJsonObject)) {
+		if (!enable) {
+			continue;
+		}
+
+		const contentType: DeploymentGlobalTargets[keyof DeploymentGlobalTargets]['contentType'] = file.endsWith('.css')
+			? 'text/css'
+			: file.endsWith('.js')
+				? 'application/javascript'
+				: undefined;
+
+		if (!/^(?!Gadget-).+\.(css|js)$/i.test(file)) {
+			if (!contentType) {
+				console.log(
+					chalk.yellow(`━ Skipped ${chalk.bold(file)}, only allowed to deploy CSS or JavaScript pages`)
+				);
+				continue;
+			}
+			console.log(chalk.yellow(`━ Skipped invalid target page ${chalk.bold(file)}`));
+			continue;
+		}
+
+		targets.push([
+			`MediaWiki:${file}`,
+			processSourceCode(sourceCode, {
+				contentType,
+				licenseText,
+				isDirectly: true,
+			}),
+		]);
+	}
+
+	if (!targets.length) {
+		console.log(chalk.yellow('━ No page need to deploy directly'));
+		return [];
 	}
 
 	return targets;
@@ -439,6 +510,32 @@ const saveFiles = (
 };
 
 /**
+ * Save page directly
+ *
+ * @param {string} pageTitle The target page title
+ * @param {string} pageContent The target page content
+ * @param {ApiQueue} object The api instance and the deployment queue
+ * @param {string} editSummary The editing summary used by the api instance
+ */
+const savePages = (pageTitle: string, pageContent: string, {api, queue}: ApiQueue, editSummary: string): void => {
+	deployPages.push(pageTitle);
+
+	void queue.add(async (): Promise<void> => {
+		try {
+			const response: ApiEditResponse = await api.save(pageTitle, pageContent, editSummary);
+			if (response.nochange) {
+				console.log(chalk.yellow(`━ No change saving ${chalk.underline(pageTitle)}`));
+			} else {
+				console.log(chalk.green(`✔ Successfully saved ${chalk.underline(pageTitle)}`));
+			}
+		} catch (error: unknown) {
+			console.log(chalk.red(`✘ Failed to save ${chalk.underline(pageTitle)}`));
+			console.error(error);
+		}
+	});
+};
+
+/**
  * Delete unused pages from the target MediaWiki site
  *
  * @param {ApiQueue} object The api instance and the delete page queue
@@ -509,6 +606,7 @@ const deleteUnusedPages = async ({api, queue}: ApiQueue, editSummary: string): P
 
 export {
 	generateTargets,
+	generateDirectTargets,
 	checkConfig,
 	loadConfig,
 	makeEditSummary,
@@ -518,5 +616,6 @@ export {
 	saveDefinitionSectionPage,
 	saveDescription,
 	saveFiles,
+	savePages,
 	deleteUnusedPages,
 };

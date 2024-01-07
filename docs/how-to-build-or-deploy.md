@@ -96,3 +96,23 @@
 5. 运行`pnpm run deploy`以检查语法、格式化代码、编译源码、并向网站部署<br>Run `pnpm run deploy` to check syntax, format code, compile the source code, and deploy to the website
 
 > 请网站维护者注意：在 Fork 本仓库后，本仓库的 Actions 将自动同步上游变更。这意味着在一般情况下，不需要改动除了`src`文件夹和`scripts/constant.ts`之外的东西，以免发生合并冲突。<br>Please note that the Actions of this repository will automatically sync upstream changes. This means that in general, there is no need to modify anything except the `src` directory and `scripts/constant.ts` to avoid merge conflicts.
+
+#### 直接部署 MediaWiki:Common.js 等 MediaWiki 命名空间下的脚本或样式
+
+1. 在`src`文件夹下新建`global.json`文件，如下所示<br>Create a `global.json` file in the `src` directory, as shown below:
+
+    ```jsonc
+    {
+    	"Commmon.js": {
+    		"enable": true,
+    		"sourceCode": "mw.loader.using(['ext.gadget.Common']);", // 此处的代码不会经过编译，仅支持 CSS 或使用 ES5 语法的 JavaScript / The code here will not be compiled, only supports CSS or JavaScript using ES5 syntax
+    		"licenseText": "" // 可选 / Optional
+    	},
+    	"Skin.js": {
+    		"enable": true,
+    		"sourceCode": "mw.loader.using(['ext.gadget.Skin']);"
+    	}
+    }
+    ```
+
+2. 按正常流程部署即可<br>Deploy according to the above process

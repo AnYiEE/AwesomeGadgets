@@ -63,6 +63,15 @@ interface DeploymentTargets {
 	};
 }
 
+interface DeploymentGlobalTargets {
+	[key: string]: {
+		enable: boolean;
+		sourceCode: string;
+		contentType?: 'application/javascript' | 'text/css' | undefined;
+		licenseText?: string | undefined;
+	};
+}
+
 interface SourceFiles {
 	[key: string]: {
 		definition: DefaultDefinition & {
@@ -85,5 +94,6 @@ export type {
 	DefaultSectionMap,
 	Dependencies,
 	DeploymentTargets,
+	DeploymentGlobalTargets,
 	SourceFiles,
 };

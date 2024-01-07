@@ -13,7 +13,7 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
     -   `MediaWiki:Gadgets-definition`
     -   `MediaWiki:Gadget-section-*`（支持自动转换中文变体）/ (with automatic conversion for Chinese variations)
     -   `MediaWiki:Gadget-*`（支持自动转换中文变体）/ (with automatic conversion for Chinese variations)
-    -   `MediaWiki:Gadget-*.{js, css}`
+    -   `MediaWiki:*.{js, css}`
 -   自动从网站内删除曾经部署过但现在不再需要的页面<br>Automatically delete pages that have been deployed on the website but are no longer needed
 
 ### 用法 / Usage

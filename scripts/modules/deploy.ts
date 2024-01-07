@@ -3,6 +3,7 @@ import {DEPLOY_USER_AGENT, MAX_CONCURRENCY} from '../constant';
 import {
 	checkConfig,
 	deleteUnusedPages,
+	generateDirectTargets,
 	loadConfig,
 	makeEditSummary,
 	readDefinition,
@@ -11,6 +12,7 @@ import {
 	saveDefinitionSectionPage,
 	saveDescription,
 	saveFiles,
+	savePages,
 } from './utils/deploy-util';
 import {Mwn} from 'mwn';
 import PQueue from 'p-queue';
@@ -107,6 +109,11 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 				await makeEditSummary(name, editSummary, file.endsWith('.css'))
 			);
 		}
+	}
+
+	const globalTargets: [string, string][] = generateDirectTargets();
+	for (const [pageTitle, pageContent] of globalTargets) {
+		savePages(pageTitle, pageContent, apiDeploymentQueue, editSummary);
 	}
 
 	await deploymentQueue.onIdle();

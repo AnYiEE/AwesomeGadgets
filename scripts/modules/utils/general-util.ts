@@ -1,4 +1,6 @@
+import {GLOBAL_REQUIRES_ES6, HEADER} from 'scripts/constant';
 import prompts, {type Answers, type PromptType} from 'prompts';
+import type {DeploymentGlobalTargets} from '../types';
 import chalk from 'chalk';
 import {exit} from 'node:process';
 import {resolve} from 'node:path';
@@ -90,4 +92,38 @@ const trim = (
 	return stringTrimmed;
 };
 
-export {getRootDir, prompt, trim};
+const processSourceCode = (
+	sourceCode: string,
+	{
+		contentType,
+		licenseText,
+		isDirectly = false,
+	}: Omit<DeploymentGlobalTargets[keyof DeploymentGlobalTargets], 'enable' | 'sourceCode'> & {
+		isDirectly?: boolean;
+	} = {}
+): string => {
+	licenseText = licenseText ? trim(licenseText) : '';
+	sourceCode = trim(sourceCode, {
+		stripControlCharacters: false,
+	});
+
+	switch (contentType) {
+		case 'application/javascript': {
+			const strictMode = '"use strict";' satisfies string;
+			sourceCode = `${licenseText}${trim(HEADER)}/* <nowiki> */\n\n${
+				// Always invoke strict mode after esbuild bundling
+				sourceCode.startsWith(strictMode) ?? sourceCode.includes(strictMode) ? '' : `${strictMode}\n\n`
+			}${
+				// Always wrap the code in an IIFE to avoid variable and method leakage into the global scope
+				GLOBAL_REQUIRES_ES6 && !isDirectly ? '(() => {' : '(function () {'
+			}\n\n${sourceCode}\n})();\n\n/* </nowiki> */\n`;
+			break;
+		}
+		case 'text/css':
+			sourceCode = `${licenseText}${trim(HEADER)}/* <nowiki> */\n\n${sourceCode}\n/* </nowiki> */\n`;
+	}
+
+	return sourceCode;
+};
+
+export {getRootDir, prompt, trim, processSourceCode};

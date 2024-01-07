@@ -1,8 +1,8 @@
 import * as PACKAGE from '../../../package.json';
-import {BANNER, DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER, SOURCE_MAP} from '../../constant';
+import {BANNER, DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, SOURCE_MAP} from '../../constant';
 import {type BabelFileResult, type TransformOptions, transformAsync} from '@babel/core';
 import {type BuildResult, type OutputFile, build as esbuild} from 'esbuild';
-import type {BuiltFiles, DefaultDefinition, Dependencies, SourceFiles} from '../types';
+import type {BuiltFiles, DefaultDefinition, Dependencies, DeploymentGlobalTargets, SourceFiles} from '../types';
 import {type Path, globSync} from 'glob';
 import {
 	type PathOrFileDescriptor,
@@ -14,7 +14,7 @@ import {
 	writeFileSync,
 } from 'node:fs';
 import {basename, dirname, extname, join} from 'node:path';
-import {getRootDir, trim} from './general-util';
+import {getRootDir, processSourceCode, trim} from './general-util';
 import chalk from 'chalk';
 import {esbuildOptions} from '../build-esbuild_options';
 import {exit} from 'node:process';
@@ -28,7 +28,7 @@ const rootDir: string = getRootDir();
  * @private
  * @param {string} sourceCode
  * @param {string} outputFilePath
- * @param {{contentType?:'application/javascript'|'text/css'; licenseText?:string|undefined}} [object]
+ * @param {{contentType?:'application/javascript'|'text/css'|undefined; licenseText?:string|undefined}} [object]
  */
 const writeFile = (
 	sourceCode: string,
@@ -36,35 +36,12 @@ const writeFile = (
 	{
 		contentType,
 		licenseText,
-	}: {
-		contentType?: 'application/javascript' | 'text/css';
-		licenseText?: string | undefined;
-	} = {}
+	}: Omit<DeploymentGlobalTargets[keyof DeploymentGlobalTargets], 'enable' | 'sourceCode'> = {}
 ): void => {
-	licenseText = licenseText ? trim(licenseText) : '';
-	sourceCode = trim(sourceCode, {
-		stripControlCharacters: false,
+	sourceCode = processSourceCode(sourceCode, {
+		contentType,
+		licenseText,
 	});
-
-	let fileContent: string = '';
-	switch (contentType) {
-		case 'application/javascript': {
-			const strictMode = '"use strict";' satisfies string;
-			fileContent = `${licenseText}${trim(HEADER)}/* <nowiki> */\n\n${
-				// Always invoke strict mode after esbuild bundling
-				sourceCode.startsWith(strictMode) ?? sourceCode.includes(strictMode) ? '' : `${strictMode}\n\n`
-			}${
-				// Always wrap the code in an IIFE to avoid variable and method leakage into the global scope
-				GLOBAL_REQUIRES_ES6 ? '(() => {' : '(function () {'
-			}\n\n${sourceCode}\n})();\n\n/* </nowiki> */\n`;
-			break;
-		}
-		case 'text/css':
-			fileContent = `${licenseText}${trim(HEADER)}/* <nowiki> */\n\n${sourceCode}\n/* </nowiki> */\n`;
-			break;
-		default:
-			fileContent = sourceCode;
-	}
 
 	const outputDirectoryPath: string = dirname(outputFilePath);
 	mkdirSync(outputDirectoryPath, {
@@ -72,7 +49,7 @@ const writeFile = (
 	});
 
 	const fileDescriptor: PathOrFileDescriptor = openSync(outputFilePath, 'w');
-	writeFileSync(fileDescriptor, fileContent);
+	writeFileSync(fileDescriptor, sourceCode);
 	fdatasyncSync(fileDescriptor);
 	closeSync(fileDescriptor);
 };
