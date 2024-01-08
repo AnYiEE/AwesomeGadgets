@@ -36,6 +36,9 @@ overrides:
   types-mediawiki: npm:types-mediawiki-renovate
 
 patchedDependencies:
+  '@mrhenry/babel-plugin-core-web@1.2.1':
+    hash: veavf3kxgjv2dfylgzll2peaum
+    path: patches/@mrhenry__babel-plugin-core-web@1.2.1.patch
   eslint-config-wikimedia@0.26.0:
     hash: iaiepfmd777wt5zivqax6j6mj4
     path: patches/eslint-config-wikimedia@0.26.0.patch
@@ -64,7 +67,7 @@ devDependencies:
     version: 18.4.4
   '@mrhenry/babel-plugin-core-web':
     specifier: ^1.2.1
-    version: 1.2.1
+    version: 1.2.1(patch_hash=veavf3kxgjv2dfylgzll2peaum)
   '@mrhenry/core-web':
     specifier: ^1.2.1
     version: 1.2.1
@@ -95,6 +98,9 @@ devDependencies:
   '@typescript-eslint/parser':
     specifier: ^6.18.0
     version: 6.18.0(eslint@8.56.0)(typescript@5.3.3)
+  blob-polyfill:
+    specifier: ^7.0.20220408
+    version: 7.0.20220408
   broadcastchannel-polyfill:
     specifier: ^1.0.1
     version: 1.0.1
@@ -2249,7 +2255,7 @@ packages:
     resolution: {integrity: sha512-3Ut58LMJig1igriRHsbRHd7tRi4zz3dlnM/6msgl6FqDglxWZLN+ikYsluOg4D6CFmsXBq5WyYF/7HLwHMzDzA==}
     dev: true
 
-  /@mrhenry/babel-plugin-core-web@1.2.1:
+  /@mrhenry/babel-plugin-core-web@1.2.1(patch_hash=veavf3kxgjv2dfylgzll2peaum):
     resolution: {integrity: sha512-5MePelFQ0HRLX1OrBfGw6YRjduFttvr4cHsP4Q8dGjBfS/mhF5c8R3EmrJhNX/IUnalmLXTsGCy8Oc3V0nf/FQ==}
     dependencies:
       '@babel/helper-module-imports': 7.22.15
@@ -2257,6 +2263,7 @@ packages:
       '@mrhenry/core-web': 1.2.1
       fast-deep-equal: 3.1.3
     dev: true
+    patched: true
 
   /@mrhenry/core-web@1.2.1:
     resolution: {integrity: sha512-44E4FmCBfHkpyQxvSCb8RynjcdFGZNoCn3Un2FT/gnh+nVLPr3EtBoPuAeGa0FTty/uD6Ui6Xz9/0Dao0ckJSA==}
@@ -2763,6 +2770,10 @@ packages:
   /binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
     engines: {node: '>=8'}
+    dev: true
+
+  /blob-polyfill@7.0.20220408:
+    resolution: {integrity: sha512-oD8Ydw+5lNoqq+en24iuPt1QixdPpe/nUF8azTHnviCZYu9zUC+TwdzIp5orpblJosNlgNbVmmAb//c6d6ImUQ==}
     dev: true
 
   /boolbase@1.0.0:

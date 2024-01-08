@@ -55,6 +55,7 @@
 		"@types/prompts": "^2.4.9",
 		"@typescript-eslint/eslint-plugin": "^6.18.0",
 		"@typescript-eslint/parser": "^6.18.0",
+		"blob-polyfill": "^7.0.20220408",
 		"broadcastchannel-polyfill": "^1.0.1",
 		"browserslist": "^4.22.2",
 		"caniuse-api": "^3.0.0",
@@ -124,7 +125,8 @@
 		},
 		"patchedDependencies": {
 			"eslint-plugin-no-jquery@2.7.0": "patches/eslint-plugin-no-jquery@2.7.0.patch",
-			"eslint-config-wikimedia@0.26.0": "patches/eslint-config-wikimedia@0.26.0.patch"
+			"eslint-config-wikimedia@0.26.0": "patches/eslint-config-wikimedia@0.26.0.patch",
+			"@mrhenry/babel-plugin-core-web@1.2.1": "patches/@mrhenry__babel-plugin-core-web@1.2.1.patch"
 		}
 	}
 }
