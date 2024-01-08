@@ -23,15 +23,19 @@
 			"type": "array",
 			"default": [],
 			"items": {
-				"type": "string"
-			}
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 1
 		},
 		"contentModels": {
 			"type": "array",
 			"default": [],
 			"items": {
-				"type": "string"
-			}
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 1
 		},
 		"default": {
 			"type": "boolean",
@@ -41,8 +45,10 @@
 			"type": "array",
 			"default": [],
 			"items": {
-				"type": "string"
-			}
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 1
 		},
 		"hidden": {
 			"type": "boolean",
@@ -53,28 +59,34 @@
 			"default": [],
 			"items": {
 				"type": "number"
-			}
+			},
+			"minItems": 1
 		},
 		"peers": {
 			"type": "array",
 			"default": [],
 			"items": {
-				"type": "string"
-			}
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 1
 		},
 		"rights": {
 			"type": "array",
 			"default": [],
 			"items": {
-				"type": "string"
-			}
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 1
 		},
 		"skins": {
 			"type": "array",
 			"default": [],
 			"items": {
 				"type": "string"
-			}
+			},
+			"minItems": 1
 		},
 		"supportsUrlLoad": {
 			"type": "boolean",

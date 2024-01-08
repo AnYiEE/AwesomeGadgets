@@ -13,11 +13,13 @@
 				},
 				"sourceCode": {
 					"type": "string",
-					"title": "页面内容（脚本仅支持 ES5 语法）/ Page content (only supports ES5 syntax)"
+					"title": "页面内容（脚本仅支持 ES5 语法）/ Page content (only supports ES5 syntax)",
+					"minLength": 1
 				},
 				"licenseText": {
 					"type": "string",
-					"title": "页面内容的许可声明 / License declaration of the page content"
+					"title": "页面内容的许可声明 / License declaration of the page content",
+					"minLength": 1
 				}
 			},
 			"required": ["enable", "sourceCode"]
