@@ -58,7 +58,7 @@ devDependencies:
     version: 7.23.7(@babel/core@7.23.7)
   '@commitlint/cli':
     specifier: ^18.4.4
-    version: 18.4.4(@types/node@20.10.6)(typescript@5.3.3)
+    version: 18.4.4(@types/node@20.10.7)(typescript@5.3.3)
   '@commitlint/config-conventional':
     specifier: ^18.4.4
     version: 18.4.4
@@ -81,8 +81,8 @@ devDependencies:
     specifier: ^1.12.21
     version: 1.12.21
   '@types/node':
-    specifier: ^20.10.6
-    version: 20.10.6
+    specifier: ^20.10.7
+    version: 20.10.7
   '@types/oojs-ui':
     specifier: ^0.47.6
     version: 0.47.6
@@ -148,7 +148,7 @@ devDependencies:
     version: 2.1.0
   less-plugin-preset-env:
     specifier: latest
-    version: 1.1.1
+    version: 1.1.2
   lightningcss:
     specifier: ^1.22.1
     version: 1.22.1
@@ -187,7 +187,7 @@ devDependencies:
     version: 4.7.0
   types-mediawiki-renovate:
     specifier: latest
-    version: 2.3.0
+    version: 2.4.0
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -1383,14 +1383,14 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@commitlint/cli@18.4.4(@types/node@20.10.6)(typescript@5.3.3):
+  /@commitlint/cli@18.4.4(@types/node@20.10.7)(typescript@5.3.3):
     resolution: {integrity: sha512-Ro3wIo//fV3XiV1EkdpHog6huaEyNcUAVrSmtgKqYM5g982wOWmP4FXvEDFwRMVgz878CNBvvCc33dMZ5AQJ/g==}
     engines: {node: '>=v18'}
     hasBin: true
     dependencies:
       '@commitlint/format': 18.4.4
       '@commitlint/lint': 18.4.4
-      '@commitlint/load': 18.4.4(@types/node@20.10.6)(typescript@5.3.3)
+      '@commitlint/load': 18.4.4(@types/node@20.10.7)(typescript@5.3.3)
       '@commitlint/read': 18.4.4
       '@commitlint/types': 18.4.4
       execa: 5.1.1
@@ -1461,7 +1461,7 @@ packages:
       '@commitlint/types': 18.4.4
     dev: true
 
-  /@commitlint/load@18.4.4(@types/node@20.10.6)(typescript@5.3.3):
+  /@commitlint/load@18.4.4(@types/node@20.10.7)(typescript@5.3.3):
     resolution: {integrity: sha512-RaDIa9qwOw2xRJ3Jr2DBXd14rmnHJIX2XdZF4kmoF1rgsg/+7cvrExLSUNAkQUNimyjCn1b/bKX2Omm+GdY0XQ==}
     engines: {node: '>=v18'}
     dependencies:
@@ -1471,7 +1471,7 @@ packages:
       '@commitlint/types': 18.4.4
       chalk: 4.1.2
       cosmiconfig: 8.3.6(typescript@5.3.3)
-      cosmiconfig-typescript-loader: 5.0.0(@types/node@20.10.6)(cosmiconfig@8.3.6)(typescript@5.3.3)
+      cosmiconfig-typescript-loader: 5.0.0(@types/node@20.10.7)(cosmiconfig@8.3.6)(typescript@5.3.3)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -2364,8 +2364,8 @@ packages:
     resolution: {integrity: sha512-fAtCfv4jJg+ExtXhvCkCqUKZ+4ok/JQk01qDKhL5BDDoS3AxKXhV5/MAVUZyQnSEd2GT92fkgZl0pz0Q0AzcIQ==}
     dev: true
 
-  /@types/node@20.10.6:
-    resolution: {integrity: sha512-Vac8H+NlRNNlAmDfGUP7b5h/KA+AtWIzuXy0E6OyP8f1tCLYAtPvKRRDJjAPqhpCb0t6U2j7/xqAuLEebW2kiw==}
+  /@types/node@20.10.7:
+    resolution: {integrity: sha512-fRbIKb8C/Y2lXxB5eVMj4IU7xpdox0Lh8bUPEdtLysaylsml1hOOx1+STloRs/B9nf7C6kPRmmg/V7aQW7usNg==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -2400,7 +2400,7 @@ packages:
   /@types/prompts@2.4.9:
     resolution: {integrity: sha512-qTxFi6Buiu8+50/+3DGIWLHM6QuWsEKugJnnP6iv2Mc4ncxE4A/OJkjuVOA+5X0X1S/nq5VJRa8Lu+nwcvbrKA==}
     dependencies:
-      '@types/node': 20.10.6
+      '@types/node': 20.10.7
       kleur: 3.0.3
     dev: true
 
@@ -2689,7 +2689,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.22.2
-      caniuse-lite: 1.0.30001574
+      caniuse-lite: 1.0.30001576
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -2802,7 +2802,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001574
+      caniuse-lite: 1.0.30001576
       electron-to-chromium: 1.4.623
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.2)
@@ -2843,13 +2843,13 @@ packages:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
     dependencies:
       browserslist: 4.22.2
-      caniuse-lite: 1.0.30001574
+      caniuse-lite: 1.0.30001576
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
     dev: true
 
-  /caniuse-lite@1.0.30001574:
-    resolution: {integrity: sha512-BtYEK4r/iHt/txm81KBudCUcTy7t+s9emrIaHqjYurQ10x71zJ5VQ9x1dYPcz/b+pKSp4y/v1xSI67A+LzpNyg==}
+  /caniuse-lite@1.0.30001576:
+    resolution: {integrity: sha512-ff5BdakGe2P3SQsMsiqmt1Lc8221NR1VzHj5jXN5vBny9A6fpze94HiVV/n7XRosOlsShJcvMv5mdnpjOGCEgg==}
     dev: true
 
   /chalk@1.1.3:
@@ -3009,7 +3009,7 @@ packages:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
     dev: true
 
-  /cosmiconfig-typescript-loader@5.0.0(@types/node@20.10.6)(cosmiconfig@8.3.6)(typescript@5.3.3):
+  /cosmiconfig-typescript-loader@5.0.0(@types/node@20.10.7)(cosmiconfig@8.3.6)(typescript@5.3.3):
     resolution: {integrity: sha512-+8cK7jRAReYkMwMiG+bxhcNKiHJDM6bR9FD/nGBXOWdMLuYawjF5cGrtLilJ+LGd3ZjCXnJjR5DkfWPoIVlqJA==}
     engines: {node: '>=v16'}
     peerDependencies:
@@ -3017,7 +3017,7 @@ packages:
       cosmiconfig: '>=8.2'
       typescript: '>=4'
     dependencies:
-      '@types/node': 20.10.6
+      '@types/node': 20.10.7
       cosmiconfig: 8.3.6(typescript@5.3.3)
       jiti: 1.21.0
       typescript: 5.3.3
@@ -3193,7 +3193,7 @@ packages:
     hasBin: true
     dependencies:
       browserslist: 4.22.2
-      caniuse-lite: 1.0.30001574
+      caniuse-lite: 1.0.30001576
       css-rule-stream: 1.1.0
       duplexer2: 0.0.2
       ldjson-stream: 1.2.1
@@ -3411,7 +3411,7 @@ packages:
       '@mdn/browser-compat-data': 5.5.4
       ast-metadata-inferer: 0.8.0
       browserslist: 4.22.2
-      caniuse-lite: 1.0.30001574
+      caniuse-lite: 1.0.30001576
       eslint: 8.56.0
       find-up: 5.0.0
       lodash.memoize: 4.1.2
@@ -4343,8 +4343,8 @@ packages:
       resolve: 1.22.8
     dev: true
 
-  /less-plugin-preset-env@1.1.1:
-    resolution: {integrity: sha512-noIde0KdK15NNfPT+K9ancAv6grEwmmwBtJU6gT4nN3RLxmi34+A4c6Q041iy21HoPMGaSadoa8NYGwLi6wL5g==}
+  /less-plugin-preset-env@1.1.2:
+    resolution: {integrity: sha512-fCA74a2Ih65Oyezatrbw4OtahlseKYCj41Lm/OEpA7RARlAtF8PHWjzH60YqbY1x+m4xdkRDc7jhYphSrWhBGg==}
     dependencies:
       postcss: 8.4.33
       postcss-preset-env: 9.3.0(postcss@8.4.33)
@@ -4741,7 +4741,7 @@ packages:
       form-data: 3.0.1
       oauth-1.0a: 2.2.6
       tough-cookie: 4.1.3
-      types-mediawiki: /types-mediawiki-renovate@2.3.0
+      types-mediawiki: /types-mediawiki-renovate@2.4.0
     transitivePeerDependencies:
       - debug
     dev: true
@@ -6222,8 +6222,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /types-mediawiki-renovate@2.3.0:
-    resolution: {integrity: sha512-HbEioDSlyQRvSMd8l2wg6yIMZBWsFQIgiWihzTNbj2Vpfn8gxQA0OmYDmrDFu40T3YXYIGDK+e7BR4FZnPvBkA==}
+  /types-mediawiki-renovate@2.4.0:
+    resolution: {integrity: sha512-ICkviPDU6qXlrIztA+60mHviCj05b9OcJ+TXkxBjKlDCg30U7OtqTCFFKcgfFxZyXWfXPpwEFwkRtw8fmJdEMQ==}
     dependencies:
       '@types/jquery': 3.5.29
     dev: true
