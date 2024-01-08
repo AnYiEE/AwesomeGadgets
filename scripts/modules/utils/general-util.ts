@@ -6,15 +6,19 @@ import {exit} from 'node:process';
 import {resolve} from 'node:path';
 
 /**
- * Get the root directory of the project
- *
- * @return {string} The root directory of the project
+ * @private
+ * @return {string}
  */
 const getRootDir = (): string => {
 	const rootDir: string = resolve();
 
 	return rootDir;
 };
+
+/**
+ * The root directory of the project
+ */
+const __rootDir: string = getRootDir();
 
 /**
  * Easy to use CLI prompts to enquire users for information
@@ -126,4 +130,4 @@ const processSourceCode = (
 	return sourceCode;
 };
 
-export {getRootDir, prompt, trim, processSourceCode};
+export {__rootDir, prompt, trim, processSourceCode};

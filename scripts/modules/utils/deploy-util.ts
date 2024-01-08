@@ -1,25 +1,15 @@
-import type {
-	ApiQueue,
-	Credentials,
-	CredentialsOnlyPassword,
-	DeploymentGlobalTargets,
-	DeploymentTargets,
-} from '../types';
+import {type ApiEditResponse, type Mwn} from 'mwn';
 import {CONVERT_VARIANT, DEFINITION_SECTION_MAP} from '../../constant';
+import type {Credentials, CredentialsOnlyPassword, DeploymentGlobalTargets, DeploymentTargets} from '../types';
+import {__rootDir, processSourceCode, prompt, trim} from './general-util';
 import {closeSync, existsSync, fdatasyncSync, open, readFileSync, writeFileSync} from 'node:fs';
-import {getRootDir, processSourceCode, prompt, trim} from './general-util';
-import {type ApiEditResponse} from 'mwn';
 import {MwnError} from 'mwn/build/error';
 import {Window} from 'happy-dom';
+import {apiQueue} from '../deploy';
 import chalk from 'chalk';
 import {execSync} from 'node:child_process';
 import {join} from 'node:path';
 import {setTimeout} from 'node:timers/promises';
-
-/**
- * @private
- */
-const rootDir: string = getRootDir();
 
 /**
  * @private
@@ -72,7 +62,7 @@ const generateDirectTargets = (): [string, string][] => {
 		[K in keyof DeploymentGlobalTargets]: Omit<DeploymentGlobalTargets[K], 'contentType'>;
 	} = {};
 	try {
-		const globalJsonFilePath: string = join(rootDir, 'src/global.json');
+		const globalJsonFilePath: string = join(__rootDir, 'src/global.json');
 		const globalJsonText: string = readFileSync(globalJsonFilePath).toString();
 		try {
 			globalJsonObject = JSON.parse(globalJsonText) as typeof globalJsonObject;
@@ -130,12 +120,11 @@ const generateDirectTargets = (): [string, string][] => {
  *
  * @param {Record<string, unknown>} config To be completed configuration
  * @param {boolean} [checkApiUrlOnly=false] Only check `config.apiUrl` is empty or not
- * @return {Promise<CredentialsOnlyPassword>} Completed configuration
  */
 const checkConfig = async (
 	config: Partial<CredentialsOnlyPassword>,
 	checkApiUrlOnly: boolean = false
-): Promise<CredentialsOnlyPassword> => {
+): Promise<void> => {
 	if (checkApiUrlOnly) {
 		if (!config.apiUrl) {
 			config.apiUrl = await prompt('> Enter api url (eg. https://your.wiki/api.php)');
@@ -148,8 +137,6 @@ const checkConfig = async (
 			config.password = await prompt('> Enter bot password', 'password');
 		}
 	}
-
-	return config as CredentialsOnlyPassword;
 };
 
 /**
@@ -166,7 +153,7 @@ const loadConfig = (): Partial<Credentials> => {
 
 	let credentialsJsonText: string = '{}';
 	try {
-		const credentialsFilePath: string = join(rootDir, 'scripts/credentials.json');
+		const credentialsFilePath: string = join(__rootDir, 'scripts/credentials.json');
 		const fileBuffer: Buffer = readFileSync(credentialsFilePath);
 		credentialsJsonText = fileBuffer.toString();
 	} catch {
@@ -211,7 +198,7 @@ const makeEditSummary = async (
 		}
 	};
 	const getLog = (gadgetName: string, fileName: string): string => {
-		const filePath: string = join(rootDir, `src/${gadgetName}/${fileName}`);
+		const filePath: string = join(__rootDir, `src/${gadgetName}/${fileName}`);
 		if (!existsSync(filePath)) {
 			return '';
 		}
@@ -274,7 +261,7 @@ const makeEditSummary = async (
  * @return {string} Gadget definitions (in the format of MediaWiki:Gadgets-definition item)
  */
 const readDefinition = (): string => {
-	const definitionPath: string = join(rootDir, 'dist/definition.txt');
+	const definitionPath: string = join(__rootDir, 'dist/definition.txt');
 	const fileBuffer: Buffer = readFileSync(definitionPath);
 
 	return fileBuffer.toString();
@@ -288,7 +275,7 @@ const readDefinition = (): string => {
  * @return {string} The file content
  */
 const readFileText = (name: string, file: string): string => {
-	const filePath: string = join(rootDir, `dist/${name}/${file}`);
+	const filePath: string = join(__rootDir, `dist/${name}/${file}`);
 	const fileBuffer: Buffer = readFileSync(filePath);
 
 	return fileBuffer.toString();
@@ -299,10 +286,10 @@ const readFileText = (name: string, file: string): string => {
  *
  * @param {string} pageTitle The titie of this page
  * @param {string} content The content of this page
- * @param {ApiQueue} object The api instance and the deployment queue
+ * @param {Mwn} api The api instance
  * @param {string} editSummary The editing summary used by the api instance
  */
-const convertVariant = (pageTitle: string, content: string, {api, queue}: ApiQueue, editSummary: string): void => {
+const convertVariant = (pageTitle: string, content: string, api: Mwn, editSummary: string): void => {
 	/**
 	 * @see {@link https://zh.wikipedia.org/wiki/User:Xiplus/js/TranslateVariants}
 	 * @license CC-BY-SA-4.0
@@ -354,7 +341,7 @@ const convertVariant = (pageTitle: string, content: string, {api, queue}: ApiQue
 		});
 	}
 
-	queue
+	apiQueue
 		.addAll(taskQueue)
 		.then((nochanges: boolean[]): void => {
 			const isNoChange: boolean = nochanges.every(Boolean);
@@ -374,14 +361,14 @@ const convertVariant = (pageTitle: string, content: string, {api, queue}: ApiQue
  * Save gadget definition
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {ApiQueue} object The api instance and the deployment queue
+ * @param {Mwn} api The api instance
  * @param {string} editSummary The editing summary used by this api instance
  */
-const saveDefinition = (definitionText: string, {api, queue}: ApiQueue, editSummary: string): void => {
+const saveDefinition = (definitionText: string, api: Mwn, editSummary: string): void => {
 	const pageTitle: string = 'MediaWiki:Gadgets-definition';
 	deployPages.push(pageTitle);
 
-	void queue.add(async (): Promise<void> => {
+	void apiQueue.add(async (): Promise<void> => {
 		try {
 			const response: ApiEditResponse = await api.save(pageTitle, definitionText, editSummary);
 			if (response.nochange) {
@@ -400,10 +387,10 @@ const saveDefinition = (definitionText: string, {api, queue}: ApiQueue, editSumm
  * Save gadget definition section pages
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {ApiQueue} apiQueue The api instance and the deployment queue
+ * @param {Mwn} api The api instance
  * @param {string} editSummary The editing summary used by this api instance
  */
-const saveDefinitionSectionPage = (definitionText: string, apiQueue: ApiQueue, editSummary: string): void => {
+const saveDefinitionSectionPage = (definitionText: string, api: Mwn, editSummary: string): void => {
 	const sections: string[] = (definitionText.match(/^==([\S\s]+?)==$/gm) as RegExpMatchArray).map(
 		(sectionHeader: string): string => {
 			return sectionHeader.replace(/[=]=/g, '').trim();
@@ -419,9 +406,9 @@ const saveDefinitionSectionPage = (definitionText: string, apiQueue: ApiQueue, e
 		const pageTitle: string = pageTitles[index] as string;
 		deployPages.push(pageTitle);
 
-		void apiQueue.queue.add(async (): Promise<void> => {
+		void apiQueue.add(async (): Promise<void> => {
 			try {
-				const response: ApiEditResponse = await apiQueue.api.save(pageTitle, sectionText, editSummary);
+				const response: ApiEditResponse = await api.save(pageTitle, sectionText, editSummary);
 				if (response.nochange) {
 					console.log(chalk.yellow(`━ No change saving ${chalk.bold(pageTitle)}`));
 				} else {
@@ -434,7 +421,7 @@ const saveDefinitionSectionPage = (definitionText: string, apiQueue: ApiQueue, e
 		});
 
 		if (CONVERT_VARIANT) {
-			convertVariant(pageTitle, sectionText, apiQueue, editSummary);
+			convertVariant(pageTitle, sectionText, api, editSummary);
 		}
 	}
 };
@@ -444,16 +431,16 @@ const saveDefinitionSectionPage = (definitionText: string, apiQueue: ApiQueue, e
  *
  * @param {string} name The gadget name
  * @param {string} description The definition of this gadget
- * @param {ApiQueue} apiQueue The api instance and the deployment queue
+ * @param {Mwn} api The api instance
  * @param {string} editSummary The editing summary used by the api instance
  */
-const saveDescription = (name: string, description: string, apiQueue: ApiQueue, editSummary: string): void => {
+const saveDescription = (name: string, description: string, api: Mwn, editSummary: string): void => {
 	const pageTitle: string = `MediaWiki:Gadget-${name}`;
 	deployPages.push(pageTitle);
 
-	void apiQueue.queue.add(async (): Promise<void> => {
+	void apiQueue.add(async (): Promise<void> => {
 		try {
-			const response: ApiEditResponse = await apiQueue.api.save(pageTitle, description, editSummary);
+			const response: ApiEditResponse = await api.save(pageTitle, description, editSummary);
 			if (response.nochange) {
 				console.log(chalk.yellow(`━ No change saving ${chalk.bold(`${name} description`)}`));
 			} else {
@@ -466,7 +453,7 @@ const saveDescription = (name: string, description: string, apiQueue: ApiQueue, 
 	});
 
 	if (CONVERT_VARIANT) {
-		convertVariant(pageTitle, description, apiQueue, editSummary);
+		convertVariant(pageTitle, description, api, editSummary);
 	}
 };
 
@@ -476,16 +463,10 @@ const saveDescription = (name: string, description: string, apiQueue: ApiQueue, 
  * @param {string} name The gadget name
  * @param {string} file The target file name
  * @param {string} fileContent The target file content
- * @param {ApiQueue} object The api instance and the deployment queue
+ * @param {Mwn} api The api instance
  * @param {string} editSummary The editing summary used by the api instance
  */
-const saveFiles = (
-	name: string,
-	file: string,
-	fileContent: string,
-	{api, queue}: ApiQueue,
-	editSummary: string
-): void => {
+const saveFiles = (name: string, file: string, fileContent: string, api: Mwn, editSummary: string): void => {
 	let fileName: string = `${name}-${file}`;
 	if (file.split('.')[0] === name) {
 		fileName = file;
@@ -494,7 +475,7 @@ const saveFiles = (
 	const pageTitle: string = `MediaWiki:Gadget-${fileName}`;
 	deployPages.push(pageTitle);
 
-	void queue.add(async (): Promise<void> => {
+	void apiQueue.add(async (): Promise<void> => {
 		try {
 			const response: ApiEditResponse = await api.save(pageTitle, fileContent, editSummary);
 			if (response.nochange) {
@@ -514,13 +495,13 @@ const saveFiles = (
  *
  * @param {string} pageTitle The target page title
  * @param {string} pageContent The target page content
- * @param {ApiQueue} object The api instance and the deployment queue
+ * @param {Mwn} api The api instance
  * @param {string} editSummary The editing summary used by the api instance
  */
-const savePages = (pageTitle: string, pageContent: string, {api, queue}: ApiQueue, editSummary: string): void => {
+const savePages = (pageTitle: string, pageContent: string, api: Mwn, editSummary: string): void => {
 	deployPages.push(pageTitle);
 
-	void queue.add(async (): Promise<void> => {
+	void apiQueue.add(async (): Promise<void> => {
 		try {
 			const response: ApiEditResponse = await api.save(pageTitle, pageContent, editSummary);
 			if (response.nochange) {
@@ -538,11 +519,11 @@ const savePages = (pageTitle: string, pageContent: string, {api, queue}: ApiQueu
 /**
  * Delete unused pages from the target MediaWiki site
  *
- * @param {ApiQueue} object The api instance and the delete page queue
+ * @param {Mwn} api The api instance
  * @param {string} editSummary The editing summary used by this api instance
  */
-const deleteUnusedPages = async ({api, queue}: ApiQueue, editSummary: string): Promise<void> => {
-	const storeFilePath: string = join(rootDir, 'dist/store.txt');
+const deleteUnusedPages = async (api: Mwn, editSummary: string): Promise<void> => {
+	const storeFilePath: string = join(__rootDir, 'dist/store.txt');
 
 	let lastDeployPages: string[] = [];
 	try {
@@ -598,7 +579,7 @@ const deleteUnusedPages = async ({api, queue}: ApiQueue, editSummary: string): P
 	};
 
 	for (const page of needToDeletePages) {
-		void queue.add(async (): Promise<void> => {
+		void apiQueue.add(async (): Promise<void> => {
 			await deletePage(page);
 		});
 	}

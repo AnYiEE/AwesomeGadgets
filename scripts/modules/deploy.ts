@@ -1,4 +1,4 @@
-import type {ApiQueue, Credentials, DeploymentTargets} from './types';
+import type {Credentials, DeploymentTargets} from './types';
 import {DEPLOY_USER_AGENT, MAX_CONCURRENCY} from '../constant';
 import {
 	checkConfig,
@@ -25,17 +25,7 @@ import {prompt} from './utils/general-util';
  */
 const concurrency: number = MAX_CONCURRENCY > 256 ? 256 : MAX_CONCURRENCY;
 
-/**
- * @private
- */
-const deletePageQueue: PQueue = new PQueue({
-	concurrency,
-});
-
-/**
- * @private
- */
-const deploymentQueue: PQueue = new PQueue({
+const apiQueue: PQueue = new PQueue({
 	concurrency,
 });
 
@@ -45,8 +35,8 @@ const deploymentQueue: PQueue = new PQueue({
  * @param {DeploymentTargets} targets Return value of `generateTargets(definitions)`
  */
 const deploy = async (targets: DeploymentTargets): Promise<void> => {
-	let config: Partial<Credentials> = loadConfig();
-	config = await checkConfig(config, true);
+	const config: Partial<Credentials> = loadConfig();
+	await checkConfig(config, true);
 
 	const api: Mwn = new Mwn({
 		...config,
@@ -59,7 +49,7 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 		api.initOAuth();
 		isUseOAuth = true;
 	} catch {
-		config = await checkConfig(config);
+		await checkConfig(config);
 		api.setOptions(config);
 	}
 
@@ -83,17 +73,12 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 
 	const editSummary: string = await makeEditSummary();
 
-	const apiDeploymentQueue: ApiQueue = {
-		api,
-		queue: deploymentQueue,
-	};
-
 	const definitionText: string = readDefinition();
-	saveDefinition(definitionText, apiDeploymentQueue, editSummary);
-	saveDefinitionSectionPage(definitionText, apiDeploymentQueue, editSummary);
+	saveDefinition(definitionText, api, editSummary);
+	saveDefinitionSectionPage(definitionText, api, editSummary);
 
 	for (const [name, {description, files}] of Object.entries(targets)) {
-		saveDescription(name, description, apiDeploymentQueue, await makeEditSummary(name, editSummary));
+		saveDescription(name, description, api, await makeEditSummary(name, editSummary));
 
 		for (let file of files) {
 			if (/^\./.test(file)) {
@@ -101,36 +86,26 @@ const deploy = async (targets: DeploymentTargets): Promise<void> => {
 			}
 
 			const fileText: string = readFileText(name, file);
-			saveFiles(
-				name,
-				file,
-				fileText,
-				apiDeploymentQueue,
-				await makeEditSummary(name, editSummary, file.endsWith('.css'))
-			);
+			saveFiles(name, file, fileText, api, await makeEditSummary(name, editSummary, file.endsWith('.css')));
 		}
 	}
 
 	const globalTargets: [string, string][] = generateDirectTargets();
 	for (const [pageTitle, pageContent] of globalTargets) {
-		savePages(pageTitle, pageContent, apiDeploymentQueue, editSummary);
+		savePages(pageTitle, pageContent, api, editSummary);
 	}
 
-	await deploymentQueue.onIdle();
+	await apiQueue.onIdle();
 
 	console.log(chalk.yellow('--- end of deployment ---'));
 
 	console.log(chalk.yellow('--- starting delete unused pages ---'));
 
-	const apiDeletePageQueue: ApiQueue = {
-		api,
-		queue: deletePageQueue,
-	};
-	await deleteUnusedPages(apiDeletePageQueue, editSummary);
+	await deleteUnusedPages(api, editSummary);
 
-	await deletePageQueue.onIdle();
+	await apiQueue.onIdle();
 
 	console.log(chalk.yellow('--- end of delete unused pages ---'));
 };
 
-export {deploy};
+export {apiQueue, deploy};

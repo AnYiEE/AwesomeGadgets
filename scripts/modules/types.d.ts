@@ -1,11 +1,3 @@
-import {type Mwn} from 'mwn';
-import type PQueue from 'p-queue';
-
-interface ApiQueue {
-	api: Mwn;
-	queue: PQueue;
-}
-
 type BuiltFiles = {
 	path: string;
 	text: string;
@@ -86,7 +78,6 @@ interface SourceFiles {
 }
 
 export type {
-	ApiQueue,
 	BuiltFiles,
 	Credentials,
 	CredentialsOnlyPassword,

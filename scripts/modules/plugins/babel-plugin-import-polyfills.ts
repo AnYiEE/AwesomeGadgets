@@ -5,18 +5,13 @@
  */
 import {type BabelAPI, declare} from '@babel/helper-plugin-utils';
 import {type BrowserSupport, getSupport} from 'caniuse-api';
+import {__rootDir} from '../utils/general-util';
 /**
  * @see {@link https://babeljs.io/docs/babel-helper-compilation-targets#filteritems}
  */
 // @ts-expect-error TS7016
 import {filterItems} from '@babel/helper-compilation-targets';
-import {getRootDir} from '../utils/general-util';
 import {join} from 'node:path';
-
-/**
- * @private
- */
-const rootDir: string = getRootDir();
 
 /**
  * @private
@@ -90,7 +85,7 @@ const compatData = {
  */
 const polyfills = {
 	AudioContext: {
-		package: join(rootDir, 'scripts/modules/polyfills/AudioContext'),
+		package: join(__rootDir, 'scripts/modules/polyfills/AudioContext'),
 		type: 'NewExpression',
 	},
 	BroadcastChannel: {
