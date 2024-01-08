@@ -12,9 +12,9 @@ const BANNER = `<div class="mw-message-box mw-message-box-notice">
 </div>` satisfies string;
 
 /**
- * 小工具样式和脚本文件上方的文本，需为 CSS 和 JavaScript 所兼容的注释
+ * 页面样式和脚本文件上方的文本，需为 CSS 和 JavaScript 所兼容的注释
  *
- * The content above each gadget (CSS and JavaScript files), should be compatible comments for CSS and JavaScript
+ * The content above each CSS and JavaScript pages, should be compatible comments for CSS and JavaScript
  */
 const HEADER = `/**
  * +------------------------------------------------------------+
@@ -28,6 +28,11 @@ const HEADER = `/**
  * +------------------------------------------------------------+
  */` satisfies string;
 
+/**
+ * 默认的小工具定义
+ *
+ * Default definition of a gadget
+ */
 const DEFAULT_DEFINITION = {
 	enable: true,
 	description: '', // 回落值为小工具名称 / Fallback value: the name of the current gadget
@@ -53,7 +58,7 @@ const DEFAULT_DEFINITION = {
  *
  * 可自行添加，回落值为`DEFAULT_DEFINITION.section`的值
  *
- * The content of the `MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}` page (the name of the current gadget section)
+ * The content of the `MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}` page (as the name of the current gadget section)
  *
  * Can be added by oneself, the fallback value is the value of `DEFAULT_DEFINITION.section`
  */

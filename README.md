@@ -3,16 +3,16 @@
 
 ### 简介 / Introduction
 
-Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编译全站小工具（Gadget）的工具。小工具开发者只需关心小工具本身的代码实现，无需关心其他方面。工具将自动检查语法、编译并部署到网站。<br>_Awesome Gadgets_ is a tool designed specifically for MediaWiki websites, with the goal of centralizing the storage, management, and compilation of all site-wide gadgets. Developers of these gadgets can solely focus on implementing the code for their creations without the need to worry about other aspects. The tool will automatically check the syntax, compile, and deploy gadgets to the website.
+Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编译全站小工具（Gadget）的工具。小工具开发者只需关心小工具本身的代码实现，无需关心其他方面。工具将自动检查语法、编译并部署到网站。<br>_Awesome Gadgets_ is a tool designed specifically for MediaWiki websites, with the goal of centralizing the storage, management, and compilation of all site-wide CSS/JavaScript and their peer pages. Developers of these gadgets can solely focus on implementing the code for their creations without the need to worry about other aspects. The tool will automatically check the syntax, compile, and deploy gadgets to the website.
 
 -   使用 esbuild 编译，通过 Babel 转译现代语法以获得良好的浏览器兼容性<br>Compile using esbuild and transpile modern syntax with Babel for good browser compatibility
--   可以编写 TypeScript 和 Less，支持 CSS/Less 模块<br>Can write TypeScript and Less, support CSS/Less modules
--   支持引用 ResourceLoader 模块<br>Support requiring ResourceLoader modules
+-   可以编写 TypeScript 和 Less，支持 CSS/Less 模块<br>Support writing files in TypeScript and Less, support CSS/Less modules
+-   支持引用 ResourceLoader 模块<br>Support requiring ResourceLoader built-in modules
     -   见[文档](docs/how-to-use-exports-and-require-in-mediawiki.md)。<br>See [documentation](docs/how-to-use-exports-and-require-in-mediawiki.md)
 -   自动部署<br>Automatic deployment
     -   `MediaWiki:Gadgets-definition`
-    -   `MediaWiki:Gadget-section-*`（支持自动转换中文变体）/ (with automatic conversion for Chinese variations)
-    -   `MediaWiki:Gadget-*`（支持自动转换中文变体）/ (with automatic conversion for Chinese variations)
+    -   `MediaWiki:Gadget-section-*`（支持自动转换中文变体）/ (with automatic conversion of Chinese variations)
+    -   `MediaWiki:Gadget-*`（支持自动转换中文变体）/ (with automatic conversion of Chinese variations)
     -   `MediaWiki:*.{js, css}`
 -   自动从网站内删除曾经部署过但现在不再需要的页面<br>Automatically delete pages that have been deployed on the website but are no longer needed
 
