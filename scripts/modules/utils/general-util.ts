@@ -46,8 +46,13 @@ async function prompt(
 	});
 
 	const answer = answers[name] as boolean | string | undefined;
-	if (answer === undefined || (type === 'confirm' && (!answer as boolean))) {
-		// User pressed [ctrl + C] or not confirmed
+	if (type === 'confirm' && (!answer as boolean)) {
+		// Not confirmed
+		console.log(chalk.red('User cancelled process, Program terminated.'));
+		exit(0);
+	}
+	if (answer === undefined) {
+		// User pressed [ctrl + C]
 		console.log(chalk.red('Input cancelled, program terminated.'));
 		exit(1);
 	}
