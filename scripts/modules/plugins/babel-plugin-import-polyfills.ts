@@ -2,6 +2,8 @@
 /**
  * @file Automatically import any missing polyfills
  * @see {@link https://github.com/zloirock/core-js#missing-polyfills}
+ * @see {@link https://github.com/mrhenry/core-web/tree/main/packages/core-web/modules}
+ * @see ../../patches/@mrhenry__babel-plugin-core-web.patch
  */
 import {type BabelAPI, declare} from '@babel/helper-plugin-utils';
 import {type BrowserSupport, getSupport} from 'caniuse-api';
