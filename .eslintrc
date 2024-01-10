@@ -27,6 +27,7 @@
 			"files": ["*.jsx", "*.tsx"],
 			"extends": ["plugin:react/recommended", "plugin:react/jsx-runtime"],
 			"rules": {
+				"arrow-body-style": ["error", "as-needed"],
 				"class-methods-use-this": [
 					"error",
 					{
@@ -49,7 +50,8 @@
 					{
 						"varsIgnorePattern": "^_|^React$"
 					}
-				]
+				],
+				"react/no-unknown-property": "off"
 			}
 		}
 	],
