@@ -50,7 +50,7 @@
 		"@types/babel__helper-plugin-utils": "^7.10.3",
 		"@types/caniuse-api": "^3.0.6",
 		"@types/jqueryui": "^1.12.21",
-		"@types/node": "^20.10.7",
+		"@types/node": "^20.10.8",
 		"@types/oojs-ui": "^0.47.6",
 		"@types/prompts": "^2.4.9",
 		"@typescript-eslint/eslint-plugin": "^6.18.1",
