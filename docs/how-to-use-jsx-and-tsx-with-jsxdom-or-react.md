@@ -66,7 +66,6 @@ import React from 'ext.gadget.React';
 
 ```tsx
 import React, {styled} from 'ext.gadget.React';
-import {css} from 'ext.gadget.React';
 
 const Header = styled.h2`
 	font-size: 1.5em;
