@@ -1,15 +1,5 @@
 {
 	"compilerOptions": {
-		"plugins": [
-			{
-				"name": "typescript-plugin-css-modules",
-				"options": {
-					"classnameTransform": "camelCaseOnly",
-					"namedExports": false
-				}
-			}
-		],
-
 		"allowUnreachableCode": false,
 		"allowUnusedLabels": false,
 		"alwaysStrict": true,
@@ -44,9 +34,20 @@
 		"allowJs": true,
 		"checkJs": true,
 
+		"plugins": [
+			{
+				"name": "typescript-plugin-css-modules",
+				"options": {
+					"classnameTransform": "camelCaseOnly",
+					"goToDefinition": true
+				}
+			}
+		],
+
 		"esModuleInterop": true,
 		"isolatedModules": true,
 
+		"jsx": "react",
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"target": "ESNext",
 

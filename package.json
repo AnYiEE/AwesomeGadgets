@@ -68,6 +68,7 @@
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-config-wikimedia": "latest",
+		"eslint-plugin-react": "^7.33.2",
 		"eslint-plugin-unicorn": "latest",
 		"glob": "^10.3.10",
 		"happy-dom": "^12.10.3",

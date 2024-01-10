@@ -33,6 +33,9 @@ const esbuildOptions = {
 	loader,
 	bundle: true,
 	charset: 'utf8',
+	define: {
+		'process.env.NODE_ENV': '"production"',
+	},
 	format: 'cjs',
 	legalComments: 'inline',
 	plugins: [
