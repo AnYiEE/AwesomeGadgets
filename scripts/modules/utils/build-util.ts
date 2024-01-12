@@ -665,7 +665,7 @@ const generateDefinitionItem = (
 	definitionText = definitionText.replace(/\|$/, '');
 
 	const cleanInvalidCharacters = (text: string): string => {
-		return trim(text.replace(/☀|❀/g, ''), {
+		return trim(text.replace(/☀|❄/g, ''), {
 			addNewline: false,
 		});
 	};
@@ -676,9 +676,7 @@ const generateDefinitionItem = (
 	let sectionText: string = cleanInvalidCharacters(definition.section);
 	sectionText = sectionText ? `☀${sectionText}` : '☀appear';
 
-	return `* ${name}[ResourceLoader${definitionText}]${files}${sectionText}${descriptionText}`
-		.replace(/\.ts(x)?([|☀])/g, '.js$1$2')
-		.replace(/\.less([|☀])/g, '.css$1');
+	return `* ${name}[ResourceLoader${definitionText}]${files}${sectionText}${descriptionText}`;
 };
 
 /**
