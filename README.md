@@ -10,6 +10,7 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
     -   见[文档](docs/how-to-use-jsx-and-tsx-with-jsxdom-or-react.md)。<br>See [documentation](docs/how-to-use-jsx-and-tsx-with-jsxdom-or-react.md)
 -   支持引用 ResourceLoader 模块<br>Support requiring ResourceLoader built-in modules
     -   见[文档](docs/how-to-use-exports-and-require-in-mediawiki.md)。<br>See [documentation](docs/how-to-use-exports-and-require-in-mediawiki.md)
+-   支持向多个站点部署<br>Support deploying to multiple sites
 -   自动部署<br>Automatic deployment
     -   `MediaWiki:Gadgets-definition`
     -   `MediaWiki:Gadget-section-*`（支持自动转换中文变体）/ (with automatic conversion of Chinese variations)

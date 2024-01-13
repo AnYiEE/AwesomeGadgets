@@ -5,7 +5,9 @@
 	"type": "module",
 	"scripts": {
 		"build": "pnpm format && tsx scripts/build.ts",
-		"deploy": "pnpm format && tsx scripts/deploy.ts",
+		"deploy": "pnpm build && tsx scripts/deploy.ts",
+		"build:only": "tsx scripts/build.ts",
+		"deploy:only": "tsx scripts/deploy.ts",
 		"format": "prettier --cache --write . && pnpm lint:fix && tsc",
 		"eslint": "eslint --cache .",
 		"eslint:fix": "eslint --cache --fix .",

@@ -1,3 +1,10 @@
+import {type Mwn} from 'mwn';
+
+interface Api {
+	apiInstance: Mwn;
+	site: string;
+}
+
 type BuiltFiles = {
 	path: string;
 	text: string;
@@ -28,6 +35,7 @@ type Credentials = CredentialsOnlyOAuth | CredentialsOnlyOAuth2 | CredentialsOnl
 
 interface DefaultDefinition {
 	enable: boolean;
+	excludeSites: string[];
 	description: string;
 	section: string;
 	actions: string[];
@@ -48,14 +56,17 @@ interface DefaultSectionMap {
 
 type Dependencies = DefaultDefinition['dependencies'];
 
+type DeploymentDirectTargets = [string, string][];
+
 interface DeploymentTargets {
 	[key: string]: {
-		description: string;
-		files: string[];
+		excludeSites: DefaultDefinition['excludeSites'];
+		description: DefaultDefinition['description'];
+		files: [string, string][];
 	};
 }
 
-interface DeploymentGlobalTargets {
+interface GlobalSourceFiles {
 	[key: string]: {
 		enable: boolean;
 		sourceCode: string;
@@ -78,13 +89,15 @@ interface SourceFiles {
 }
 
 export type {
+	Api,
 	BuiltFiles,
 	Credentials,
 	CredentialsOnlyPassword,
 	DefaultDefinition,
 	DefaultSectionMap,
 	Dependencies,
+	DeploymentDirectTargets,
 	DeploymentTargets,
-	DeploymentGlobalTargets,
+	GlobalSourceFiles,
 	SourceFiles,
 };

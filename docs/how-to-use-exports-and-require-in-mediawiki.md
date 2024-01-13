@@ -31,7 +31,7 @@ export {func};
 
 ```jsonc
 {
-	"dependencies": ["@wikimedia/codex", "ext.gadget.any_package"]
+	"dependencies": ["@wikimedia/codex", "ext.gadget.any_package"],
 	// Other properties...
 }
 ```

@@ -1,13 +1,15 @@
-import type {Credentials, DeploymentTargets} from './types';
+import type {Api, DeploymentDirectTargets, DeploymentTargets} from './types';
 import {DEPLOY_USER_AGENT, MAX_CONCURRENCY} from '../constant';
+import {__rootDir, prompt} from './utils/general-util';
 import {
 	checkConfig,
 	deleteUnusedPages,
 	generateDirectTargets,
+	generateTargets,
 	loadConfig,
 	makeEditSummary,
 	readDefinition,
-	readFileText,
+	readFileContent,
 	saveDefinition,
 	saveDefinitionSectionPage,
 	saveDescription,
@@ -18,7 +20,7 @@ import {Mwn} from 'mwn';
 import PQueue from 'p-queue';
 import chalk from 'chalk';
 import {exit} from 'node:process';
-import {prompt} from './utils/general-util';
+import {join} from 'node:path';
 
 /**
  * @private
@@ -31,81 +33,127 @@ const apiQueue: PQueue = new PQueue({
 
 /**
  * Deploy definitions, scripts and styles
- *
- * @param {DeploymentTargets} targets Return value of `generateTargets(definitions)`
  */
-const deploy = async (targets: DeploymentTargets): Promise<void> => {
-	const config: Partial<Credentials> = loadConfig();
+const deploy = async (): Promise<void> => {
+	const definitionText: string = readDefinition();
+
+	const config = loadConfig();
 	await checkConfig(config, true);
 
-	const api: Mwn = new Mwn({
-		...config,
-		maxRetries: 10,
-		userAgent: DEPLOY_USER_AGENT,
-	});
-
-	let isUseOAuth: boolean = false;
-	try {
-		api.initOAuth();
-		isUseOAuth = true;
-	} catch {
-		await checkConfig(config);
-		api.setOptions(config);
+	const uncheckedApis: Api[] = [];
+	for (const [site, credentials] of Object.entries(config)) {
+		uncheckedApis.push({
+			site,
+			apiInstance: new Mwn({
+				...credentials,
+				maxRetries: 10,
+				userAgent: DEPLOY_USER_AGENT,
+			}),
+		});
 	}
 
-	console.log(chalk.yellow('--- logging in ---'));
-
-	try {
-		if (isUseOAuth) {
-			await api.getTokensAndSiteInfo();
-		} else {
-			await api.login();
+	const apis: Api[] = [];
+	for (const {apiInstance, site} of uncheckedApis) {
+		let isUseOAuth: boolean = false;
+		try {
+			apiInstance.initOAuth();
+			isUseOAuth = true;
+		} catch {
+			await checkConfig(config);
+			apiInstance.setOptions(config);
 		}
-	} catch (error: unknown) {
-		console.log(chalk.red('--- log in failed ---'));
-		console.error(error);
+
+		console.log(chalk.yellow(`--- [${chalk.bold(site)}] logging in ---`));
+
+		try {
+			if (isUseOAuth) {
+				await apiInstance.getTokensAndSiteInfo();
+			} else {
+				await apiInstance.login();
+			}
+			apis.push({
+				apiInstance,
+				site,
+			});
+		} catch (error: unknown) {
+			console.log(chalk.red(`--- [${chalk.bold(site)}] log in failed ---`));
+			console.log(chalk.red(`--- Skip deployment at ${chalk.bold(site)} ---`));
+			console.error(error);
+			continue;
+		}
+	}
+
+	if (!apis.length) {
+		console.log(chalk.red('No site configured, program terminated.'));
 		exit(1);
 	}
 
 	await prompt('> Confirm start deployment?', 'confirm', true);
 
-	console.log(chalk.yellow('--- starting deployment ---'));
+	const targets: DeploymentTargets = generateTargets();
 
-	const editSummary: string = await makeEditSummary();
+	const fallbackEditSummary: string = await makeEditSummary();
+	const definitionFilePath: string = join(__rootDir, 'dist/definition.txt');
+	const definitionEditSummary: string = await makeEditSummary(definitionFilePath, fallbackEditSummary);
 
-	const definitionText: string = readDefinition();
-	saveDefinition(definitionText, api, editSummary);
-	saveDefinitionSectionPage(definitionText, api, editSummary);
+	for (const api of apis) {
+		const {site} = api;
 
-	for (const [name, {description, files}] of Object.entries(targets)) {
-		saveDescription(name, description, api, await makeEditSummary(name, editSummary));
+		console.log(chalk.yellow(`--- [${chalk.bold(site)}] starting deployment ---`));
 
-		for (let file of files) {
-			if (/^\./.test(file)) {
-				file = name + file;
+		const enabledGadgets: string[] = [];
+
+		for (const [gadgetName, {description, excludeSites, files}] of Object.entries(targets)) {
+			if (excludeSites.includes(site)) {
+				continue;
 			}
 
-			const fileText: string = readFileText(name, file);
-			saveFiles(name, file, fileText, api, await makeEditSummary(name, editSummary, file.endsWith('.css')));
+			enabledGadgets.push(gadgetName);
+
+			const originDefinitionFilePath: string = join(__rootDir, `src/${gadgetName}/definition.json`);
+			const originDefinitionEditSummary: string = await makeEditSummary(
+				originDefinitionFilePath,
+				fallbackEditSummary
+			);
+			saveDescription(
+				gadgetName,
+				description,
+				api,
+				await makeEditSummary(originDefinitionEditSummary, fallbackEditSummary)
+			);
+
+			for (const [originFileName, fileName] of files) {
+				const filePath: string = join(__rootDir, `dist/${gadgetName}/${originFileName}`);
+				const fileContent: string = readFileContent(filePath);
+				saveFiles(gadgetName, fileName, fileContent, api, await makeEditSummary(filePath, fallbackEditSummary));
+			}
 		}
+
+		const currentSiteDefinitionText: string = saveDefinition(
+			definitionText,
+			enabledGadgets,
+			api,
+			definitionEditSummary
+		);
+		saveDefinitionSectionPage(currentSiteDefinitionText, api, definitionEditSummary);
+
+		const globalTargets: DeploymentDirectTargets = generateDirectTargets(site);
+		for (const [pageTitle, pageContent] of globalTargets) {
+			savePages(pageTitle, pageContent, api, fallbackEditSummary);
+		}
+
+		await apiQueue.onIdle();
+
+		console.log(chalk.yellow(`--- [${chalk.bold(site)}] end of deployment ---`));
+
+		console.log(chalk.yellow(`--- [${chalk.bold(site)}] starting delete unused pages ---`));
+
+		await deleteUnusedPages(api, fallbackEditSummary);
+
+		await apiQueue.onIdle();
+
+		console.log(chalk.yellow(`--- [${chalk.bold(site)}] end of delete unused pages ---`));
 	}
-
-	const globalTargets: [string, string][] = generateDirectTargets();
-	for (const [pageTitle, pageContent] of globalTargets) {
-		savePages(pageTitle, pageContent, api, editSummary);
-	}
-
-	await apiQueue.onIdle();
-
-	console.log(chalk.yellow('--- end of deployment ---'));
-
-	console.log(chalk.yellow('--- starting delete unused pages ---'));
-
-	await deleteUnusedPages(api, editSummary);
-
-	await apiQueue.onIdle();
-
-	console.log(chalk.yellow('--- end of delete unused pages ---'));
 };
 
 export {apiQueue, deploy};

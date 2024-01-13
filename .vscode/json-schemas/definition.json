@@ -8,6 +8,16 @@
 			"title": "是否启用当前小工具 / Enable current gadget or not",
 			"default": true
 		},
+		"excludeSites": {
+			"type": "array",
+			"title": "在给定站点上禁用当前小工具 / Disable the current gadget on given sites",
+			"default": [],
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 1
+		},
 		"description": {
 			"type": "string",
 			"title": "“MediaWiki:Gadget-小工具名”页面中的文本，默认为当前小工具名 / The content in the page 'MediaWiki:Gadget-${gadgetName}' (default: the current gadget name)"

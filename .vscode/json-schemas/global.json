@@ -1,29 +1,32 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
 	"type": "object",
-	"patternProperties": {
-		"^(?![Gg]adget-).+\\.(css|js)$": {
-			"type": "object",
-			"title": "直接部署的页面（仅支持 CSS 或 JavaScript）/ Global Pages (only allow CSS or JavaScript)",
-			"properties": {
-				"enable": {
-					"type": "boolean",
-					"title": "是否部署当前页面 / Deploy current page or not",
-					"default": true
+	"additionalProperties": {
+		"type": "object",
+		"patternProperties": {
+			"^(?![Gg]adget-).+\\.(css|js)$": {
+				"type": "object",
+				"title": "直接部署的页面（仅支持 CSS 或 JavaScript）/ Global Pages (only allow CSS or JavaScript)",
+				"properties": {
+					"enable": {
+						"type": "boolean",
+						"title": "是否部署当前页面 / Deploy current page or not",
+						"default": true
+					},
+					"sourceCode": {
+						"type": "string",
+						"title": "页面内容（脚本仅支持 ES5 语法）/ Page content (only supports ES5 syntax)",
+						"minLength": 1
+					},
+					"licenseText": {
+						"type": "string",
+						"title": "页面内容的许可声明 / License declaration of the page content",
+						"minLength": 1
+					}
 				},
-				"sourceCode": {
-					"type": "string",
-					"title": "页面内容（脚本仅支持 ES5 语法）/ Page content (only supports ES5 syntax)",
-					"minLength": 1
-				},
-				"licenseText": {
-					"type": "string",
-					"title": "页面内容的许可声明 / License declaration of the page content",
-					"minLength": 1
-				}
-			},
-			"required": ["enable", "sourceCode"]
-		}
-	},
-	"additionalProperties": false
+				"required": ["enable", "sourceCode"]
+			}
+		},
+		"additionalProperties": false
+	}
 }

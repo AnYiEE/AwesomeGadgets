@@ -30,7 +30,7 @@
     	"namespaces": [0],
     	"peers": ["peers"],
     	"rights": ["rollback"],
-    	"skins": ["vector"]
+    	"skins": ["vector"],
     }
     ```
 
@@ -52,33 +52,30 @@
 
 3. 根据实际情况更改`scripts/constant.ts`中的信息<br>Update the information in `scripts/constant.ts` based on your specific needs
 
-4. 在`script`文件夹下新建`credentials.json`文件（多选一，取决于你的登录方式。存在多种登录凭据时，OAuth2 优先于 OAuth1.0a 优先于机器人账号密码）<br>Create a `credentials.json` file in the `script` directory (choose one based on your login method. If multiple login credentials are available, OAuth2 takes precedence over OAuth1.0a, which takes precedence over bot password)
+4. 在`script`文件夹下新建`credentials.json`文件（同一站点存在多种登录凭据时，OAuth2 优先于 OAuth1.0a 优先于机器人账号密码）<br>Create a `credentials.json` file in the `script` directory (If multiple login credentials are available for a site, OAuth2 takes precedence over OAuth1.0a, which takes precedence over bot password)
 
     ```jsonc
     {
-    	"apiUrl": "https://your.wiki/api.php", // 根据实际情况修改 / Modify according to actual needs
-    	"username": "", // 填入机器人账号和密码（可以在[[Special:BotPasswords]]获取）/ Enter the robot account and password (you can get it from [[Special:BotPasswords]])
-    	"password": ""
-    }
-    ```
-
-    ```jsonc
-    {
-    	"apiUrl": "https://your.wiki/api.php", // 根据实际情况修改 / Modify according to actual needs
-    	"OAuth2AccessToken": "" // 填入 OAuth2 访问密钥 / Enter the OAuth2 access token
-    }
-    ```
-
-    ```jsonc
-    {
-    	"apiUrl": "https://your.wiki/api.php", // 根据实际情况修改 / Modify according to actual needs
-    	"OAuthCredentials": {
-    		// 填入 OAuth1.0a 相关信息 / Enter the OAuth1.0a related information
-    		"accessToken": "16_DIGIT_ALPHANUMERIC_KEY",
-    		"accessSecret": "20_DIGIT_ALPHANUMERIC_KEY",
-    		"consumerToken": "16_DIGIT_ALPHANUMERIC_KEY",
-    		"consumerSecret": "20_DIGIT_ALPHANUMERIC_KEY"
-    	}
+    	// 站点名称 / Site name
+    	"siteA": {
+    		"apiUrl": "https://your.wiki/api.php", // 根据实际情况修改 / Modify according to actual needs
+    		"username": "", // 填入机器人账号和密码（可以在[[Special:BotPasswords]]获取）/ Enter the robot account and password (you can get it from [[Special:BotPasswords]])
+    		"password": "",
+    	},
+    	"siteB": {
+    		"apiUrl": "https://your.wiki/api.php", // 根据实际情况修改 / Modify according to actual needs
+    		"OAuth2AccessToken": "", // 填入 OAuth2 访问密钥 / Enter the OAuth2 access token
+    	},
+    	"siteC": {
+    		"apiUrl": "https://your.wiki/api.php", // 根据实际情况修改 / Modify according to actual needs
+    		"OAuthCredentials": {
+    			// 填入 OAuth1.0a 相关信息 / Enter the OAuth1.0a related information
+    			"accessToken": "16_DIGIT_ALPHANUMERIC_KEY",
+    			"accessSecret": "20_DIGIT_ALPHANUMERIC_KEY",
+    			"consumerToken": "16_DIGIT_ALPHANUMERIC_KEY",
+    			"consumerSecret": "20_DIGIT_ALPHANUMERIC_KEY",
+    		},
+    	},
     }
     ```
 
@@ -102,15 +99,17 @@
 
     ```jsonc
     {
-    	"Commmon.js": {
-    		"enable": true,
-    		"sourceCode": "mw.loader.using(['ext.gadget.Common']);", // 此处的代码不会经过编译，仅支持 CSS 或使用 ES5 语法的 JavaScript / The code here will not be compiled, only supports CSS or JavaScript using ES5 syntax
-    		"licenseText": "" // 可选 / Optional
+    	"siteA": {
+    		"Commmon.js": {
+    			"enable": true,
+    			"sourceCode": "mw.loader.using(['ext.gadget.Common']);", // 此处的代码不会经过编译，仅支持 CSS 或使用 ES5 语法的 JavaScript / The code here will not be compiled, only supports CSS or JavaScript using ES5 syntax
+    			"licenseText": "", // 可选 / Optional
+    		},
+    		"Skin.js": {
+    			"enable": true,
+    			"sourceCode": "mw.loader.using(['ext.gadget.Skin']);",
+    		},
     	},
-    	"Skin.js": {
-    		"enable": true,
-    		"sourceCode": "mw.loader.using(['ext.gadget.Skin']);"
-    	}
     }
     ```
 

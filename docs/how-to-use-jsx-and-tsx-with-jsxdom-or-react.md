@@ -51,7 +51,7 @@ document.body.append(
 
 ```jsonc
 {
-	"dependencies": ["ext.gadget.React"]
+	"dependencies": ["ext.gadget.React"],
 	// Other properties...
 }
 ```

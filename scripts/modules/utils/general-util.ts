@@ -1,9 +1,10 @@
-import {GLOBAL_REQUIRES_ES6, HEADER} from 'scripts/constant';
+import {DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER} from 'scripts/constant';
+import type {DefaultDefinition, GlobalSourceFiles} from '../types';
+import {join, resolve} from 'node:path';
 import prompts, {type Answers, type PromptType} from 'prompts';
-import type {DeploymentGlobalTargets} from '../types';
 import chalk from 'chalk';
 import {exit} from 'node:process';
-import {resolve} from 'node:path';
+import {readFileSync} from 'node:fs';
 
 /**
  * @private
@@ -19,6 +20,53 @@ const getRootDir = (): string => {
  * The root directory of the project
  */
 const __rootDir: string = getRootDir();
+
+/**
+ * Parse `definition.json` of a gadget
+ * @param {string} gadgetName The gadget name
+ * @param {boolean} [showLog=true] Show log or not
+ * @return {Object} The definition object
+ */
+const generateDefinition = (gadgetName: string, showLog: boolean = true): typeof definition => {
+	const logError = (reason: string): void => {
+		if (showLog) {
+			console.log(
+				chalk.yellow(
+					`${chalk.italic('definition.json')} of ${chalk.bold(
+						gadgetName
+					)} is ${reason}, the default definition will be used.`
+				)
+			);
+		}
+	};
+
+	let definitionJsonText: string = '{}';
+	const definitionFilePath: string = join(__rootDir, `src/${gadgetName}/definition.json`);
+	try {
+		const fileBuffer: Buffer = readFileSync(definitionFilePath);
+		definitionJsonText = fileBuffer.toString();
+	} catch {
+		logError('missing');
+	}
+
+	let definition: DefaultDefinition & {
+		requiresES6: boolean;
+	} = {
+		...DEFAULT_DEFINITION,
+		requiresES6: GLOBAL_REQUIRES_ES6,
+	};
+	try {
+		definition = {
+			...definition,
+			...(JSON.parse(definitionJsonText) as Partial<DefaultDefinition>),
+			requiresES6: GLOBAL_REQUIRES_ES6,
+		};
+	} catch {
+		logError('broken');
+	}
+
+	return definition;
+};
 
 /**
  * Easy to use CLI prompts to enquire users for information
@@ -48,7 +96,7 @@ async function prompt(
 	const answer = answers[name] as boolean | string | undefined;
 	if (type === 'confirm' && (!answer as boolean)) {
 		// Not confirmed
-		console.log(chalk.red('User cancelled process, Program terminated.'));
+		console.log(chalk.red('User cancelled process, program terminated.'));
 		exit(0);
 	}
 	if (answer === undefined) {
@@ -107,7 +155,7 @@ const processSourceCode = (
 		contentType,
 		licenseText,
 		isDirectly = false,
-	}: Omit<DeploymentGlobalTargets[keyof DeploymentGlobalTargets], 'enable' | 'sourceCode'> & {
+	}: Omit<GlobalSourceFiles[keyof GlobalSourceFiles], 'enable' | 'sourceCode'> & {
 		isDirectly?: boolean;
 	} = {}
 ): string => {
@@ -135,4 +183,4 @@ const processSourceCode = (
 	return sourceCode;
 };
 
-export {__rootDir, prompt, trim, processSourceCode};
+export {__rootDir, generateDefinition, prompt, trim, processSourceCode};
