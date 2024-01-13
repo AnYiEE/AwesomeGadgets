@@ -53,17 +53,17 @@ const generateTargets = (): DeploymentTargets => {
 
 	const definitionText: string = readDefinition();
 	const definitions: string[] = definitionText.split('\n').filter((lineContent: string): boolean => {
-		return /^\*\s\S+?\[ResourceLoader]/.test(lineContent);
+		return /^\*\s\S+?\[ResourceLoader[|\]]/.test(lineContent);
 	});
 
 	const gadgetNames: string[] = definitions.map((definition: string): string => {
-		const regExpMatchArray = definition.match(/^\*\s(\S+?)\[\S+?]/) as [string, string];
+		const regExpMatchArray = definition.match(/^\*\s(\S+?)\[\S+?[|\]]/) as [string, string];
 		return regExpMatchArray[1];
 	});
 
 	type Target = DeploymentTargets[keyof DeploymentTargets];
 
-	for (const gadgetName of gadgetNames) {
+	for (const gadgetName of gadgetNames.sort()) {
 		const definition: DefaultDefinition = generateDefinition(gadgetName, false);
 		const {description, enable, excludeSites} = definition;
 
@@ -434,7 +434,7 @@ const saveDefinition = (definitionText: string, enabledGadgets: string[], api: A
 	definitionText = definitionText
 		.split('\n')
 		.filter((lineContent: string): boolean => {
-			const regex: RegExp = /^\*\s(\S+?)\[ResourceLoader]/;
+			const regex: RegExp = /^\*\s(\S+?)\[ResourceLoader[|\]]/;
 			const regExpMatchArray: RegExpMatchArray | null = lineContent.match(regex);
 			if (regExpMatchArray && regExpMatchArray[1]) {
 				return enabledGadgets.includes(regExpMatchArray[1]);
@@ -663,7 +663,7 @@ const deleteUnusedPages = async (api: Api, editSummary: string): Promise<void> =
 			console.error(err);
 			return;
 		}
-		writeFileSync(fd, `${JSON.stringify(deployPages)}\n`);
+		writeFileSync(fd, `${JSON.stringify(deployPages, null, '\t')}\n`);
 		fdatasyncSync(fd);
 		closeSync(fd);
 	});
