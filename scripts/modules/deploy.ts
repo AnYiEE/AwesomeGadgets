@@ -35,6 +35,7 @@ const apiQueue: PQueue = new PQueue({
  * Deploy definitions, scripts and styles
  */
 const deploy = async (): Promise<void> => {
+	// Note: The program may terminate due to an expected exception
 	const definitionText: string = readDefinition();
 
 	const config = loadConfig();
@@ -91,17 +92,13 @@ const deploy = async (): Promise<void> => {
 	await prompt('> Confirm start deployment?', 'confirm', true);
 
 	const targets: DeploymentTargets = generateTargets();
-
 	const fallbackEditSummary: string = await makeEditSummary();
-	const definitionFilePath: string = join(__rootDir, 'dist/definition.txt');
-	const definitionEditSummary: string = await makeEditSummary(definitionFilePath, fallbackEditSummary);
 
 	for (const api of apis) {
 		const {site} = api;
+		const enabledGadgets: string[] = [];
 
 		console.log(chalk.yellow(`--- [${chalk.bold(site)}] starting deployment ---`));
-
-		const enabledGadgets: string[] = [];
 
 		for (const [gadgetName, {description, excludeSites, files}] of Object.entries(targets)) {
 			if (excludeSites.includes(site)) {
@@ -115,19 +112,18 @@ const deploy = async (): Promise<void> => {
 				originDefinitionFilePath,
 				fallbackEditSummary
 			);
-			saveDescription(
-				gadgetName,
-				description,
-				api,
-				await makeEditSummary(originDefinitionEditSummary, fallbackEditSummary)
-			);
+			saveDescription(gadgetName, description, api, originDefinitionEditSummary);
 
 			for (const [originFileName, fileName] of files) {
 				const filePath: string = join(__rootDir, `dist/${gadgetName}/${originFileName}`);
 				const fileContent: string = readFileContent(filePath);
-				saveFiles(gadgetName, fileName, fileContent, api, await makeEditSummary(filePath, fallbackEditSummary));
+				const fileEditSummary: string = await makeEditSummary(filePath, fallbackEditSummary);
+				saveFiles(gadgetName, fileName, fileContent, api, fileEditSummary);
 			}
 		}
+
+		const definitionFilePath: string = join(__rootDir, 'dist/definition.txt');
+		const definitionEditSummary: string = await makeEditSummary(definitionFilePath, fallbackEditSummary);
 
 		const currentSiteDefinitionText: string = saveDefinition(
 			definitionText,
@@ -138,8 +134,10 @@ const deploy = async (): Promise<void> => {
 		saveDefinitionSectionPage(currentSiteDefinitionText, api, definitionEditSummary);
 
 		const globalTargets: DeploymentDirectTargets = generateDirectTargets(site);
+		const globalTargetsFilePath: string = join(__rootDir, 'src/global.json');
+		const globalTargetsEditSummary: string = await makeEditSummary(globalTargetsFilePath, fallbackEditSummary);
 		for (const [pageTitle, pageContent] of globalTargets) {
-			savePages(pageTitle, pageContent, api, fallbackEditSummary);
+			savePages(pageTitle, pageContent, api, globalTargetsEditSummary);
 		}
 
 		await apiQueue.onIdle();
