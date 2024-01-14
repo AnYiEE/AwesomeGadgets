@@ -17,7 +17,7 @@ pnpm add react react-dom @types/react @types/react-dom
 
 #### 目标 MediaWiki 的版本低于 1.38<br>The target MediaWiki version is lower than 1.38
 
-按正常使用 jsx-dom 或 React 的方式使用即可。需要注意的是，每个使用 jsx-dom 或 React 的小工具都会打包一份对应的库，可能会严重影响代码体积（React 真的非常大）。<br>Just use jsx-dom or React in the normal way. It should be noted that each gadget using them will bundle a corresponding library, which may significantly affect the code size (React is really very large).
+按正常使用 jsx-dom 或 React 的方式使用即可。需要注意的是，每个使用 jsx-dom 或 React 的小工具都[会打包若干份对应的库](https://github.com/evanw/esbuild/issues/475)，可能会严重影响代码体积（React 真的非常大）。<br>Just use jsx-dom or React in the normal way. It should be noted that each gadget using them [will bundle several copies of the library](https://github.com/evanw/esbuild/issues/475), which may significantly affect the code size (React is really very large).
 
 ```css
 /* modules/style.module.css */

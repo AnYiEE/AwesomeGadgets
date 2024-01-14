@@ -6,7 +6,7 @@
 
 1. 确保目标 MediaWiki 的版本至少为 1.38<br>Ensure that the target MediaWiki version is at least 1.38
 
-2. 如果需要让仓库中的其他小工具使用导出的变量和方法，则应该在小工具的`types.d.ts`中声明相关类型，如：<br>Then, if you need other gadgets in this repository to use the exported variables and methods, you should declare the relevant types in the gadget's `types.d.ts`, for example:
+2. 如果需要让仓库中的其他小工具使用导出的变量和方法，则应该在小工具的`*.d.ts`中声明相关类型，如：<br>Then, if you need other gadgets in this repository to use the exported variables and methods, you should declare the relevant types in the gadget's `*.d.ts`, for example:
 
 ```ts
 declare module 'ext.gadget.any_package' {
@@ -14,7 +14,7 @@ declare module 'ext.gadget.any_package' {
 }
 ```
 
-3. 使用`export`导出变量和方法<br>Finally, use `export` to export variables and methods:
+3. 在入口文件中使用`export`导出变量和方法<br>Finally, use `export` to export variables and methods in the entry file:
 
 ```ts
 const func = () => {};
@@ -48,7 +48,7 @@ pnpm add <package-name>
 pnpm add @wikimedia/codex
 ```
 
-如果需要导入的不是 npm 包或包名与 MiediaWiki 内置模块不同，则应该在导入前于小工具的`types.d.ts`中声明相关类型，如：<br>If the imported package is not a npm package or the package name is different from MediaWiki built-in modules, you should declare the types in the `types.d.ts` of the gadget before importing it. For example:
+如果需要导入的不是 npm 包或包名与 MiediaWiki 内置模块不同，则应该在导入前于小工具的`*.d.ts`中声明相关类型，如：<br>If the imported package is not a npm package or the package name is different from MediaWiki built-in modules, you should declare the types in the `*.d.ts` of the gadget before importing it. For example:
 
 ```ts
 declare module 'ext.gadget.any_package' {
@@ -56,7 +56,7 @@ declare module 'ext.gadget.any_package' {
 }
 ```
 
-3. 使用`import`来导入依赖项，如：<br> Finally, use `import` to import the dependency. For example:
+1. 使用`import`来导入依赖项，如：<br> Finally, use `import` to import the dependency. For example:
 
 ```ts
 import {CdxButton} from '@wikimedia/codex';

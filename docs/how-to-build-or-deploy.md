@@ -4,7 +4,7 @@
 
 1. Fork 由目标 MediaWiki 网站所维护的仓库<br>Fork the repository maintained by the target MediaWiki website
 
-2. 在`src`文件夹下以小工具名新建文件夹<br>Create a new directory within the `src` directory, using the name of your gadget
+2. 在`src`文件夹下以小工具名新建文件夹<br>Create a new folder within the `src` directory, using the name of your gadget
 
 3. 在目录下新建`小工具名.{js, ts, css, less}`或`index.{js, ts, css, less}`<br>Within the directory, create either `GadgetName.{js, ts, css, less}` or `index.{js, ts, css, less}`
 
