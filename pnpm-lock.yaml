@@ -83,6 +83,9 @@ devDependencies:
   '@types/jqueryui':
     specifier: ^1.12.21
     version: 1.12.21
+  '@types/minimist':
+    specifier: ^1.2.5
+    version: 1.2.5
   '@types/node':
     specifier: ^20.11.0
     version: 20.11.0
@@ -161,6 +164,9 @@ devDependencies:
   lightningcss:
     specifier: ^1.22.1
     version: 1.22.1
+  minimist:
+    specifier: ^1.2.8
+    version: 1.2.8
   mwn:
     specifier: ^2.0.2
     version: 2.0.2

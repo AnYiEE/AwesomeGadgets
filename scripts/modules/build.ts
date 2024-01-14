@@ -1,5 +1,6 @@
 import {
 	buildFiles,
+	findSourceFile,
 	generateDefinitionItem,
 	generateFileArray,
 	generateFileNames,
@@ -11,14 +12,13 @@ import chalk from 'chalk';
 
 /**
  * Compile scripts and styles and generate corresponding definitions
- *
- * @param {SourceFiles} sourceFiles Return value of `findSourceFile()`
  */
-const build = async (sourceFiles: SourceFiles): Promise<void> => {
+const build = async (): Promise<void> => {
 	const definitions: string[] = [];
 
 	console.log(chalk.yellow('--- starting build ---'));
 
+	const sourceFiles: SourceFiles = findSourceFile();
 	for (const [gadgetName, {definition, license, script, scripts, style, styles}] of Object.entries(sourceFiles)) {
 		let gadgetFiles: string = '|';
 		const licenseText: string | undefined = getLicense(gadgetName, license);
