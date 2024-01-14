@@ -132,6 +132,8 @@ const addImport = (path, types: BabelAPI['types'], packageName: (typeof polyfill
 
 const plugin = declare((api: BabelAPI) => {
 	const {types} = api;
+	const {isIdentifier, isMemberExpression, isStringLiteral} = types;
+
 	const needPolyfills: Set<string> = filterItems(
 		compatData,
 		new Set(),
@@ -160,9 +162,9 @@ const plugin = declare((api: BabelAPI) => {
 						case 'normalize':
 							if (
 								args.length !== 1 ||
-								!types.isStringLiteral(args[0]) || // `''`
-								!types.isMemberExpression(callee) || // `''.`
-								!types.isIdentifier(callee.property, {
+								!isStringLiteral(args[0]) || // `''`
+								!isMemberExpression(callee) || // `''.`
+								!isIdentifier(callee.property, {
 									name, // `''.normalize()`
 								})
 							) {
@@ -173,7 +175,7 @@ const plugin = declare((api: BabelAPI) => {
 						default:
 							if (
 								!args.length ||
-								!types.isIdentifier(callee, {
+								!isIdentifier(callee, {
 									name, // `name()`
 								})
 							) {
@@ -192,7 +194,7 @@ const plugin = declare((api: BabelAPI) => {
 					if (
 						type !== 'NewExpression' ||
 						!needPolyfills.has(name) ||
-						!types.isIdentifier(callee, {
+						!isIdentifier(callee, {
 							name, // `new name()`
 						})
 					) {

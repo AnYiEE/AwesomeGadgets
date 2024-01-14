@@ -9,16 +9,20 @@ const plugin = declare(() => {
 			Program(path): void {
 				path.traverse({
 					enter(p) {
-						const {node} = p;
+						const {
+							node: {innerComments, leadingComments, trailingComments},
+						} = p;
 
-						for (let comments of [node.leadingComments, node.innerComments, node.trailingComments]) {
+						for (let comments of [innerComments, leadingComments, trailingComments]) {
 							if (!comments) {
 								continue;
 							}
 
 							comments = comments.map((comment) => {
-								if (comment.type === 'CommentLine' && comment.value.trim().startsWith('src/')) {
-									comment.value = `!${comment.value}`;
+								const {type, value} = comment;
+
+								if (type === 'CommentLine' && value.trim().startsWith('src/')) {
+									comment.value = `!${value}`;
 								}
 
 								return comment;
