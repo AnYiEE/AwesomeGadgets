@@ -62,7 +62,7 @@ interface DeploymentTargets {
 	[key: string]: {
 		excludeSites: DefaultDefinition['excludeSites'];
 		description: DefaultDefinition['description'];
-		files: [string, string][];
+		files: DeploymentDirectTargets;
 	};
 }
 

@@ -1,5 +1,5 @@
 import {DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER} from 'scripts/constant';
-import type {DefaultDefinition, GlobalSourceFiles} from '../types';
+import type {DefaultDefinition, GlobalSourceFiles, SourceFiles} from '../types';
 import {join, resolve} from 'node:path';
 import prompts, {type Answers, type PromptType} from 'prompts';
 import chalk from 'chalk';
@@ -23,13 +23,14 @@ const __rootDir: string = getRootDir();
 
 /**
  * Parse `definition.json` of a gadget
+ *
  * @param {string} gadgetName The gadget name
- * @param {boolean} [showLog=true] Show log or not
+ * @param {boolean} [isShowLog=true] Show log or not
  * @return {Object} The definition object
  */
-const generateDefinition = (gadgetName: string, showLog: boolean = true): typeof definition => {
+const generateDefinition = (gadgetName: string, isShowLog: boolean = true): typeof definition => {
 	const logError = (reason: string): void => {
-		if (showLog) {
+		if (isShowLog) {
 			console.log(
 				chalk.yellow(
 					`${chalk.italic('definition.json')} of ${chalk.bold(
@@ -49,9 +50,7 @@ const generateDefinition = (gadgetName: string, showLog: boolean = true): typeof
 		logError('missing');
 	}
 
-	let definition: DefaultDefinition & {
-		requiresES6: boolean;
-	} = {
+	let definition: SourceFiles[keyof SourceFiles]['definition'] = {
 		...DEFAULT_DEFINITION,
 		requiresES6: GLOBAL_REQUIRES_ES6,
 	};
