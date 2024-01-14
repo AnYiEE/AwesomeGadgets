@@ -638,8 +638,9 @@ const generateDefinitionItem = (
 
 	definitionText = definitionText.replace(/\|$/, '');
 
-	const sectionText: string = definition.section
-		? `☀${trim(definition.section.replace(/☀/g, ''), {
+	const {section} = definition;
+	const sectionText: string = section
+		? `☀${trim(section.replace(/☀/g, ''), {
 				addNewline: false,
 			})}`
 		: '☀appear';

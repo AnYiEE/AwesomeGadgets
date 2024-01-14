@@ -13,7 +13,6 @@ import {type Path, globSync} from 'glob';
 import {__rootDir, generateDefinition, processSourceCode, prompt, trim} from './general-util';
 import {basename, extname, join} from 'node:path';
 import {closeSync, existsSync, fdatasyncSync, open, readFileSync, writeFileSync} from 'node:fs';
-import {type ApiEditResponse} from 'mwn';
 import {MwnError} from 'mwn/build/error';
 import {Window} from 'happy-dom';
 import {apiQueue} from '../deploy';
@@ -31,6 +30,7 @@ const deployPages: Record<string, string[]> = {};
  * Read `dist/definition.txt`
  *
  * @return {string|undefined} Gadget definitions (in the format of MediaWiki:Gadgets-definition item)
+ * @throws If `dist/definition.txt` is not found
  */
 const readDefinition = (): string => {
 	const definitionPath: string = join(__rootDir, 'dist/definition.txt');
@@ -57,7 +57,7 @@ const generateTargets = (): DeploymentTargets => {
 	});
 
 	const gadgetNames: string[] = definitions.map((definition: string): string => {
-		const regExpMatchArray = definition.match(/^\*\s(\S+?)\[\S+?[|\]]/) as [string, string];
+		const regExpMatchArray = definition.match(/^\*\s(\S+?)\[/) as [string, string];
 		return regExpMatchArray[1];
 	});
 
@@ -172,25 +172,25 @@ const generateDirectTargets = (site: Api['site']): DeploymentDirectTargets => {
  * Check the integrity of configuration items
  *
  * @param {Object} config To be completed configuration
- * @param {boolean} [checkApiUrlOnly=false] Only check `config[site].apiUrl` is empty or not
+ * @param {boolean} [isCheckApiUrlOnly=false] Only check `config[site].apiUrl` is empty or not
  * @return {Promise<void>}
  */
 async function checkConfig(
 	config: {
 		[key: string]: Partial<CredentialsOnlyPassword>;
 	},
-	checkApiUrlOnly: true
+	isCheckApiUrlOnly: true
 ): Promise<void>;
-async function checkConfig(config: ReturnType<typeof loadConfig>, checkApiUrlOnly?: boolean): Promise<void>;
+async function checkConfig(config: ReturnType<typeof loadConfig>, isCheckApiUrlOnly?: boolean): Promise<void>;
 // eslint-disable-next-line func-style
-async function checkConfig(config: ReturnType<typeof loadConfig>, checkApiUrlOnly: boolean = false): Promise<void> {
+async function checkConfig(config: ReturnType<typeof loadConfig>, isCheckApiUrlOnly: boolean = false): Promise<void> {
 	if (!Object.keys(config).length) {
 		console.log(chalk.red(`✘ No site found in ${chalk.italic('credentials.json')}`));
 		exit(1);
 	}
 
 	for (const [site, credentials] of Object.entries(config)) {
-		if (checkApiUrlOnly) {
+		if (isCheckApiUrlOnly) {
 			if (!credentials.apiUrl) {
 				credentials.apiUrl = await prompt(`> [${site}] Enter api url (eg. https://your.wiki/api.php)`);
 			}
@@ -375,10 +375,9 @@ const convertVariant = (pageTitle: string, content: string, api: Api, editSummar
 			}
 		);
 
-		const window: Window = new Window({
+		const {document} = new Window({
 			url: apiInstance.options.apiUrl as string,
 		});
-		const {document} = window;
 		document.body.innerHTML = `<div>${parsedHtml}</div>`;
 		const convertedDescription: string = document.querySelector('.convertVariant').textContent.replace(/-{}-/g, '');
 
@@ -387,9 +386,9 @@ const convertVariant = (pageTitle: string, content: string, api: Api, editSummar
 		deployPages[site] ??= [];
 		deployPages[site]!.push(convertPageTitle);
 
-		const response: ApiEditResponse = await apiInstance.save(convertPageTitle, convertedDescription, editSummary);
+		const {nochange} = await apiInstance.save(convertPageTitle, convertedDescription, editSummary);
 
-		return !!response.nochange;
+		return !!nochange;
 	};
 
 	const taskQueue: (() => Promise<boolean>)[] = [];
@@ -473,8 +472,8 @@ const saveDefinition = (definitionText: string, enabledGadgets: string[], api: A
 
 	void apiQueue.add(async (): Promise<void> => {
 		try {
-			const response: ApiEditResponse = await apiInstance.save(pageTitle, definitionText, editSummary);
-			if (response.nochange) {
+			const {nochange} = await apiInstance.save(pageTitle, definitionText, editSummary);
+			if (nochange) {
 				console.log(chalk.yellow(`━ No change saving ${chalk.bold('gadget definitions')}`));
 			} else {
 				console.log(chalk.green(`✔ Successfully saved ${chalk.bold('gadget definitions')}`));
@@ -517,8 +516,8 @@ const saveDefinitionSectionPage = (definitionText: string, api: Api, editSummary
 
 		void apiQueue.add(async (): Promise<void> => {
 			try {
-				const response: ApiEditResponse = await apiInstance.save(pageTitle, sectionText, editSummary);
-				if (response.nochange) {
+				const {nochange} = await apiInstance.save(pageTitle, sectionText, editSummary);
+				if (nochange) {
 					console.log(chalk.yellow(`━ No change saving ${chalk.bold(pageTitle)}`));
 				} else {
 					console.log(chalk.green(`✔ Successfully saved ${chalk.bold(pageTitle)}`));
@@ -552,8 +551,8 @@ const saveDescription = (gadgetName: string, description: string, api: Api, edit
 
 	void apiQueue.add(async (): Promise<void> => {
 		try {
-			const response: ApiEditResponse = await apiInstance.save(pageTitle, description, editSummary);
-			if (response.nochange) {
+			const {nochange} = await apiInstance.save(pageTitle, description, editSummary);
+			if (nochange) {
 				console.log(chalk.yellow(`━ No change saving ${chalk.bold(`${gadgetName} description`)}`));
 			} else {
 				console.log(chalk.green(`✔ Successfully saved ${chalk.bold(`${gadgetName} description`)}`));
@@ -587,8 +586,8 @@ const saveFiles = (gadgetName: string, fileName: string, fileContent: string, ap
 
 	void apiQueue.add(async (): Promise<void> => {
 		try {
-			const response: ApiEditResponse = await apiInstance.save(pageTitle, fileContent, editSummary);
-			if (response.nochange) {
+			const {nochange} = await apiInstance.save(pageTitle, fileContent, editSummary);
+			if (nochange) {
 				console.log(
 					chalk.yellow(`━ No change saving ${chalk.underline(fileName)} to ${chalk.bold(gadgetName)}`)
 				);
@@ -620,8 +619,8 @@ const savePages = (pageTitle: string, pageContent: string, api: Api, editSummary
 
 	void apiQueue.add(async (): Promise<void> => {
 		try {
-			const response: ApiEditResponse = await apiInstance.save(pageTitle, pageContent, editSummary);
-			if (response.nochange) {
+			const {nochange} = await apiInstance.save(pageTitle, pageContent, editSummary);
+			if (nochange) {
 				console.log(chalk.yellow(`━ No change saving ${chalk.underline(pageTitle)}`));
 			} else {
 				console.log(chalk.green(`✔ Successfully saved ${chalk.underline(pageTitle)}`));
@@ -643,40 +642,44 @@ const deleteUnusedPages = async (api: Api, editSummary: string): Promise<void> =
 	const {apiInstance, site} = api;
 	const storeFilePath: string = join(__rootDir, 'dist/store.txt');
 
-	const currentSiteDeloyPages = deployPages[site] as string[];
-	deployPages[site] = currentSiteDeloyPages.sort();
-
-	let lastDeployPages: typeof deployPages = {
-		[site]: [],
-	};
+	let lastDeployPages: typeof deployPages = {};
 	try {
 		const fileBuffer: Buffer = readFileSync(storeFilePath);
 		const fileContent: string = fileBuffer.toString();
 		lastDeployPages = JSON.parse(fileContent) as typeof deployPages;
 	} catch {}
 
-	const currentSiteLastDeployPages = lastDeployPages[site] as string[];
-	currentSiteLastDeployPages.sort();
+	const fullDeployPages: typeof deployPages = {};
+	for (const siteName of Object.keys(deployPages).sort()) {
+		fullDeployPages[siteName] = deployPages[siteName]!.sort();
+	}
+	for (const [siteName, pages] of Object.entries(lastDeployPages)) {
+		if (fullDeployPages[siteName]) {
+			continue;
+		}
+		fullDeployPages[siteName] = pages.sort();
+	}
 
 	open(storeFilePath, 'w', (err: NodeJS.ErrnoException | null, fd: number): void => {
 		if (err) {
 			console.error(err);
 			return;
 		}
-		writeFileSync(fd, `${JSON.stringify(deployPages, null, '\t')}\n`);
+		writeFileSync(fd, `${JSON.stringify(fullDeployPages, null, '\t')}\n`);
 		fdatasyncSync(fd);
 		closeSync(fd);
 	});
 
+	const currentSiteLastDeployPages: string[] = lastDeployPages[site] ?? [];
 	if (!currentSiteLastDeployPages.length) {
 		console.log(chalk.yellow('━ No deployment log found'));
 		return;
 	}
 
+	const currentSiteDeloyPages: string[] = fullDeployPages[site] ?? [];
 	const needToDeletePages: string[] = currentSiteLastDeployPages.filter((page: string): boolean => {
 		return !currentSiteDeloyPages.includes(page);
 	});
-
 	if (!needToDeletePages.length) {
 		console.log(chalk.yellow('━ No page need to delete'));
 		return;
