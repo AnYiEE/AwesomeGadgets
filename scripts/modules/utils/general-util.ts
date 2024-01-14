@@ -1,10 +1,18 @@
 import {DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER} from 'scripts/constant';
 import type {DefaultDefinition, GlobalSourceFiles, SourceFiles} from '../types';
+import {
+	type PathOrFileDescriptor,
+	closeSync,
+	existsSync,
+	fdatasyncSync,
+	openSync,
+	readFileSync,
+	writeFileSync,
+} from 'node:fs';
 import {join, resolve} from 'node:path';
 import prompts, {type Answers, type PromptType} from 'prompts';
 import chalk from 'chalk';
 import {exit} from 'node:process';
-import {readFileSync} from 'node:fs';
 
 /**
  * @private
@@ -22,49 +30,91 @@ const getRootDir = (): string => {
 const __rootDir: string = getRootDir();
 
 /**
- * Parse `definition.json` of a gadget
+ * Read file content
  *
- * @param {string} gadgetName The gadget name
- * @param {boolean} [isShowLog=true] Show log or not
- * @return {Object} The definition object
+ * @param {string} filePath The target file path
+ * @return {string} The file content
+ * @throws If the file is not found
  */
-const generateDefinition = (gadgetName: string, isShowLog: boolean = true): typeof definition => {
-	const logError = (reason: string): void => {
-		if (isShowLog) {
-			console.log(
-				chalk.yellow(
-					`${chalk.italic('definition.json')} of ${chalk.bold(
-						gadgetName
-					)} is ${reason}, the default definition will be used.`
-				)
-			);
-		}
-	};
+const readFileContent = (filePath: string): string => {
+	const fileBuffer: Buffer = readFileSync(filePath);
 
-	let definitionJsonText: string = '{}';
-	const definitionFilePath: string = join(__rootDir, `src/${gadgetName}/definition.json`);
-	try {
-		const fileBuffer: Buffer = readFileSync(definitionFilePath);
-		definitionJsonText = fileBuffer.toString();
-	} catch {
-		logError('missing');
+	return fileBuffer.toString();
+};
+
+/**
+ * Write file content
+ *
+ * @param {number|string} filePath The file descriptor or target file path
+ * @param {string} fileContent The file content
+ * @throws If the file is not found
+ */
+const writeFileContent = (filePath: number | string, fileContent: string): void => {
+	const fileDescriptor: PathOrFileDescriptor = typeof filePath === 'number' ? filePath : openSync(filePath, 'w');
+	writeFileSync(fileDescriptor, fileContent);
+	fdatasyncSync(fileDescriptor);
+	closeSync(fileDescriptor);
+};
+
+/**
+ * Sort an object
+ *
+ * @param {Object} object The object to sort
+ * @param {boolean} isSortArray Sort the array values of this object or not
+ * @return {Object} The sorted object
+ */
+const sortObject = <T extends object>(object: T, isSortArray?: boolean): T => {
+	const objectSorted: T = {} as T;
+
+	for (const _key of Object.keys(object).sort()) {
+		const key = _key as keyof T;
+		const value = object[key];
+
+		objectSorted[key] = isSortArray && Array.isArray(value) ? (value.toSorted() as typeof value) : value;
 	}
 
-	let definition: SourceFiles[keyof SourceFiles]['definition'] = {
-		...DEFAULT_DEFINITION,
-		requiresES6: GLOBAL_REQUIRES_ES6,
-	};
-	try {
-		definition = {
-			...definition,
-			...(JSON.parse(definitionJsonText) as Partial<DefaultDefinition>),
-			requiresES6: GLOBAL_REQUIRES_ES6,
-		};
-	} catch {
-		logError('broken');
+	return objectSorted;
+};
+
+/**
+ * Trim and generate a string, with the option to keep a line break and keep/strip control characters
+ *
+ * @param {string|undefined} string
+ * @param {{addNewline?:boolean; stripControlCharacters?:boolean}} [object]
+ * @return {string}
+ */
+const trim = (
+	string: string | undefined,
+	{
+		addNewline = true,
+		stripControlCharacters = true,
+	}: {
+		addNewline?: boolean;
+		stripControlCharacters?: boolean;
+	} = {}
+): string => {
+	if (string === undefined) {
+		return '';
 	}
 
-	return definition;
+	let stringTrimmed: string = string.trim();
+	if (!stringTrimmed) {
+		return addNewline ? '\n' : '';
+	}
+
+	if (stripControlCharacters) {
+		// Strip control characters other than HT (\t) and LF (\n)
+		stringTrimmed = stringTrimmed.replace(/[\x00-\x08\x0B-\x1F\x7F-\x9F]/g, '');
+	}
+	if (!stringTrimmed) {
+		return addNewline ? '\n' : '';
+	}
+
+	if (addNewline) {
+		stringTrimmed += '\n';
+	}
+
+	return stringTrimmed;
 };
 
 /**
@@ -108,44 +158,53 @@ async function prompt(
 }
 
 /**
- * Trim and generate a string, with the option to keep a line break and keep/strip control characters
+ * Parse `definition.json` of a gadget
  *
- * @param {string|undefined} string
- * @param {{addNewline?:boolean; stripControlCharacters?:boolean}} [object]
- * @return {string}
+ * @param {string} gadgetName The gadget name
+ * @param {boolean} [isShowLog=true] Show log or not
+ * @return {Object} The definition object
  */
-const trim = (
-	string: string | undefined,
-	{
-		addNewline = true,
-		stripControlCharacters = true,
-	}: {
-		addNewline?: boolean;
-		stripControlCharacters?: boolean;
-	} = {}
-): string => {
-	if (string === undefined) {
-		return '';
+const generateDefinition = (gadgetName: string, isShowLog: boolean = true): typeof definition => {
+	const logError = (reason: string): void => {
+		if (isShowLog) {
+			console.log(
+				chalk.yellow(
+					`${chalk.italic('definition.json')} of ${chalk.bold(
+						gadgetName
+					)} is ${reason}, the default definition will be used.`
+				)
+			);
+		}
+	};
+
+	let isMissing: boolean = false;
+
+	const definitionFilePath: string = join(__rootDir, `src/${gadgetName}/definition.json`);
+	if (!existsSync(definitionFilePath)) {
+		isMissing = true;
+		logError('missing');
 	}
 
-	let stringTrimmed: string = string.trim();
-	if (!stringTrimmed) {
-		return addNewline ? '\n' : '';
+	let definitionJsonText: string = '{}';
+	if (!isMissing) {
+		definitionJsonText = readFileContent(definitionFilePath);
 	}
 
-	if (stripControlCharacters) {
-		// Strip control characters other than HT (\t) and LF (\n)
-		stringTrimmed = stringTrimmed.replace(/[\x00-\x08\x0B-\x1F\x7F-\x9F]/g, '');
-	}
-	if (!stringTrimmed) {
-		return addNewline ? '\n' : '';
+	let definition: SourceFiles[keyof SourceFiles]['definition'] = {
+		...DEFAULT_DEFINITION,
+		requiresES6: GLOBAL_REQUIRES_ES6,
+	};
+	try {
+		definition = {
+			...definition,
+			...(JSON.parse(definitionJsonText) as Partial<DefaultDefinition>),
+			requiresES6: GLOBAL_REQUIRES_ES6,
+		};
+	} catch {
+		logError('broken');
 	}
 
-	if (addNewline) {
-		stringTrimmed += '\n';
-	}
-
-	return stringTrimmed;
+	return definition;
 };
 
 const processSourceCode = (
@@ -182,4 +241,4 @@ const processSourceCode = (
 	return sourceCode;
 };
 
-export {__rootDir, generateDefinition, prompt, trim, processSourceCode};
+export {__rootDir, readFileContent, writeFileContent, sortObject, trim, prompt, generateDefinition, processSourceCode};

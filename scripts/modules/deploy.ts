@@ -1,6 +1,6 @@
 import type {Api, DeploymentDirectTargets, DeploymentTargets} from './types';
 import {DEPLOY_USER_AGENT, MAX_CONCURRENCY} from '../constant';
-import {__rootDir, prompt} from './utils/general-util';
+import {__rootDir, prompt, readFileContent} from './utils/general-util';
 import {
 	checkConfig,
 	deleteUnusedPages,
@@ -9,7 +9,6 @@ import {
 	loadConfig,
 	makeEditSummary,
 	readDefinition,
-	readFileContent,
 	saveDefinition,
 	saveDefinitionSectionPage,
 	saveDescription,

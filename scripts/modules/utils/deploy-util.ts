@@ -10,9 +10,18 @@ import type {
 
 import {CONVERT_VARIANT, DEFINITION_SECTION_MAP} from '../../constant';
 import {type Path, globSync} from 'glob';
-import {__rootDir, generateDefinition, processSourceCode, prompt, trim} from './general-util';
+import {
+	__rootDir,
+	generateDefinition,
+	processSourceCode,
+	prompt,
+	readFileContent,
+	sortObject,
+	trim,
+	writeFileContent,
+} from './general-util';
 import {basename, extname, join} from 'node:path';
-import {closeSync, existsSync, fdatasyncSync, open, readFileSync, writeFileSync} from 'node:fs';
+import {existsSync, open} from 'node:fs';
 import {MwnError} from 'mwn/build/error';
 import {Window} from 'happy-dom';
 import {apiQueue} from '../deploy';
@@ -34,13 +43,14 @@ const deployPages: Record<string, string[]> = {};
  */
 const readDefinition = (): string => {
 	const definitionPath: string = join(__rootDir, 'dist/definition.txt');
-	try {
-		const fileBuffer: Buffer = readFileSync(definitionPath);
-		return fileBuffer.toString();
-	} catch {
+	if (!existsSync(definitionPath)) {
 		console.log(chalk.red(`Failed to read ${chalk.italic('definition.txt')}, please try build again.`));
 		exit(1);
 	}
+
+	const fileContent: string = readFileContent(definitionPath);
+
+	return fileContent;
 };
 
 /**
@@ -63,7 +73,7 @@ const generateTargets = (): DeploymentTargets => {
 
 	type Target = DeploymentTargets[keyof DeploymentTargets];
 
-	for (const gadgetName of gadgetNames.sort()) {
+	for (const gadgetName of gadgetNames.toSorted()) {
 		const definition: DefaultDefinition = generateDefinition(gadgetName, false);
 		const {description, enable, excludeSites} = definition;
 
@@ -114,18 +124,19 @@ const generateDirectTargets = (site: Api['site']): DeploymentDirectTargets => {
 		};
 	}
 
+	const globalJsonFilePath: string = join(__rootDir, 'src/global.json');
+	if (!existsSync(globalJsonFilePath)) {
+		console.log(chalk.white(`━ No ${chalk.bold('global.json')} found`));
+		return [];
+	}
+
+	const globalJsonText: string = readFileContent(globalJsonFilePath);
+
 	let globalJsonObject: GlobalJsonObject = {};
 	try {
-		const globalJsonFilePath: string = join(__rootDir, 'src/global.json');
-		const globalJsonText: string = readFileSync(globalJsonFilePath).toString();
-		try {
-			globalJsonObject = JSON.parse(globalJsonText) as GlobalJsonObject;
-		} catch {
-			console.log(chalk.red(`✘ Failed to parse ${chalk.bold('global.json')}`));
-			return [];
-		}
+		globalJsonObject = JSON.parse(globalJsonText) as GlobalJsonObject;
 	} catch {
-		console.log(chalk.white(`━ No ${chalk.bold('global.json')} found`));
+		console.log(chalk.red(`✘ Failed to parse ${chalk.bold('global.json')}`));
 		return [];
 	}
 
@@ -219,14 +230,16 @@ const loadConfig = (): typeof credentials => {
 	};
 
 	let isMissing: boolean = false;
-	let credentialsJsonText: string = '{}';
+
 	const credentialsFilePath: string = join(__rootDir, 'scripts/credentials.json');
-	try {
-		const fileBuffer: Buffer = readFileSync(credentialsFilePath);
-		credentialsJsonText = fileBuffer.toString();
-	} catch {
+	if (!existsSync(credentialsFilePath)) {
 		isMissing = true;
 		logError('missing');
+	}
+
+	let credentialsJsonText: string = '{}';
+	if (!isMissing) {
+		credentialsJsonText = readFileContent(credentialsFilePath);
 	}
 
 	let credentials: {
@@ -322,18 +335,6 @@ async function makeEditSummary(filePath?: string, fallbackEditSummary?: string):
 
 	return editSummary;
 }
-
-/**
- * Read file content
- *
- * @param {string} filePath The target file path
- * @return {string} The file content
- */
-const readFileContent = (filePath: string): string => {
-	const fileBuffer: Buffer = readFileSync(filePath);
-
-	return fileBuffer.toString();
-};
 
 /**
  * Convert language variants of a page
@@ -644,20 +645,16 @@ const deleteUnusedPages = async (api: Api, editSummary: string): Promise<void> =
 
 	let lastDeployPages: typeof deployPages = {};
 	try {
-		const fileBuffer: Buffer = readFileSync(storeFilePath);
-		const fileContent: string = fileBuffer.toString();
+		const fileContent: string = readFileContent(storeFilePath);
 		lastDeployPages = JSON.parse(fileContent) as typeof deployPages;
 	} catch {}
 
-	const fullDeployPages: typeof deployPages = {};
-	for (const siteName of Object.keys(deployPages).sort()) {
-		fullDeployPages[siteName] = deployPages[siteName]!.sort();
-	}
+	const fullDeployPages: typeof deployPages = sortObject(deployPages, true);
 	for (const [siteName, pages] of Object.entries(lastDeployPages)) {
 		if (fullDeployPages[siteName]) {
 			continue;
 		}
-		fullDeployPages[siteName] = pages.sort();
+		fullDeployPages[siteName] = pages.toSorted();
 	}
 
 	open(storeFilePath, 'w', (err: NodeJS.ErrnoException | null, fd: number): void => {
@@ -666,14 +663,8 @@ const deleteUnusedPages = async (api: Api, editSummary: string): Promise<void> =
 			return;
 		}
 
-		const fullDeployPagesSorted: typeof deployPages = {};
-		for (const siteName of Object.keys(fullDeployPages).sort()) {
-			fullDeployPagesSorted[siteName] = fullDeployPages[siteName]!.sort();
-		}
-
-		writeFileSync(fd, `${JSON.stringify(fullDeployPagesSorted, null, '\t')}\n`);
-		fdatasyncSync(fd);
-		closeSync(fd);
+		const fullDeployPagesSorted: typeof deployPages = sortObject(fullDeployPages);
+		writeFileContent(fd, `${JSON.stringify(fullDeployPagesSorted, null, '\t')}\n`);
 	});
 
 	const currentSiteLastDeployPages: string[] = lastDeployPages[site] ?? [];
@@ -683,7 +674,7 @@ const deleteUnusedPages = async (api: Api, editSummary: string): Promise<void> =
 	}
 
 	const currentSiteDeloyPages: string[] = fullDeployPages[site] ?? [];
-	const needToDeletePages: string[] = currentSiteLastDeployPages.filter((page: string): boolean => {
+	const needToDeletePages: string[] = currentSiteLastDeployPages.toSorted().filter((page: string): boolean => {
 		return !currentSiteDeloyPages.includes(page);
 	});
 	if (!needToDeletePages.length) {
@@ -725,7 +716,6 @@ export {
 	checkConfig,
 	loadConfig,
 	makeEditSummary,
-	readFileContent,
 	saveDefinition,
 	saveDefinitionSectionPage,
 	saveDescription,

@@ -5,16 +5,16 @@ import {type BuildResult, type OutputFile, build as esbuild} from 'esbuild';
 import type {BuiltFiles, Dependencies, GlobalSourceFiles, SourceFiles} from '../types';
 import {type Path, globSync} from 'glob';
 import {
-	type PathOrFileDescriptor,
-	closeSync,
-	fdatasyncSync,
-	mkdirSync,
-	openSync,
-	readFileSync,
-	writeFileSync,
-} from 'node:fs';
-import {__rootDir, generateDefinition, processSourceCode, trim} from './general-util';
+	__rootDir,
+	generateDefinition,
+	processSourceCode,
+	readFileContent,
+	sortObject,
+	trim,
+	writeFileContent,
+} from './general-util';
 import {basename, dirname, extname, join} from 'node:path';
+import {existsSync, mkdirSync} from 'node:fs';
 import chalk from 'chalk';
 import {esbuildOptions} from '../build-esbuild_options';
 import {exit} from 'node:process';
@@ -40,10 +40,7 @@ const writeFile = (
 		recursive: true,
 	});
 
-	const fileDescriptor: PathOrFileDescriptor = openSync(outputFilePath, 'w');
-	writeFileSync(fileDescriptor, sourceCode);
-	fdatasyncSync(fileDescriptor);
-	closeSync(fileDescriptor);
+	writeFileContent(outputFilePath, sourceCode);
 };
 
 /**
@@ -558,10 +555,7 @@ const findSourceFile = (): SourceFiles => {
 	// Note: No need for assignment, this is object reference
 	filterOutInvalidDependencies(sourceFiles);
 
-	const sourceFilesSorted: SourceFiles = {};
-	for (const gadgetName of Object.keys(sourceFiles).sort()) {
-		sourceFilesSorted[gadgetName] = sourceFiles[gadgetName] as Gadget;
-	}
+	const sourceFilesSorted: SourceFiles = sortObject(sourceFiles);
 
 	return sourceFilesSorted;
 };
@@ -693,8 +687,7 @@ const getLicense = (gadgetName: string, licenseFileName: string | undefined): st
 	}
 
 	const licenseFilePath: string = join(__rootDir, `src/${gadgetName}/${licenseFileName}`);
-	const fileBuffer: Buffer = readFileSync(licenseFilePath);
-	const fileContent: string = fileBuffer.toString();
+	const fileContent: string = readFileContent(licenseFilePath);
 
 	return fileContent.trim() ? fileContent : undefined;
 };
@@ -714,10 +707,7 @@ const saveDefinition = (definitions: string[]): void => {
 		(definitionObject[section] as Gadgets).push(definition.replace(/☀.*/, ''));
 	}
 
-	const definitionObjectSorted: typeof definitionObject = {};
-	for (const section of Object.keys(definitionObject).sort()) {
-		definitionObjectSorted[section] = definitionObject[section] as Gadgets;
-	}
+	const definitionObjectSorted: typeof definitionObject = sortObject(definitionObject);
 
 	let definitionText: string = '';
 	for (const [section, definitionItems] of Object.entries(definitionObjectSorted)) {
@@ -733,12 +723,7 @@ const saveDefinition = (definitions: string[]): void => {
 	definitionText = trim(BANNER) + definitionText;
 
 	const definitionPath: string = join(__rootDir, 'dist/definition.txt');
-	try {
-		const fileDescriptor: PathOrFileDescriptor = openSync(definitionPath, 'w');
-		writeFileSync(fileDescriptor, definitionText);
-		fdatasyncSync(fileDescriptor);
-		closeSync(fileDescriptor);
-	} catch {
+	if (!existsSync(definitionPath)) {
 		console.log(
 			chalk.red(
 				`Failed to save ${chalk.italic(
@@ -748,6 +733,8 @@ const saveDefinition = (definitions: string[]): void => {
 		);
 		exit(1);
 	}
+
+	writeFileContent(definitionPath, definitionText);
 };
 
 export {
