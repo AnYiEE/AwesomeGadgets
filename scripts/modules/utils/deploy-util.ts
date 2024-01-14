@@ -665,7 +665,13 @@ const deleteUnusedPages = async (api: Api, editSummary: string): Promise<void> =
 			console.error(err);
 			return;
 		}
-		writeFileSync(fd, `${JSON.stringify(fullDeployPages, null, '\t')}\n`);
+
+		const fullDeployPagesSorted: typeof deployPages = {};
+		for (const siteName of Object.keys(fullDeployPages).sort()) {
+			fullDeployPagesSorted[siteName] = fullDeployPages[siteName]!.sort();
+		}
+
+		writeFileSync(fd, `${JSON.stringify(fullDeployPagesSorted, null, '\t')}\n`);
 		fdatasyncSync(fd);
 		closeSync(fd);
 	});
