@@ -2,6 +2,7 @@
 	"$schema": "http://json-schema.org/draft-07/schema#",
 	"type": "object",
 	"additionalProperties": {
+		"title": "站点名称 / Site name",
 		"type": "object",
 		"patternProperties": {
 			"^(?![Gg]adget-).+\\.(css|js)$": {
