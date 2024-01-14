@@ -13,6 +13,7 @@
 	},
 	"editor.renderWhitespace": "all",
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.stickyScroll.enabled": true,
 	"git.autoStash": true,
 	"git.allowForcePush": true,
 	"eslint.enable": true,
@@ -81,6 +82,10 @@
 		"readme*": "*.md"
 	},
 	"json.schemas": [
+		{
+			"fileMatch": ["scripts/credentials.json"],
+			"url": "./.vscode/json-schemas/credentials.json"
+		},
 		{
 			"fileMatch": ["src/*/definition.json"],
 			"url": "./.vscode/json-schemas/definition.json"
