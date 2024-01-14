@@ -7,7 +7,7 @@ Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编�
 
 -   使用 esbuild 编译，通过 Babel 转译现代语法以获得良好的浏览器兼容性<br>Compile using esbuild and transpile modern syntax with Babel for good browser compatibility
 -   可以编写 TypeScript 和 Less，支持 CSS 和 Less 模块，可以使用 JSX 和 TSX 组件<br>Support writing files in TypeScript and Less, support CSS/Less modules and use JSX/TSX components
-    -   见[文档](docs/how-to-use-jsx-and-tsx-with-jsxdom-or-react.md)。<br>See [documentation](docs/how-to-use-jsx-and-tsx-with-jsxdom-or-react.md)
+    -   见[文档](docs/how-to-use-jsx-and-tsx-with-jsxdom.md)。<br>See [documentation](docs/how-to-use-jsx-and-tsx-with-jsxdom.md)
 -   支持引用 ResourceLoader 模块<br>Support requiring ResourceLoader built-in modules
     -   见[文档](docs/how-to-use-exports-and-require-in-mediawiki.md)。<br>See [documentation](docs/how-to-use-exports-and-require-in-mediawiki.md)
 -   支持向多个站点部署并独立控制启用与否<br>Support deploying to multiple sites and independently control whether to enable/disable them

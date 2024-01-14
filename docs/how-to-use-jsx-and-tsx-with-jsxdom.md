@@ -1,23 +1,17 @@
-### 如何使用 jsx-dom 或 React？<br>How to use jsx-dom or React?
+### 如何使用 jsx-dom？<br>How to use jsx-dom?
 
 [jsx-dom](https://www.npmjs.com/package/jsx-dom) 可以让你使用 JSX/TSX 语法和样式化组件来创建 DOM 元素。它可以被看作是 React 的替代品，比 React 更快，体积也小得非常多。<br>
 The package [jsx-dom](https://www.npmjs.com/package/jsx-dom) is a JavaScript library that allows you to use JSX and styled components for creating DOM elements, which is a faster and much smaller alternative to React.
 
-在本仓库中使用 jsx-dom 或 React，你需要：<br>To use `jsx-dom` in this repository, you need to run the following command:
+在本仓库中使用 jsx-dom，你需要：<br>To use `jsx-dom` in this repository, you need to run the following command:
 
 ```bash
 pnpm add jsx-dom
 ```
 
-或<br>Or
-
-```bash
-pnpm add react react-dom @types/react @types/react-dom
-```
-
 #### 目标 MediaWiki 的版本低于 1.38<br>The target MediaWiki version is lower than 1.38
 
-按正常使用 jsx-dom 或 React 的方式使用即可。需要注意的是，每个使用 jsx-dom 或 React 的小工具都[会打包若干份对应的库](https://github.com/evanw/esbuild/issues/475)，可能会严重影响代码体积（React 真的非常大）。<br>Just use jsx-dom or React in the normal way. It should be noted that each gadget using them [will bundle several copies of the library](https://github.com/evanw/esbuild/issues/475), which may significantly affect the code size (React is really very large).
+按正常使用 jsx-dom 的方式使用即可。需要注意的是，每个使用 jsx-dom 的小工具都[会打包若干份对应的库](https://github.com/evanw/esbuild/issues/475)，可能会影响代码体积。<br>Just use jsx-dom in the normal way. It should be noted that each gadget using them [will bundle several copies of the library](https://github.com/evanw/esbuild/issues/475), which may affect the code size.
 
 ```css
 /* modules/style.module.css */
@@ -38,8 +32,6 @@ document.body.append(
 ```
 
 #### 目标 MediaWiki 的版本不低于 1.38<br>The target MediaWiki version is at least 1.38
-
-推荐使用 jsx-dom，因为可能和第三方 React 组件库存在一些兼容性问题。<br>Here recommend using `jsx-dom`, because there may be some compatibility issues with third-party React component libraries.
 
 1. 根据实际情况修改`src/React`文件夹中的以下文件<br>According to actual needs, modify some files in the `src/React` folder
 
