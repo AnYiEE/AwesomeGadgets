@@ -23,9 +23,7 @@
 		"name": "AnYiEE",
 		"email": "i@anyi.in"
 	},
-	"contributors": [
-		"Other contributors <https://github.com/AnYiEE/AwesomeGadgets/graphs/contributors>"
-	],
+	"contributors": ["Other contributors <https://github.com/AnYiEE/AwesomeGadgets/graphs/contributors>"],
 	"license": "GPL-3.0-or-later",
 	"homepage": "https://github.com/AnYiEE/AwesomeGadgets",
 	"repository": {
@@ -35,11 +33,7 @@
 	"bugs": {
 		"url": "https://github.com/AnYiEE/AwesomeGadgets/issues"
 	},
-	"keywords": [
-		"Gadget",
-		"MediaWiki",
-		"MediaWiki Gadget"
-	],
+	"keywords": ["Gadget", "MediaWiki", "MediaWiki Gadget"],
 	"devDependencies": {
 		"@babel/core": "^7.23.7",
 		"@babel/helper-compilation-targets": "^7.23.6",
@@ -54,11 +48,11 @@
 		"@types/caniuse-api": "^3.0.6",
 		"@types/jqueryui": "^1.12.21",
 		"@types/minimist": "^1.2.5",
-		"@types/node": "^20.11.0",
+		"@types/node": "^20.11.4",
 		"@types/oojs-ui": "^0.47.6",
 		"@types/prompts": "^2.4.9",
-		"@typescript-eslint/eslint-plugin": "^6.18.1",
-		"@typescript-eslint/parser": "^6.18.1",
+		"@typescript-eslint/eslint-plugin": "^6.19.0",
+		"@typescript-eslint/parser": "^6.19.0",
 		"blob-polyfill": "^7.0.20220408",
 		"broadcastchannel-polyfill": "^1.0.1",
 		"browserslist": "^4.22.2",
@@ -79,7 +73,7 @@
 		"husky": "^8.0.3",
 		"less-plugin-npm-import": "^2.1.0",
 		"less-plugin-preset-env": "latest",
-		"lightningcss": "^1.22.1",
+		"lightningcss": "^1.23.0",
 		"minimist": "^1.2.8",
 		"mwn": "^2.0.2",
 		"only-allow": "^1.2.1",
@@ -99,7 +93,7 @@
 	},
 	"pnpm": {
 		"overrides": {
-			"@typescript-eslint/utils": "^6.18.1",
+			"@typescript-eslint/utils": "^6.19.0",
 			"ansi-regex@<6": "^5.0.1",
 			"arrify@<3": "^2.0.1",
 			"balanced-match@<3": "^2.0.0",
