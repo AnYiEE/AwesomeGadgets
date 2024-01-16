@@ -5,7 +5,7 @@ import {basename, join} from 'node:path';
 import {execSync} from 'node:child_process';
 import {globSync} from 'glob';
 
-const sortConfig = async (paths: string[]): Promise<void> => {
+const formatJSON = async (paths: string[]): Promise<void> => {
 	let files: {
 		name: string;
 		fullpath(): string;
@@ -116,4 +116,4 @@ const sortConfig = async (paths: string[]): Promise<void> => {
 	}
 };
 
-export {sortConfig};
+export {formatJSON};
