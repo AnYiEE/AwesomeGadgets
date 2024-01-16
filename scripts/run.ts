@@ -8,6 +8,7 @@ const {
 	build: isBuild,
 	deploy: isDeploy,
 	sort: isSort,
+	...rest
 } = minimist<{
 	build?: boolean;
 	deploy?: boolean;
@@ -23,5 +24,5 @@ if (isDeploy) {
 }
 
 if (isSort) {
-	await sortConfig();
+	await sortConfig(rest._);
 }

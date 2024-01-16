@@ -1,5 +1,6 @@
 {
 	"*.{css,less}": ["prettier --write", "stylelint --allow-empty-input --fix"],
 	"*.{cjs,mjs,js,jsx,ts,tsx}": ["prettier --write", "eslint --fix"],
-	"!*.{css,less,cjs,mjs,js,jsx,ts,tsx}": "prettier --ignore-unknown --write"
+	"*.json": "tsx --no-deprecation scripts/run.ts --sort - ",
+	"!*.{css,less,cjs,mjs,js,jsx,ts,tsx,json}": "prettier --ignore-unknown --write"
 }
