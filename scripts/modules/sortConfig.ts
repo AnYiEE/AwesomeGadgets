@@ -2,6 +2,7 @@ import type {DefaultDefinition, GlobalSourceFiles} from './types';
 import {type Options, format, resolveConfig, resolveConfigFile} from 'prettier';
 import {__rootDir, readFileContent, sortObject, writeFileContent} from './utils/general-util';
 import {basename, join} from 'node:path';
+import {execSync} from 'node:child_process';
 import {globSync} from 'glob';
 
 const sortConfig = async (paths: string[]): Promise<void> => {
@@ -48,6 +49,7 @@ const sortConfig = async (paths: string[]): Promise<void> => {
 			continue;
 		}
 
+		let isExceptFile: boolean = true;
 		switch (file.name) {
 			case 'global.json':
 				object = sortObject(object);
@@ -96,15 +98,21 @@ const sortConfig = async (paths: string[]): Promise<void> => {
 				object = definitionSorted;
 				break;
 			}
+			default:
+				isExceptFile = false;
 		}
 
-		writeFileContent(
-			filePath,
-			await format(JSON.stringify(object, null, '\t'), {
-				...prettierConfig,
-				parser: 'json',
-			})
-		);
+		if (isExceptFile) {
+			writeFileContent(
+				filePath,
+				await format(JSON.stringify(object, null, '\t'), {
+					...prettierConfig,
+					parser: 'json',
+				})
+			);
+		} else {
+			execSync(`prettier --write ${filePath}`);
+		}
 	}
 };
 
