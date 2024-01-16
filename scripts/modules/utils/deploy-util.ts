@@ -299,7 +299,7 @@ async function makeEditSummary(filePath?: string, fallbackEditSummary?: string):
 	};
 
 	if (filePath && fallbackEditSummary !== undefined) {
-		if (!/^Git\scommit\S+?:\s/.test(fallbackEditSummary)) {
+		if (!/^Git\scommit\s\S+?:\s/.test(fallbackEditSummary)) {
 			return fallbackEditSummary;
 		}
 
