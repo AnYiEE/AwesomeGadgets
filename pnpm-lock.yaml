@@ -39,6 +39,9 @@ patchedDependencies:
   '@mrhenry/babel-plugin-core-web@1.2.1':
     hash: veavf3kxgjv2dfylgzll2peaum
     path: patches/@mrhenry__babel-plugin-core-web@1.2.1.patch
+  alpha-sort@5.0.0:
+    hash: soz2x3l6v7xocle4w7vguzc5ha
+    path: patches/alpha-sort@5.0.0.patch
   eslint-config-wikimedia@0.26.0:
     hash: iaiepfmd777wt5zivqax6j6mj4
     path: patches/eslint-config-wikimedia@0.26.0.patch
@@ -103,7 +106,7 @@ devDependencies:
     version: 6.19.0(eslint@8.56.0)(typescript@5.3.3)
   alpha-sort:
     specifier: ^5.0.0
-    version: 5.0.0
+    version: 5.0.0(patch_hash=soz2x3l6v7xocle4w7vguzc5ha)
   blob-polyfill:
     specifier: ^7.0.20220408
     version: 7.0.20220408
@@ -2610,10 +2613,11 @@ packages:
       uri-js: 4.4.1
     dev: true
 
-  /alpha-sort@5.0.0:
+  /alpha-sort@5.0.0(patch_hash=soz2x3l6v7xocle4w7vguzc5ha):
     resolution: {integrity: sha512-ObQ58fJyEEYr7n91itdT/N4LYmg6H/HehNHIvsTL9byMLYf3acJaLpvc+/KnvNDQVX5LmACETJAtWLXA9GUTmw==}
     engines: {node: '>=12'}
     dev: true
+    patched: true
 
   /ansi-regex@5.0.1:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}

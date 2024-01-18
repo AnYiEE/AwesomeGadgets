@@ -1,0 +1,13 @@
+diff --git a/index.js b/index.js
+index b9df2d75b2d15cfbde214381e0063179434ee47e..6680b54d1532a8104e00be86c74ba1fa689ee379 100644
+--- a/index.js
++++ b/index.js
+@@ -32,7 +32,7 @@ export default function alphaSort(options = {}) {
+ 
+ 	if (options.caseInsensitive) {
+ 		return (left, right) =>
+-			compareWith(left, right, value => value.toLowerCase()) ||
++			compareWith(left, right, value => value.toString().toLowerCase()) ||
+ 			compare(left, right);
+ 	}
+ 
