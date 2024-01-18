@@ -11,6 +11,7 @@ import {
 } from 'node:fs';
 import {join, resolve} from 'node:path';
 import prompts, {type Answers, type PromptType} from 'prompts';
+import alphaSort from 'alpha-sort';
 import chalk from 'chalk';
 import {exit} from 'node:process';
 
@@ -66,11 +67,24 @@ const writeFileContent = (filePath: number | string, fileContent: string): void 
 const sortObject = <T extends object>(object: T, isSortArray?: boolean): T => {
 	const objectSorted: T = {} as T;
 
-	for (const _key of Object.keys(object).sort()) {
+	for (const _key of Object.keys(object).sort(
+		alphaSort({
+			caseInsensitive: true,
+			natural: true,
+		})
+	)) {
 		const key = _key as keyof T;
 		const value = object[key];
 
-		objectSorted[key] = isSortArray && Array.isArray(value) ? (value.toSorted() as typeof value) : value;
+		objectSorted[key] =
+			isSortArray && Array.isArray(value)
+				? (value.toSorted(
+						alphaSort({
+							caseInsensitive: true,
+							natural: true,
+						})
+					) as typeof value)
+				: value;
 	}
 
 	return objectSorted;

@@ -7,7 +7,6 @@ import type {
 	DeploymentTargets,
 	GlobalSourceFiles,
 } from '../types';
-
 import {CONVERT_VARIANT, DEFINITION_SECTION_MAP} from '../../constant';
 import {type Path, globSync} from 'glob';
 import {
@@ -24,6 +23,7 @@ import {basename, extname, join} from 'node:path';
 import {existsSync, open} from 'node:fs';
 import {MwnError} from 'mwn/build/error';
 import {Window} from 'happy-dom';
+import alphaSort from 'alpha-sort';
 import {apiQueue} from '../deploy';
 import chalk from 'chalk';
 import {execSync} from 'node:child_process';
@@ -73,7 +73,12 @@ const generateTargets = (): DeploymentTargets => {
 
 	type Target = DeploymentTargets[keyof DeploymentTargets];
 
-	for (const gadgetName of gadgetNames.toSorted()) {
+	for (const gadgetName of gadgetNames.toSorted(
+		alphaSort({
+			caseInsensitive: true,
+			natural: true,
+		})
+	)) {
 		const definition: DefaultDefinition = generateDefinition(gadgetName, false);
 		const {description, enable, excludeSites} = definition;
 
@@ -654,7 +659,12 @@ const deleteUnusedPages = async (api: Api, editSummary: string): Promise<void> =
 		if (fullDeployPages[siteName]) {
 			continue;
 		}
-		fullDeployPages[siteName] = pages.toSorted();
+		fullDeployPages[siteName] = pages.toSorted(
+			alphaSort({
+				caseInsensitive: true,
+				natural: true,
+			})
+		);
 	}
 
 	open(storeFilePath, 'w', (err: NodeJS.ErrnoException | null, fd: number): void => {
@@ -674,9 +684,16 @@ const deleteUnusedPages = async (api: Api, editSummary: string): Promise<void> =
 	}
 
 	const currentSiteDeloyPages: string[] = fullDeployPages[site] ?? [];
-	const needToDeletePages: string[] = currentSiteLastDeployPages.toSorted().filter((page: string): boolean => {
-		return !currentSiteDeloyPages.includes(page);
-	});
+	const needToDeletePages: string[] = currentSiteLastDeployPages
+		.toSorted(
+			alphaSort({
+				caseInsensitive: true,
+				natural: true,
+			})
+		)
+		.filter((page: string): boolean => {
+			return !currentSiteDeloyPages.includes(page);
+		});
 	if (!needToDeletePages.length) {
 		console.log(chalk.yellow('━ No page need to delete'));
 		return;

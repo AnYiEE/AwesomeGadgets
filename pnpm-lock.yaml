@@ -101,6 +101,9 @@ devDependencies:
   '@typescript-eslint/parser':
     specifier: ^6.19.0
     version: 6.19.0(eslint@8.56.0)(typescript@5.3.3)
+  alpha-sort:
+    specifier: ^5.0.0
+    version: 5.0.0
   blob-polyfill:
     specifier: ^7.0.20220408
     version: 7.0.20220408
@@ -2605,6 +2608,11 @@ packages:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
       uri-js: 4.4.1
+    dev: true
+
+  /alpha-sort@5.0.0:
+    resolution: {integrity: sha512-ObQ58fJyEEYr7n91itdT/N4LYmg6H/HehNHIvsTL9byMLYf3acJaLpvc+/KnvNDQVX5LmACETJAtWLXA9GUTmw==}
+    engines: {node: '>=12'}
     dev: true
 
   /ansi-regex@5.0.1:
