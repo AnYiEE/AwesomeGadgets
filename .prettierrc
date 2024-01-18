@@ -10,7 +10,7 @@
 		{
 			"files": ".eslintrc",
 			"options": {
-				"trailingComma": "none"
+				"parser": "json"
 			}
 		}
 	]

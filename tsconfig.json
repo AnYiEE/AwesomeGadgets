@@ -22,7 +22,7 @@
 		"paths": {
 			"types-mediawiki": ["node_modules/types-mediawiki-renovate"],
 			"types-mediawiki/*": ["node_modules/types-mediawiki-renovate/*"],
-			"~/*": ["src/*"]
+			"~/*": ["src/*"],
 		},
 		"resolveJsonModule": true,
 
@@ -39,9 +39,9 @@
 				"name": "typescript-plugin-css-modules",
 				"options": {
 					"classnameTransform": "camelCaseOnly",
-					"goToDefinition": true
-				}
-			}
+					"goToDefinition": true,
+				},
+			},
 		],
 
 		"esModuleInterop": true,
@@ -51,7 +51,7 @@
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"target": "ESNext",
 
-		"skipLibCheck": true
+		"skipLibCheck": true,
 	},
 	"exclude": ["node_modules/types-mediawiki-renovate/scripts"],
 	"include": [
@@ -59,6 +59,6 @@
 		"node_modules/@types/jqueryui",
 		"node_modules/@types/oojs-ui",
 		"scripts/**/*",
-		"src/**/*"
-	]
+		"src/**/*",
+	],
 }
