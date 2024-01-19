@@ -54,11 +54,5 @@
 		"skipLibCheck": true,
 	},
 	"exclude": ["node_modules/types-mediawiki-renovate/scripts"],
-	"include": [
-		"node_modules/types-mediawiki-renovate",
-		"node_modules/@types/jqueryui",
-		"node_modules/@types/oojs-ui",
-		"scripts/**/*",
-		"src/**/*",
-	],
+	"include": ["node_modules/types-mediawiki-renovate", "scripts/**/*", "src/**/*"],
 }

@@ -83,6 +83,9 @@ devDependencies:
   '@types/caniuse-api':
     specifier: ^3.0.6
     version: 3.0.6
+  '@types/jquery':
+    specifier: ^3.5.29
+    version: 3.5.29
   '@types/jqueryui':
     specifier: ^1.12.21
     version: 1.12.21
@@ -166,7 +169,7 @@ devDependencies:
     version: 2.1.0
   less-plugin-preset-env:
     specifier: latest
-    version: 1.1.3
+    version: 1.2.1(postcss-preset-env@9.3.0)(postcss@8.4.33)
   lightningcss:
     specifier: ^1.23.0
     version: 1.23.0
@@ -175,13 +178,16 @@ devDependencies:
     version: 1.2.8
   mwn:
     specifier: ^2.0.2
-    version: 2.0.2
+    version: 2.0.2(@types/jquery@3.5.29)(@types/oojs-ui@0.47.6)
   only-allow:
     specifier: ^1.2.1
     version: 1.2.1
   p-queue:
     specifier: ^8.0.1
     version: 8.0.1
+  postcss:
+    specifier: ^8.4.33
+    version: 8.4.33
   postcss-import:
     specifier: ^15.1.0
     version: 15.1.0(postcss@8.4.33)
@@ -208,7 +214,7 @@ devDependencies:
     version: 4.7.0
   types-mediawiki-renovate:
     specifier: latest
-    version: 2.4.1
+    version: 2.5.1(@types/jquery@3.5.29)(@types/oojs-ui@0.47.6)
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -341,6 +347,21 @@ packages:
 
   /@babel/helper-define-polyfill-provider@0.4.4(@babel/core@7.23.7):
     resolution: {integrity: sha512-QcJMILQCu2jm5TFPGA3lCpJJTeEP+mqeXooG/NZbg/h5FTFi6V0+99ahlRsW8/kRLyb24LZVCCiclDedhLKcBA==}
+    peerDependencies:
+      '@babel/core': ^7.4.0 || ^8.0.0-0 <8.0.0
+    dependencies:
+      '@babel/core': 7.23.7
+      '@babel/helper-compilation-targets': 7.23.6
+      '@babel/helper-plugin-utils': 7.22.5
+      debug: 4.3.4
+      lodash.debounce: 4.0.8
+      resolve: 1.22.8
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@babel/helper-define-polyfill-provider@0.5.0(@babel/core@7.23.7):
+    resolution: {integrity: sha512-NovQquuQLAQ5HuyjCz7WQP9MjRj7dx++yspwiyUiGl9ZyadHRSql1HZh5ogRd8W8w6YM6EQ/NTB8rgjLt5W65Q==}
     peerDependencies:
       '@babel/core': ^7.4.0 || ^8.0.0-0 <8.0.0
     dependencies:
@@ -1336,9 +1357,9 @@ packages:
       '@babel/plugin-transform-unicode-regex': 7.23.3(@babel/core@7.23.7)
       '@babel/plugin-transform-unicode-sets-regex': 7.23.3(@babel/core@7.23.7)
       '@babel/preset-modules': 0.1.6-no-external-plugins(@babel/core@7.23.7)
-      babel-plugin-polyfill-corejs2: 0.4.7(@babel/core@7.23.7)
+      babel-plugin-polyfill-corejs2: 0.4.8(@babel/core@7.23.7)
       babel-plugin-polyfill-corejs3: 0.8.7(@babel/core@7.23.7)
-      babel-plugin-polyfill-regenerator: 0.5.4(@babel/core@7.23.7)
+      babel-plugin-polyfill-regenerator: 0.5.5(@babel/core@7.23.7)
       core-js-compat: 3.35.0
       semver: 6.3.1
     transitivePeerDependencies:
@@ -2819,14 +2840,14 @@ packages:
       - debug
     dev: true
 
-  /babel-plugin-polyfill-corejs2@0.4.7(@babel/core@7.23.7):
-    resolution: {integrity: sha512-LidDk/tEGDfuHW2DWh/Hgo4rmnw3cduK6ZkOI1NPFceSK3n/yAGeOsNT7FLnSGHkXj3RHGSEVkN3FsCTY6w2CQ==}
+  /babel-plugin-polyfill-corejs2@0.4.8(@babel/core@7.23.7):
+    resolution: {integrity: sha512-OtIuQfafSzpo/LhnJaykc0R/MMnuLSSVjVYy9mHArIZ9qTCSZ6TpWCuEKZYVoN//t8HqBNScHrOtCrIK5IaGLg==}
     peerDependencies:
       '@babel/core': ^7.4.0 || ^8.0.0-0 <8.0.0
     dependencies:
       '@babel/compat-data': 7.23.5
       '@babel/core': 7.23.7
-      '@babel/helper-define-polyfill-provider': 0.4.4(@babel/core@7.23.7)
+      '@babel/helper-define-polyfill-provider': 0.5.0(@babel/core@7.23.7)
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
@@ -2844,13 +2865,13 @@ packages:
       - supports-color
     dev: true
 
-  /babel-plugin-polyfill-regenerator@0.5.4(@babel/core@7.23.7):
-    resolution: {integrity: sha512-S/x2iOCvDaCASLYsOOgWOq4bCfKYVqvO/uxjkaYyZ3rVsVE3CeAI/c84NpyuBBymEgNvHgjEot3a9/Z/kXvqsg==}
+  /babel-plugin-polyfill-regenerator@0.5.5(@babel/core@7.23.7):
+    resolution: {integrity: sha512-OJGYZlhLqBh2DDHeqAxWB1XIvr49CxiJ2gIt61/PU55CQK4Z58OzMqjDe1zwQdQk+rBYsRc+1rJmdajM3gimHg==}
     peerDependencies:
       '@babel/core': ^7.4.0 || ^8.0.0-0 <8.0.0
     dependencies:
       '@babel/core': 7.23.7
-      '@babel/helper-define-polyfill-provider': 0.4.4(@babel/core@7.23.7)
+      '@babel/helper-define-polyfill-provider': 0.5.0(@babel/core@7.23.7)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2906,7 +2927,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001579
-      electron-to-chromium: 1.4.637
+      electron-to-chromium: 1.4.639
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.2)
     dev: true
@@ -3389,8 +3410,8 @@ packages:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
 
-  /electron-to-chromium@1.4.637:
-    resolution: {integrity: sha512-G7j3UCOukFtxVO1vWrPQUoDk3kL70mtvjc/DC/k2o7lE0wAdq+Vwp1ipagOow+BH0uVztFysLWbkM/RTIrbK3w==}
+  /electron-to-chromium@1.4.639:
+    resolution: {integrity: sha512-CkKf3ZUVZchr+zDpAlNLEEy2NJJ9T64ULWaDgy3THXXlPVPkLu3VOs9Bac44nebVtdwl2geSj6AxTtGDOxoXhg==}
     dev: true
 
   /emoji-regex@10.3.0:
@@ -4838,8 +4859,11 @@ packages:
       resolve: 1.22.8
     dev: true
 
-  /less-plugin-preset-env@1.1.3:
-    resolution: {integrity: sha512-CuwNQaR5Vclk/8cYvjecr6jZ1kW0sy+1qCVxdfpS5KfuU30uRwIAhocPg+RCkdTTVSnUrPkHG8ptj//IctLkwA==}
+  /less-plugin-preset-env@1.2.1(postcss-preset-env@9.3.0)(postcss@8.4.33):
+    resolution: {integrity: sha512-SsQw27+VhbWIn9/cCGjZsXtR1a7AadLFP4z7GFQ106uDLeKkY9cDedRbxHnH4x90fMEGMgkH+qy9wMSv9P0iYg==}
+    peerDependencies:
+      postcss: ^8.0.0
+      postcss-preset-env: ^9.0.0
     dependencies:
       postcss: 8.4.33
       postcss-preset-env: 9.3.0(postcss@8.4.33)
@@ -5231,7 +5255,7 @@ packages:
       minimatch: 3.1.2
     dev: true
 
-  /mwn@2.0.2:
+  /mwn@2.0.2(@types/jquery@3.5.29)(@types/oojs-ui@0.47.6):
     resolution: {integrity: sha512-idb5znyx9E+VrmOJsyrQJ8X/pnk0tFYXKwk0ETh3fswhf0Z81Gd2GDXBsI07oEtUz4lvsWqph+pR7ZxV85TDGA==}
     engines: {node: '>=10'}
     dependencies:
@@ -5243,8 +5267,10 @@ packages:
       form-data: 3.0.1
       oauth-1.0a: 2.2.6
       tough-cookie: 4.1.3
-      types-mediawiki: /types-mediawiki-renovate@2.4.1
+      types-mediawiki: /types-mediawiki-renovate@2.5.1(@types/jquery@3.5.29)(@types/oojs-ui@0.47.6)
     transitivePeerDependencies:
+      - '@types/jquery'
+      - '@types/oojs-ui'
       - debug
     dev: true
 
@@ -5768,8 +5794,8 @@ packages:
       postcss-value-parser: 4.2.0
     dev: true
 
-  /postcss-modules-scope@3.1.0(postcss@8.4.33):
-    resolution: {integrity: sha512-SaIbK8XW+MZbd0xHPf7kdfA/3eOt7vxJ72IRecn3EzuZVLr1r0orzf0MX/pN8m+NMDoo6X/SQd8oeKqGZd8PXg==}
+  /postcss-modules-scope@3.1.1(postcss@8.4.33):
+    resolution: {integrity: sha512-uZgqzdTleelWjzJY+Fhti6F3C9iF1JR/dODLs/JDefozYcKTBCdD8BIl6nNPbTbcLnGrk56hzwZC2DaGNvYjzA==}
     engines: {node: ^10 || ^12 || >= 14}
     peerDependencies:
       postcss: ^8.1.0
@@ -6948,10 +6974,14 @@ packages:
       is-typed-array: 1.1.12
     dev: true
 
-  /types-mediawiki-renovate@2.4.1:
-    resolution: {integrity: sha512-p+vWpbGyQFGzfbDNdsCKJQxA8hSAf92v/UH2yVBozktju2jqwK6BOtElDFziO0SqM1i9JXE/pVsVLSVaP4u11w==}
+  /types-mediawiki-renovate@2.5.1(@types/jquery@3.5.29)(@types/oojs-ui@0.47.6):
+    resolution: {integrity: sha512-PqGh/1BNcgRiptNRdGH/IOjOpf4J/XerGrVUbPYt4DwQ7nlleiQF2TIHO/oii2oOFynBUticRvqIQ9YUTEAuvA==}
+    peerDependencies:
+      '@types/jquery': ^3.0.0
+      '@types/oojs-ui': '*'
     dependencies:
       '@types/jquery': 3.5.29
+      '@types/oojs-ui': 0.47.6
     dev: true
 
   /typescript-plugin-css-modules@5.0.2(typescript@5.3.3):
@@ -6969,7 +6999,7 @@ packages:
       postcss-load-config: 3.1.4(postcss@8.4.33)
       postcss-modules-extract-imports: 3.0.0(postcss@8.4.33)
       postcss-modules-local-by-default: 4.0.4(postcss@8.4.33)
-      postcss-modules-scope: 3.1.0(postcss@8.4.33)
+      postcss-modules-scope: 3.1.1(postcss@8.4.33)
       reserved-words: 0.1.2
       sass: 1.70.0
       source-map-js: 1.0.2
