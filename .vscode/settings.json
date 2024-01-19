@@ -16,6 +16,7 @@
 	"editor.stickyScroll.enabled": true,
 	"git.autoStash": true,
 	"git.allowForcePush": true,
+	"terminal.integrated.scrollback": 10000,
 	"eslint.enable": true,
 	"eslint.format.enable": true,
 	"prettier.enable": true,
