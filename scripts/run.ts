@@ -8,11 +8,13 @@ const {
 	build: isBuild,
 	deploy: isDeploy,
 	'format-json': isFormatJSON,
+	test: isTest,
 	...rest
 } = minimist<{
 	build?: boolean;
 	deploy?: boolean;
 	'format-json'?: boolean;
+	test: boolean;
 }>(argv.slice(2));
 
 if (isBuild) {
@@ -20,7 +22,7 @@ if (isBuild) {
 }
 
 if (isDeploy) {
-	await deploy();
+	await deploy(isTest);
 }
 
 if (isFormatJSON) {

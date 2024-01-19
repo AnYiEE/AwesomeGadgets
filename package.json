@@ -8,6 +8,7 @@
 		"deploy": "pnpm build && tsx --no-deprecation scripts/run.ts --deploy",
 		"build:only": "tsx --no-deprecation scripts/run.ts --build",
 		"deploy:only": "tsx --no-deprecation scripts/run.ts --deploy",
+		"deploy:test": "tsx --no-deprecation scripts/run.ts --deploy --test",
 		"sort": "tsx --no-deprecation scripts/run.ts --format-json",
 		"format": "prettier --cache --write . && pnpm lint:fix && tsc",
 		"eslint": "eslint --cache .",

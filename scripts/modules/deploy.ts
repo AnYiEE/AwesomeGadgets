@@ -1,5 +1,6 @@
 import type {Api, DeploymentDirectTargets, DeploymentTargets} from './types';
 import {DEPLOY_USER_AGENT, MAX_CONCURRENCY} from '../constant';
+import {FakeApi, fakeConfig} from './utils/deploy-test';
 import {__rootDir, prompt, readFileContent} from './utils/general-util';
 import {
 	checkConfig,
@@ -32,23 +33,26 @@ const apiQueue: PQueue = new PQueue({
 
 /**
  * Deploy definitions, scripts and styles
+ * @param {boolean} [isTest] Run the deploy process in test mode or not
  */
-const deploy = async (): Promise<void> => {
+const deploy = async (isTest?: boolean): Promise<void> => {
 	// Note: The program may terminate due to an expected exception
 	const definitionText: string = readDefinition();
 
-	const config = loadConfig();
+	const config: ReturnType<typeof loadConfig> = isTest ? fakeConfig : loadConfig();
 	await checkConfig(config, true);
 
 	const uncheckedApis: Api[] = [];
 	for (const [site, credentials] of Object.entries(config)) {
 		uncheckedApis.push({
 			site,
-			apiInstance: new Mwn({
-				...credentials,
-				maxRetries: 10,
-				userAgent: DEPLOY_USER_AGENT,
-			}),
+			apiInstance: isTest
+				? (new FakeApi() as Mwn)
+				: new Mwn({
+						...credentials,
+						maxRetries: 10,
+						userAgent: DEPLOY_USER_AGENT,
+					}),
 		});
 	}
 
