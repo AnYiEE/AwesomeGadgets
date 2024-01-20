@@ -56,8 +56,37 @@ const deploy = async (isTest?: boolean): Promise<void> => {
 		});
 	}
 
+	const sites =
+		uncheckedApis.length > 1
+			? ((await prompt({
+					type: 'multiselect',
+					message: 'Select sites to deploy',
+					choices: uncheckedApis.reduce(
+						(accumulator, {site}) => {
+							accumulator.push({
+								title: site,
+								value: site,
+								selected: true,
+							});
+							return accumulator;
+						},
+						[] as {
+							title: string;
+							value: string;
+							selected: boolean;
+						}[]
+					),
+					max: Number.POSITIVE_INFINITY,
+					min: 0,
+				})) as string[])
+			: [uncheckedApis[0]!.site];
+
 	const apis: Api[] = [];
 	for (const {apiInstance, site} of uncheckedApis) {
+		if (!sites.includes(site)) {
+			continue;
+		}
+
 		let isUseOAuth: boolean = false;
 		try {
 			apiInstance.initOAuth();

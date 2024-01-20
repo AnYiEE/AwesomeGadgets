@@ -10,7 +10,7 @@ import {
 	writeFileSync,
 } from 'node:fs';
 import {join, resolve} from 'node:path';
-import prompts, {type Answers, type PromptType} from 'prompts';
+import prompts, {type Answers, type PromptObject, type PromptType} from 'prompts';
 import alphaSort from 'alpha-sort';
 import chalk from 'chalk';
 import {exit} from 'node:process';
@@ -134,27 +134,35 @@ const trim = (
 /**
  * Easy to use CLI prompts to enquire users for information
  *
- * @param {string} message The message to be displayed to the user
+ * @param {string|Omit<PromptObject,'name'>} message The message to be displayed to the user
  * @param {PromptType} [type='text'] Defines the type of prompt to display
  * @param {boolean|string} [initial=''] Optional default prompt value
  * @return {Promise<boolean|string>}
  * @see {@link https://www.npmjs.com/package/prompts}
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function prompt(message: Omit<PromptObject, 'name'>): Promise<any>;
 async function prompt(message: string, type?: Exclude<PromptType, 'confirm'>, initial?: string): Promise<string>;
 async function prompt(message: string, type: 'confirm', initial?: boolean): Promise<boolean>;
 // eslint-disable-next-line func-style
 async function prompt(
-	message: string,
+	message: string | Omit<PromptObject, 'name'>,
 	type: PromptType = 'text',
 	initial: boolean | string = ''
 ): Promise<boolean | string> {
 	const name: string = Math.random().toString();
-	const answers: Answers<string> = await prompts({
-		initial,
-		message,
-		name,
-		type,
-	});
+	const answers: Answers<string> =
+		typeof message === 'string'
+			? await prompts({
+					initial,
+					message,
+					name,
+					type,
+				})
+			: await prompts({
+					...message,
+					name,
+				});
 
 	const answer = answers[name] as boolean | string | undefined;
 	if (type === 'confirm' && (!answer as boolean)) {
