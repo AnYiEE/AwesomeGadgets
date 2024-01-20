@@ -47,7 +47,7 @@ const deploy = async (isTest?: boolean): Promise<void> => {
 		uncheckedApis.push({
 			site,
 			apiInstance: isTest
-				? (new FakeApi() as Mwn)
+				? (new FakeApi(credentials) as Mwn)
 				: new Mwn({
 						...credentials,
 						maxRetries: 10,
