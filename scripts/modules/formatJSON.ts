@@ -4,11 +4,13 @@ import {__rootDir, exec, readFileContent, sortObject, writeFileContent} from './
 import {basename, join} from 'node:path';
 import {globSync} from 'glob';
 
+type Files = {
+	name: string;
+	fullpath(): string;
+}[];
+
 const formatJSON = async (paths: string[]): Promise<void> => {
-	let files: {
-		name: string;
-		fullpath(): string;
-	}[] = [];
+	let files: Files = [];
 
 	if (paths.length) {
 		for (const path of paths) {
@@ -36,8 +38,8 @@ const formatJSON = async (paths: string[]): Promise<void> => {
 	for (const file of files) {
 		const filePath: string = file.fullpath();
 
-		const fileContent: string = readFileContent(filePath);
-		if (!fileContent) {
+		const fileContent: string = readFileContent(filePath).trim();
+		if (!fileContent || fileContent === '{}') {
 			continue;
 		}
 
