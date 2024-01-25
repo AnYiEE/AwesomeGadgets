@@ -22,12 +22,12 @@ import {
 } from './general-util';
 import {basename, extname, join} from 'node:path';
 import {existsSync, open} from 'node:fs';
+import {exit, stdout} from 'node:process';
 import {MwnError} from 'mwn/build/error';
 import {Window} from 'happy-dom';
 import alphaSort from 'alpha-sort';
 import {apiQueue} from '../deploy';
 import chalk from 'chalk';
-import {exit} from 'node:process';
 import {setTimeout} from 'node:timers/promises';
 
 /**
@@ -95,7 +95,7 @@ const generateTargets = (): DeploymentTargets => {
 			files: [],
 		};
 
-		const distFiles: Path[] = globSync([`${gadgetName}/*.{js,css}`], {
+		const distFiles: Path[] = globSync([`${gadgetName}/*.{css,js}`], {
 			cwd: join(__rootDir, 'dist'),
 			withFileTypes: true,
 		});
@@ -109,6 +109,11 @@ const generateTargets = (): DeploymentTargets => {
 				fileBaseName === gadgetName ? fileName : `${gadgetName}-${fileName}`,
 			]);
 		}
+	}
+
+	if (!Object.keys(targets).length) {
+		console.log(chalk.yellow('━ No gadget need to deploy'));
+		return {};
 	}
 
 	return targets;
@@ -147,7 +152,7 @@ const generateDirectTargets = (site: Api['site']): DeploymentDirectTargets => {
 
 	const currentSiteGlobalTargets = globalJsonObject[site] as GlobalJsonObject[keyof GlobalJsonObject];
 	for (const [file, {enable, sourceCode, licenseText}] of Object.entries(currentSiteGlobalTargets)) {
-		if (!enable) {
+		if (enable === false) {
 			continue;
 		}
 
@@ -286,8 +291,8 @@ async function makeEditSummary(filePath?: string, fallbackEditSummary?: string):
 				return '';
 			}
 			const logSplit: string[] = log.split(' ');
-			const {stdout} = await exec(`git rev-parse --short ${logSplit.shift()}`);
-			return `Git commit ${stdout.trim()}: ${logSplit.join(' ')}`;
+			const {stdout: _sha} = await exec(`git rev-parse --short ${logSplit.shift()}`);
+			return `Git commit ${_sha.trim()}: ${logSplit.join(' ')}`;
 		} catch {
 			return '';
 		}
@@ -701,7 +706,7 @@ const deleteUnusedPages = async (api: Api, editSummary: string): Promise<void> =
 		return;
 	}
 
-	process.stdout.write(`The following pages will be deleted:\n${needToDeletePages.join('\n')}\n`);
+	stdout.write(`The following pages will be deleted:\n${needToDeletePages.join('\n')}\n`);
 	await prompt('> Confirm to continue deleting?', 'confirm', true);
 
 	console.log(chalk.yellow(`--- [${chalk.bold(site)}] deleting will continue in three seconds ---`));
