@@ -11,9 +11,11 @@ import {
 } from 'node:fs';
 import {join, resolve} from 'node:path';
 import prompts, {type Answers, type PromptObject, type PromptType} from 'prompts';
+import {exec as _exec} from 'node:child_process';
 import alphaSort from 'alpha-sort';
 import chalk from 'chalk';
 import {exit} from 'node:process';
+import {promisify} from 'node:util';
 
 /**
  * @private
@@ -29,6 +31,13 @@ const getRootDir = (): string => {
  * The root directory of the project
  */
 const __rootDir: string = getRootDir();
+
+/**
+ * Execute a command
+ *
+ * @see {@link node:child_process.exec}
+ */
+const exec = promisify(_exec);
 
 /**
  * Read file content
@@ -263,4 +272,14 @@ const processSourceCode = (
 	return sourceCode;
 };
 
-export {__rootDir, readFileContent, writeFileContent, sortObject, trim, prompt, generateDefinition, processSourceCode};
+export {
+	__rootDir,
+	exec,
+	readFileContent,
+	writeFileContent,
+	sortObject,
+	trim,
+	prompt,
+	generateDefinition,
+	processSourceCode,
+};

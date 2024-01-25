@@ -1,8 +1,7 @@
 import type {DefaultDefinition, GlobalSourceFiles} from './types';
 import {type Options, format, resolveConfig, resolveConfigFile} from 'prettier';
-import {__rootDir, readFileContent, sortObject, writeFileContent} from './utils/general-util';
+import {__rootDir, exec, readFileContent, sortObject, writeFileContent} from './utils/general-util';
 import {basename, join} from 'node:path';
-import {execSync} from 'node:child_process';
 import {globSync} from 'glob';
 
 const formatJSON = async (paths: string[]): Promise<void> => {
@@ -111,7 +110,7 @@ const formatJSON = async (paths: string[]): Promise<void> => {
 				})
 			);
 		} else {
-			execSync(`prettier --write ${filePath}`);
+			await exec(`prettier --write ${filePath}`);
 		}
 	}
 };

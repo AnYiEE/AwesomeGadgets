@@ -11,6 +11,7 @@ import {CONVERT_VARIANT, DEFINITION_SECTION_MAP} from '../../constant';
 import {type Path, globSync} from 'glob';
 import {
 	__rootDir,
+	exec,
 	generateDefinition,
 	processSourceCode,
 	prompt,
@@ -26,7 +27,6 @@ import {Window} from 'happy-dom';
 import alphaSort from 'alpha-sort';
 import {apiQueue} from '../deploy';
 import chalk from 'chalk';
-import {execSync} from 'node:child_process';
 import {exit} from 'node:process';
 import {setTimeout} from 'node:timers/promises';
 
@@ -278,25 +278,25 @@ async function makeEditSummary(): Promise<string>;
 async function makeEditSummary(filePath: string, fallbackEditSummary: string): Promise<string>;
 // eslint-disable-next-line func-style
 async function makeEditSummary(filePath?: string, fallbackEditSummary?: string): Promise<string> {
-	const execLog = (path: string): string => {
+	const execLog = async (path: string): Promise<string> => {
 		try {
-			const log: string = execSync(`git log --pretty=format:"%H %s" -1 -- ${path}`).toString('utf8').trim();
+			const {stdout: _log} = await exec(`git log --pretty=format:"%H %s" -1 -- ${path}`);
+			const log: string = _log.trim();
 			if (!log) {
 				return '';
 			}
 			const logSplit: string[] = log.split(' ');
-			return `Git commit ${execSync(`git rev-parse --short ${logSplit.shift()}`)
-				.toString('utf8')
-				.trim()}: ${logSplit.join(' ')}`;
+			const {stdout} = await exec(`git rev-parse --short ${logSplit.shift()}`);
+			return `Git commit ${stdout.trim()}: ${logSplit.join(' ')}`;
 		} catch {
 			return '';
 		}
 	};
-	const getLog = (path: string): string => {
+	const getLog = async (path: string): Promise<string> => {
 		if (!existsSync(path)) {
 			return '';
 		}
-		const log: string = execLog(path);
+		const log: string = await execLog(path);
 		if (!log) {
 			return '';
 		}
@@ -308,7 +308,7 @@ async function makeEditSummary(filePath?: string, fallbackEditSummary?: string):
 			return fallbackEditSummary;
 		}
 
-		const log: string = getLog(filePath);
+		const log: string = await getLog(filePath);
 		if (!log) {
 			return fallbackEditSummary;
 		}
@@ -319,8 +319,10 @@ async function makeEditSummary(filePath?: string, fallbackEditSummary?: string):
 	let sha: string = '';
 	let summary: string = '';
 	try {
-		sha = execSync('git rev-parse --short HEAD').toString('utf8').trim();
-		summary = execSync('git log --pretty=format:"%s" HEAD -1').toString('utf8').trim();
+		const {stdout: _sha} = await exec('git rev-parse --short HEAD');
+		sha = _sha.trim();
+		const {stdout: _summary} = await exec('git log --pretty=format:"%s" HEAD -1');
+		summary = _summary.trim();
 	} catch {}
 
 	const customSummary: string = await prompt('> Custom editing summary message (optional):');
