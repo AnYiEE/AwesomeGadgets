@@ -33,6 +33,7 @@ const apiQueue: PQueue = new PQueue({
 
 /**
  * Deploy definitions, scripts and styles
+ *
  * @param {boolean} [isTest] Run the deploy process in test mode or not
  */
 const deploy = async (isTest?: boolean): Promise<void> => {
@@ -56,7 +57,7 @@ const deploy = async (isTest?: boolean): Promise<void> => {
 		});
 	}
 
-	const sites =
+	const sites: Api['site'][] =
 		uncheckedApis.length > 1
 			? ((await prompt({
 					type: 'multiselect',
@@ -78,7 +79,7 @@ const deploy = async (isTest?: boolean): Promise<void> => {
 					),
 					max: Number.POSITIVE_INFINITY,
 					min: 0,
-				})) as string[])
+				})) as typeof sites)
 			: [uncheckedApis[0]!.site];
 
 	const apis: Api[] = [];
@@ -156,7 +157,6 @@ const deploy = async (isTest?: boolean): Promise<void> => {
 
 		const definitionFilePath: string = join(__rootDir, 'dist/definition.txt');
 		const definitionEditSummary: string = await makeEditSummary(definitionFilePath, fallbackEditSummary);
-
 		const currentSiteDefinitionText: string = saveDefinition(
 			definitionText,
 			enabledGadgets,
