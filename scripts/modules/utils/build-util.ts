@@ -66,11 +66,12 @@ const build = async (
 
 	const {outputFiles} = buildResult;
 	if (!outputFiles) {
-		return builtFiles;
+		return [];
 	}
 
 	for (const outputFile of outputFiles) {
 		const {path, text} = outputFile;
+
 		builtFiles.push({
 			path,
 			text,
@@ -87,10 +88,10 @@ const build = async (
  * @param {Dependencies} dependencies
  * @return {Promise<string>}
  */
-const bundle = async (outputFilePath: string, sourceCode: string, dependencies: Dependencies): Promise<string> => {
+const bundle = async (outputFilePath: string, sourceCode: string, dependencies?: Dependencies): Promise<string> => {
 	const buildResult: BuildResult = await esbuild({
 		...esbuildOptions,
-		external: dependencies,
+		external: dependencies ?? [],
 		stdin: {
 			contents: sourceCode,
 			resolveDir: __rootDir,
@@ -213,7 +214,7 @@ const buildScript = async (
 		dependencies,
 		licenseText,
 	}: {
-		dependencies: Dependencies;
+		dependencies: Dependencies | undefined;
 		licenseText: string | undefined;
 	}
 ): Promise<string[]> => {
@@ -336,14 +337,12 @@ async function buildFiles(
 	for (const fileName of files) {
 		switch (type) {
 			case 'script':
-				if (dependencies) {
-					outputFileNames.push(
-						...(await buildScript(gadgetName, fileName, {
-							dependencies,
-							licenseText,
-						}))
-					);
-				}
+				outputFileNames.push(
+					...(await buildScript(gadgetName, fileName, {
+						dependencies,
+						licenseText,
+					}))
+				);
 				break;
 			case 'style':
 				outputFileNames.push(await buildStyle(gadgetName, fileName, licenseText));
@@ -372,7 +371,7 @@ const fallbackDefinition = (sourceFiles: SourceFiles): void => {
  * @param {SourceFiles} sourceFiles
  */
 const filterOutInvalidDependencies = (sourceFiles: SourceFiles): void => {
-	for (const [_gadgetName, gadgetFiles] of Object.entries(sourceFiles)) {
+	for (const gadgetFiles of Object.values(sourceFiles)) {
 		const {
 			definition: {dependencies},
 		} = gadgetFiles;
@@ -548,11 +547,9 @@ const findSourceFile = (): SourceFiles => {
 	}
 
 	// After completing the loop, if `targetGadget.definition` is undefined, utilize the default definition
-	// Note: No need for assignment, this is object reference
 	fallbackDefinition(sourceFiles);
 
 	// Filter out invalid dependencies, only allow non-empty string
-	// Note: No need for assignment, this is object reference
 	filterOutInvalidDependencies(sourceFiles);
 
 	const sourceFilesSorted: SourceFiles = sortObject(sourceFiles);
@@ -602,15 +599,12 @@ const generateDefinitionItem = (
 				if (isArray) {
 					const valueFiltered: string = (value as [])
 						.filter((item: keyof []): boolean => {
-							return ['boolean', 'number', 'string'].includes(typeof item) && !!item.toString().trim();
+							return ['number', 'string'].includes(typeof item) && !!item.toString().trim();
 						})
-						.map(<T extends 'boolean' | 'number' | 'string'>(item: T): T => {
-							if (typeof item === 'string') {
-								return trim(item, {
-									addNewline: false,
-								}) as T;
-							}
-							return item;
+						.map((item: number | string): string => {
+							return trim(item.toString(), {
+								addNewline: false,
+							});
 						})
 						.join(',');
 					if (valueFiltered) {
