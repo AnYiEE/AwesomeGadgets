@@ -38,8 +38,8 @@ const formatJSON = async (paths: string[]): Promise<void> => {
 	for (const file of files) {
 		const filePath: string = file.fullpath();
 
-		const fileContent: string = readFileContent(filePath).trim();
-		if (!fileContent || fileContent === '{}') {
+		const fileContent: string = readFileContent(filePath);
+		if (!fileContent) {
 			continue;
 		}
 
@@ -52,28 +52,6 @@ const formatJSON = async (paths: string[]): Promise<void> => {
 
 		let isExceptFile: boolean = true;
 		switch (file.name) {
-			case 'global.json':
-				object = sortObject(object);
-
-				for (const [key, value] of Object.entries(object)) {
-					const valueSorted = sortObject(value as GlobalSourceFiles);
-
-					for (const [innerKey, innerValue] of Object.entries(valueSorted)) {
-						const {enable, sourceCode, licenseText} = innerValue;
-
-						valueSorted[innerKey] = {
-							enable,
-							sourceCode,
-						};
-
-						if (licenseText !== undefined) {
-							valueSorted[innerKey]!.licenseText = licenseText;
-						}
-					}
-
-					object[key] = valueSorted;
-				}
-				break;
 			case 'definition.json': {
 				const {enable, excludeSites, description, section} = object as unknown as DefaultDefinition;
 
@@ -99,6 +77,28 @@ const formatJSON = async (paths: string[]): Promise<void> => {
 				object = definitionSorted;
 				break;
 			}
+			case 'global.json':
+				object = sortObject(object);
+
+				for (const [key, value] of Object.entries(object)) {
+					const valueSorted = sortObject(value as GlobalSourceFiles);
+
+					for (const [innerKey, innerValue] of Object.entries(valueSorted)) {
+						const {enable, sourceCode, licenseText} = innerValue;
+
+						valueSorted[innerKey] = {
+							enable,
+							sourceCode,
+						};
+
+						if (licenseText !== undefined) {
+							valueSorted[innerKey]!.licenseText = licenseText;
+						}
+					}
+
+					object[key] = valueSorted;
+				}
+				break;
 			default:
 				isExceptFile = false;
 		}
