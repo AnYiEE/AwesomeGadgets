@@ -1,13 +1,35 @@
 import type {DefaultDefinition, GlobalSourceFiles} from './types';
 import {type Options, format, resolveConfig, resolveConfigFile} from 'prettier';
 import {__rootDir, exec, readFileContent, sortObject, writeFileContent} from './utils/general-util';
-import {basename, join} from 'node:path';
+import {basename, join, relative, sep} from 'node:path';
 import {globSync} from 'glob';
 
 type Files = {
+	isGlob?: boolean;
 	name: string;
 	fullpath(): string;
 }[];
+
+const checkTargetDir = (fileName: string, filePath: string): boolean => {
+	const relativePath: string = relative(__rootDir, filePath);
+	const parts: string[] = relativePath.split(sep);
+
+	switch (fileName) {
+		case 'credentials.json':
+			if (parts.length === 2 && parts[0] === 'scripts' && parts[1] === fileName) {
+				return true;
+			}
+			break;
+		case 'definition.json':
+		case 'global.json':
+			if (parts.length === 3 && parts[0] === 'src' && parts[2] === fileName) {
+				return true;
+			}
+			break;
+	}
+
+	return false;
+};
 
 const formatJSON = async (paths: string[]): Promise<void> => {
 	let files: Files = [];
@@ -15,6 +37,7 @@ const formatJSON = async (paths: string[]): Promise<void> => {
 	if (paths.length) {
 		for (const path of paths) {
 			files.push({
+				isGlob: false,
 				name: basename(path),
 				fullpath(): string {
 					return path;
@@ -42,6 +65,7 @@ const formatJSON = async (paths: string[]): Promise<void> => {
 	const prettierConfig = (await resolveConfig(prettierConfigPath)) as Options;
 
 	for (const file of files) {
+		const {isGlob, name: fileName} = file;
 		const filePath: string = file.fullpath();
 
 		const fileContent: string = readFileContent(filePath);
@@ -59,10 +83,19 @@ const formatJSON = async (paths: string[]): Promise<void> => {
 		let isExceptFile: boolean = true;
 		switch (file.name) {
 			case 'credentials.json':
+				if (!isGlob && !checkTargetDir(fileName, filePath)) {
+					isExceptFile = false;
+					break;
+				}
 				// Sort only the first-level keys
 				object = sortObject(object);
 				break;
 			case 'definition.json': {
+				if (!isGlob && !checkTargetDir(fileName, filePath)) {
+					isExceptFile = false;
+					break;
+				}
+
 				const {enable, excludeSites, description, section} = object as unknown as DefaultDefinition;
 
 				let definitionSorted: Partial<DefaultDefinition> = {
@@ -88,6 +121,11 @@ const formatJSON = async (paths: string[]): Promise<void> => {
 				break;
 			}
 			case 'global.json':
+				if (!isGlob && !checkTargetDir(fileName, filePath)) {
+					isExceptFile = false;
+					break;
+				}
+
 				object = sortObject(object);
 
 				for (const [key, value] of Object.entries(object)) {
