@@ -22,10 +22,16 @@ const formatJSON = async (paths: string[]): Promise<void> => {
 			});
 		}
 	} else {
-		files = globSync(['*/definition.json', 'global.json'], {
-			cwd: join(__rootDir, 'src'),
-			withFileTypes: true,
-		});
+		files = [
+			...globSync('credentials.json', {
+				cwd: join(__rootDir, 'scripts'),
+				withFileTypes: true,
+			}),
+			...globSync(['*/definition.json', 'global.json'], {
+				cwd: join(__rootDir, 'src'),
+				withFileTypes: true,
+			}),
+		];
 	}
 
 	if (!files.length) {
@@ -52,6 +58,10 @@ const formatJSON = async (paths: string[]): Promise<void> => {
 
 		let isExceptFile: boolean = true;
 		switch (file.name) {
+			case 'credentials.json':
+				// Sort only the first-level keys
+				object = sortObject(object);
+				break;
 			case 'definition.json': {
 				const {enable, excludeSites, description, section} = object as unknown as DefaultDefinition;
 
