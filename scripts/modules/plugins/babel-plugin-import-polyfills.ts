@@ -1,4 +1,4 @@
-/* eslint-disable camelcase, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return */
+/* eslint-disable camelcase, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call */
 /**
  * @file Automatically import any missing polyfills
  * @see {@link https://github.com/zloirock/core-js#missing-polyfills}
@@ -7,6 +7,8 @@
  */
 import {type BabelAPI, declare} from '@babel/helper-plugin-utils';
 import {type BrowserSupport, getSupport} from 'caniuse-api';
+import type {CallExpression, ImportDeclaration, NewExpression, Program, StringLiteral} from '@babel/types';
+import type {NodePath} from 'babel__traverse';
 import {__rootDir} from '../utils/general-util';
 /**
  * @see {@link https://babeljs.io/docs/babel-helper-compilation-targets#filteritems}
@@ -117,17 +119,19 @@ const polyfills = {
  * @param {Object} types
  * @param {string} packageName
  */
-// @ts-expect-error TS7006
-const addImport = (path, types: BabelAPI['types'], packageName: (typeof polyfills)[Features]['package']): void => {
-	const stringLiteral = types.stringLiteral(packageName);
-	const importDeclaration = types.importDeclaration([], stringLiteral);
+const addImport = (
+	path: NodePath<CallExpression | NewExpression>,
+	types: BabelAPI['types'],
+	packageName: (typeof polyfills)[Features]['package']
+): void => {
+	const stringLiteral: StringLiteral = types.stringLiteral(packageName);
+	const importDeclaration: ImportDeclaration = types.importDeclaration([], stringLiteral);
 
-	path
-		// @ts-expect-error TS7006
-		.findParent((parent): boolean => {
+	(
+		path.findParent((parent: NodePath): parent is NodePath<Program> => {
 			return parent.isProgram();
-		})
-		?.unshiftContainer('body', importDeclaration);
+		}) as NodePath<Program>
+	)?.unshiftContainer('body', importDeclaration);
 };
 
 const plugin = declare((api: BabelAPI) => {
@@ -147,7 +151,7 @@ const plugin = declare((api: BabelAPI) => {
 
 	return {
 		visitor: {
-			CallExpression(path): void {
+			CallExpression(path: NodePath<CallExpression>): void {
 				const {
 					node: {callee, arguments: args},
 				} = path;
@@ -187,7 +191,7 @@ const plugin = declare((api: BabelAPI) => {
 				}
 			},
 
-			NewExpression(path) {
+			NewExpression(path: NodePath<NewExpression>) {
 				const {callee} = path.node;
 
 				for (const [name, {package: packageName, type}] of Object.entries(polyfills)) {

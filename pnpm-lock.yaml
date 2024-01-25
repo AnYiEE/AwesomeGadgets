@@ -62,6 +62,9 @@ devDependencies:
   '@babel/preset-env':
     specifier: ^7.23.8
     version: 7.23.8(@babel/core@7.23.7)
+  '@babel/types':
+    specifier: ^7.23.6
+    version: 7.23.6
   '@commitlint/cli':
     specifier: ^18.5.0
     version: 18.5.0(@types/node@20.11.6)(typescript@5.3.3)
@@ -80,6 +83,9 @@ devDependencies:
   '@types/babel__helper-plugin-utils':
     specifier: ^7.10.3
     version: 7.10.3
+  '@types/babel__traverse':
+    specifier: ^7.20.5
+    version: 7.20.5
   '@types/caniuse-api':
     specifier: ^3.0.6
     version: 3.0.6
