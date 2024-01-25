@@ -13,10 +13,12 @@ const fakeCredentials: Credentials = {
 	apiUrl: 'https://your.wiki/api.php',
 };
 
-const fakeConfig = {
-	testwiki1: fakeCredentials,
-	testwiki2: fakeCredentials,
-} as const satisfies Config;
+const fakeConfig = Array.from({
+	length: Math.floor(Math.random() * 3),
+}).reduce((config: Config): Config => {
+	config[`test${Object.keys(config).length + 1}`] = fakeCredentials;
+	return config;
+}, {}) satisfies Config;
 
 class FakeApi implements Partial<Mwn> {
 	options: MwnOptions;
