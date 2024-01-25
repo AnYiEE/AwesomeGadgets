@@ -205,9 +205,22 @@ async function checkConfig(
 async function checkConfig(config: ReturnType<typeof loadConfig>, isCheckApiUrlOnly?: boolean): Promise<void>;
 // eslint-disable-next-line func-style
 async function checkConfig(config: ReturnType<typeof loadConfig>, isCheckApiUrlOnly: boolean = false): Promise<void> {
-	if (!Object.keys(config).length) {
-		console.log(chalk.red(`✘ No site found in ${chalk.italic('credentials.json')}`));
+	const exitWithError = (reason: string): void => {
+		console.log(chalk.red(`✘ ${reason} in ${chalk.italic('credentials.json')}`));
 		exit(1);
+	};
+
+	if (!Object.keys(config).length) {
+		exitWithError('No site found');
+	}
+
+	for (const site of Object.keys(config)) {
+		if (!site) {
+			exitWithError('Site Name should be a non-empty string');
+		}
+		if (/^\s|\s$/.test(site)) {
+			exitWithError('Site name should not start or end with whitespace characters');
+		}
 	}
 
 	for (const [site, credentials] of Object.entries(config)) {
