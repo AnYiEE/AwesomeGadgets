@@ -1,5 +1,6 @@
 import {
 	buildFiles,
+	cleanUpDist,
 	findSourceFile,
 	generateDefinitionItem,
 	generateFileArray,
@@ -17,6 +18,8 @@ const build = async (): Promise<void> => {
 	const definitions: string[] = [];
 
 	console.log(chalk.yellow('--- starting build ---'));
+
+	await cleanUpDist();
 
 	const sourceFiles: SourceFiles = findSourceFile();
 	for (const [gadgetName, {definition, license, script, scripts, style, styles}] of Object.entries(sourceFiles)) {

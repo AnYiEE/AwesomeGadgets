@@ -18,6 +18,7 @@ import {existsSync, mkdirSync} from 'node:fs';
 import chalk from 'chalk';
 import {esbuildOptions} from '../build-esbuild_options';
 import {exit} from 'node:process';
+import {rimraf} from 'rimraf';
 
 /**
  * @private
@@ -351,6 +352,20 @@ async function buildFiles(
 
 	return outputFileNames;
 }
+
+/**
+ * Clean up the build output directory
+ */
+const cleanUpDist = async (): Promise<void> => {
+	const paths: string[] = globSync('!(*.txt)', {
+		cwd: join(__rootDir, 'dist'),
+		withFileTypes: true,
+	}).map((path: Path): string => {
+		return path.fullpath();
+	});
+
+	await rimraf(paths);
+};
 
 /**
  * @private
@@ -733,6 +748,7 @@ const saveDefinition = (definitions: string[]): void => {
 
 export {
 	buildFiles,
+	cleanUpDist,
 	findSourceFile,
 	generateDefinitionItem,
 	generateFileArray,
