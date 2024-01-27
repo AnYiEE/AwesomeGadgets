@@ -4,8 +4,8 @@
 	"description": "Storage, management, compilation, and automatic deployment of MediaWiki gadgets.",
 	"type": "module",
 	"scripts": {
-		"build": "pnpm format && tsx --no-deprecation scripts/run.ts --build",
-		"deploy": "pnpm build && tsx --no-deprecation scripts/run.ts --deploy",
+		"build": "pnpm format && pnpm build:only",
+		"deploy": "pnpm build && pnpm deploy:only",
 		"build:only": "tsx --no-deprecation scripts/run.ts --build",
 		"deploy:only": "tsx --no-deprecation scripts/run.ts --deploy",
 		"deploy:test": "tsx --no-deprecation scripts/run.ts --deploy --test",
