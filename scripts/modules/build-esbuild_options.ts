@@ -36,8 +36,8 @@ const esbuildOptions = {
 	define: {
 		'process.env.NODE_ENV': '"production"',
 	},
-	format: 'cjs',
 	legalComments: 'inline',
+	platform: 'node',
 	plugins: [
 		CssModulesPlugin({
 			targets,
