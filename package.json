@@ -58,7 +58,7 @@
 		"@types/jquery": "^3.5.29",
 		"@types/jqueryui": "^1.12.21",
 		"@types/minimist": "^1.2.5",
-		"@types/node": "^20.11.7",
+		"@types/node": "^20.11.8",
 		"@types/oojs": "^7.0.6",
 		"@types/oojs-ui": "^0.47.6",
 		"@types/prompts": "^2.4.9",
