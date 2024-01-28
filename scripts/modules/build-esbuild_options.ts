@@ -51,6 +51,7 @@ const esbuildOptions = {
 		}),
 	],
 	sourcemap: SOURCE_MAP ? 'inline' : false,
+	sourceRoot: '../Gadgets',
 	treeShaking: true,
 	write: false,
 } as const satisfies BuildOptions;
