@@ -101,6 +101,9 @@ devDependencies:
   '@types/node':
     specifier: ^20.11.7
     version: 20.11.7
+  '@types/oojs':
+    specifier: ^7.0.6
+    version: 7.0.6
   '@types/oojs-ui':
     specifier: ^0.47.6
     version: 0.47.6
@@ -182,6 +185,9 @@ devDependencies:
   minimist:
     specifier: ^1.2.8
     version: 1.2.8
+  moment:
+    specifier: ^2.30.1
+    version: 2.30.1
   mwn:
     specifier: ^2.0.2
     version: 2.0.2(@types/jquery@3.5.29)(@types/oojs-ui@0.47.6)
@@ -5232,6 +5238,10 @@ packages:
   /minipass@7.0.4:
     resolution: {integrity: sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==}
     engines: {node: '>=16 || 14 >=14.17'}
+    dev: true
+
+  /moment@2.30.1:
+    resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
     dev: true
 
   /ms@2.1.3:
