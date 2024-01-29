@@ -77,16 +77,20 @@ console.log({
 
 ```jsonc
 {
-	"dependencies": ["mediawiki.util", "oojs-ui-core"],
+	"dependencies": ["jquery.ui", "mediawiki.util", "oojs-ui-core"],
 	// Other properties...
 }
 ```
 
 -   `moment`
 
-    -   确保目标 MediaWiki 的版本至少为 1.38<br>Ensure that the target MediaWiki version is at least 1.38
-    -   在小工具对应的`definition.json`中，将`moment`添加为依赖项（`dependencies`）<br>In the corresponding `definition.json` of the gadget, add the `moment` package as a dependency
-    -   使用`import`来导入，如：<br> Finally, use `import`. For example:
+    -   目标 MediaWiki 的版本低于 1.38<br>The target MediaWiki version is lower than 1.38
+        -   运行`pnpm remove moment`和`pnpm add @types/moment`<br>Run `pnpm remove moment` and `pnpm add @types/moment`
+        -   在小工具对应的`definition.json`中，将`moment`添加为依赖项（`dependencies`）<br>In the corresponding `definition.json` of the gadget, add the `moment` package as a dependency
+        -   无需导入，`moment`应该全局可用<br>No need to import, `moment` should be globally available
+    -   目标 MediaWiki 的版本不低于 1.38<br>The target MediaWiki version is at least 1.38
+        -   在小工具对应的`definition.json`中，将`moment`添加为依赖项（`dependencies`）<br>In the corresponding `definition.json` of the gadget, add the `moment` package as a dependency
+        -   使用`import`来导入，如：<br> Use `import`. For example:
 
 ```jsonc
 {
