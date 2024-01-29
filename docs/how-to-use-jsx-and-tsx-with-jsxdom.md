@@ -22,10 +22,10 @@ pnpm add jsx-dom
 
 ```tsx
 import React from 'jsx-dom';
-import {red as classRed} from './modules/style.module.css';
+import style from './modules/style.module.css';
 
 document.body.append(
-	<div id="id" className={classRed}>
+	<div id="id" className={style.red}>
 		Hello World!
 	</div>
 );
