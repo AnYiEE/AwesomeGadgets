@@ -189,6 +189,56 @@ async function prompt(
 }
 
 /**
+ * Generate banner and footer
+ *
+ * @param {Object} [object]
+ * @param {string} object.licenseText The license text
+ * @param {boolean} object.isDirectly The source code is from `global.json` or not
+ * @param {boolean} object.isProcessJs Add banner and footer for JavaScript code or not
+ * @return {Object} The banner and footer
+ */
+const generateBannerAndFooter = ({
+	licenseText,
+	isDirectly = false,
+	isProcessJs = true,
+}: Omit<GlobalSourceFiles[keyof GlobalSourceFiles], 'enable' | 'sourceCode'> & {
+	isDirectly?: boolean;
+	isProcessJs?: boolean;
+}): typeof code => {
+	licenseText = licenseText ? trim(licenseText) : '';
+
+	const code: {
+		banner: {
+			css: string;
+			js: string;
+		};
+		footer: {
+			css: string;
+			js: string;
+		};
+	} = {
+		banner: {
+			css: `${licenseText}${trim(HEADER)}/* <nowiki> */\n`,
+			js: '',
+		},
+		footer: {
+			css: '\n/* </nowiki> */\n',
+			js: '',
+		},
+	};
+
+	if (isProcessJs) {
+		code.banner.js = `${licenseText}${trim(HEADER)}/* <nowiki> */\n\n${
+			// Always wrap the code in an IIFE to avoid variable and method leakage into the global scope
+			GLOBAL_REQUIRES_ES6 && !isDirectly ? '(() => {' : '(function() {'
+		}\n`;
+		code.footer.js = '\n})();\n\n/* </nowiki> */\n';
+	}
+
+	return code;
+};
+
+/**
  * Parse `definition.json` of a gadget
  *
  * @param {string} gadgetName The gadget name
@@ -238,40 +288,6 @@ const generateDefinition = (gadgetName: string, isShowLog: boolean = true): type
 	return definition;
 };
 
-const processSourceCode = (
-	sourceCode: string,
-	{
-		contentType,
-		licenseText,
-		isDirectly = false,
-	}: Omit<GlobalSourceFiles[keyof GlobalSourceFiles], 'enable' | 'sourceCode'> & {
-		isDirectly?: boolean;
-	} = {}
-): string => {
-	licenseText = licenseText ? trim(licenseText) : '';
-	sourceCode = trim(sourceCode, {
-		stripControlCharacters: false,
-	});
-
-	switch (contentType) {
-		case 'application/javascript': {
-			const strictMode = '"use strict";' satisfies string;
-			sourceCode = `${licenseText}${trim(HEADER)}/* <nowiki> */\n\n${
-				// Always invoke strict mode after esbuild bundling
-				sourceCode.startsWith(strictMode) ?? sourceCode.includes(strictMode) ? '' : `${strictMode}\n\n`
-			}${
-				// Always wrap the code in an IIFE to avoid variable and method leakage into the global scope
-				GLOBAL_REQUIRES_ES6 && !isDirectly ? '(() => {' : '(function () {'
-			}\n\n${sourceCode}\n})();\n\n/* </nowiki> */\n`;
-			break;
-		}
-		case 'text/css':
-			sourceCode = `${licenseText}${trim(HEADER)}/* <nowiki> */\n\n${sourceCode}\n/* </nowiki> */\n`;
-	}
-
-	return sourceCode;
-};
-
 export {
 	__rootDir,
 	exec,
@@ -280,6 +296,6 @@ export {
 	sortObject,
 	trim,
 	prompt,
+	generateBannerAndFooter,
 	generateDefinition,
-	processSourceCode,
 };

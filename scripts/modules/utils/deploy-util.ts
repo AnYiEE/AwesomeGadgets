@@ -12,8 +12,8 @@ import {type Path, globSync} from 'glob';
 import {
 	__rootDir,
 	exec,
+	generateBannerAndFooter,
 	generateDefinition,
-	processSourceCode,
 	prompt,
 	readFileContent,
 	sortObject,
@@ -171,14 +171,21 @@ const generateDirectTargets = (site: Api['site']): DeploymentDirectTargets => {
 			continue;
 		}
 
-		targets.push([
-			`MediaWiki:${file}`,
-			processSourceCode(sourceCode, {
-				contentType,
-				licenseText,
-				isDirectly: true,
-			}),
-		]);
+		const {banner, footer} = generateBannerAndFooter({
+			licenseText,
+			isDirectly: true,
+		});
+		switch (contentType) {
+			case 'application/javascript':
+				targets.push([
+					`MediaWiki:${file}`,
+					`${banner.js}\n"use strict";\n\n${sourceCode.trim()}\n${footer.js}`,
+				]);
+				break;
+			case 'text/css':
+				targets.push([`MediaWiki:${file}`, `${banner.css}\n${sourceCode.trim()}\n${footer.css}`]);
+				break;
+		}
 	}
 
 	if (!targets.length) {

@@ -2,12 +2,12 @@ import * as PACKAGE from '../../../package.json';
 import {BANNER, GLOBAL_REQUIRES_ES6, SOURCE_MAP} from '../../constant';
 import {type BabelFileResult, type TransformOptions, transformAsync} from '@babel/core';
 import {type BuildResult, type OutputFile, build as esbuild} from 'esbuild';
-import type {BuiltFiles, Dependencies, GlobalSourceFiles, SourceFiles} from '../types';
+import type {BuiltFiles, Dependencies, SourceFiles} from '../types';
 import {type Path, globSync} from 'glob';
 import {
 	__rootDir,
+	generateBannerAndFooter,
 	generateDefinition,
-	processSourceCode,
 	readFileContent,
 	sortObject,
 	trim,
@@ -22,20 +22,10 @@ import {rimraf} from 'rimraf';
 
 /**
  * @private
- * @param {string} sourceCode
  * @param {string} outputFilePath
- * @param {{contentType?:'application/javascript'|'text/css'|undefined; licenseText?:string|undefined}} [object]
+ * @param {string} sourceCode
  */
-const writeFile = (
-	sourceCode: string,
-	outputFilePath: string,
-	{contentType, licenseText}: Omit<GlobalSourceFiles[keyof GlobalSourceFiles], 'enable' | 'sourceCode'> = {}
-): void => {
-	sourceCode = processSourceCode(sourceCode, {
-		contentType,
-		licenseText,
-	});
-
+const writeFile = (outputFilePath: string, sourceCode: string): void => {
 	const outputDirectoryPath: string = dirname(outputFilePath);
 	mkdirSync(outputDirectoryPath, {
 		recursive: true,
@@ -54,12 +44,22 @@ const writeFile = (
 const build = async (
 	inputFilePath: string,
 	outputFilePath: string,
-	dependencies?: Dependencies
+	{
+		dependencies,
+		licenseText,
+	}: {
+		dependencies?: Dependencies | undefined;
+		licenseText: string | undefined;
+	}
 ): Promise<BuiltFiles> => {
 	const builtFiles: BuiltFiles = [];
 
 	const buildResult: BuildResult = await esbuild({
 		...esbuildOptions,
+		...generateBannerAndFooter({
+			licenseText,
+			isProcessJs: false,
+		}),
 		external: dependencies ?? [],
 		entryPoints: [inputFilePath],
 		outfile: outputFilePath,
@@ -89,9 +89,22 @@ const build = async (
  * @param {Dependencies} dependencies
  * @return {Promise<string>}
  */
-const bundle = async (outputFilePath: string, sourceCode: string, dependencies?: Dependencies): Promise<string> => {
+const bundle = async (
+	outputFilePath: string,
+	sourceCode: string,
+	{
+		dependencies,
+		licenseText,
+	}: {
+		dependencies: Dependencies | undefined;
+		licenseText: string | undefined;
+	}
+): Promise<string> => {
 	const buildResult: BuildResult = await esbuild({
 		...esbuildOptions,
+		...generateBannerAndFooter({
+			licenseText,
+		}),
 		external: dependencies ?? [],
 		stdin: {
 			contents: sourceCode,
@@ -227,7 +240,10 @@ const buildScript = async (
 	const inputFilePath: string = join(__rootDir, `src/${gadgetName}/${scriptFileName}`);
 	const outputFilePath: string = join(__rootDir, `dist/${gadgetName}/${outputFileName}`);
 
-	const builtFiles: BuiltFiles = await build(inputFilePath, outputFilePath, dependencies);
+	const builtFiles: BuiltFiles = await build(inputFilePath, outputFilePath, {
+		dependencies,
+		licenseText,
+	});
 	for (const builtFile of builtFiles) {
 		const {path, text} = builtFile;
 
@@ -237,21 +253,18 @@ const buildScript = async (
 		const fileExt: string = extname(path);
 		switch (fileExt) {
 			case '.css':
-				writeFile(text, path, {
-					licenseText,
-					contentType: 'text/css',
-				});
+				writeFile(path, text);
 				break;
 			case '.js': {
 				const transformOutput: string = await transform(inputFilePath, text);
-				const bundleOutput: string = await bundle(outputFilePath, transformOutput, dependencies);
+				const bundleOutput: string = await bundle(outputFilePath, transformOutput, {
+					dependencies,
+					licenseText,
+				});
 				if (!bundleOutput) {
 					continue;
 				}
-				writeFile(bundleOutput, path, {
-					licenseText,
-					contentType: 'application/javascript',
-				});
+				writeFile(path, bundleOutput);
 				break;
 			}
 		}
@@ -278,13 +291,12 @@ const buildStyle = async (
 	const inputFilePath: string = join(__rootDir, `src/${gadgetName}/${styleFileName}`);
 	const outputFilePath: string = join(__rootDir, `dist/${gadgetName}/${outputFileName}`);
 
-	const builtFiles: BuiltFiles = await build(inputFilePath, outputFilePath);
+	const builtFiles: BuiltFiles = await build(inputFilePath, outputFilePath, {
+		licenseText,
+	});
 	const buildOutput: string = builtFiles[0]!.text;
 
-	writeFile(buildOutput, outputFilePath, {
-		licenseText,
-		contentType: 'text/css',
-	});
+	writeFile(outputFilePath, buildOutput);
 
 	return outputFileName;
 };
