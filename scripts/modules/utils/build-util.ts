@@ -121,7 +121,8 @@ const bundle = async (
 
 	const {text} = outputFiles[0] as OutputFile;
 
-	return text;
+	// See `generateBannerAndFooter()` comment for more details
+	return text.replace(/^\/\*\*\n\s\*\n\s\*\/\n/, '');
 };
 
 /**

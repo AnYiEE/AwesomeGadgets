@@ -228,7 +228,10 @@ const generateBannerAndFooter = ({
 	};
 
 	if (isProcessJs) {
-		code.banner.js = `${licenseText}${trim(HEADER)}/* <nowiki> */\n\n${
+		// MediaWiki ResourceLoader will add a comment block before the uncompressed source code, consisting of three lines
+		// Therefore, here add three empty lines to ensure that the source map can correctly map to the corresponding lines
+		code.banner.js = isDirectly ? '' : '/**\n *\n */\n';
+		code.banner.js += `${licenseText}${trim(HEADER)}/* <nowiki> */\n\n${
 			// Always wrap the code in an IIFE to avoid variable and method leakage into the global scope
 			GLOBAL_REQUIRES_ES6 && !isDirectly ? '(() => {' : '(function() {'
 		}\n`;
