@@ -62,8 +62,8 @@
 		"@types/oojs": "^7.0.6",
 		"@types/oojs-ui": "^0.47.6",
 		"@types/prompts": "^2.4.9",
-		"@typescript-eslint/eslint-plugin": "^6.19.1",
-		"@typescript-eslint/parser": "^6.19.1",
+		"@typescript-eslint/eslint-plugin": "^6.20.0",
+		"@typescript-eslint/parser": "^6.20.0",
 		"alpha-sort": "^5.0.0",
 		"blob-polyfill": "^7.0.20220408",
 		"broadcastchannel-polyfill": "^1.0.1",
@@ -108,7 +108,7 @@
 	},
 	"pnpm": {
 		"overrides": {
-			"@typescript-eslint/utils": "^6.19.1",
+			"@typescript-eslint/utils": "^6.20.0",
 			"ansi-regex@<6": "^5.0.1",
 			"arrify@<3": "^2.0.1",
 			"balanced-match@<3": "^2.0.0",
