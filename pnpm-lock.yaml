@@ -229,7 +229,7 @@ devDependencies:
     version: 4.7.0
   types-mediawiki-renovate:
     specifier: latest
-    version: 2.8.0(@types/jquery@3.5.29)(@types/oojs-ui@0.47.6)
+    version: 2.8.1(@types/jquery@3.5.29)(@types/oojs-ui@0.47.6)
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -5271,7 +5271,7 @@ packages:
       form-data: 3.0.1
       oauth-1.0a: 2.2.6
       tough-cookie: 4.1.3
-      types-mediawiki: /types-mediawiki-renovate@2.8.0(@types/jquery@3.5.29)(@types/oojs-ui@0.47.6)
+      types-mediawiki: /types-mediawiki-renovate@2.8.1(@types/jquery@3.5.29)(@types/oojs-ui@0.47.6)
     transitivePeerDependencies:
       - '@types/jquery'
       - '@types/oojs-ui'
@@ -6986,8 +6986,8 @@ packages:
       is-typed-array: 1.1.12
     dev: true
 
-  /types-mediawiki-renovate@2.8.0(@types/jquery@3.5.29)(@types/oojs-ui@0.47.6):
-    resolution: {integrity: sha512-/s0IPM2Am8aPzmUYYgw54yg8MwA7TL7Jm4g8Le6YcIuM9wkMqjNAGHrt2wVAN5ml3WdGRzKhBdx/ll5P3zOZPw==}
+  /types-mediawiki-renovate@2.8.1(@types/jquery@3.5.29)(@types/oojs-ui@0.47.6):
+    resolution: {integrity: sha512-mJeKULUYxZ60WihdHKf994utO8xhbjlq6c4NOfiPrcy0Ke+/m2tw0I2BUFN6ARRiWt8bhhLHFaB+5TyCUZz26w==}
     peerDependencies:
       '@types/jquery': ^3.0.0
       '@types/oojs-ui': '*'
