@@ -22,7 +22,7 @@
 		"paths": {
 			"types-mediawiki": ["node_modules/types-mediawiki-renovate"],
 			"types-mediawiki/*": ["node_modules/types-mediawiki-renovate/*"],
-			"~/*": ["src/*"],
+			"~/*": ["src/*"]
 		},
 		"resolveJsonModule": true,
 
@@ -40,9 +40,9 @@
 				"options": {
 					"classnameTransform": "camelCaseOnly",
 					"goToDefinition": true,
-					"namedExports": false,
-				},
-			},
+					"namedExports": false
+				}
+			}
 		],
 
 		"esModuleInterop": true,
@@ -52,8 +52,8 @@
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"target": "ESNext",
 
-		"skipLibCheck": true,
+		"skipLibCheck": true
 	},
 	"exclude": ["node_modules/types-mediawiki-renovate/scripts"],
-	"include": ["node_modules/types-mediawiki-renovate", "scripts/**/*", "src/**/*"],
+	"include": ["node_modules/types-mediawiki-renovate", "scripts/**/*", "src/**/*"]
 }
