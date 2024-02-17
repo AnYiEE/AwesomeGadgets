@@ -2,7 +2,8 @@
  * SPDX-License-Identifier: CC-BY-SA-4.0
  * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
  *
- * @source <https://git.qiuwen.net.cn/InterfaceAdmin/Gadgets/src/branch/master/src/Gadgets/InPageEdit>
+ * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/InPageEdit}
+ * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
  * @dependency mediawiki.util
  */
 /**
@@ -17,12 +18,3 @@
  * +--------------------------------------------------------+
  */
 /* <nowiki> */
-(function inPageEditLoader() {
-    /**
-     * @source <https://git.qiuwen.net.cn/AnYi/inpageedit-v2/src/branch/master>
-     * @author 机智的小鱼君 Dragon-Fish <dragon-fish@qq.com>
-     * @license GPL-3.0
-     */
-    mw.loader.load('https://gitcdn.qiuwen.net.cn/AnYi/inpageedit-v2/raw/branch/master/dist/InPageEdit.min.js');
-  })();
-  /* </nowiki> */

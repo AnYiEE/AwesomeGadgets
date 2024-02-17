@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-InPageEdit\"></span> [[Help:InPageEdit|InPageEdit]]",
+	"section": "edit",
+	"rights": ["skipcaptcha"]
+}
