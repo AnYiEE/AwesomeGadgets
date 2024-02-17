@@ -1,0 +1,75 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base <https://zh.wikipedia.org/wiki/MediaWiki:Gadget-edit0.css>
+ * @source <https://git.qiuwen.net.cn/InterfaceAdmin/Gadgets/src/branch/master/src/Gadgets/Edit0>
+ */
+/**
+ * +--------------------------------------------------------+
+ * |         === WARNING: GLOBAL GADGET FILE ===            |
+ * +--------------------------------------------------------+
+ * |      All changes should be made in the repository,     |
+ * |              otherwise they will be lost.              |
+ * +--------------------------------------------------------+
+ * |        Changes to this page affect many users.         |
+ * |  Please discuss changes at Talk page before editing.   |
+ * +--------------------------------------------------------+
+ */
+/* <nowiki> */
+body.ltr h1.firstHeading .mw-editsection-bracket:first-of-type,
+body.rtl h1.firstHeading .mw-editsection-bracket:not(:first-of-type) {
+	margin-right: 0.25em;
+	color: #555;
+}
+
+body.rtl h1.firstHeading .mw-editsection-bracket:first-of-type,
+body.ltr h1.firstHeading .mw-editsection-bracket:not(:first-of-type) {
+	margin-left: 0.25em;
+	color: #555;
+}
+
+body:not(.skin-citizen) .page-heading .mw-editsection a {
+	display: inline-block;
+	font-size: 1em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	vertical-align: middle;
+}
+
+body.skin-citizen .mw-indicators .mw-editsection {
+	margin-right: 10px;
+	margin-left: 0;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+body.skin-citizen .page-heading .mw-editsection a {
+	font-size: 1rem;
+}
+
+body.skin-citizen .mw-indicators .mw-editsection::before {
+	content: '首段：';
+	font-family: 'Noto Serif', 'Source Serif', 'Noto Serif SC', 'Source Han Serif SC', 'Times New Roman', Times, STSong,
+		SimSun, serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+	font-size: 0.75rem;
+}
+
+body.skin-citizen:lang(zh-hant) .mw-indicators .mw-editsection::before {
+	font-family: 'Noto Serif', 'Source Serif', 'Noto Serif TC', 'Source Han Serif TC', 'Times New Roman', Times, MingLiU,
+		SimSun, serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+#firstHeading span.mw-editsection a::after {
+	content: ' (首段)';
+}
+
+#firstHeading span.mw-editsection a:lang(en)::after {
+	content: ' (lead section)';
+}
+
+/* </nowiki> */

@@ -1,0 +1,66 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base <https://zh.wikipedia.org/wiki/MediaWiki:Gadget-AdvancedSiteNotices.js>
+ * @source <https://git.qiuwen.net.cn/InterfaceAdmin/Gadgets/src/branch/master/src/Gadgets/AdvancedSiteNotices>
+ * @dependency ext.gadget.i18n, mediawiki.api, mediawiki.storage, mediawiki.util
+ */
+/**
+ * +--------------------------------------------------------+
+ * |         === WARNING: GLOBAL GADGET FILE ===            |
+ * +--------------------------------------------------------+
+ * |      All changes should be made in the repository,     |
+ * |              otherwise they will be lost.              |
+ * +--------------------------------------------------------+
+ * |      Changes to this page may affect many users.       |
+ * |  Please discuss changes at talk page before editing.   |
+ * +--------------------------------------------------------+
+ */
+/* <nowiki> */
+#asn-area {
+	display: flex;
+	height: 4em;
+	align-items: center;
+	padding: 0 0.5em;
+	border: 1px solid #ccc;
+	background: #fafbfc;
+	overflow-y: hidden;
+	text-align: center;
+}
+
+#asn-name {
+	order: 1;
+	padding: 0 0.5em;
+	border-radius: 0.25em;
+	background: #36c;
+	color: #fff;
+	white-space: nowrap;
+}
+
+#asn-dismissable-notice {
+	width: 100%;
+	order: 2;
+	margin: 1em 0.5em;
+}
+
+#advancedSiteNotices {
+	word-break: break-word;
+}
+
+#asn-dismiss {
+	min-width: 2em;
+	order: 3;
+	font-size: 150%;
+}
+
+#asn-dismiss a {
+	color: #000;
+}
+
+#asn-dismiss a:hover {
+	color: #36c;
+	text-decoration: none;
+}
+
+/* </nowiki> */

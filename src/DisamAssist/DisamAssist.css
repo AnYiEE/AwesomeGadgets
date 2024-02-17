@@ -1,0 +1,104 @@
+/**
+ * +--------------------------------------------------------+
+ * |         === WARNING: GLOBAL GADGET FILE ===            |
+ * +--------------------------------------------------------+
+ * |      All changes should be made in the repository,     |
+ * |              otherwise they will be lost.              |
+ * +--------------------------------------------------------+
+ * |        Changes to this page affect many users.         |
+ * |  Please discuss changes at Talk page before editing.   |
+ * +--------------------------------------------------------+
+ */
+/* <nowiki> */
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base <https://es.wikipedia.org/wiki/Usuario:Qwertyytrewqqwerty/DisamAssist.css>
+ * @source <https://git.qiuwen.net.cn/InterfaceAdmin/Gadgets/src/branch/master/src/Gadgets/DisamAssist>
+ */
+ .disamassist-box {
+	overflow: hidden;
+	width: 95%;
+	padding: 5px;
+	border: 1px solid;
+	margin: 0 auto;
+	margin-bottom: 5px;
+}
+
+.disamassist-mainbox {
+	border-color: #00f;
+	background: #b2b2ff;
+}
+
+.disamassist-pendingeditbox {
+	border-color: #00f0ff;
+	background: #c5fcff;
+}
+
+.disamassist-errorbox {
+	border-color: #f00;
+	background: #ffb2b2;
+}
+
+.disamassist-errorbutton {
+	float: right;
+}
+
+.disamassist-pagetitleline {
+	font-weight: bold;
+}
+
+.disamassist-editcounter {
+	float: right;
+	font-size: xx-small;
+}
+
+.disamassist-subtitle {
+	font-size: x-small;
+}
+
+.disamassist-button {
+	padding: 0 1px;
+	font-size: small;
+}
+
+.disamassist-allbuttons {
+	clear: both;
+}
+
+.disamassist-leftbuttons {
+	float: left;
+}
+
+.disamassist-rightbuttons {
+	float: right;
+}
+
+.disamassist-optionmarker {
+	color: #00f !important;
+	font-size: xx-small;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.disamassist-curroptionmarker {
+	font-weight: bold;
+}
+
+.disamassist-inclink {
+	color: #f00;
+	font-weight: bold;
+}
+
+.disamassist-context {
+	font-family: 'Noto Mono', 'Source Code Pro', 'Source Han Mono SC', Consolas, Monaco, Courier, monospace,
+		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+.disamassist-context:lang(zh-hant) {
+	font-family: 'Noto Mono', 'Source Code Pro', 'Source Han Mono TC', Consolas, Monaco, Courier, monospace,
+		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+/* </nowiki> */

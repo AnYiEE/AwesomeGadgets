@@ -1,0 +1,18 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @source <zh.wikipedia.org/wiki/MediaWiki:Gadget-noteTAvector.css>
+ */
+.noteTA-topicon {
+	padding-left: 0;
+}
+
+.noteTA-topicon ul li.icon span a {
+	overflow: hidden;
+	width: 30px;
+	height: 0;
+	padding: 3.1em 0 0;
+	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAwFBMVEXd7v8zZswAAACzzPJYX2bb7P3Az95dZGsKCwwDBATY6PnM2+uqt8Q0ODzU5fXD0uG7ytiksL2Xoq+VoKyFj5l5gotud39QVlxBRks+Q0g8QEUnKi0hIyYdICIUFhcPEBEHBwjV5vbS4vLP3+/J2ejG1eStusehrrqaprKNmKN/iZNrc3tlbXVjanJESk85PkItMTQsMDO2xNKzwM6msr+fq7eQm6aMlqGGkZt+h5FzfIVpcXlVW2JKT1UxNTkaHB76Y56FAAABAElEQVQoz8WR2XLCMAxF1dssdpMQQvaELC0UKDvd9/7/X9X2A0NMh6dOex4k3bmWRyPRX/BmuwfqQrevayz2YrRLdP8Fza2RGYoNsNLsUTqfUXSl6gRsfOhZvgiXS7p/ULJATh27qQYUheTYUvVaxNQhBPdL8bMnZx4APnXZ1c+FSMajCB/wSMM0P+eycWjSmOOGdFxYch9NRAuINzrrUiWbTdgPzX0sVbZ4i/yoOSzwRIoU3DpuHiJQhfMFZD3SsfGqNuK1NlD2dXuFrdzrpnYpAVisnfQdTFx1u3aITANA5XbsDBXN8ikpYu5p4wXp5C7Yq6lDv8L5SejsJP9pfwNjuxBxfv96kgAAAABJRU5ErkJggg==");
+	background-position: 5px 75%;
+}

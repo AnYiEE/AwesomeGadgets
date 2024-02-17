@@ -1,0 +1,183 @@
+/**
+ * +--------------------------------------------------------+
+ * |         === WARNING: GLOBAL GADGET FILE ===            |
+ * +--------------------------------------------------------+
+ * |      All changes should be made in the repository,     |
+ * |              otherwise they will be lost.              |
+ * +--------------------------------------------------------+
+ * |        Changes to this page affect many users.         |
+ * |  Please discuss changes at Talk page before editing.   |
+ * +--------------------------------------------------------+
+ */
+/* <nowiki> */
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base <https://zh.wikipedia.org/w/index.php?title=MediaWiki:Gadget-navpop.css&oldid=825269631>
+ * @source <https://git.qiuwen.net.cn/InterfaceAdmin/Gadgets/src/branch/master/src/Gadgets/Popups>
+ */
+ .popupMoreLink {
+	display: block;
+	cursor: pointer;
+	text-align: right;
+}
+
+ins.popupDiff {
+	background: #afe;
+}
+
+del.popupDiff {
+	background: #ffe6e6;
+}
+
+#selectionPreview {
+	padding: 6px;
+	border: 2px solid #ddd;
+	background-color: #eef;
+}
+
+.navpopup {
+	padding: 10px;
+	padding-bottom: 5px;
+	border: 1px solid #bbb;
+	background-color: #fff;
+	box-shadow: 0 3px 8px rgb(50 50 50 / 35%);
+	font-size: 0.785em;
+	word-wrap: break-word;
+}
+
+.navpopup hr {
+	background-color: #aaa !important;
+	color: #aaa !important;
+}
+
+.popupDrag {
+	height: 5px;
+	margin-top: -5px;
+	margin-bottom: 5px;
+	background-color: #ffbe20;
+}
+
+.popupDragHandle {
+	position: relative;
+	cursor: move;
+}
+
+.popup_menu {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	display: none;
+	width: 10em;
+	padding: 0 !important;
+	border: 1px solid #888;
+	border-width: 1px 1px 1px 6px;
+	margin: 0;
+	margin-top: 1.4em;
+	margin-left: -6px;
+	background: #fff;
+	line-height: 1.25em;
+}
+
+.popup_menu li {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.popup_menu a {
+	display: block;
+	padding: 3px;
+	color: #555;
+}
+
+.popup_menu_row a {
+	display: inline-block;
+}
+
+.popup_menu_row {
+	color: #aaa;
+}
+
+.popup_drop {
+	position: relative;
+	display: inline;
+}
+
+.popup_drop a,
+.popup_drop a:visited {
+	padding: 3px;
+	margin: 0;
+	color: #0645ad;
+	font-weight: bold;
+}
+
+.popup_drop:hover .popup_menu,
+.popup_drop .popup_menu:hover {
+	display: inline;
+	padding: 2px;
+	background: #fff;
+	color: #555;
+}
+
+.popup_drop:hover {
+	background: #ccf;
+	color: #44f;
+}
+
+.popup_menu a:hover {
+	background: #888;
+	color: #fff;
+	text-decoration: none;
+}
+
+.popup_mainlink {
+	font-size: 140%;
+	font-weight: bold;
+}
+
+.popup_mainlink a {
+	color: #000;
+}
+
+a.popup_change_title_link {
+	color: #152;
+}
+
+.popup_diff_dates {
+	background: none;
+	font-style: italic;
+}
+
+.popup_menu_item a {
+	display: block;
+}
+
+.popup_history_row_even {
+	background: #eee;
+}
+
+.popup_history_date {
+	font-size: 120%;
+	font-weight: bold;
+}
+
+.popupPreview a.extiw,
+.popupPreview a.extiw:active {
+	padding: 0;
+	background: none;
+	color: #36b;
+}
+
+.popupPreview .external {
+	color: #36b;
+}
+
+.popupPreview .plainlinks a {
+	padding: 0 !important;
+	background: none !important;
+}
+
+/* </nowiki> */

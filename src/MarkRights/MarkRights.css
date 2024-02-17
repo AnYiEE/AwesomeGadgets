@@ -1,0 +1,163 @@
+/**
+ * SPDX-License-Identifier: CC BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @source <zh.wikipedia.org/w/index.php?oldid=67165936>
+ */
+/* 在最近修改、监视列表、条目历史记录等位置以特殊格式显示有特殊权限的用户 */
+/* 档案理事会：紫黑 */
+.markrights-responsibleoperator::after,
+.markrights-bureaucrat::after {
+	color: #800080;
+}
+.markrights-responsibleoperator::after {
+	content: '责';
+}
+.markrights-bureaucrat::after {
+	content: "理";
+}
+
+/* 高级管理人员（管、界、监、查）：紫红 */
+.markrights-sysop::after,
+.markrights-interface-admin::after,
+.markrights-suppress::after,
+.markrights-checkuser::after {
+	color: #c71590;
+}
+
+.markrights-sysop::after {
+	content: "管";
+}
+
+.markrights-interface-admin::after {
+	content: "介";
+}
+
+.markrights-interface-admin:lang(zh)::after,
+.markrights-interface-admin:lang(zh-hans)::after,
+.markrights-interface-admin:lang(zh-cn)::after,
+.markrights-interface-admin:lang(zh-my)::after,
+.markrights-interface-admin:lang(zh-sg)::after {
+	content: "界";
+}
+
+.markrights-checkuser::after {
+	content: "查";
+}
+
+.markrights-suppress::after {
+	content: "監";
+}
+
+.markrights-suppress:lang(zh)::after,
+.markrights-suppress:lang(zh-hans)::after,
+.markrights-suppress:lang(zh-cn)::after,
+.markrights-suppress:lang(zh-my)::after,
+.markrights-suppress:lang(zh-sg)::after {
+	content: "监";
+}
+
+/* 一般管理人员（巡、活）：紫 */
+.markrights-patroller::after,
+.markrights-eventsponsor::after {
+	color: #a0522d;
+}
+
+.markrights-patroller::after {
+	content: "巡";
+}
+
+.markrights-eventsponsor::after {
+	content: "活";
+}
+
+/* 编辑权限（模、资、导/汇、发、机器人）：蓝 */
+
+.markrights-templateeditor::after,
+.markrights-transwiki::after,
+.markrights-massmessage-sender::after,
+.markrights-bot::after {
+	color: #00f;
+}
+
+.markrights-templateeditor::after {
+	content: "模";
+}
+
+
+.markrights-transwiki::after {
+	content: "匯";
+}
+
+.markrights-transwiki:lang(zh)::after,
+.markrights-transwiki:lang(zh-hans)::after,
+.markrights-transwiki:lang(zh-cn)::after,
+.markrights-transwiki:lang(zh-my)::after,
+.markrights-transwiki:lang(zh-sg)::after {
+	content: "导";
+}
+
+.markrights-massmessage-sender::after {
+	content: "發";
+}
+
+.markrights-massmessage-sender:lang(zh)::after,
+.markrights-massmessage-sender:lang(zh-hans)::after,
+.markrights-massmessage-sender:lang(zh-cn)::after,
+.markrights-massmessage-sender:lang(zh-my)::after,
+.markrights-massmessage-sender:lang(zh-sg)::after {
+	content: "发";
+}
+
+.markrights-bot::after {
+	content: "機";
+}
+
+.markrights-bot:lang(zh)::after,
+.markrights-bot:lang(zh-hans)::after,
+.markrights-bot:lang(zh-cn)::after,
+.markrights-bot:lang(zh-my)::after,
+.markrights-bot:lang(zh-sg)::after {
+	content: "机";
+}
+
+/* 特殊权限（确、自、免、代、机器用户）：绿色 */
+.markrights-confirmed::after,
+.markrights-autoconfirmed::after,
+.markrights-autopatrolled::after,
+.markrights-ipblock-exempt::after,
+.markrights-flood::after {
+	color: #0acc90;
+}
+
+.markrights-confirmed::after {
+	content: "確";
+}
+
+.markrights-confirmed:lang(zh)::after,
+.markrights-confirmed:lang(zh-hans)::after,
+.markrights-confirmed:lang(zh-cn)::after,
+.markrights-confirmed:lang(zh-my)::after,
+.markrights-confirmed:lang(zh-sg)::after {
+	content: "确";
+}
+
+.markrights-autopatrolled::after {
+	content: "优";
+}
+
+.markrights-ipblock-exempt::after {
+	content: "代";
+}
+
+.markrights-flood::after {
+	content: "機";
+}
+
+.markrights-flood:lang(zh)::after,
+.markrights-flood:lang(zh-hans)::after,
+.markrights-flood:lang(zh-cn)::after,
+.markrights-flood:lang(zh-my)::after,
+.markrights-flood:lang(zh-sg)::after {
+	content: "机";
+}

@@ -1,0 +1,28 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base <https://zh.wikipedia.org/wiki/Special:Permalink/63548907>
+ * @source <https://git.qiuwen.net.cn/InterfaceAdmin/Gadgets/src/branch/master/src/Gadgets/HideConversionTab>
+ */
+/**
+ * +--------------------------------------------------------+
+ * |         === WARNING: GLOBAL GADGET FILE ===            |
+ * +--------------------------------------------------------+
+ * |      All changes should be made in the repository,     |
+ * |              otherwise they will be lost.              |
+ * +--------------------------------------------------------+
+ * |      Changes to this page may affect many users.       |
+ * |  Please discuss changes at talk page before editing.   |
+ * +--------------------------------------------------------+
+ */
+/* <nowiki> */
+/* 繁简转换：默认隐藏zh、zh-hans和zh-hant标签，允许用户在小工具中自行关闭。 */
+#ca-varlang-0,
+#ca-varlang-1,
+#ca-varlang-2,
+#mw-mf-language-variant-selection > li:nth-child(-n + 3) {
+	display: none !important;
+}
+
+/* </nowiki> */

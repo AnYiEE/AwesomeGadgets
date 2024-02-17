@@ -1,0 +1,78 @@
+.scroller-container {
+    height: 15em;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    width: 90%;
+    overflow-y: hidden;
+    margin: .8em;
+    margin-left: 5%;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+.scroller-container::-webkit-scrollbar {
+    display: none;
+}
+
+.comic-header img {
+    height: auto;
+    width: 10em;
+    border-radius: 4px 4px 0 0;
+}
+
+.scroller-item {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: left;
+    margin: .8em;
+    width: 10em;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04), 0 3px 6px rgba(0, 0, 0, 0.0575);
+    border: 1px solid rgba(0, 0, 0, .12);
+    border-radius: 4px;
+    transition: all .2s;
+    scroll-snap-align: start;
+}
+
+.scroller-item:nth-child(1) {
+    margin-left: 5%;
+}
+
+.scroller-item:hover {
+    border-color: var(--color-primary--hover);
+    transition: all .2s;
+}
+
+.scroller-item-now {
+    border-color: #999;
+    transition: all .2s;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08), 0 5px 8px rgba(0, 0, 0, 0.0975);
+}
+
+
+.scroller-btn {
+    position: absolute;
+    display: block;
+    width: 2em;
+    height: 2em;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04), 0 3px 6px rgba(0, 0, 0, 0.0575);
+    border: 1px solid rgba(0, 0, 0, .12);
+    border-radius: 99px;
+    transition: all .2s;
+    line-height: 2em;
+    font-size: 1.2em;
+    background-color: #fff;
+    text-align: center;
+    user-select: none;
+}
+
+.scroller-btn:hover {
+    border-color: var(--color-primary--hover);
+    transition: all .2s;
+}
+
+#scroller-next-btn {
+    margin-left: 85%;
+}

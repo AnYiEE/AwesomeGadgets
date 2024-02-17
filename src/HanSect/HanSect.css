@@ -1,0 +1,56 @@
+/* <nowiki> */
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @source <zh.wikipedia.org/wiki/MediaWiki:Gadget-hantsect.css>
+ */
+/* 以下页面不进行首行缩进 */
+/* 暂无，反正以后可以往这加别的 */
+
+/* 缩进两个字 */
+body.ns-subject:not(.ext-discussiontools-replytool-enabled):not(.ext-discussiontools-newtopictool-enabled) .mw-parser-output > p,
+body.skin-citizen.ns-subject:not(.ext-discussiontools-replytool-enabled):not(.ext-discussiontools-newtopictool-enabled) .mw-parser-output > section > p,
+.hansect > p {
+	text-indent: 2em;
+}
+
+body.ns-subject .mw-parser-output > ul,
+body.ns-subject .mw-parser-output > ol,
+body.skin-citizen.ns-subject .mw-parser-output > section > ul,
+body.skin-citizen.ns-subject .mw-parser-output > section > ol,
+.hansect > ul,
+.hansect > ol {
+	margin-left: 2em;
+}
+
+/* 段落内如有其他元素，则不再缩进 */
+body.ns-subject .mw-parser-output > p > *,
+body.skin-citizen.ns-subject .mw-parser-output > section > p > *,
+.hansect > p > * {
+	text-indent: 0;
+}
+
+body.ns-subject:not(.ext-discussiontools-replytool-enabled):not(.ext-discussiontools-newtopictool-enabled) .mw-parser-output > ul > *:not(ul):not(ol):not(li),
+body.ns-subject:not(.ext-discussiontools-replytool-enabled):not(.ext-discussiontools-newtopictool-enabled) .mw-parser-output > ol > *:not(ul):not(ol):not(li),
+body.skin-citizen.ns-subject:not(.ext-discussiontools-replytool-enabled):not(.ext-discussiontools-newtopictool-enabled) .mw-parser-output > section > ul > *:not(ul):not(ol):not(li),
+body.skin-citizen.ns-subject:not(.ext-discussiontools-replytool-enabled):not(.ext-discussiontools-newtopictool-enabled) .mw-parser-output > section > ol > *:not(ul):not(ol):not(li),
+.hansect > ul > *:not(ul):not(ol):not(li),
+.hansect > ol > *:not(ul):not(ol):not(li) {
+	margin-left: 0;
+}
+
+/* 行距设置 */
+body.ns-subject:not(.ext-discussiontools-replytool-enabled):not(.ext-discussiontools-newtopictool-enabled) .mw-parser-output > p,
+body.skin-citizen.ns-subject:not(.ext-discussiontools-replytool-enabled):not(.ext-discussiontools-newtopictool-enabled) .mw-parser-output > section > p,
+body.ns-subject .mw-parser-output > ul,
+body.ns-subject .mw-parser-output > ol,
+body.skin-citizen.ns-subject .mw-parser-output > section > ul,
+body.skin-citizen.ns-subject .mw-parser-output > section > ol,
+.hansect > p,
+.hansect > ul,
+.hansect > ol {
+	line-height: 1.75;
+}
+
+/* </nowiki> */

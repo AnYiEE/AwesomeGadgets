@@ -1,0 +1,1 @@
+LoginToEdit[ResourceLoader|default|hidden|dependencies= ext.gadget.i18n,mediawiki.util,oojs-ui-core,oojs-ui-windows|targets=desktop,mobile]|LoginToEdit.js

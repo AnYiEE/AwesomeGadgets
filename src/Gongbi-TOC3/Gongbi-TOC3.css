@@ -1,0 +1,7 @@
+#site-toc .toclevel-2, #site-toc-right .toclevel-2 {
+	display: block;
+}
+
+#site-toc .toclevel-2, #site-toc-right .toclevel-3 {
+	display: none;
+}
