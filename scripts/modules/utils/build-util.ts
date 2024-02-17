@@ -237,7 +237,7 @@ const buildScript = async (
 	const outputFileNames: string[] = [];
 
 	// The TypeScript file is always compiled into a JavaScript file, so replace the extension directly
-	const outputFileName: string = scriptFileName.replace(/\.tsx?$/, '.js');
+	const outputFileName: string = scriptFileName.replace(/\.[jt]sx?$/, '.js');
 
 	const inputFilePath: string = join(__rootDir, `src/${gadgetName}/${scriptFileName}`);
 	const outputFilePath: string = join(__rootDir, `dist/${gadgetName}/${outputFileName}`);
@@ -466,7 +466,7 @@ const findSourceFile = (): SourceFiles => {
 			}
 			case 'index.jsx': {
 				const {script} = targetGadget;
-				if (!script || !/^index\.tsx?$/.test(script)) {
+				if (!script || !/^index\.[jt]sx?$/.test(script)) {
 					targetGadget.script = fileName;
 				}
 				break;
@@ -490,7 +490,7 @@ const findSourceFile = (): SourceFiles => {
 			}
 			case `${gadgetName}.jsx`: {
 				const {script} = targetGadget;
-				if (!script || (!/\.tsx?$/.test(script) && script !== 'index.js')) {
+				if (!script || (!/\.[jt]sx?$/.test(script) && script !== 'index.js')) {
 					targetGadget.script = fileName;
 				}
 				break;
