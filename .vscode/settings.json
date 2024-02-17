@@ -13,8 +13,10 @@
 	},
 	"editor.renderWhitespace": "all",
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.stickyScroll.enabled": true,
 	"git.autoStash": true,
 	"git.allowForcePush": true,
+	"terminal.integrated.scrollback": 10000,
 	"eslint.enable": true,
 	"eslint.format.enable": true,
 	"prettier.enable": true,
@@ -30,7 +32,19 @@
 	"[javascript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[jsx]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
 	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[tsx]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"[json]": {
@@ -65,13 +79,23 @@
 	"explorer.fileNesting.enabled": true,
 	"explorer.fileNesting.expand": false,
 	"explorer.fileNesting.patterns": {
-		"package.json": ".*cache, .*ignore, .*rc, .editorConfig, .git*, pnpm-lock.yaml, tsconfig.json, LICENCE",
+		"package.json": ".*cache, .*ignore, .*rc, .editorConfig, .git*, pnpm-lock.yaml, tsconfig.json, LICENSE",
 		"readme*": "*.md"
 	},
 	"json.schemas": [
 		{
+			"fileMatch": ["scripts/credentials.json"],
+			"url": "./.vscode/json-schemas/credentials.json"
+		},
+		{
 			"fileMatch": ["src/*/definition.json"],
 			"url": "./.vscode/json-schemas/definition.json"
+		},
+		{
+			"fileMatch": ["src/global.json"],
+			"url": "./.vscode/json-schemas/global.json"
 		}
-	]
+	],
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"typescript.tsdk": "./node_modules/typescript/lib"
 }

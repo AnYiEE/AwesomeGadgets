@@ -6,7 +6,7 @@
 
 1. 确保目标 MediaWiki 的版本至少为 1.38<br>Ensure that the target MediaWiki version is at least 1.38
 
-2. 如果需要让仓库中的其他小工具使用导出的变量和方法，则应该在小工具的`types.d.ts`中声明相关类型，如：<br>Then, if you need other gadgets in this repository to use the exported variables and methods, you should declare the relevant types in the gadget's `types.d.ts`, for example:
+2. 如果需要让仓库中的其他小工具使用导出的变量和方法，则应该在小工具的`*.d.ts`中声明相关类型，如：<br>Then, if you need other gadgets in this repository to use the exported variables and methods, you should declare the relevant types in the gadget's `*.d.ts`, for example:
 
 ```ts
 declare module 'ext.gadget.any_package' {
@@ -14,7 +14,7 @@ declare module 'ext.gadget.any_package' {
 }
 ```
 
-3. 使用`export`导出变量和方法<br>Finally, use `export` to export variables and methods:
+3. 在入口文件中使用`export`导出变量和方法<br>Finally, use `export` to export variables and methods in the entry file:
 
 ```ts
 const func = () => {};
@@ -31,7 +31,7 @@ export {func};
 
 ```jsonc
 {
-	"dependencies": ["@wikimedia/codex", "ext.gadget.any_package"]
+	"dependencies": ["@wikimedia/codex", "ext.gadget.any_package"],
 	// Other properties...
 }
 ```
@@ -48,7 +48,7 @@ pnpm add <package-name>
 pnpm add @wikimedia/codex
 ```
 
-如果需要导入的不是 npm 包或包名与 MiediaWiki 内置模块不同，则应该在导入前于小工具的`types.d.ts`中声明相关类型，如：<br>If the imported package is not a npm package or the package name is different from MediaWiki built-in modules, you should declare the types in the `types.d.ts` of the gadget before importing it. For example:
+如果需要导入的不是 npm 包或包名与 MiediaWiki 内置模块不同，则应该在导入前于小工具的`*.d.ts`中声明相关类型，如：<br>If the imported package is not a npm package or the package name is different from MediaWiki built-in modules, you should declare the types in the `*.d.ts` of the gadget before importing it. For example:
 
 ```ts
 declare module 'ext.gadget.any_package' {
@@ -67,3 +67,43 @@ console.log({
 	func,
 });
 ```
+
+#### 使用 MediaWiki 内置的包<br>Using MediaWiki built-in packages
+
+对于 MediaWiki 内置的一部分包，可以通过以下的方式使用：<br> For some MediaWiki built-in packages, you can use them as follows:
+
+-   `jquery.ui`、`mediawiki.util`和`oojs-ui-core`等“第一方”包<br>First-party packages such as `jquery.ui`, `mediawiki.util`, and `oojs-ui-core`
+    -   在小工具对应的`definition.json`中，将对应的包添加为依赖项（`dependencies`）<br>In the corresponding `definition.json` of the gadget, just add the used package as a dependency
+
+```jsonc
+{
+	"dependencies": ["jquery.ui", "mediawiki.util", "oojs-ui-core"],
+	// Other properties...
+}
+```
+
+-   `moment`
+
+    -   目标 MediaWiki 的版本低于 1.38<br>The target MediaWiki version is lower than 1.38
+        -   运行`pnpm remove moment`和`pnpm add @types/moment`<br>Run `pnpm remove moment` and `pnpm add @types/moment`
+        -   在小工具对应的`definition.json`中，将`moment`添加为依赖项（`dependencies`）<br>In the corresponding `definition.json` of the gadget, add the `moment` package as a dependency
+        -   无需导入，`moment`应该全局可用<br>No need to import, `moment` should be globally available
+    -   目标 MediaWiki 的版本不低于 1.38<br>The target MediaWiki version is at least 1.38
+        -   在小工具对应的`definition.json`中，将`moment`添加为依赖项（`dependencies`）<br>In the corresponding `definition.json` of the gadget, add the `moment` package as a dependency
+        -   使用`import`来导入，如：<br> Use `import`. For example:
+
+```jsonc
+{
+	"dependencies": ["moment"],
+	// Other properties...
+}
+```
+
+```ts
+import moment from 'moment';
+
+console.log(moment.utc());
+```
+
+-   `@wikimedia/codex`、`vue`和`pinia`等 Vue 相关的包<br>Vue-related packages such as `@wikimedia/codex`, `vue` and `pinia`
+    -   可以通过上述方式安装后使用，但仓库本身暂不支持单文件组件（`.vue`），使用范围相对受限<br>They can be used after installation through the above methods, but the repository itself does not currently support single-file components (`.vue`), and their usage is relatively limited.

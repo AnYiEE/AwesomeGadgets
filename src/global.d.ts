@@ -1,4 +1,10 @@
 /**
+ * @summary For import styles in TypeScript
+ */
+declare module '*.css';
+declare module '*.less';
+
+/**
  * @summary Do not forget to declare these file extensions in `scripts/build-esbuild_options.ts`
  * @see {@link https://esbuild.github.io/api/#loader}
  */

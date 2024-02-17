@@ -12,9 +12,9 @@ const BANNER = `<div class="mw-message-box mw-message-box-notice">
 </div>` satisfies string;
 
 /**
- * 小工具样式和脚本文件上方的文本，需为 CSS 和 JavaScript 所兼容的注释
+ * 页面样式和脚本文件上方的文本，需为 CSS 和 JavaScript 所兼容的注释
  *
- * The content above each gadget (CSS and JavaScript files), should be compatible comments for CSS and JavaScript
+ * The content above each CSS and JavaScript pages, should be compatible comments for CSS and JavaScript
  */
 const HEADER = `/**
  * +------------------------------------------------------------+
@@ -28,8 +28,14 @@ const HEADER = `/**
  * +------------------------------------------------------------+
  */` satisfies string;
 
+/**
+ * 默认的小工具定义
+ *
+ * Default definition of a gadget
+ */
 const DEFAULT_DEFINITION = {
 	enable: true,
+	excludeSites: [],
 	description: '', // 回落值为小工具名称 / Fallback value: the name of the current gadget
 	section: '', // 回落值为 appear / Fallback value: appear
 	actions: [],
@@ -53,7 +59,7 @@ const DEFAULT_DEFINITION = {
  *
  * 可自行添加，回落值为`DEFAULT_DEFINITION.section`的值
  *
- * The content of the `MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}` page (the name of the current gadget section)
+ * The content of the `MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}` page (as the name of the current gadget section)
  *
  * Can be added by oneself, the fallback value is the value of `DEFAULT_DEFINITION.section`
  */
@@ -74,11 +80,11 @@ const DEPLOY_USER_AGENT =
 	'AnYiEE/AwesomeGadgets (https://github.com/AnYiEE/AwesomeGadgets; i@anyi.in)' satisfies string;
 
 /**
- * 是否自动转换`MediaWiki:Gadget-${gadgetName}`和`MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}`页面的语言变体
+ * 启用此选项以自动转换`MediaWiki:Gadget-${gadgetName}`和`MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}`页面的语言变体
  *
  * 需要目标 MediaWiki 网站存在 NoteTA 模板和 IT 以及 MediaWiki 公共转换组
  *
- * Whether to automatically convert the language variants of the `MediaWiki:Gadget-${gadgetName}` and `MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}` pages
+ * Enable this option to automatically convert the language variants of the `MediaWiki:Gadget-${gadgetName}` and `MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}` pages
  *
  * The target MediaWiki site needs to have the NoteTA template and the IT and MediaWiki public conversion group
  */
@@ -113,6 +119,17 @@ const GLOBAL_REQUIRES_ES6 = false satisfies boolean;
  */
 const MAX_CONCURRENCY = 16 satisfies number;
 
+/**
+ * 启用此选项会为全部小工具生成内联源映射
+ *
+ * 注意：需要在网址中追加`debug=1`参数方可在浏览器控制台调试时有实际作用。因为内联源映射相当于一种注释，而 MediaWiki 的 JavaScript 压缩器默认会删除注释
+ *
+ * Enable this option to generate inline source maps for all gadgets
+ *
+ * Note: You need to append the `debug=1` parameter in the URL for it to have an actual effect when debugging in the browser console. This is because inline source mapping is treated as a type of comment, and MediaWiki's JavaScript minifier will delete comments by default
+ */
+const SOURCE_MAP = true satisfies boolean;
+
 export {
 	BANNER,
 	HEADER,
@@ -122,4 +139,5 @@ export {
 	CONVERT_VARIANT,
 	GLOBAL_REQUIRES_ES6,
 	MAX_CONCURRENCY,
+	SOURCE_MAP,
 };

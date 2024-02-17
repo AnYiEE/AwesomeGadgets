@@ -1,10 +1,14 @@
 import {type Mwn} from 'mwn';
-import type PQueue from 'p-queue';
 
-interface ApiQueue {
-	api: Mwn;
-	queue: PQueue;
+interface Api {
+	apiInstance: Mwn;
+	site: string;
 }
+
+type BuiltFiles = {
+	path: string;
+	text: string;
+}[];
 
 interface CredentialsOnlyOAuth {
 	apiUrl: string;
@@ -31,6 +35,7 @@ type Credentials = CredentialsOnlyOAuth | CredentialsOnlyOAuth2 | CredentialsOnl
 
 interface DefaultDefinition {
 	enable: boolean;
+	excludeSites: string[];
 	description: string;
 	section: string;
 	actions: string[];
@@ -51,10 +56,22 @@ interface DefaultSectionMap {
 
 type Dependencies = DefaultDefinition['dependencies'];
 
+type DeploymentDirectTargets = [string, string][];
+
 interface DeploymentTargets {
 	[key: string]: {
-		description: string;
-		files: string[];
+		excludeSites: DefaultDefinition['excludeSites'];
+		description: DefaultDefinition['description'];
+		files: DeploymentDirectTargets;
+	};
+}
+
+interface GlobalSourceFiles {
+	[key: string]: {
+		enable: boolean;
+		sourceCode: string;
+		contentType?: 'application/javascript' | 'text/css' | undefined;
+		licenseText?: string | undefined;
 	};
 }
 
@@ -72,12 +89,15 @@ interface SourceFiles {
 }
 
 export type {
-	ApiQueue,
+	Api,
+	BuiltFiles,
 	Credentials,
 	CredentialsOnlyPassword,
 	DefaultDefinition,
 	DefaultSectionMap,
 	Dependencies,
+	DeploymentDirectTargets,
 	DeploymentTargets,
+	GlobalSourceFiles,
 	SourceFiles,
 };

@@ -1,54 +1,196 @@
-import type {ApiQueue, Credentials, CredentialsOnlyPassword, DeploymentTargets} from '../types';
+import type {
+	Api,
+	Credentials,
+	CredentialsOnlyPassword,
+	DefaultDefinition,
+	DeploymentDirectTargets,
+	DeploymentTargets,
+	GlobalSourceFiles,
+} from '../types';
 import {CONVERT_VARIANT, DEFINITION_SECTION_MAP} from '../../constant';
-import {closeSync, existsSync, fdatasyncSync, open, readFileSync, writeFileSync} from 'node:fs';
-import {getRootDir, prompt, trim} from './general-util';
-import {type ApiEditResponse} from 'mwn';
+import {type Path, globSync} from 'glob';
+import {
+	__rootDir,
+	exec,
+	generateBannerAndFooter,
+	generateDefinition,
+	prompt,
+	readFileContent,
+	sortObject,
+	trim,
+	writeFileContent,
+} from './general-util';
+import {basename, extname, join} from 'node:path';
+import {existsSync, open} from 'node:fs';
+import {exit, stdout} from 'node:process';
 import {MwnError} from 'mwn/build/error';
 import {Window} from 'happy-dom';
+import alphaSort from 'alpha-sort';
+import {apiQueue} from '../deploy';
 import chalk from 'chalk';
-import {execSync} from 'node:child_process';
-import {join} from 'node:path';
 import {setTimeout} from 'node:timers/promises';
 
 /**
  * @private
  */
-const rootDir: string = getRootDir();
+const deployPages: Record<string, string[]> = {};
 
 /**
- * @private
+ * Read `dist/definition.txt`
+ *
+ * @return {string|undefined} Gadget definitions (in the format of MediaWiki:Gadgets-definition item)
+ * @throws If `dist/definition.txt` is not found
  */
-const deployPages: string[] = [];
+const readDefinition = (): string => {
+	const definitionPath: string = join(__rootDir, 'dist/definition.txt');
+	if (!existsSync(definitionPath)) {
+		console.log(chalk.red(`Failed to read ${chalk.italic('definition.txt')}, please try build again.`));
+		exit(1);
+	}
+
+	const fileContent: string = readFileContent(definitionPath);
+
+	return fileContent;
+};
 
 /**
  * Generate deployment targets based on the definitions
  *
- * @param {string[]} definitions Array of gadget definition (in the format of MediaWiki:Gadgets-definition item)
  * @return {DeploymentTargets} Deployment targets
  */
-const generateTargets = (definitions: string[]): DeploymentTargets => {
+const generateTargets = (): DeploymentTargets => {
 	const targets: DeploymentTargets = {};
+
+	const definitionText: string = readDefinition();
+	const definitions: string[] = definitionText.split('\n').filter((lineContent: string): boolean => {
+		return /^\*\s\S+?\[ResourceLoader[|\]]/.test(lineContent);
+	});
+
+	const gadgetNames: string[] = definitions.map((definition: string): string => {
+		const regExpMatchArray = definition.match(/^\*\s(\S+?)\[/) as [string, string];
+		return regExpMatchArray[1];
+	});
 
 	type Target = DeploymentTargets[keyof DeploymentTargets];
 
-	for (const definition of definitions) {
-		const [_, name, files, description] = definition.match(/^\*\s(\S+?)\[\S+?]\|(\S+?)☀\S*?☀(.+?)$/) as [
-			string,
-			string,
-			string,
-			string,
-		];
+	for (const gadgetName of gadgetNames.toSorted(
+		alphaSort({
+			caseInsensitive: true,
+			natural: true,
+		})
+	)) {
+		const definition: DefaultDefinition = generateDefinition(gadgetName, false);
+		const {description, enable, excludeSites} = definition;
 
-		targets[name] = {} as Target;
-		(targets[name] as Target).files = files
-			.split('|')
-			.filter((file: string): boolean => {
-				return !!file;
-			})
-			.map((file: string): string => {
-				return file.replace(/\S+?❄/, '');
-			});
-		(targets[name] as Target).description = description || name;
+		if (enable === false) {
+			continue;
+		}
+
+		targets[gadgetName] = {
+			excludeSites,
+			description:
+				trim(description, {
+					addNewline: false,
+				}) || gadgetName,
+			files: [],
+		};
+
+		const distFiles: Path[] = globSync([`${gadgetName}/*.{css,js}`], {
+			cwd: join(__rootDir, 'dist'),
+			withFileTypes: true,
+		});
+		for (const file of distFiles) {
+			const {name: fileName} = file;
+			const fileExt: string = extname(fileName);
+			const fileBaseName: string = basename(fileName, fileExt);
+
+			(targets[gadgetName] as Target).files.push([
+				fileName,
+				fileBaseName === gadgetName ? fileName : `${gadgetName}-${fileName}`,
+			]);
+		}
+	}
+
+	if (!Object.keys(targets).length) {
+		console.log(chalk.yellow('━ No gadget need to deploy'));
+		return {};
+	}
+
+	return targets;
+};
+
+/**
+ * Generate direct deployment targets based on the `global.json`
+ *
+ * @param {Api['site']} site The target site name
+ * @return {DeploymentDirectTargets} Direct deployment targets
+ */
+const generateDirectTargets = (site: Api['site']): DeploymentDirectTargets => {
+	const targets: DeploymentDirectTargets = [];
+
+	interface GlobalJsonObject {
+		[key: string]: {
+			[K in keyof GlobalSourceFiles]: Omit<GlobalSourceFiles[K], 'contentType'>;
+		};
+	}
+
+	const globalJsonFilePath: string = join(__rootDir, 'src/global.json');
+	if (!existsSync(globalJsonFilePath)) {
+		console.log(chalk.white(`━ No ${chalk.bold('global.json')} found`));
+		return [];
+	}
+
+	const globalJsonText: string = readFileContent(globalJsonFilePath);
+
+	let globalJsonObject: GlobalJsonObject = {};
+	try {
+		globalJsonObject = JSON.parse(globalJsonText) as GlobalJsonObject;
+	} catch {
+		console.log(chalk.red(`✘ Failed to parse ${chalk.bold('global.json')}`));
+		return [];
+	}
+
+	const currentSiteGlobalTargets = globalJsonObject[site] as GlobalJsonObject[keyof GlobalJsonObject];
+	for (const [file, {enable, sourceCode, licenseText}] of Object.entries(currentSiteGlobalTargets)) {
+		if (enable === false) {
+			continue;
+		}
+
+		const contentType: GlobalSourceFiles[keyof GlobalSourceFiles]['contentType'] = file.endsWith('.css')
+			? 'text/css'
+			: file.endsWith('.js')
+				? 'application/javascript'
+				: undefined;
+
+		if (!/^(?!Gadget-).+\.(css|js)$/i.test(file)) {
+			if (!contentType) {
+				console.log(chalk.yellow(`━ Skip ${chalk.bold(file)}, only allowed to deploy CSS or JavaScript pages`));
+				continue;
+			}
+			console.log(chalk.yellow(`━ Skip invalid target page ${chalk.bold(file)}`));
+			continue;
+		}
+
+		const {banner, footer} = generateBannerAndFooter({
+			licenseText,
+			isDirectly: true,
+		});
+		switch (contentType) {
+			case 'application/javascript':
+				targets.push([
+					`MediaWiki:${file}`,
+					`${banner.js}\n"use strict";\n\n${sourceCode.trim()}\n${footer.js}`,
+				]);
+				break;
+			case 'text/css':
+				targets.push([`MediaWiki:${file}`, `${banner.css}\n${sourceCode.trim()}\n${footer.css}`]);
+				break;
+		}
+	}
+
+	if (!targets.length) {
+		console.log(chalk.yellow('━ No page need to deploy directly'));
+		return [];
 	}
 
 	return targets;
@@ -57,56 +199,94 @@ const generateTargets = (definitions: string[]): DeploymentTargets => {
 /**
  * Check the integrity of configuration items
  *
- * @param {Record<string, unknown>} config To be completed configuration
- * @param {boolean} [checkApiUrlOnly=false] Only check `config.apiUrl` is empty or not
- * @return {Promise<CredentialsOnlyPassword>} Completed configuration
+ * @param {Object} config To be completed configuration
+ * @param {boolean} [isCheckApiUrlOnly=false] Only check `config[site].apiUrl` is empty or not
+ * @return {Promise<void>}
  */
-const checkConfig = async (
-	config: Partial<CredentialsOnlyPassword>,
-	checkApiUrlOnly: boolean = false
-): Promise<CredentialsOnlyPassword> => {
-	if (checkApiUrlOnly) {
-		if (!config.apiUrl) {
-			config.apiUrl = await prompt('> Enter api url (eg. https://your.wiki/api.php)');
+async function checkConfig(
+	config: {
+		[key: string]: Partial<CredentialsOnlyPassword>;
+	},
+	isCheckApiUrlOnly: true
+): Promise<void>;
+async function checkConfig(config: ReturnType<typeof loadConfig>, isCheckApiUrlOnly?: boolean): Promise<void>;
+// eslint-disable-next-line func-style
+async function checkConfig(config: ReturnType<typeof loadConfig>, isCheckApiUrlOnly: boolean = false): Promise<void> {
+	const exitWithError = (reason: string): void => {
+		console.log(chalk.red(`✘ ${reason} in ${chalk.italic('credentials.json')}`));
+		exit(1);
+	};
+
+	if (!Object.keys(config).length) {
+		exitWithError('No site found');
+	}
+
+	for (const site of Object.keys(config)) {
+		if (!site) {
+			exitWithError('Site Name should be a non-empty string');
 		}
-	} else {
-		if (!config.username) {
-			config.username = await prompt('> Enter username');
-		}
-		if (!config.password) {
-			config.password = await prompt('> Enter bot password', 'password');
+		if (/^\s|\s$/.test(site)) {
+			exitWithError('Site name should not start or end with whitespace characters');
 		}
 	}
 
-	return config as CredentialsOnlyPassword;
-};
+	for (const [site, credentials] of Object.entries(config)) {
+		if (isCheckApiUrlOnly) {
+			if (!credentials.apiUrl) {
+				credentials.apiUrl = await prompt(`> [${site}] Enter api url (eg. https://your.wiki/api.php)`);
+			}
+		} else {
+			const _credentials = credentials as Partial<CredentialsOnlyPassword>;
+			if (!_credentials.username) {
+				_credentials.username = await prompt(`> [${site}] Enter username}`);
+			}
+			if (!_credentials.password) {
+				_credentials.password = await prompt(`> [${site}] Enter bot password`, 'password');
+			}
+		}
+	}
+}
 
 /**
  * Load credentials.json
  *
- * @return {Partial<Credentials>} The result of parsing the credentials.json file
+ * @return {Object} The result of parsing the credentials.json file
  */
-const loadConfig = (): Partial<Credentials> => {
+const loadConfig = (): typeof credentials => {
 	const logError = (reason: string): void => {
 		console.log(
 			chalk.yellow(`${chalk.italic('credentials.json')} is ${reason}, credentials must be provided manually.`)
 		);
 	};
 
-	let credentialsJsonText: string = '{}';
-	try {
-		const credentialsFilePath: string = join(rootDir, 'scripts/credentials.json');
-		const fileBuffer: Buffer = readFileSync(credentialsFilePath);
-		credentialsJsonText = fileBuffer.toString();
-	} catch {
+	let isMissing: boolean = false;
+
+	const credentialsFilePath: string = join(__rootDir, 'scripts/credentials.json');
+	if (!existsSync(credentialsFilePath)) {
+		isMissing = true;
 		logError('missing');
 	}
 
-	let credentials: Partial<Credentials> = {};
+	let credentialsJsonText: string = '{}';
+	if (!isMissing) {
+		credentialsJsonText = readFileContent(credentialsFilePath);
+	}
+
+	let credentials: {
+		[key: string]: Partial<Credentials>;
+	} = {};
 	try {
-		credentials = JSON.parse(credentialsJsonText) as Partial<Credentials>;
+		credentials = JSON.parse(credentialsJsonText) as typeof credentials;
 	} catch {
 		logError('broken');
+	}
+
+	if (
+		!isMissing &&
+		(!Object.keys(credentials).length ||
+			!Object.keys(credentials[Object.keys(credentials)[0] as string] as Partial<Credentials>).length)
+	) {
+		logError('empty');
 	}
 
 	return credentials;
@@ -115,70 +295,59 @@ const loadConfig = (): Partial<Credentials> => {
 /**
  * Make editing summary
  *
- * @param {string} [name] The gadget name
+ * @param {string} [filePath] The target file path
  * @param {string} [fallbackEditSummary] The fallback editing summary
- * @param {boolean} [isStyle=false] Whether the file is a style sheet
  * @return {Promise<string>} The editing summary
  */
-const makeEditSummary = async (
-	name?: string,
-	fallbackEditSummary?: string,
-	isStyle: boolean = false
-): Promise<string> => {
-	const execLog = (filePath: string): string => {
+async function makeEditSummary(): Promise<string>;
+async function makeEditSummary(filePath: string, fallbackEditSummary: string): Promise<string>;
+// eslint-disable-next-line func-style
+async function makeEditSummary(filePath?: string, fallbackEditSummary?: string): Promise<string> {
+	const execLog = async (path: string): Promise<string> => {
 		try {
-			const log: string = execSync(`git log --pretty=format:"%H %s" -1 -- ${filePath}`).toString('utf8').trim();
+			const {stdout: _log} = await exec(`git log --pretty=format:"%H %s" -1 -- ${path}`);
+			const log: string = _log.trim();
 			if (!log) {
 				return '';
 			}
 			const logSplit: string[] = log.split(' ');
-			return `Git commit ${execSync(`git rev-parse --short ${logSplit.shift()}`)
-				.toString('utf8')
-				.trim()}: ${logSplit.join(' ')}`;
+			const {stdout: _sha} = await exec(`git rev-parse --short ${logSplit.shift()}`);
+			return `Git commit ${_sha.trim()}: ${logSplit.join(' ')}`;
 		} catch {
 			return '';
 		}
 	};
-	const getLog = (gadgetName: string, fileName: string): string => {
-		const filePath: string = join(rootDir, `src/${gadgetName}/${fileName}`);
-		if (!existsSync(filePath)) {
+	const getLog = async (path: string): Promise<string> => {
+		if (!existsSync(path)) {
 			return '';
 		}
-		const log: string = execLog(filePath);
+		const log: string = await execLog(path);
 		if (!log) {
 			return '';
 		}
 		return log;
 	};
 
-	if (name && fallbackEditSummary) {
-		if (!/^Git\scommit\S+?:\s/.test(fallbackEditSummary)) {
+	if (filePath && fallbackEditSummary !== undefined) {
+		if (!/^Git\scommit\s\S+?:\s/.test(fallbackEditSummary)) {
 			return fallbackEditSummary;
 		}
 
-		const fileNames: string[] = [name, 'index'];
-		const fileExts: string[] = isStyle ? ['.less', '.css'] : ['.ts', '.js'];
-		const files: string[] = [];
-		for (const fileName of fileNames) {
-			for (const fileExt of fileExts) {
-				files.push(fileName + fileExt);
-			}
+		const log: string = await getLog(filePath);
+		if (!log) {
+			return fallbackEditSummary;
 		}
 
-		for (const file of files) {
-			const log: string = getLog(name, file);
-			if (!log) {
-				continue;
-			}
-			return log;
-		}
+		return log;
 	}
 
 	let sha: string = '';
 	let summary: string = '';
 	try {
-		sha = execSync('git rev-parse --short HEAD').toString('utf8').trim();
-		summary = execSync('git log --pretty=format:"%s" HEAD -1').toString('utf8').trim();
+		const {stdout: _sha} = await exec('git rev-parse --short HEAD');
+		sha = _sha.trim();
+		const {stdout: _summary} = await exec('git log --pretty=format:"%s" HEAD -1');
+		summary = _summary.trim();
 	} catch {}
 
 	const customSummary: string = await prompt('> Custom editing summary message (optional):');
@@ -187,7 +356,9 @@ const makeEditSummary = async (
 	});
 	// If trimmed input is an empty string, use the message from the last git commit
 	const editSummary: string = customSummaryTrimmed || `${sha ? `Git commit ${sha}: ` : ''}${summary}`;
-	console.log(chalk.white(`Editing summary is: ${chalk.bold(editSummary)}`));
+	console.log(
+		chalk.white(`${customSummaryTrimmed ? 'Editing' : 'Fallback editing'} summary is: ${chalk.bold(editSummary)}`)
+	);
 
 	await prompt('> Confirm to continue deployment?', 'confirm', true);
 
@@ -195,43 +366,19 @@ const makeEditSummary = async (
 	await setTimeout(3 * 1000);
 
 	return editSummary;
-};
-
-/**
- * Read `dist/definition.txt`
- *
- * @return {string} Gadget definitions (in the format of MediaWiki:Gadgets-definition item)
- */
-const readDefinition = (): string => {
-	const definitionPath: string = join(rootDir, 'dist/definition.txt');
-	const fileBuffer: Buffer = readFileSync(definitionPath);
-
-	return fileBuffer.toString();
-};
-
-/**
- * Read file text
- *
- * @param {string} name The gadget name
- * @param {string} file The file name used by this gadget
- * @return {string} The file content
- */
-const readFileText = (name: string, file: string): string => {
-	const filePath: string = join(rootDir, `dist/${name}/${file}`);
-	const fileBuffer: Buffer = readFileSync(filePath);
-
-	return fileBuffer.toString();
-};
+}
 
 /**
  * Convert language variants of a page
  *
  * @param {string} pageTitle The titie of this page
  * @param {string} content The content of this page
- * @param {ApiQueue} object The api instance and the deployment queue
+ * @param {Api} api The api instance and the site name
  * @param {string} editSummary The editing summary used by the api instance
  */
-const convertVariant = (pageTitle: string, content: string, {api, queue}: ApiQueue, editSummary: string): void => {
+const convertVariant = (pageTitle: string, content: string, api: Api, editSummary: string): void => {
+	const {apiInstance, site} = api;
+
 	/**
 	 * @see {@link https://zh.wikipedia.org/wiki/User:Xiplus/js/TranslateVariants}
 	 * @license CC-BY-SA-4.0
@@ -253,7 +400,7 @@ const convertVariant = (pageTitle: string, content: string, {api, queue}: ApiQue
 		});
 
 	const convert = async (variant: string): Promise<boolean> => {
-		const parsedHtml: string = await api.parseWikitext(
+		const parsedHtml: string = await apiInstance.parseWikitext(
 			`{{NoteTA|G1=IT|G2=MediaWiki}}<div class="convertVariant">${content}</div>`,
 			{
 				prop: ['text'],
@@ -261,19 +408,20 @@ const convertVariant = (pageTitle: string, content: string, {api, queue}: ApiQue
 			}
 		);
 
-		const window: Window = new Window({
-			url: api.options.apiUrl as string,
+		const {document} = new Window({
+			url: apiInstance.options.apiUrl as string,
 		});
-		const {document} = window;
 		document.body.innerHTML = `<div>${parsedHtml}</div>`;
 		const convertedDescription: string = document.querySelector('.convertVariant').textContent.replace(/-{}-/g, '');
 
 		const convertPageTitle: string = `${pageTitle}/${variant}`;
-		deployPages.push(convertPageTitle);
 
-		const response: ApiEditResponse = await api.save(convertPageTitle, convertedDescription, editSummary);
+		deployPages[site] ??= [];
+		deployPages[site]!.push(convertPageTitle);
 
-		return !!response.nochange;
+		const {nochange} = await apiInstance.save(convertPageTitle, convertedDescription, editSummary);
+
+		return !!nochange;
 	};
 
 	const taskQueue: (() => Promise<boolean>)[] = [];
@@ -283,7 +431,7 @@ const convertVariant = (pageTitle: string, content: string, {api, queue}: ApiQue
 		});
 	}
 
-	queue
+	apiQueue
 		.addAll(taskQueue)
 		.then((nochanges: boolean[]): void => {
 			const isNoChange: boolean = nochanges.every(Boolean);
@@ -303,17 +451,62 @@ const convertVariant = (pageTitle: string, content: string, {api, queue}: ApiQue
  * Save gadget definition
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {ApiQueue} object The api instance and the deployment queue
+ * @param {string[]} enabledGadgets The enabled gadgets
+ * @param {Api} api The api instance and the site name
  * @param {string} editSummary The editing summary used by this api instance
+ * @return {string} The `MediaWiki:Gadgets-definition` content of the current site
  */
-const saveDefinition = (definitionText: string, {api, queue}: ApiQueue, editSummary: string): void => {
+const saveDefinition = (definitionText: string, enabledGadgets: string[], api: Api, editSummary: string): string => {
+	const {apiInstance, site} = api;
 	const pageTitle: string = 'MediaWiki:Gadgets-definition';
-	deployPages.push(pageTitle);
 
-	void queue.add(async (): Promise<void> => {
+	deployPages[site] ??= [];
+	deployPages[site]!.push(pageTitle);
+
+	definitionText = definitionText
+		.split('\n')
+		.filter((lineContent: string): boolean => {
+			const regex: RegExp = /^\*\s(\S+?)\[ResourceLoader[|\]]/;
+			const regExpMatchArray: RegExpMatchArray | null = lineContent.match(regex);
+			if (regExpMatchArray && regExpMatchArray[1]) {
+				return enabledGadgets.includes(regExpMatchArray[1]);
+			}
+			return true;
+		})
+		.join('\n');
+
+	const removeEmptySection = (string: string): string => {
+		const firstSectionIndex: number = string.search(/[=]=[\S\s]+?==/);
+		if (firstSectionIndex === -1) {
+			return string;
+		}
+
+		const keepString: string = string.slice(0, Math.max(0, firstSectionIndex));
+
+		string = string.slice(Math.max(0, firstSectionIndex));
+		string = string.replace(/\n{3,}/g, '\n\n');
+
+		const blocks: string[] = string.split(/([=]=[\S\s]+?==\n)/);
+		const newBlocks: string[] = [];
+		for (let i = 0; i < blocks.length; i++) {
+			const block = blocks[i] as string;
+			if (block.startsWith('==') && blocks[i + 1] && !(blocks[i + 1] as string).startsWith('*')) {
+				i++;
+				continue;
+			}
+			newBlocks.push(block);
+		}
+
+		return keepString + newBlocks.join('');
+	};
+	definitionText = removeEmptySection(definitionText);
+
+	definitionText = trim(definitionText);
+
+	void apiQueue.add(async (): Promise<void> => {
 		try {
-			const response: ApiEditResponse = await api.save(pageTitle, definitionText, editSummary);
-			if (response.nochange) {
+			const {nochange} = await apiInstance.save(pageTitle, definitionText, editSummary);
+			if (nochange) {
 				console.log(chalk.yellow(`━ No change saving ${chalk.bold('gadget definitions')}`));
 			} else {
 				console.log(chalk.green(`✔ Successfully saved ${chalk.bold('gadget definitions')}`));
@@ -323,16 +516,20 @@ const saveDefinition = (definitionText: string, {api, queue}: ApiQueue, editSumm
 			console.error(error);
 		}
 	});
+
+	return definitionText;
 };
 
 /**
  * Save gadget definition section pages
  *
  * @param {string} definitionText The MediaWiki:Gadgets-definition content
- * @param {ApiQueue} apiQueue The api instance and the deployment queue
+ * @param {Api} api The api instance and the site name
  * @param {string} editSummary The editing summary used by this api instance
  */
-const saveDefinitionSectionPage = (definitionText: string, apiQueue: ApiQueue, editSummary: string): void => {
+const saveDefinitionSectionPage = (definitionText: string, api: Api, editSummary: string): void => {
+	const {apiInstance, site} = api;
+
 	const sections: string[] = (definitionText.match(/^==([\S\s]+?)==$/gm) as RegExpMatchArray).map(
 		(sectionHeader: string): string => {
 			return sectionHeader.replace(/[=]=/g, '').trim();
@@ -346,12 +543,14 @@ const saveDefinitionSectionPage = (definitionText: string, apiQueue: ApiQueue, e
 		const sectionText: string = DEFINITION_SECTION_MAP[section as keyof typeof DEFINITION_SECTION_MAP] || section;
 
 		const pageTitle: string = pageTitles[index] as string;
-		deployPages.push(pageTitle);
 
-		void apiQueue.queue.add(async (): Promise<void> => {
+		deployPages[site] ??= [];
+		deployPages[site]!.push(pageTitle);
+
+		void apiQueue.add(async (): Promise<void> => {
 			try {
-				const response: ApiEditResponse = await apiQueue.api.save(pageTitle, sectionText, editSummary);
-				if (response.nochange) {
+				const {nochange} = await apiInstance.save(pageTitle, sectionText, editSummary);
+				if (nochange) {
 					console.log(chalk.yellow(`━ No change saving ${chalk.bold(pageTitle)}`));
 				} else {
 					console.log(chalk.green(`✔ Successfully saved ${chalk.bold(pageTitle)}`));
@@ -363,7 +562,7 @@ const saveDefinitionSectionPage = (definitionText: string, apiQueue: ApiQueue, e
 		});
 
 		if (CONVERT_VARIANT) {
-			convertVariant(pageTitle, sectionText, apiQueue, editSummary);
+			convertVariant(pageTitle, sectionText, api, editSummary);
 		}
 	}
 };
@@ -371,68 +570,96 @@ const saveDefinitionSectionPage = (definitionText: string, apiQueue: ApiQueue, e
 /**
  * Save gadget description
  *
- * @param {string} name The gadget name
+ * @param {string} gadgetName The gadget name
  * @param {string} description The definition of this gadget
- * @param {ApiQueue} apiQueue The api instance and the deployment queue
+ * @param {Api} api The api instance and the site name
  * @param {string} editSummary The editing summary used by the api instance
  */
-const saveDescription = (name: string, description: string, apiQueue: ApiQueue, editSummary: string): void => {
-	const pageTitle: string = `MediaWiki:Gadget-${name}`;
-	deployPages.push(pageTitle);
+const saveDescription = (gadgetName: string, description: string, api: Api, editSummary: string): void => {
+	const {apiInstance, site} = api;
+	const pageTitle: string = `MediaWiki:Gadget-${gadgetName}`;
 
-	void apiQueue.queue.add(async (): Promise<void> => {
+	deployPages[site] ??= [];
+	deployPages[site]!.push(pageTitle);
+
+	void apiQueue.add(async (): Promise<void> => {
 		try {
-			const response: ApiEditResponse = await apiQueue.api.save(pageTitle, description, editSummary);
-			if (response.nochange) {
-				console.log(chalk.yellow(`━ No change saving ${chalk.bold(`${name} description`)}`));
+			const {nochange} = await apiInstance.save(pageTitle, description, editSummary);
+			if (nochange) {
+				console.log(chalk.yellow(`━ No change saving ${chalk.bold(`${gadgetName} description`)}`));
 			} else {
-				console.log(chalk.green(`✔ Successfully saved ${chalk.bold(`${name} description`)}`));
+				console.log(chalk.green(`✔ Successfully saved ${chalk.bold(`${gadgetName} description`)}`));
 			}
 		} catch (error: unknown) {
-			console.log(chalk.red(`✘ Failed to save ${chalk.bold(`${name} description`)}`));
+			console.log(chalk.red(`✘ Failed to save ${chalk.bold(`${gadgetName} description`)}`));
 			console.error(error);
 		}
 	});
 
 	if (CONVERT_VARIANT) {
-		convertVariant(pageTitle, description, apiQueue, editSummary);
+		convertVariant(pageTitle, description, api, editSummary);
 	}
 };
 
 /**
  * Save gadget file
  *
- * @param {string} name The gadget name
- * @param {string} file The target file name
+ * @param {string} gadgetName The gadget name
+ * @param {string} fileName The target file name
  * @param {string} fileContent The target file content
- * @param {ApiQueue} object The api instance and the deployment queue
+ * @param {Api} api The api instance and the site name
  * @param {string} editSummary The editing summary used by the api instance
  */
-const saveFiles = (
-	name: string,
-	file: string,
-	fileContent: string,
-	{api, queue}: ApiQueue,
-	editSummary: string
-): void => {
-	let fileName: string = `${name}-${file}`;
-	if (file.split('.')[0] === name) {
-		fileName = file;
-	}
-
+const saveFiles = (gadgetName: string, fileName: string, fileContent: string, api: Api, editSummary: string): void => {
+	const {apiInstance, site} = api;
 	const pageTitle: string = `MediaWiki:Gadget-${fileName}`;
-	deployPages.push(pageTitle);
 
-	void queue.add(async (): Promise<void> => {
+	deployPages[site] ??= [];
+	deployPages[site]!.push(pageTitle);
+
+	void apiQueue.add(async (): Promise<void> => {
 		try {
-			const response: ApiEditResponse = await api.save(pageTitle, fileContent, editSummary);
-			if (response.nochange) {
-				console.log(chalk.yellow(`━ No change saving ${chalk.underline(fileName)} to ${chalk.bold(name)}`));
+			const {nochange} = await apiInstance.save(pageTitle, fileContent, editSummary);
+			if (nochange) {
+				console.log(
+					chalk.yellow(`━ No change saving ${chalk.underline(fileName)} to ${chalk.bold(gadgetName)}`)
+				);
 			} else {
-				console.log(chalk.green(`✔ Successfully saved ${chalk.underline(fileName)} to ${chalk.bold(name)}`));
+				console.log(
+					chalk.green(`✔ Successfully saved ${chalk.underline(fileName)} to ${chalk.bold(gadgetName)}`)
+				);
 			}
 		} catch (error: unknown) {
-			console.log(chalk.red(`✘ Failed to save ${chalk.underline(fileName)} to ${chalk.bold(name)}`));
+			console.log(chalk.red(`✘ Failed to save ${chalk.underline(fileName)} to ${chalk.bold(gadgetName)}`));
+			console.error(error);
+		}
+	});
+};
+
+/**
+ * Save page directly
+ *
+ * @param {string} pageTitle The target page title
+ * @param {string} pageContent The target page content
+ * @param {Api} api The api instance and the site name
+ * @param {string} editSummary The editing summary used by the api instance
+ */
+const savePages = (pageTitle: string, pageContent: string, api: Api, editSummary: string): void => {
+	const {apiInstance, site} = api;
+
+	deployPages[site] ??= [];
+	deployPages[site]!.push(pageTitle);
+
+	void apiQueue.add(async (): Promise<void> => {
+		try {
+			const {nochange} = await apiInstance.save(pageTitle, pageContent, editSummary);
+			if (nochange) {
+				console.log(chalk.yellow(`━ No change saving ${chalk.underline(pageTitle)}`));
+			} else {
+				console.log(chalk.green(`✔ Successfully saved ${chalk.underline(pageTitle)}`));
+			}
+		} catch (error: unknown) {
+			console.log(chalk.red(`✘ Failed to save ${chalk.underline(pageTitle)}`));
 			console.error(error);
 		}
 	});
@@ -441,54 +668,73 @@ const saveFiles = (
 /**
  * Delete unused pages from the target MediaWiki site
  *
- * @param {ApiQueue} object The api instance and the delete page queue
+ * @param {Api} api The api instance and the site name
  * @param {string} editSummary The editing summary used by this api instance
  */
-const deleteUnusedPages = async ({api, queue}: ApiQueue, editSummary: string): Promise<void> => {
-	const storeFilePath: string = join(rootDir, 'dist/store.txt');
+const deleteUnusedPages = async (api: Api, editSummary: string): Promise<void> => {
+	const {apiInstance, site} = api;
+	const storeFilePath: string = join(__rootDir, 'dist/store.txt');
 
-	let lastDeployPages: string[] = [];
+	let lastDeployPages: typeof deployPages = {};
 	try {
-		const fileBuffer: Buffer = readFileSync(storeFilePath);
-		const fileContent: string = fileBuffer.toString();
-		lastDeployPages = fileContent.split('\n').filter((lineConent: string): boolean => {
-			return !!lineConent;
-		});
+		const fileContent: string = readFileContent(storeFilePath);
+		lastDeployPages = JSON.parse(fileContent) as typeof deployPages;
 	} catch {}
+
+	const fullDeployPages: typeof deployPages = sortObject(deployPages, true);
+	for (const [siteName, pages] of Object.entries(lastDeployPages)) {
+		if (fullDeployPages[siteName]) {
+			continue;
+		}
+		fullDeployPages[siteName] = pages.toSorted(
+			alphaSort({
+				caseInsensitive: true,
+				natural: true,
+			})
+		);
+	}
 
 	open(storeFilePath, 'w', (err: NodeJS.ErrnoException | null, fd: number): void => {
 		if (err) {
 			console.error(err);
 			return;
 		}
-		writeFileSync(fd, deployPages.sort().join('\n'));
-		fdatasyncSync(fd);
-		closeSync(fd);
+
+		const fullDeployPagesSorted: typeof deployPages = sortObject(fullDeployPages);
+		writeFileContent(fd, `${JSON.stringify(fullDeployPagesSorted, null, '\t')}\n`);
 	});
 
-	if (!lastDeployPages.length) {
+	const currentSiteLastDeployPages: string[] = lastDeployPages[site] ?? [];
+	if (!currentSiteLastDeployPages.length) {
 		console.log(chalk.yellow('━ No deployment log found'));
 		return;
 	}
 
-	const needToDeletePages: string[] = lastDeployPages.filter((page: string): boolean => {
-		return !deployPages.includes(page);
-	});
-
+	const currentSiteDeloyPages: string[] = fullDeployPages[site] ?? [];
+	const needToDeletePages: string[] = currentSiteLastDeployPages
+		.toSorted(
+			alphaSort({
+				caseInsensitive: true,
+				natural: true,
+			})
+		)
+		.filter((page: string): boolean => {
+			return !currentSiteDeloyPages.includes(page);
+		});
 	if (!needToDeletePages.length) {
 		console.log(chalk.yellow('━ No page need to delete'));
 		return;
 	}
 
-	process.stdout.write(`The following pages will be deleted:\n${needToDeletePages.join('\n')}\n`);
+	stdout.write(`The following pages will be deleted:\n${needToDeletePages.join('\n')}\n`);
 	await prompt('> Confirm to continue deleting?', 'confirm', true);
 
-	console.log(chalk.yellow('--- deleting will continue in three seconds ---'));
+	console.log(chalk.yellow(`--- [${chalk.bold(site)}] deleting will continue in three seconds ---`));
 	await setTimeout(3 * 1000);
 
 	const deletePage = async (pageTitle: string): Promise<void> => {
 		try {
-			await api.delete(pageTitle, editSummary);
+			await apiInstance.delete(pageTitle, editSummary);
 			console.log(chalk.green(`✔ Successfully deleted ${chalk.bold(pageTitle)}`));
 		} catch (error: unknown) {
 			if (error instanceof MwnError && error.code === 'missingtitle') {
@@ -501,22 +747,23 @@ const deleteUnusedPages = async ({api, queue}: ApiQueue, editSummary: string): P
 	};
 
 	for (const page of needToDeletePages) {
-		void queue.add(async (): Promise<void> => {
+		void apiQueue.add(async (): Promise<void> => {
 			await deletePage(page);
 		});
 	}
 };
 
 export {
+	readDefinition,
 	generateTargets,
+	generateDirectTargets,
 	checkConfig,
 	loadConfig,
 	makeEditSummary,
-	readDefinition,
-	readFileText,
 	saveDefinition,
 	saveDefinitionSectionPage,
 	saveDescription,
 	saveFiles,
+	savePages,
 	deleteUnusedPages,
 };
