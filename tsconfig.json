@@ -34,20 +34,26 @@
 		"allowJs": true,
 		"checkJs": true,
 
+		"plugins": [
+			{
+				"name": "typescript-plugin-css-modules",
+				"options": {
+					"classnameTransform": "camelCaseOnly",
+					"goToDefinition": true,
+					"namedExports": false
+				}
+			}
+		],
+
 		"esModuleInterop": true,
 		"isolatedModules": true,
 
+		"jsx": "react",
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"target": "ESNext",
 
 		"skipLibCheck": true
 	},
 	"exclude": ["node_modules/types-mediawiki-renovate/scripts"],
-	"include": [
-		"node_modules/types-mediawiki-renovate",
-		"node_modules/@types/jqueryui",
-		"node_modules/@types/oojs-ui",
-		"scripts/**/*",
-		"src/**/*"
-	]
+	"include": ["node_modules/types-mediawiki-renovate", "scripts/**/*", "src/**/*"]
 }

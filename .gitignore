@@ -1,5 +1,3 @@
-dist/*
-!dist/store.txt
 node_modules
 scripts/credentials.json
 .*cache

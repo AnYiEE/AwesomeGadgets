@@ -1,0 +1,17 @@
+diff --git a/lib/injector.js b/lib/injector.js
+index 0ec1a466f029e9c27e44f10a1cbda7918615e843..6da021d99403b499f5a1d46ecefff2ed00a56a77 100644
+--- a/lib/injector.js
++++ b/lib/injector.js
+@@ -63,7 +63,11 @@ class Injector {
+ 
+ 		while (all.length) {
+ 			const importName = all.pop();
+-			addSideEffect(path, `@mrhenry/core-web/modules/${importName}`);
++			if (importName === 'Blob') {
++				addSideEffect(path, 'blob-polyfill');
++			} else {
++				addSideEffect(path, `@mrhenry/core-web/modules/${importName}`);
++			}
+ 		}
+ 
+ 		// remove unused imports

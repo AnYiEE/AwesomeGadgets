@@ -22,6 +22,37 @@
 		{
 			"files": ["*.js"],
 			"extends": ["plugin:@typescript-eslint/disable-type-checked"]
+		},
+		{
+			"files": ["*.jsx", "*.tsx"],
+			"extends": ["plugin:react/recommended", "plugin:react/jsx-runtime"],
+			"rules": {
+				"arrow-body-style": ["error", "as-needed"],
+				"class-methods-use-this": [
+					"error",
+					{
+						"exceptMethods": [
+							"forceUpdate",
+							"getDefaultProps",
+							"getInitialState",
+							"isMounted",
+							"render",
+							"replaceState",
+							"setState"
+						]
+					}
+				],
+				"func-style": "off",
+				"@typescript-eslint/no-unsafe-assignment": "off",
+				"@typescript-eslint/no-unsafe-member-access": "off",
+				"@typescript-eslint/no-unused-vars": [
+					"warn",
+					{
+						"varsIgnorePattern": "^_|^React$"
+					}
+				],
+				"react/no-unknown-property": "off"
+			}
 		}
 	],
 	"rules": {
@@ -177,6 +208,8 @@
 		"jsdoc/check-tag-names": "off",
 		"jsdoc/no-undefined-types": "off",
 
+		"mediawiki/class-doc": "warn",
+
 		"no-jquery/no-animate": [
 			"warn",
 			{
@@ -241,5 +274,10 @@
 				"avoidEscape": true
 			}
 		]
+	},
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
 	}
 }
