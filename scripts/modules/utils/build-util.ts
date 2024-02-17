@@ -237,7 +237,7 @@ const buildScript = async (
 	const outputFileNames: string[] = [];
 
 	// The TypeScript file is always compiled into a JavaScript file, so replace the extension directly
-	const outputFileName: string = scriptFileName.replace(/\.tsx?$/, '.js');
+	const outputFileName: string = scriptFileName.replace(/\.[jt]sx?$/, '.js');
 
 	const inputFilePath: string = join(__rootDir, `src/${gadgetName}/${scriptFileName}`);
 	const outputFilePath: string = join(__rootDir, `dist/${gadgetName}/${outputFileName}`);
