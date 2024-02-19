@@ -559,8 +559,8 @@ const findSourceFile = (): SourceFiles => {
 			];
 		};
 
-		targetGadget.scripts ??= [];
 		if (/^\.[jt]sx?$/.test(fileExt)) {
+			targetGadget.scripts ??= [];
 			const {scripts} = targetGadget;
 			scripts.push(fileName);
 			// If there are files with the same name in both JavaScript and TypeScript, only retain the TypeScript file
@@ -574,8 +574,8 @@ const findSourceFile = (): SourceFiles => {
 			}
 		}
 
-		targetGadget.styles ??= [];
 		if (['.css', '.less'].includes(fileExt)) {
+			targetGadget.styles ??= [];
 			const {styles} = targetGadget;
 			styles.push(fileName);
 			// If there are files with the same name in both CSS and Less, only retain the Less file
@@ -677,11 +677,11 @@ const generateDefinitionItem = (
 
 /**
  * @param {string|undefined} file The index file name
- * @param {string[]} files The other file name array
+ * @param {string[]|undefined} files The other file name array
  * @return {string[]} The generated file name array
  */
-const generateFileArray = (file: string | undefined, files: string[]): string[] => {
-	return file ? [file] : files;
+const generateFileArray = (file: string | undefined, files: string[] | undefined): string[] => {
+	return file ? [file] : files ?? [];
 };
 
 /**
