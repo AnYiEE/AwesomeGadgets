@@ -452,97 +452,81 @@ const findSourceFile = (): SourceFiles => {
 
 		sourceFiles[gadgetName] ??= {} as Gadget;
 		const targetGadget = sourceFiles[gadgetName] as Gadget;
+		const {script, style} = targetGadget;
 
 		switch (fileName) {
 			case 'definition.json':
 				targetGadget.definition = generateDefinition(gadgetName);
 				continue;
-			case 'index.js': {
-				const {script} = targetGadget;
+			case 'index.js':
 				if (!script || !/^index\.[jt]sx?$/.test(script)) {
 					targetGadget.script = fileName;
 					continue;
 				}
 				break;
-			}
-			case 'index.jsx': {
-				const {script} = targetGadget;
+			case 'index.jsx':
 				if (!script || !/^index\.tsx?$/.test(script)) {
 					targetGadget.script = fileName;
 					continue;
 				}
 				break;
-			}
-			case 'index.ts': {
-				const {script} = targetGadget;
+			case 'index.ts':
 				if (!script || script !== 'index.tsx') {
 					targetGadget.script = fileName;
 					continue;
 				}
 				break;
-			}
 			case 'index.tsx':
 				targetGadget.script = fileName;
 				continue;
-			case `${gadgetName}.js`: {
-				const {script} = targetGadget;
+			case `${gadgetName}.js`:
 				if (!script) {
 					targetGadget.script = fileName;
 					continue;
 				}
 				break;
-			}
-			case `${gadgetName}.jsx`: {
-				const {script} = targetGadget;
+			case `${gadgetName}.jsx`:
 				if (!script || (!/\.tsx?$/.test(script) && script !== 'index.js')) {
 					targetGadget.script = fileName;
 					continue;
 				}
 				break;
-			}
-			case `${gadgetName}.ts`: {
-				const {script} = targetGadget;
+			case `${gadgetName}.ts`:
 				if (!script || (!/^index\.[jt]sx?$/.test(script) && script !== `${gadgetName}.tsx`)) {
 					targetGadget.script = fileName;
 					continue;
 				}
 				break;
-			}
-			case `${gadgetName}.tsx`: {
-				const {script} = targetGadget;
+			case `${gadgetName}.tsx`:
 				if (!script || !/^index\.[jt]sx?$/.test(script)) {
 					targetGadget.script = fileName;
 					continue;
 				}
 				break;
-			}
-			case 'index.css': {
-				const {style} = targetGadget;
-				if (!style || style !== 'index.less') {
+			case 'index.css':
+				if (!script && (!style || style !== 'index.less')) {
 					targetGadget.style = fileName;
 					continue;
 				}
 				break;
-			}
 			case 'index.less':
-				targetGadget.style = fileName;
-				continue;
-			case `${gadgetName}.css`: {
-				const {style} = targetGadget;
-				if (!style) {
+				if (!script) {
 					targetGadget.style = fileName;
 					continue;
 				}
 				break;
-			}
-			case `${gadgetName}.less`: {
-				const {style} = targetGadget;
-				if (!style || !/^index\.(?:css|less)/.test(style)) {
+			case `${gadgetName}.css`:
+				if (!script && !style) {
 					targetGadget.style = fileName;
 					continue;
 				}
 				break;
-			}
+			case `${gadgetName}.less`:
+				if (!script && (!style || !/^index\.(?:css|less)/.test(style))) {
+					targetGadget.style = fileName;
+					continue;
+				}
+				break;
 			case 'LICENSE':
 				targetGadget.license = fileName;
 				continue;
@@ -574,7 +558,7 @@ const findSourceFile = (): SourceFiles => {
 			}
 		}
 
-		if (['.css', '.less'].includes(fileExt)) {
+		if (!script && ['.css', '.less'].includes(fileExt)) {
 			targetGadget.styles ??= [];
 			const {styles} = targetGadget;
 			styles.push(fileName);
