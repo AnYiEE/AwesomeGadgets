@@ -512,7 +512,7 @@ const findSourceFile = (): SourceFiles => {
 			case 'index.css': {
 				const {style} = targetGadget;
 				if (!style || style !== 'index.less') {
-					targetGadget.script = fileName;
+					targetGadget.style = fileName;
 				}
 				break;
 			}
