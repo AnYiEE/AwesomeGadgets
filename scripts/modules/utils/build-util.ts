@@ -456,11 +456,12 @@ const findSourceFile = (): SourceFiles => {
 		switch (fileName) {
 			case 'definition.json':
 				targetGadget.definition = generateDefinition(gadgetName);
-				break;
+				continue;
 			case 'index.js': {
 				const {script} = targetGadget;
 				if (!script || !/^index\.[jt]sx?$/.test(script)) {
 					targetGadget.script = fileName;
+					continue;
 				}
 				break;
 			}
@@ -468,6 +469,7 @@ const findSourceFile = (): SourceFiles => {
 				const {script} = targetGadget;
 				if (!script || !/^index\.tsx?$/.test(script)) {
 					targetGadget.script = fileName;
+					continue;
 				}
 				break;
 			}
@@ -475,16 +477,18 @@ const findSourceFile = (): SourceFiles => {
 				const {script} = targetGadget;
 				if (!script || script !== 'index.tsx') {
 					targetGadget.script = fileName;
+					continue;
 				}
 				break;
 			}
 			case 'index.tsx':
 				targetGadget.script = fileName;
-				break;
+				continue;
 			case `${gadgetName}.js`: {
 				const {script} = targetGadget;
 				if (!script) {
 					targetGadget.script = fileName;
+					continue;
 				}
 				break;
 			}
@@ -492,6 +496,7 @@ const findSourceFile = (): SourceFiles => {
 				const {script} = targetGadget;
 				if (!script || (!/\.tsx?$/.test(script) && script !== 'index.js')) {
 					targetGadget.script = fileName;
+					continue;
 				}
 				break;
 			}
@@ -499,6 +504,7 @@ const findSourceFile = (): SourceFiles => {
 				const {script} = targetGadget;
 				if (!script || (!/^index\.[jt]sx?$/.test(script) && script !== `${gadgetName}.tsx`)) {
 					targetGadget.script = fileName;
+					continue;
 				}
 				break;
 			}
@@ -506,6 +512,7 @@ const findSourceFile = (): SourceFiles => {
 				const {script} = targetGadget;
 				if (!script || !/^index\.[jt]sx?$/.test(script)) {
 					targetGadget.script = fileName;
+					continue;
 				}
 				break;
 			}
@@ -513,16 +520,18 @@ const findSourceFile = (): SourceFiles => {
 				const {style} = targetGadget;
 				if (!style || style !== 'index.less') {
 					targetGadget.style = fileName;
+					continue;
 				}
 				break;
 			}
 			case 'index.less':
 				targetGadget.style = fileName;
-				break;
+				continue;
 			case `${gadgetName}.css`: {
 				const {style} = targetGadget;
 				if (!style) {
 					targetGadget.style = fileName;
+					continue;
 				}
 				break;
 			}
@@ -530,12 +539,13 @@ const findSourceFile = (): SourceFiles => {
 				const {style} = targetGadget;
 				if (!style || !/^index\.(?:css|less)/.test(style)) {
 					targetGadget.style = fileName;
+					continue;
 				}
 				break;
 			}
 			case 'LICENSE':
 				targetGadget.license = fileName;
-				break;
+				continue;
 		}
 
 		const fileExt: string = extname(fileName);
