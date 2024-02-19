@@ -12,14 +12,14 @@
 
 1.  `index.*` > `小工具名.*` / `index.*` > `GadgetName.*`
 2.  `*.{tsx, ts}` > `*.{jsx, js}`
-3.  `*.{jsx, tsx} > *.{js, ts}`
+3.  `*.{jsx, tsx}` > `*.{js, ts}`
 4.  `*.less` > `*.css`
 
--   如果小工具包含脚本，且使用单独的样式表，则其所使用到的样式表应在脚本中导入。<br>If the gadget has script files and style sheets, the style sheets used should be imported in the script file.
+-   如果小工具包含脚本，且使用单独的样式表，则其所使用到的样式表应在脚本中导入<br>If the gadget has script files and style sheets, the style sheets used should be imported in the script file
 
     -   如果样式表名形如`*.module.{css, less}`，则其将被视为 [CSS/Less 模块](https://github.com/css-modules/css-modules)。注意，如需在 VS Code 中获得代码自动补全功能，应[切换到当前工作区中的 TypeScript 版本](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript)，如果在切换后未有效果，可尝试重新加载当前工作区<br> If the style sheet name is like `*.module.{css, less}`, it will be considered as [CSS/Less modules](https://github.com/css-modules/css-modules). Note that if you want to get code autocompletion in VS Code, you should [switch to the TypeScript version in the current workspace](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript). If it doesn't work after switching, try reloading the current workspace.
 
--   如果小工具仅包含样式表，则不需要在脚本中导入（无需新建一个脚本文件）。<br>If the gadget only has style sheets, there is no need to import style sheets in the script file. (no need to create a script file)
+-   如果小工具仅包含样式表，则不需要在脚本中导入（无需新建一个脚本文件）<br>If the gadget only has style sheets, there is no need to import style sheets in the script file. (no need to create a script file)
 
 4. 目录下可以创建`definition.json`以手动指定小工具定义（可选）<br>In the directory, you have the option to create a `definition.json` file to manually specify the gadget definition
 
