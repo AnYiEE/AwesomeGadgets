@@ -1,0 +1,20 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/InPageEdit}
+ * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ * @dependency mediawiki.util
+ */
+/**
+ * +--------------------------------------------------------+
+ * |         === WARNING: GLOBAL GADGET FILE ===            |
+ * +--------------------------------------------------------+
+ * |      All changes should be made in the repository,     |
+ * |              otherwise they will be lost.              |
+ * +--------------------------------------------------------+
+ * |      Changes to this page may affect many users.       |
+ * |  Please discuss changes at talk page before editing.   |
+ * +--------------------------------------------------------+
+ */
+/* <nowiki> */
