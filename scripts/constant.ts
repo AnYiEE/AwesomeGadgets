@@ -88,7 +88,7 @@ const DEPLOY_USER_AGENT =
  *
  * The target MediaWiki site needs to have the NoteTA template and the IT and MediaWiki public conversion group
  */
-const CONVERT_VARIANT = false satisfies boolean;
+const CONVERT_VARIANT = true satisfies boolean;
 
 /**
  * 启用此选项会为全部小工具设置`requiresES6`标识，禁用 Gadget 扩展的语法检查功能以允许使用 ES6 及以上版本语法（即使经过编译）
@@ -110,7 +110,7 @@ const CONVERT_VARIANT = false satisfies boolean;
  * Note: By default, Gadget extensions do not support gadgets that have both the `default` and `requiresES6` flags. If you need to bypass server-side syntax validation for gadgets with the `default` flag, you should [modify the Gadget extension yourself](https://git.qiuwen.net.cn/Fork/mediawiki-extensions-Gadgets/commit/21e2b34). Otherwise, **DO NOT** set this option to true
  *
  */
-const GLOBAL_REQUIRES_ES6 = false satisfies boolean;
+const GLOBAL_REQUIRES_ES6 = true satisfies boolean;
 
 /**
  * 部署时请求目标 MediaWiki 网站 API 的最大并发数，上限为 256
