@@ -1,0 +1,7 @@
+/* 繁简转换：默认隐藏zh、zh-hans和zh-hant标签，允许用户在小工具中自行关闭。 */
+#ca-varlang-0,
+#ca-varlang-1,
+#ca-varlang-2,
+#mw-mf-language-variant-selection > li:nth-child(-n + 3) {
+	display: none !important;
+}
