@@ -8,16 +8,18 @@
 
 3. 在目录下新建`小工具名.{js, ts, css, less}`或`index.{js, ts, css, less}`<br>Within the directory, create either `GadgetName.{js, ts, css, less}` or `index.{js, ts, css, less}`
 
-    1. 当存在入口文件`{小工具名, index}.{js, ts, css, less}`时<br>If there exists an entry file `{GadgetName, index}.{js, ts, css, less}`:
+编译时的优先级如下：<br>The priority of compilation is as follows:
 
-        1. 只存在`小工具名.{js, ts, css, less}`，将最终生成`小工具名.{js, css}`，其他的脚本/样式是否被编译将取决于其是否被`小工具名.{js, ts, css, less}`导入<br>Only exists `GadgetName.{js, ts, css, less}`, the final generation will be `GadgetName.{js, css}`. The compilation of other scripts/styles will depend on whether they are imported by `GadgetName.{js, ts, css, less}`
-        2. 只存在`index.{js, ts, css, less}`，将最终生成`小工具名-index.{js, css}`，其他的脚本/样式是否被编译将取决于其是否被`index.{js, ts, css, less}`导入<br>Only exists `index.{js, ts, css, less}`, the final generation will be `GadgetName-index.{js, css}`. The compilation of other scripts/styles will depend on whether they are imported by `index.{js, ts, css, less}`
-        3. 二者同时存在，将最终生成`小工具名-index.{js, css}`，`小工具名.{js, ts, css, less}`和其他的脚本/样式是否被编译将取决于其是否被`index.{js, ts, css, less}`导入<br>Both exist, the final generation will be `GadgetName-index.{js, css}`, `GadgetName.{js, ts, css, less}`. The compilation of other scripts/styles will depend on whether they are imported by `index.{js, ts, css, less}`
+1.  `index.*` > `小工具名.*` / `index.*` > `GadgetName.*`
+2.  `*.{tsx, ts}` > `*.{jsx, js}`
+3.  `*.{jsx, tsx}` > `*.{js, ts}`
+4.  `*.less` > `*.css`
 
-    2. 不存在入口文件时，所有的脚本/样式均会被编译，生成`小工具名-对应文件名.{js, css}`<br>If no entry file exists, all scripts/styles will be compiled, generating `GadgetName-CorrespondingFileName.{js, css}`
+-   如果小工具包含脚本，且使用单独的样式表，则其所使用到的样式表应在脚本中导入<br>If the gadget has script files and style sheets, the style sheets used should be imported in the script file
 
-    3. 当然，也可以在`*.{js, ts}`中导入`*.{css, less}`，生成`小工具名.css`。但建议将被导入的样式放在子文件夹中，因为父目录下的`小工具名.{css, less}`有着更高的优先级，会覆盖经编译所生成的`小工具名.css`。同时根据上述规则，如果不存在入口样式文件，将最终生成`小工具名.css`（脚本中导入的经编译所生成的）和父目录中其他的样式（`小工具名-对应文件名.css`）<br>Of course, you can also import `*.{css, less}` in `*.{js, ts}` and generate `GadgetName.css`. However, it is recommended to place the imported styles in a subfolder because the `GadgetName.{css, less}` in the parent directory has a higher priority and will override the compiled `GadgetName.css`. According to the above rules, if there is no entry style file, it will finally generate `GadgetName.css` (imported from scripts) and other styles in the parent directory (`GadgetName-CorrespondingFileName.css`)
-        - 继承上述规则，可以在子文件夹中新建`模块名.module.{css, less}`以使用 [CSS/Less 模块](https://github.com/css-modules/css-modules)。注意，如需在 VS Code 中获得代码自动补全功能，应[切换到当前工作区中的 TypeScript 版本](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript)，如果在切换后未有效果，可尝试重新加载当前工作区<br>Following the above rules, you can also create a new `moduleName.module.{css, less}` file in the subfolder to use [CSS/Less modules](https://github.com/css-modules/css-modules). Note that if you want to get code autocompletion in VS Code, you should [switch to the TypeScript version in the current workspace](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript). If it doesn't work after switching, try reloading the current workspace.
+    -   如果样式表名形如`*.module.{css, less}`，则其将被视为 [CSS/Less 模块](https://github.com/css-modules/css-modules)。注意，如需在 VS Code 中获得代码自动补全功能，应[切换到当前工作区中的 TypeScript 版本](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript)，如果在切换后未有效果，可尝试重新加载当前工作区<br> If the style sheet name is like `*.module.{css, less}`, it will be considered as [CSS/Less modules](https://github.com/css-modules/css-modules). Note that if you want to get code autocompletion in VS Code, you should [switch to the TypeScript version in the current workspace](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript). If it doesn't work after switching, try reloading the current workspace.
+
+-   如果小工具仅包含样式表，则不需要在脚本中导入（无需新建一个脚本文件）<br>If the gadget only has style sheets, there is no need to import style sheets in the script file. (no need to create a script file)
 
 4. 目录下可以创建`definition.json`以手动指定小工具定义（可选）<br>In the directory, you have the option to create a `definition.json` file to manually specify the gadget definition
 

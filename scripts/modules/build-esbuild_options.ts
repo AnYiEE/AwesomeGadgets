@@ -41,6 +41,8 @@ const esbuildOptions = {
 	plugins: [
 		CssModulesPlugin({
 			targets,
+			filter: /\.module\.(?:css|less)$/i,
+			namedExports: true,
 		}),
 		postcss(),
 		lessLoader({

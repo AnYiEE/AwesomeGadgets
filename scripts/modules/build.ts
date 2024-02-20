@@ -26,7 +26,7 @@ const build = async (): Promise<void> => {
 		let gadgetFiles: string = '|';
 		const licenseText: string | undefined = getLicense(gadgetName, license);
 
-		if (script || scripts.length) {
+		if (script || scripts?.length) {
 			const builtScriptFileNames: string[] = await buildFiles(gadgetName, 'script', {
 				licenseText,
 				dependencies: definition.dependencies,
@@ -36,7 +36,7 @@ const build = async (): Promise<void> => {
 			gadgetFiles += scriptFileNames ? `${scriptFileNames}|` : '';
 		}
 
-		if (style || styles.length) {
+		if (style || styles?.length) {
 			const builtStyleFileNames: string[] = await buildFiles(gadgetName, 'style', {
 				licenseText,
 				files: generateFileArray(style, styles),
