@@ -2,7 +2,7 @@
  * SPDX-License-Identifier: CC-BY-SA-4.0
  * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
  *
- * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/NotifyConversion}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/NotifyConversion}
  */
 
 /**
@@ -10,7 +10,7 @@
  * _addText: '{{Gadget Header|license2=CC-BY-SA-4.0}}'
  *
  * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-preserve-variant.js}
- * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/NotifyConversion/modules/preserveVariant.ts}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/NotifyConversion/modules/preserveVariant.ts}
  * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
  */
 /**
