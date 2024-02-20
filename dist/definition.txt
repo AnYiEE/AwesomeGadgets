@@ -14,6 +14,7 @@
 * AddSectionPlus[ResourceLoader|dependencies=ext.gadget.Util|peers=AddSectionPlus-pagestyles|rights=edit|requiresES6]|AddSectionPlus.js
 * AddSectionPlus-pagestyles[ResourceLoader|hidden|requiresES6]|AddSectionPlus-pagestyles.css
 * AjaxLogin[ResourceLoader|default|dependencies=ext.gadget.FilterAlteredClicks,ext.gadget.i18n,ext.gadget.React,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util,oojs-ui-core,oojs-ui-windows,oojs-ui.styles.icons-interactions,oojs-ui.styles.icons-user|hidden|requiresES6]|AjaxLogin.js
+* AutoLink[ResourceLoader|dependencies=ext.gadget.Util,mediawiki.util|requiresES6]|AutoLink.js
 * NavbarAvatar[ResourceLoader|default|hidden|rights=edit|requiresES6]|NavbarAvatar.js
 * Scroller[ResourceLoader|default|hidden|requiresES6]|Scroller.js
 
@@ -23,7 +24,9 @@
 * AdvancedSiteNotices-pagestyles[ResourceLoader|hidden|requiresES6]|AdvancedSiteNotices-pagestyles.css
 * FilterAlteredClicks[ResourceLoader|hidden|requiresES6]|FilterAlteredClicks.js
 * i18n[ResourceLoader|dependencies=ext.gadget.Util|hidden|requiresES6]|i18n.js
+* morebits[ResourceLoader|dependencies=ext.gadget.select2,jquery.ui,mediawiki.Title,mediawiki.user,mediawiki.util|hidden|requiresES6]|morebits.js|morebits.css
 * React[ResourceLoader|hidden|requiresES6]|React.js
+* select2[ResourceLoader|dependencies=jquery|hidden|requiresES6]|select2.js|select2.css
 * Tippy[ResourceLoader|hidden|requiresES6]|Tippy.js|Tippy.css
 * Toastify[ResourceLoader|hidden|requiresES6]|Toastify.js|Toastify.css
 * Util[ResourceLoader|dependencies=ext.gadget.React|hidden|requiresES6]|Util.js
