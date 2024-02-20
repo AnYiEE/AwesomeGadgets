@@ -1,6 +1,0 @@
-{
-	"enable": true,
-	"description": "<span id=\"Gadget-Toastify\"></span> [https://apvarun.github.io/toastify-js/ Toastify.js]，为AjaxLogin、EasyArchive等小工具提供提示库依赖。",
-	"section": "compatibility",
-	"hidden": true
-}

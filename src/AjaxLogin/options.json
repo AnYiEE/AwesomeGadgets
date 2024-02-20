@@ -1,4 +1,0 @@
-{
-	"loginElementSelector": "a:has(.ajaxlogin-mount-point),#pt-login>a,.vector-user-menu-login>a,#user-tools>a[href*=\"Special\"],.mainpage-top-menu>li:nth-child(2) a",
-	"version": "4.0"
-}
