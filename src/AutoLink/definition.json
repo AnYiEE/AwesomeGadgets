@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-AutoLink\"></span> 自动为[[Help:编辑摘要|编辑摘要]]中的[[Help:模板|模板]]、[[Help:链接|链接]]语法添加链接",
+	"section": "browser",
+	"dependencies": ["ext.gadget.Util", "mediawiki.util"]
+}
