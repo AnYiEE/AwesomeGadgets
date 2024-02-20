@@ -32,7 +32,7 @@ jobs:
           echo "[Error] 同步失败，可能是由于本地仓库 pnpm-lock.yaml 文件和上游冲突，正尝试自动合并更改。"
       - name: Install pnpm
         if: ${{ steps.sync.conclusion == 'failure' }}
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v3
         with:
           version: latest
           run_install: false
@@ -43,7 +43,7 @@ jobs:
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
       - name: Setup pnpm cache
         if: ${{ steps.sync.conclusion == 'failure' }}
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
