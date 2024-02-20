@@ -62,8 +62,8 @@
 		"@types/oojs": "^7.0.6",
 		"@types/oojs-ui": "^0.49.0",
 		"@types/prompts": "^2.4.9",
-		"@typescript-eslint/eslint-plugin": "^7.0.1",
-		"@typescript-eslint/parser": "^7.0.1",
+		"@typescript-eslint/eslint-plugin": "^7.0.2",
+		"@typescript-eslint/parser": "^7.0.2",
 		"@vue/eslint-config-prettier": "^9.0.0",
 		"@vue/eslint-config-typescript": "^12.0.0",
 		"@vue/language-plugin-pug": "^1.8.27",
@@ -100,7 +100,7 @@
 		"postcss": "^8.4.35",
 		"postcss-import": "^16.0.1",
 		"postcss-load-config": "^5.0.3",
-		"postcss-preset-env": "^9.3.0",
+		"postcss-preset-env": "^9.4.0",
 		"prettier": "^3.2.5",
 		"prompts": "^2.4.2",
 		"proxy-polyfill": "^0.3.2",
@@ -119,7 +119,7 @@
 	},
 	"pnpm": {
 		"overrides": {
-			"@typescript-eslint/utils": "^7.0.1",
+			"@typescript-eslint/utils": "^7.0.2",
 			"ansi-regex@<6": "^5.0.1",
 			"arrify@<3": "^2.0.1",
 			"balanced-match@<3": "^2.0.0",
