@@ -100,6 +100,7 @@
 		"rimraf": "^5.0.5",
 		"stylelint": "^15.11.0",
 		"stylelint-config-wikimedia": "latest",
+		"tsx": "^4.7.1",
 		"types-mediawiki-renovate": "latest",
 		"typescript": "^5.3.3",
 		"typescript-plugin-css-modules": "^5.1.0",
@@ -143,8 +144,5 @@
 			"@mrhenry/babel-plugin-core-web@1.2.1": "patches/@mrhenry__babel-plugin-core-web@1.2.1.patch",
 			"alpha-sort@5.0.0": "patches/alpha-sort@5.0.0.patch"
 		}
-	},
-	"dependencies": {
-		"tsx": "^4.7.1"
 	}
 }
