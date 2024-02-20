@@ -5,14 +5,17 @@
 </div>
 
 == appear ==
-* DisambigLinks[ResourceLoader|default|requiresES6|right=edit]|DisambigLinks.css
+* DisambigLinks[ResourceLoader|default|rights=edit|requiresES6]|DisambigLinks.css
 * HideConversionTab[ResourceLoader|default|requiresES6]|HideConversionTab.css
 * InterwikiTips[ResourceLoader|default|requiresES6]|InterwikiTips.css
 * React[ResourceLoader|requiresES6]|React.js
 
 == browser ==
-* NavbarAvatar[ResourceLoader|default|hidden|requiresES6|right=edit]|NavbarAvatar.js
+* NavbarAvatar[ResourceLoader|default|hidden|rights=edit|requiresES6]|NavbarAvatar.js
 * Scroller[ResourceLoader|default|hidden|requiresES6]|Scroller.js
+
+== compatibility ==
+* Toastify[ResourceLoader|hidden|requiresES6]|Toastify.js|Toastify.css
 
 == edit ==
 * InPageEdit[ResourceLoader|rights=skipcaptcha|requiresES6]|InPageEdit.js
