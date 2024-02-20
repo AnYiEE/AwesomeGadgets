@@ -1,0 +1,7 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-select2\"></span> [https://github.com/select2/select2/ Select2.js] 前端下拉框select标签，Twinkle依赖库之一",
+	"section": "compatibility",
+	"dependencies": ["jquery"],
+	"hidden": true
+}
