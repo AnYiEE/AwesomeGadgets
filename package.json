@@ -157,6 +157,7 @@
 		}
 	},
 	"dependencies": {
+		"@types/toastify-js": "^1.12.3",
 		"toastify-js": "^1.12.0"
 	}
 }

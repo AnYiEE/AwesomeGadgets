@@ -50,6 +50,9 @@ patchedDependencies:
     path: patches/eslint-plugin-no-jquery@2.7.0.patch
 
 dependencies:
+  '@types/toastify-js':
+    specifier: ^1.12.3
+    version: 1.12.3
   toastify-js:
     specifier: ^1.12.0
     version: 1.12.0
@@ -2746,6 +2749,10 @@ packages:
   /@types/sizzle@2.3.8:
     resolution: {integrity: sha512-0vWLNK2D5MT9dg0iOo8GlKguPAU02QjmZitPEsXRuJXU/OGIOt9vT9Fc26wtYuavLxtO45v9PGleoL9Z0k1LHg==}
     dev: true
+
+  /@types/toastify-js@1.12.3:
+    resolution: {integrity: sha512-9RjLlbAHMSaae/KZNHGv19VG4gcLIm3YjvacCXBtfMfYn26h76YP5oxXI8k26q4iKXCB9LNfv18lsoS0JnFPTg==}
+    dev: false
 
   /@types/tough-cookie@4.0.5:
     resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==}
