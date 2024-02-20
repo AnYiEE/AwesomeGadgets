@@ -386,7 +386,7 @@ var matchCriteria = ($notice) => {
   } else if ($notice.attr("class")) {
     let criteria;
     if ($notice.hasClass("only_sysop")) {
-      criteria || (criteria = in_group("sysop") || in_group("steward") || in_group("qiuwen"));
+      criteria || (criteria = in_group("sysop") || in_group("bureaucrat"));
     }
     if ($notice.hasClass("only_logged")) {
       criteria || (criteria = in_group("user"));
