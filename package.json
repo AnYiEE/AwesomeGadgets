@@ -158,6 +158,8 @@
 	},
 	"dependencies": {
 		"@types/toastify-js": "^1.12.3",
+		"filter-altered-clicks": "^2.0.1",
+		"jsx-dom": "^8.1.2",
 		"toastify-js": "^1.12.0"
 	}
 }
