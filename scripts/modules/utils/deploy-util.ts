@@ -150,7 +150,11 @@ const generateDirectTargets = (site: Api['site']): DeploymentDirectTargets => {
 		return [];
 	}
 
-	const currentSiteGlobalTargets = globalJsonObject[site] as GlobalJsonObject[keyof GlobalJsonObject];
+	const currentSiteGlobalTargets: GlobalJsonObject[keyof GlobalJsonObject] | undefined = globalJsonObject[site];
+	if (!currentSiteGlobalTargets) {
+		return [];
+	}
+
 	for (const [file, {enable, sourceCode, licenseText}] of Object.entries(currentSiteGlobalTargets)) {
 		if (enable === false) {
 			continue;
