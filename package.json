@@ -160,6 +160,7 @@
 		"@types/toastify-js": "^1.12.3",
 		"filter-altered-clicks": "^2.0.1",
 		"jsx-dom": "^8.1.2",
+		"tippy.js": "^6.3.7",
 		"toastify-js": "^1.12.0"
 	}
 }

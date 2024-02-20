@@ -1,0 +1,5 @@
+{
+	"ajaxPageTitle": "Template:AdvancedSiteNotices/ajax",
+	"mountPointSelector": "#siteNotice",
+	"version": "4.0"
+}
