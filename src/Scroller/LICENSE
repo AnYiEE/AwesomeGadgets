@@ -2,5 +2,6 @@
  *  * SPDX-License-Identifier: MIT
  * _addText: '{{Gadget Header|license=MIT}}'
  *
- * @source <https://github.com/the1812/Bilibili-Evolved/blob/master/src/core/horizontal-scroll.ts>
+ * @base <https://github.com/the1812/Bilibili-Evolved/blob/master/src/core/horizontal-scroll.ts>
+ * @source <https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/Scroller>
  */
