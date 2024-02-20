@@ -4,5 +4,15 @@
 * 若需要设置您所需启用或关闭的小工具，请前往[[Special:参数设置#mw-prefsection-gadgets|参数设置]]。
 </div>
 
-== appear ==
-* React[ResourceLoader]|React.js
+== browser ==
+* AjaxLogin[ResourceLoader|default|dependencies=ext.gadget.FilterAlteredClicks,ext.gadget.i18n,ext.gadget.React,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util,oojs-ui-core,oojs-ui-windows,oojs-ui.styles.icons-interactions,oojs-ui.styles.icons-user|hidden]|AjaxLogin.js
+
+== compatibility ==
+* FilterAlteredClicks[ResourceLoader|hidden]|FilterAlteredClicks.js
+* i18n[ResourceLoader|dependencies=ext.gadget.Util|hidden]|i18n.js
+* React[ResourceLoader|hidden]|React.js
+* Toastify[ResourceLoader|hidden]|Toastify.js|Toastify.css
+* Util[ResourceLoader|dependencies=ext.gadget.React|hidden]|Util.js
+
+== edit ==
+* InPageEdit[ResourceLoader|rights=skipcaptcha]|InPageEdit.js
