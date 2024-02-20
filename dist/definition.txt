@@ -8,6 +8,7 @@
 * DisambigLinks[ResourceLoader|default|rights=edit|requiresES6]|DisambigLinks.css
 * HideConversionTab[ResourceLoader|default|requiresES6]|HideConversionTab.css
 * InterwikiTips[ResourceLoader|default|requiresES6]|InterwikiTips.css
+* ShowAvatar[ResourceLoader|default|requiresES6]|ShowAvatar.js
 
 == browser ==
 * AddSectionPlus[ResourceLoader|dependencies=ext.gadget.Util|peers=AddSectionPlus-pagestyles|rights=edit|requiresES6]|AddSectionPlus.js
