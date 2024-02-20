@@ -66,7 +66,7 @@ const doIns = (link: string): void => {
 		});
 	}
 
-	const shorturl: string = `https://qwbk.cc${link}`;
+	const shorturl: string = `https://ysymh.cc${link}`;
 	const $notifyElement = $('<span>')
 		.text(getMessage('Short URL copied to clipboard'))
 		.append(
