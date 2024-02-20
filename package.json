@@ -155,5 +155,8 @@
 			"@mrhenry/babel-plugin-core-web@1.2.1": "patches/@mrhenry__babel-plugin-core-web@1.2.1.patch",
 			"alpha-sort@5.0.0": "patches/alpha-sort@5.0.0.patch"
 		}
+	},
+	"dependencies": {
+		"toastify-js": "^1.12.0"
 	}
 }
