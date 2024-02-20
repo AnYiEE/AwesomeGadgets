@@ -1,0 +1,41 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-notifyConversion.css}
+ * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/NotifyConversion-pagestyles}
+ * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/NotifyConversion-pagestyles/NotifyConversion-pagestyles.less */
+.gadget-notify_conversion__title {
+  margin: 0.5em auto;
+}
+.gadget-notify_conversion__message {
+  line-height: 1.25;
+}
+.gadget-notify_conversion__message_extend,
+.gadget-notify_conversion__message_privacy-notice {
+  font-size: 90%;
+}
+.gadget-notify_conversion__selection {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: wrap;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL05vdGlmeUNvbnZlcnNpb24tcGFnZXN0eWxlcy9Ob3RpZnlDb252ZXJzaW9uLXBhZ2VzdHlsZXMubGVzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiLmdhZGdldC1ub3RpZnlfY29udmVyc2lvbl9fdGl0bGUge1xuICBtYXJnaW46IDAuNWVtIGF1dG87XG59XG4uZ2FkZ2V0LW5vdGlmeV9jb252ZXJzaW9uX19tZXNzYWdlIHtcbiAgbGluZS1oZWlnaHQ6IDEuMjU7XG59XG4uZ2FkZ2V0LW5vdGlmeV9jb252ZXJzaW9uX19tZXNzYWdlX2V4dGVuZCxcbi5nYWRnZXQtbm90aWZ5X2NvbnZlcnNpb25fX21lc3NhZ2VfcHJpdmFjeS1ub3RpY2Uge1xuICBmb250LXNpemU6IDkwJTtcbn1cbi5nYWRnZXQtbm90aWZ5X2NvbnZlcnNpb25fX3NlbGVjdGlvbiB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGdhcDogMC41ZW07XG4gIGZsZXgtd3JhcDogd3JhcDtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxDQUFDO0FBQ0MsVUFBUSxNQUFNO0FBQ2hCO0FBQ0EsQ0FBQztBQUNDLGVBQWE7QUFDZjtBQUNBLENBQUM7QUFDRCxDQUFDO0FBQ0MsYUFBVztBQUNiO0FBQ0EsQ0FBQztBQUNDLFdBQVM7QUFDVCxPQUFLO0FBQ0wsYUFBVztBQUNiOyIsCiAgIm5hbWVzIjogW10KfQo= */
