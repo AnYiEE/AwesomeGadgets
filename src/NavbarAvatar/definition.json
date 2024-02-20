@@ -4,5 +4,5 @@
 	"section": "browser",
 	"default": true,
 	"hidden": true,
-	"right": ["edit"]
+	"rights": ["edit"]
 }

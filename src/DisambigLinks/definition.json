@@ -2,5 +2,5 @@
 	"enable": true,
 	"description": "<span id='Gadget-DisambigLinks'></span>将[[LIB:消歧义|消歧义]]和[[Help:重定向|重定向]]链接高亮显示",
 	"default": true,
-	"right": "edit"
+	"rights": ["edit"]
 }
