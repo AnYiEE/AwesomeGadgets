@@ -144,5 +144,13 @@
 			"@mrhenry/babel-plugin-core-web@1.2.1": "patches/@mrhenry__babel-plugin-core-web@1.2.1.patch",
 			"alpha-sort@5.0.0": "patches/alpha-sort@5.0.0.patch"
 		}
+	},
+	"dependencies": {
+		"@types/react": "^18.2.56",
+		"@types/toastify-js": "1.12.3",
+		"filter-altered-clicks": "^2.0.1",
+		"jsx-dom": "^8.1.2",
+		"react": "^18.2.0",
+		"toastify-js": "1.12.0"
 	}
 }

@@ -6,7 +6,7 @@
  * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
  * @dependency mediawiki.util
  */
-/**
+/* <nowiki> */
  * +------------------------------------------------------------+
  * |            === WARNING: GLOBAL GADGET FILE ===             |
  * +------------------------------------------------------------+

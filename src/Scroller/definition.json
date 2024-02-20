@@ -1,0 +1,7 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-Scroller\"></span> Scroller <small>首页新闻鼠标滚轮滚动工具。</small>",
+	"section": "browser",
+	"default": true,
+	"hidden": true
+}
