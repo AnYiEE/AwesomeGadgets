@@ -4,21 +4,14 @@
 * 若需要设置您所需启用或关闭的小工具，请前往[[Special:参数设置#mw-prefsection-gadgets|参数设置]]。
 </div>
 
-
 == appear ==
+* DisambigLinks[ResourceLoader|requiresES6|right=edit]|DisambigLinks.css
+* HideConversionTab[ResourceLoader|requiresES6]|HideConversionTab.css
 * React[ResourceLoader|requiresES6]|React.js
-=======
-== browser ==
-* AjaxLogin[ResourceLoader|default|dependencies=ext.gadget.FilterAlteredClicks,ext.gadget.i18n,ext.gadget.React,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util,oojs-ui-core,oojs-ui-windows,oojs-ui.styles.icons-interactions,oojs-ui.styles.icons-user|hidden|requiresES6]|AjaxLogin.js
-* NavbarAvatar[ResourceLoader|default|hidden|requiresES6|right=edit]|NavbarAvatar.js|NavbarAvatar.css
-* Scroller[ResourceLoader|default|hidden|requiresES6]|Scroller.js|Scroller.css
 
-== compatibility ==
-* FilterAlteredClicks[ResourceLoader|hidden|requiresES6]|FilterAlteredClicks.js
-* i18n[ResourceLoader|dependencies=ext.gadget.Util|hidden|requiresES6]|i18n.js
-* React[ResourceLoader|hidden|requiresES6]|React.js
-* Toastify[ResourceLoader|hidden|requiresES6]|Toastify.js|Toastify.css
-* Util[ResourceLoader|dependencies=ext.gadget.React|hidden|requiresES6]|Util.js
+== browser ==
+* NavbarAvatar[ResourceLoader|default|hidden|requiresES6|right=edit]|NavbarAvatar.js
+* Scroller[ResourceLoader|default|hidden|requiresES6]|Scroller.js
 
 == edit ==
 * InPageEdit[ResourceLoader|rights=skipcaptcha|requiresES6]|InPageEdit.js
