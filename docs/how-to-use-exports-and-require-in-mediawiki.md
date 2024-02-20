@@ -106,4 +106,4 @@ console.log(moment.utc());
 ```
 
 -   `@wikimedia/codex`、`vue`和`pinia`等 Vue 相关的包<br>Vue-related packages such as `@wikimedia/codex`, `vue` and `pinia`
-    -   见[文档](how-to-use-vue.md)。<br>See [documentation](how-to-use-vue.md)
+    -   见[文档](how-to-use-vue.md)<br>See [documentation](how-to-use-vue.md)
