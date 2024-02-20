@@ -6,19 +6,7 @@
  * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
  * @dependency mediawiki.util
  */
-/**
- * +--------------------------------------------------------+
- * |         === WARNING: GLOBAL GADGET FILE ===            |
- * +--------------------------------------------------------+
- * |      All changes should be made in the repository,     |
- * |              otherwise they will be lost.              |
- * +--------------------------------------------------------+
- * |      Changes to this page may affect many users.       |
- * |  Please discuss changes at talk page before editing.   |
- * +--------------------------------------------------------+
- */
 /* <nowiki> */
-/**
  * +------------------------------------------------------------+
  * |            === WARNING: GLOBAL GADGET FILE ===             |
  * +------------------------------------------------------------+
@@ -50,4 +38,4 @@
 
 /* </nowiki> */
 
-//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsic3JjL0luUGFnZUVkaXQvSW5QYWdlRWRpdC50cyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiKGZ1bmN0aW9uIGluUGFnZUVkaXRMb2FkZXIoKTogdm9pZCB7XG5cdC8qKlxuXHQgKiBAc2VlIHtAbGluayBodHRwczovL2dpdC5xaXV3ZW4ubmV0LmNuL0FuWWkvaW5wYWdlZWRpdC12Mi9zcmMvYnJhbmNoL21hc3Rlcn1cblx0ICogQGF1dGhvciDmnLrmmbrnmoTlsI/psbzlkJsgRHJhZ29uLUZpc2ggPGRyYWdvbi1maXNoQHFxLmNvbT5cblx0ICogQGxpY2Vuc2UgR1BMLTMuMC1vci1sYXRlciB7QGxpbmsgaHR0cHM6Ly9naXQucWl1d2VuLm5ldC5jbi9BbllpL2lucGFnZWVkaXQtdjIvc3JjL2JyYW5jaC9tYXN0ZXIvTElDRU5TRX1cblx0ICovXG5cdG13LmxvYWRlci5sb2FkKCdodHRwczovL2dpdGNkbi5xaXV3ZW4ubmV0LmNuL0FuWWkvaW5wYWdlZWRpdC12Mi9yYXcvYnJhbmNoL21hc3Rlci9kaXN0L0luUGFnZUVkaXQubWluLmpzJyk7XG59KSgpO1xuIl0sCiAgIm1hcHBpbmdzIjogIjs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0NBQUMsU0FBU0EsbUJBQXlCO0VBQ2xDOzs7OztBQUtBQyxLQUFHQyxPQUFPQyxLQUFLLDBGQUEwRjtBQUMxRyxHQUFHOyIsCiAgIm5hbWVzIjogWyJpblBhZ2VFZGl0TG9hZGVyIiwgIm13IiwgImxvYWRlciIsICJsb2FkIl0KfQo=
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsic3JjL0luUGFnZUVkaXQvSW5QYWdlRWRpdC50cyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiKGZ1bmN0aW9uIGluUGFnZUVkaXRMb2FkZXIoKTogdm9pZCB7XG5cdC8qKlxuXHQgKiBAc2VlIHtAbGluayBodHRwczovL2dpdC5xaXV3ZW4ubmV0LmNuL0FuWWkvaW5wYWdlZWRpdC12Mi9zcmMvYnJhbmNoL21hc3Rlcn1cblx0ICogQGF1dGhvciDmnLrmmbrnmoTlsI/psbzlkJsgRHJhZ29uLUZpc2ggPGRyYWdvbi1maXNoQHFxLmNvbT5cblx0ICogQGxpY2Vuc2UgR1BMLTMuMC1vci1sYXRlciB7QGxpbmsgaHR0cHM6Ly9naXQucWl1d2VuLm5ldC5jbi9BbllpL2lucGFnZWVkaXQtdjIvc3JjL2JyYW5jaC9tYXN0ZXIvTElDRU5TRX1cblx0ICovXG5cdG13LmxvYWRlci5sb2FkKCdodHRwczovL2dpdGNkbi5xaXV3ZW4ubmV0LmNuL0FuWWkvaW5wYWdlZWRpdC12Mi9yYXcvYnJhbmNoL21hc3Rlci9kaXN0L0luUGFnZUVkaXQubWluLmpzJyk7XG59KSgpO1xuIl0sCiAgIm1hcHBpbmdzIjogIjs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0NBQUMsU0FBU0EsbUJBQXlCO0VBQ2xDOzs7OztBQUtBQyxLQUFHQyxPQUFPQyxLQUFLLDBGQUEwRjtBQUMxRyxHQUFHOyIsCiAgIm5hbWVzIjogWyJpblBhZ2VFZGl0TG9hZGVyIiwgIm13IiwgImxvYWRlciIsICJsb2FkIl0KfQo=

@@ -1,6 +1,3 @@
 {
-	"enable": true,
-	"description": "<span id=\"Gadget-React\"></span> [https://github.com/alex-kinokon/jsx-dom jsx-dom]",
-	"section": "compatibility",
-	"hidden": true
+	"enable": false
 }
