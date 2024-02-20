@@ -3,7 +3,7 @@
  * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
  *
  * @base {@link https://en.wikipedia.org/wiki/User:Guarapiranga/accessKeysCheatSheet.js}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src//AccessKeyCheatsheet}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/AccessKeyCheatsheet}
  * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
  */
 /**
