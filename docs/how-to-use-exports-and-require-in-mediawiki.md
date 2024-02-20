@@ -106,4 +106,4 @@ console.log(moment.utc());
 ```
 
 -   `@wikimedia/codex`、`vue`和`pinia`等 Vue 相关的包<br>Vue-related packages such as `@wikimedia/codex`, `vue` and `pinia`
-    -   可以通过上述方式安装后使用，但仓库本身暂不支持单文件组件（`.vue`），使用范围相对受限<br>They can be used after installation through the above methods, but the repository itself does not currently support single-file components (`.vue`), and their usage is relatively limited.
+    -   见[文档](how-to-use-vue.md)。<br>See [documentation](how-to-use-vue.md)

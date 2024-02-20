@@ -425,7 +425,7 @@ const findSourceFile = (): SourceFiles => {
 
 	type Gadget = SourceFiles[keyof SourceFiles];
 
-	const files: Path[] = globSync(['*/*.{js,jsx,ts,tsx,css,less}', '*/definition.json', '*/LICENSE'], {
+	const files: Path[] = globSync(['*/*.{js,jsx,ts,tsx,vue,css,less}', '*/definition.json', '*/LICENSE'], {
 		cwd: join(__rootDir, 'src'),
 		withFileTypes: true,
 	});
@@ -454,7 +454,7 @@ const findSourceFile = (): SourceFiles => {
 		const targetGadget = sourceFiles[gadgetName] as Gadget;
 
 		const fileExt: string = extname(fileName);
-		const isScriptFile: boolean = ['.js', '.jsx', '.ts', '.tsx'].includes(fileExt);
+		const isScriptFile: boolean = ['.js', '.jsx', '.ts', '.tsx', '.vue'].includes(fileExt);
 		const isStyleFile: boolean = ['.css', '.less'].includes(fileExt);
 
 		const {script, style} = targetGadget;
@@ -487,6 +487,8 @@ const findSourceFile = (): SourceFiles => {
 			case 'index.tsx':
 				targetGadget.script = fileName;
 				continue;
+			case 'index.vue':
+				break;
 			case `${gadgetName}.js`:
 				if (!script) {
 					targetGadget.script = fileName;
@@ -507,6 +509,8 @@ const findSourceFile = (): SourceFiles => {
 					targetGadget.script = fileName;
 				}
 				continue;
+			case `${gadgetName}.vue`:
+				break;
 			case 'index.css':
 				if (!style || style !== 'index.less') {
 					targetGadget.style = fileName;

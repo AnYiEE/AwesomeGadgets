@@ -54,5 +54,9 @@
 		"skipLibCheck": true
 	},
 	"exclude": ["node_modules/types-mediawiki-renovate/scripts"],
-	"include": ["node_modules/types-mediawiki-renovate", "scripts/**/*", "src/**/*"]
+	"include": ["node_modules/types-mediawiki-renovate", "scripts/**/*", "src/**/*", "src/**/*.vue"],
+
+	"vueCompilerOptions": {
+		"plugins": ["@vue/language-plugin-pug"]
+	}
 }
