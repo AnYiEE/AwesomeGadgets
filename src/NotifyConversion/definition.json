@@ -1,0 +1,18 @@
+{
+	"enable": true,
+	"excludeSites": ["testwiki"],
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-NotifyConversion\"></span> 当内容语言变种为“不转换”“简体”或“繁体”时，在页底提示更换语言变种 <small>[[Help:字词转换的模式选择说明|了解更多]]</small>",
+	"default": true,
+	"dependencies": [
+		"ext.gadget.i18n",
+		"ext.gadget.Util",
+		"mediawiki.storage",
+		"mediawiki.Uri",
+		"mediawiki.util",
+		"oojs-ui-core",
+		"oojs-ui-widgets",
+		"oojs-ui-windows",
+		"oojs-ui.styles.icons-editing-advanced"
+	],
+	"peers": ["NotifyConversion-pagestyles"]
+}
