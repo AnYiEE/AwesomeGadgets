@@ -23,6 +23,7 @@ import {
 import {basename, extname, join} from 'node:path';
 import {existsSync, open} from 'node:fs';
 import {exit, stdout} from 'node:process';
+import {ESLint} from 'eslint';
 import {MwnError} from 'mwn/build/error';
 import {Window} from 'happy-dom';
 import alphaSort from 'alpha-sort';
@@ -34,6 +35,23 @@ import {setTimeout} from 'node:timers/promises';
  * @private
  */
 const deployPages: Record<string, string[]> = {};
+
+/**
+ * @private
+ */
+const eslintOnlyAllowES5: ESLint = new ESLint({
+	overrideConfig: {
+		plugins: ['eslint-plugin-es5'],
+		extends: ['plugin:es5/no-es2015', 'plugin:es5/no-es2016'],
+		env: {
+			browser: true,
+		},
+		parserOptions: {
+			ecmaVersion: 5,
+		},
+	},
+	useEslintrc: false,
+});
 
 /**
  * Read `dist/definition.txt`
@@ -123,9 +141,9 @@ const generateTargets = (): DeploymentTargets => {
  * Generate direct deployment targets based on the `global.json`
  *
  * @param {Api['site']} site The target site name
- * @return {DeploymentDirectTargets} Direct deployment targets
+ * @return {Promise<DeploymentDirectTargets>} Direct deployment targets
  */
-const generateDirectTargets = (site: Api['site']): DeploymentDirectTargets => {
+const generateDirectTargets = async (site: Api['site']): Promise<DeploymentDirectTargets> => {
 	const targets: DeploymentDirectTargets = [];
 
 	interface GlobalJsonObject {
@@ -180,12 +198,21 @@ const generateDirectTargets = (site: Api['site']): DeploymentDirectTargets => {
 			isDirectly: true,
 		});
 		switch (contentType) {
-			case 'application/javascript':
+			case 'application/javascript': {
+				const lintResult: ESLint.LintResult[] = await eslintOnlyAllowES5.lintText(sourceCode);
+				const formatter: ESLint.Formatter = await eslintOnlyAllowES5.loadFormatter('stylish');
+				const resultText: string = await formatter.format(lintResult);
+				if (resultText) {
+					console.log(resultText);
+					console.log(chalk.red(`✘ Failed to lint ${chalk.bold(file)}, skip it`));
+					continue;
+				}
 				targets.push([
 					`MediaWiki:${file}`,
 					`${banner.js}\n"use strict";\n\n${sourceCode.trim()}\n${footer.js}`,
 				]);
 				break;
+			}
 			case 'text/css':
 				targets.push([`MediaWiki:${file}`, `${banner.css}\n${sourceCode.trim()}\n${footer.css}`]);
 				break;

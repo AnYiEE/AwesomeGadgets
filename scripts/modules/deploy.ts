@@ -165,7 +165,7 @@ const deploy = async (isTest?: boolean): Promise<void> => {
 		);
 		saveDefinitionSectionPage(currentSiteDefinitionText, api, definitionEditSummary);
 
-		const globalTargets: DeploymentDirectTargets = generateDirectTargets(site);
+		const globalTargets: DeploymentDirectTargets = await generateDirectTargets(site);
 		const globalTargetsFilePath: string = join(__rootDir, 'src/global.json');
 		const globalTargetsEditSummary: string = await makeEditSummary(globalTargetsFilePath, fallbackEditSummary);
 		for (const [pageTitle, pageContent] of globalTargets) {
