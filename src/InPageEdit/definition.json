@@ -1,6 +1,6 @@
 {
 	"enable": true,
-	"description": "<span id=\"Gadget-InPageEdit\"></span> [[Help:InPageEdit|InPageEdit]]",
+	"description": "<span id=\"Gadget-InPageEdit\"></span> [[Help:InPageEdit|InPageEdit]]IPE编辑工具",
 	"section": "edit",
 	"rights": ["skipcaptcha"]
 }
