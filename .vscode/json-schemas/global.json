@@ -11,7 +11,7 @@
 				"properties": {
 					"enable": {
 						"type": "boolean",
-						"title": "是否部署当前页面 / Deploy current page or not",
+						"title": "是否部署当前页面 / Deploy the current page or not",
 						"default": true
 					},
 					"sourceCode": {
@@ -21,7 +21,7 @@
 					},
 					"licenseText": {
 						"type": "string",
-						"title": "页面内容的许可声明 / License declaration of the page content",
+						"title": "页面内容的许可声明 / License of the page content",
 						"minLength": 1
 					}
 				},
