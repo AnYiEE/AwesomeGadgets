@@ -82,9 +82,9 @@ interface SourceFiles {
 		};
 		license?: string;
 		script?: string;
-		scripts: string[];
+		scripts?: string[];
 		style?: string;
-		styles: string[];
+		styles?: string[];
 	};
 }
 

@@ -453,92 +453,83 @@ const findSourceFile = (): SourceFiles => {
 		sourceFiles[gadgetName] ??= {} as Gadget;
 		const targetGadget = sourceFiles[gadgetName] as Gadget;
 
+		const fileExt: string = extname(fileName);
+		const isScriptFile: boolean = ['.js', '.jsx', '.ts', '.tsx'].includes(fileExt);
+		const isStyleFile: boolean = ['.css', '.less'].includes(fileExt);
+
+		const {script, style} = targetGadget;
+		if (isScriptFile && style) {
+			delete targetGadget.style;
+		}
+		if (isStyleFile && script) {
+			continue;
+		}
+
 		switch (fileName) {
 			case 'definition.json':
 				targetGadget.definition = generateDefinition(gadgetName);
-				break;
-			case 'index.js': {
-				const {script} = targetGadget;
+				continue;
+			case 'index.js':
 				if (!script || !/^index\.[jt]sx?$/.test(script)) {
 					targetGadget.script = fileName;
 				}
-				break;
-			}
-			case 'index.jsx': {
-				const {script} = targetGadget;
+				continue;
+			case 'index.jsx':
 				if (!script || !/^index\.tsx?$/.test(script)) {
 					targetGadget.script = fileName;
 				}
-				break;
-			}
-			case 'index.ts': {
-				const {script} = targetGadget;
+				continue;
+			case 'index.ts':
 				if (!script || script !== 'index.tsx') {
 					targetGadget.script = fileName;
 				}
-				break;
-			}
+				continue;
 			case 'index.tsx':
 				targetGadget.script = fileName;
-				break;
-			case `${gadgetName}.js`: {
-				const {script} = targetGadget;
+				continue;
+			case `${gadgetName}.js`:
 				if (!script) {
 					targetGadget.script = fileName;
 				}
-				break;
-			}
-			case `${gadgetName}.jsx`: {
-				const {script} = targetGadget;
+				continue;
+			case `${gadgetName}.jsx`:
 				if (!script || (!/\.tsx?$/.test(script) && script !== 'index.js')) {
 					targetGadget.script = fileName;
 				}
-				break;
-			}
-			case `${gadgetName}.ts`: {
-				const {script} = targetGadget;
+				continue;
+			case `${gadgetName}.ts`:
 				if (!script || (!/^index\.[jt]sx?$/.test(script) && script !== `${gadgetName}.tsx`)) {
 					targetGadget.script = fileName;
 				}
-				break;
-			}
-			case `${gadgetName}.tsx`: {
-				const {script} = targetGadget;
+				continue;
+			case `${gadgetName}.tsx`:
 				if (!script || !/^index\.[jt]sx?$/.test(script)) {
 					targetGadget.script = fileName;
 				}
-				break;
-			}
-			case 'index.css': {
-				const {style} = targetGadget;
+				continue;
+			case 'index.css':
 				if (!style || style !== 'index.less') {
-					targetGadget.script = fileName;
+					targetGadget.style = fileName;
 				}
-				break;
-			}
+				continue;
 			case 'index.less':
 				targetGadget.style = fileName;
-				break;
-			case `${gadgetName}.css`: {
-				const {style} = targetGadget;
+				continue;
+			case `${gadgetName}.css`:
 				if (!style) {
 					targetGadget.style = fileName;
 				}
-				break;
-			}
-			case `${gadgetName}.less`: {
-				const {style} = targetGadget;
+				continue;
+			case `${gadgetName}.less`:
 				if (!style || !/^index\.(?:css|less)/.test(style)) {
 					targetGadget.style = fileName;
 				}
-				break;
-			}
+				continue;
 			case 'LICENSE':
 				targetGadget.license = fileName;
-				break;
+				continue;
 		}
 
-		const fileExt: string = extname(fileName);
 		const removeFiles = (currentFiles: string[], ext: string): string[] => {
 			return [
 				...new Set(
@@ -549,8 +540,8 @@ const findSourceFile = (): SourceFiles => {
 			];
 		};
 
-		targetGadget.scripts ??= [];
-		if (/^\.[jt]sx?$/.test(fileExt)) {
+		if (isScriptFile) {
+			targetGadget.scripts ??= [];
 			const {scripts} = targetGadget;
 			scripts.push(fileName);
 			// If there are files with the same name in both JavaScript and TypeScript, only retain the TypeScript file
@@ -564,8 +555,8 @@ const findSourceFile = (): SourceFiles => {
 			}
 		}
 
-		targetGadget.styles ??= [];
-		if (['.css', '.less'].includes(fileExt)) {
+		if (isStyleFile) {
+			targetGadget.styles ??= [];
 			const {styles} = targetGadget;
 			styles.push(fileName);
 			// If there are files with the same name in both CSS and Less, only retain the Less file
@@ -667,11 +658,11 @@ const generateDefinitionItem = (
 
 /**
  * @param {string|undefined} file The index file name
- * @param {string[]} files The other file name array
+ * @param {string[]|undefined} files The other file name array
  * @return {string[]} The generated file name array
  */
-const generateFileArray = (file: string | undefined, files: string[]): string[] => {
-	return file ? [file] : files;
+const generateFileArray = (file: string | undefined, files: string[] | undefined): string[] => {
+	return file ? [file] : files ?? [];
 };
 
 /**
