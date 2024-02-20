@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-NavbarAvatar\"></span> NavbarAvatar <small>在导航栏显示用户头像。</small>",
+	"section": "browser",
+	"default": true,
+	"hidden": true,
+	"right": ["edit"]
+}

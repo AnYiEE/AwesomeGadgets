@@ -31,7 +31,7 @@
  */
 /* <nowiki> */
 
-(function() {
+(() => {
 
 "use strict";
 

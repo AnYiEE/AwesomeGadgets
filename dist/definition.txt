@@ -5,14 +5,16 @@
 </div>
 
 == browser ==
-* AjaxLogin[ResourceLoader|default|dependencies=ext.gadget.FilterAlteredClicks,ext.gadget.i18n,ext.gadget.React,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util,oojs-ui-core,oojs-ui-windows,oojs-ui.styles.icons-interactions,oojs-ui.styles.icons-user|hidden]|AjaxLogin.js
+* AjaxLogin[ResourceLoader|default|dependencies=ext.gadget.FilterAlteredClicks,ext.gadget.i18n,ext.gadget.React,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util,oojs-ui-core,oojs-ui-windows,oojs-ui.styles.icons-interactions,oojs-ui.styles.icons-user|hidden|requiresES6]|AjaxLogin.js
+* NavbarAvatar[ResourceLoader|default|hidden|requiresES6|right=edit]|NavbarAvatar.js|NavbarAvatar.css
+* Scroller[ResourceLoader|default|hidden|requiresES6]|Scroller.js|Scroller.css
 
 == compatibility ==
-* FilterAlteredClicks[ResourceLoader|hidden]|FilterAlteredClicks.js
-* i18n[ResourceLoader|dependencies=ext.gadget.Util|hidden]|i18n.js
-* React[ResourceLoader|hidden]|React.js
-* Toastify[ResourceLoader|hidden]|Toastify.js|Toastify.css
-* Util[ResourceLoader|dependencies=ext.gadget.React|hidden]|Util.js
+* FilterAlteredClicks[ResourceLoader|hidden|requiresES6]|FilterAlteredClicks.js
+* i18n[ResourceLoader|dependencies=ext.gadget.Util|hidden|requiresES6]|i18n.js
+* React[ResourceLoader|hidden|requiresES6]|React.js
+* Toastify[ResourceLoader|hidden|requiresES6]|Toastify.js|Toastify.css
+* Util[ResourceLoader|dependencies=ext.gadget.React|hidden|requiresES6]|Util.js
 
 == edit ==
-* InPageEdit[ResourceLoader|rights=skipcaptcha]|InPageEdit.js
+* InPageEdit[ResourceLoader|rights=skipcaptcha|requiresES6]|InPageEdit.js

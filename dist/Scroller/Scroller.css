@@ -1,0 +1,27 @@
+/**
+ *  * SPDX-License-Identifier: MIT
+ * _addText: '{{Gadget Header|license=MIT}}'
+ *
+ * @source <https://github.com/the1812/Bilibili-Evolved/blob/master/src/core/horizontal-scroll.ts>
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/Scroller/Scroller.css */
+.scroller-item {
+  scroll-behavior: smooth;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1Njcm9sbGVyL1Njcm9sbGVyLmNzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiLnNjcm9sbGVyLWl0ZW0ge1xuXHRzY3JvbGwtYmVoYXZpb3I6IHNtb290aDtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsQ0FBQztBQUNBLG1CQUFpQjtBQUNsQjsiLAogICJuYW1lcyI6IFtdCn0K */
