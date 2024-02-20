@@ -10,6 +10,7 @@
 		"selector-max-id": null,
 		"selector-not-notation": "complex",
 		"selector-type-no-unknown": null,
+		"plugin/no-unsupported-browser-features": null,
 		"wikimedia/no-at-import-css": null,
 		"stylistic/declaration-colon-newline-after": null,
 		"stylistic/declaration-colon-space-after": "always-single-line",
