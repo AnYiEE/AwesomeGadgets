@@ -1,0 +1,31 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base <https://zh.wikipedia.org/wiki/Special:Permalink/63548907>
+ * @source <https://git.qiuwen.net.cn/InterfaceAdmin/Gadgets/src/branch/master/src/Gadgets/HideConversionTab>
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/HideConversionTab/HideConversionTab.css */
+#ca-varlang-0,
+#ca-varlang-1,
+#ca-varlang-2,
+#mw-mf-language-variant-selection > li:nth-child(-n+3) {
+  display: none !important;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0hpZGVDb252ZXJzaW9uVGFiL0hpZGVDb252ZXJzaW9uVGFiLmNzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiLyog57mB566A6L2s5o2i77ya6buY6K6k6ZqQ6JePemjjgIF6aC1oYW5z5ZKMemgtaGFudOagh+etvu+8jOWFgeiuuOeUqOaIt+WcqOWwj+W3peWFt+S4reiHquihjOWFs+mXreOAgiAqL1xuI2NhLXZhcmxhbmctMCxcbiNjYS12YXJsYW5nLTEsXG4jY2EtdmFybGFuZy0yLFxuI213LW1mLWxhbmd1YWdlLXZhcmlhbnQtc2VsZWN0aW9uID4gbGk6bnRoLWNoaWxkKC1uICsgMykge1xuXHRkaXNwbGF5OiBub25lICFpbXBvcnRhbnQ7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxDQUFDO0FBQ0QsQ0FBQztBQUNELENBQUM7QUFDRCxDQUFDLGlDQUFpQyxFQUFFLEVBQUU7QUFDckMsV0FBUztBQUNWOyIsCiAgIm5hbWVzIjogW10KfQo= */

@@ -5,7 +5,14 @@
 </div>
 
 == appear ==
+* DisambigLinks[ResourceLoader|default|requiresES6|right=edit]|DisambigLinks.css
+* HideConversionTab[ResourceLoader|default|requiresES6]|HideConversionTab.css
+* InterwikiTips[ResourceLoader|default|requiresES6]|InterwikiTips.css
 * React[ResourceLoader|requiresES6]|React.js
+
+== browser ==
+* NavbarAvatar[ResourceLoader|default|hidden|requiresES6|right=edit]|NavbarAvatar.js
+* Scroller[ResourceLoader|default|hidden|requiresES6]|Scroller.js
 
 == edit ==
 * InPageEdit[ResourceLoader|rights=skipcaptcha|requiresES6]|InPageEdit.js

@@ -1,0 +1,5 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title='默认为所有用户启用'>D</abbr></sup><span id='Gadget-HideConversionTab'></span> 隐藏“不转换”、“简体”和“繁体”三个变体转换标签",
+	"default": true
+}
