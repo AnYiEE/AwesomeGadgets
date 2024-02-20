@@ -5,4 +5,7 @@
 </div>
 
 == appear ==
-* React[ResourceLoader]|React.js
+* React[ResourceLoader|requiresES6]|React.js
+
+== edit ==
+* InPageEdit[ResourceLoader|rights=skipcaptcha|requiresES6]|InPageEdit.js
