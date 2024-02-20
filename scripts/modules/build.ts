@@ -27,6 +27,18 @@ const build = async (): Promise<void> => {
 		const licenseText: string | undefined = getLicense(gadgetName, license);
 
 		if (script || scripts?.length) {
+			const hasVue: boolean = !!scripts?.some((fileName: string): boolean => {
+				return fileName.endsWith('.vue');
+			});
+			if (hasVue && !script) {
+				console.log(
+					chalk.yellow(
+						`The ${chalk.bold(gadgetName)} uses Vue single-file components, but the entry file does not exist, skip it.`
+					)
+				);
+				continue;
+			}
+
 			const builtScriptFileNames: string[] = await buildFiles(gadgetName, 'script', {
 				licenseText,
 				dependencies: definition.dependencies,
@@ -34,9 +46,7 @@ const build = async (): Promise<void> => {
 			});
 			const scriptFileNames: string = generateFileNames(gadgetName, builtScriptFileNames);
 			gadgetFiles += scriptFileNames ? `${scriptFileNames}|` : '';
-		}
-
-		if (style || styles?.length) {
+		} else if (style || styles?.length) {
 			const builtStyleFileNames: string[] = await buildFiles(gadgetName, 'style', {
 				licenseText,
 				files: generateFileArray(style, styles),

@@ -14,6 +14,7 @@
 2.  `*.{tsx, ts}` > `*.{jsx, js}`
 3.  `*.{jsx, tsx}` > `*.{js, ts}`
 4.  `*.less` > `*.css`
+5.  `.vue`仅供被其他脚本导入 / The `.vue` file is only allowed import by other script files
 
 -   如果小工具包含脚本，且使用单独的样式表，则其所使用到的样式表应在脚本中导入<br>If the gadget has script files and style sheets, the style sheets used should be imported in the script file
 

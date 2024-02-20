@@ -52,6 +52,22 @@
 				],
 				"react/no-unknown-property": "off"
 			}
+		},
+		{
+			"files": ["*.vue"],
+			"extends": [
+				"plugin:@typescript-eslint/disable-type-checked",
+				"plugin:vue/vue3-strongly-recommended",
+				"@vue/eslint-config-typescript",
+				"@vue/eslint-config-prettier"
+			],
+			"parser": "vue-eslint-parser",
+			"parserOptions": {
+				"parser": "@typescript-eslint/parser"
+			},
+			"rules": {
+				"vue/multi-word-component-names": "off"
+			}
 		}
 	],
 	"rules": {
