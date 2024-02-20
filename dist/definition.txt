@@ -5,8 +5,9 @@
 </div>
 
 == appear ==
-* DisambigLinks[ResourceLoader|requiresES6|right=edit]|DisambigLinks.css
+* DisambigLinks[ResourceLoader|default|requiresES6|right=edit]|DisambigLinks.css
 * HideConversionTab[ResourceLoader|requiresES6]|HideConversionTab.css
+* InterwikiTips[ResourceLoader|default|requiresES6]|InterwikiTips.css
 * React[ResourceLoader|requiresES6]|React.js
 
 == browser ==
