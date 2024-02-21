@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"excludeSites": ["testwiki"],
+	"description": "<span id=\"Gadget-NotifyConversion-pagestyles\"></span> “在页底提示更换语言变种”配套样式表",
+	"hidden": true
+}

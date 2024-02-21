@@ -1,7 +1,17 @@
 [![NPM version](https://img.shields.io/npm/v/awesome-gadgets.svg)](https://www.npmjs.com/package/awesome-gadgets)
 [![Linter](https://github.com/AnYiEE/AwesomeGadgets/actions/workflows/lint.yml/badge.svg)](https://github.com/AnYiEE/AwesomeGadgets/actions/workflows/lint.yml)
 
-### 简介<br>Introduction
+# 有兽档案馆代码库
+
+## 概述 Brief
+
+本仓库为有兽档案馆的代码仓库，为网站小工具、用户js/css等核心代码提供协作与部署支持。
+
+## 底层支持 Base
+
+本小工具库是 [AnYiEE/AwsomeGadgets](https://github.com/AnYiEE/AwesomeGadgets) 的分支。
+
+### 简介 / Introduction
 
 Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编译全站小工具（Gadget）的工具。小工具开发者只需关心小工具本身的代码实现，无需关心其他方面。工具将自动检查语法、编译并部署到网站。<br>_Awesome Gadgets_ is a tool designed specifically for MediaWiki websites, with the goal of centralizing the storage, management, and compilation of all site-wide CSS/JavaScript and their peer pages. Developers of these gadgets can solely focus on implementing the code for their creations without the need to worry about other aspects. The tool will automatically check the syntax, compile, and deploy gadgets to the website.
 

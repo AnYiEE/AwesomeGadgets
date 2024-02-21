@@ -1,0 +1,18 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-AdvancedSiteNotices\"></span> 全站公告 <small>使用[[Template:AdvancedSiteNotices|高级站点通告模板]]，如需请求添加全站公告，请前往[[Template talk:AdvancedSiteNotices|模板讨论页]]</small>",
+	"section": "compatibility",
+	"actions": ["view"],
+	"default": true,
+	"dependencies": [
+		"ext.gadget.i18n",
+		"ext.gadget.React",
+		"ext.gadget.Tippy",
+		"ext.gadget.Toastify",
+		"ext.gadget.Util",
+		"mediawiki.api",
+		"mediawiki.storage",
+		"mediawiki.Uri"
+	],
+	"peers": ["AdvancedSiteNotices-pagestyles"]
+}

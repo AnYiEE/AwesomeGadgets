@@ -157,5 +157,14 @@
 			"@mrhenry/babel-plugin-core-web@1.2.1": "patches/@mrhenry__babel-plugin-core-web@1.2.1.patch",
 			"alpha-sort@5.0.0": "patches/alpha-sort@5.0.0.patch"
 		}
+	},
+	"dependencies": {
+		"@types/toastify-js": "^1.12.3",
+		"clipboard": "^2.0.11",
+		"filter-altered-clicks": "^2.0.1",
+		"jsx-dom": "^8.1.2",
+		"select2": "4.1.0-rc.0",
+		"tippy.js": "^6.3.7",
+		"toastify-js": "^1.12.0"
 	}
 }

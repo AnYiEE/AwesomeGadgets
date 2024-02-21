@@ -1,0 +1,7 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-AccessKeyCheatsheet\"></span> 键盘快捷键提示（{{keypress|Alt}} + {{keypress|Shift}} + {{keypress|?}}）",
+	"section": "compatibility",
+	"default": true,
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.React", "ext.gadget.Util", "oojs-ui-windows"]
+}

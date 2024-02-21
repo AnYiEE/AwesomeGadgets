@@ -1,0 +1,37 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|title1=Cat-a-lot.js|license=CC-BY-SA-4.0}}'
+ *
+ * Cat-a-lot
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-Cat-a-lot.js}
+ * @base {@link https://commons.wikimedia.org/wiki/MediaWiki:Gadget-Cat-a-lot.js}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/Cat-a-lot/modules/core.ts}
+ * @author Magnus Manske, Ilmari Karonen, DieBuche, 安忆 <i@anyi.in>
+ * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ */
+
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|title2=Cat-a-lot Messages|license2=CC-BY-SA-4.0}}'
+ *
+ * Cat-a-lot messages
+ *
+ * @base {@link https://commons.wikimedia.org/wiki/MediaWiki:Gadget-Cat-a-lot.js/zh-hans}
+ * @base {@link https://commons.wikimedia.org/wiki/MediaWiki:Gadget-Cat-a-lot.js/zh-hant}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/Cat-a-lot/modules/messages.ts}
+ * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ */
+
+/**
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ * _addText: '{{Gadget Header|title3=jQuery checkboxShiftClick|license3=GPL-2.0-or-later}}'
+ *
+ * jQuery checkboxShiftClick
+ *
+ * @description This will enable checkboxes to be checked or unchecked in a row by clicking one, holding shift and clicking another one
+ * @base {@link https://commons.wikimedia.org/wiki/MediaWiki:Gadget-Cat-a-lot.js}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/Cat-a-lot/modules/extendJQueryPrototype.ts}
+ * @author Krinkle <krinklemail@gmail.com>
+ * @license GPL-2.0-or-later {@link https://www.qiuwenbaike.cn/wiki/H:GPL-2.0}
+ */

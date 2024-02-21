@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-Tippy\"></span> [https://atomiks.github.io/tippyjs/ Tippy.js]，为菜单、侧边栏按键等功能提供提示弹窗。",
+	"section": "compatibility",
+	"hidden": true
+}

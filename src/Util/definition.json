@@ -1,0 +1,7 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-Util\"></span> Util 工具函数库",
+	"section": "compatibility",
+	"dependencies": ["ext.gadget.React"],
+	"hidden": true
+}
