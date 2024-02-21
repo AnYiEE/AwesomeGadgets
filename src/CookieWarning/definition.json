@@ -1,0 +1,9 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-CookieWarning\"></span> Cookie警示 <small>请求用户同意《个人信息保护条例》</small>",
+	"section": "compatibility",
+	"default": true,
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.React", "ext.gadget.Util", "mediawiki.storage", "mediawiki.util"],
+	"hidden": true,
+	"peers": ["CookieWarning-pagestyles"]
+}
