@@ -1,0 +1,66 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/CookieWarning-pagestyles}
+ * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/CookieWarning-pagestyles/CookieWarning-pagestyles.less */
+.gadget-cookie_warning {
+  position: fixed;
+  z-index: 101;
+  bottom: 1em;
+  right: 0;
+  left: 0;
+  max-width: 92.5%;
+  padding: 0.75em;
+  border: 1px solid #e6e6e6;
+  border-radius: 0.5em;
+  margin: 0.75em;
+  background-color: #fff;
+  color: #191919;
+  font-size: 0.9em;
+  line-height: 1.25;
+  opacity: 1;
+  pointer-events: auto;
+}
+.gadget-cookie_warning p {
+  margin: 0 auto 0.5rem;
+}
+.gadget-cookie_warning .mw-ui-button,
+.gadget-cookie_warning .cdx-button {
+  display: block;
+  width: 100%;
+  padding: 0.5em 0;
+  border-color: #338c60;
+  border-radius: 0.25em;
+  margin: 0 auto;
+  background-color: #338c60;
+  color: #fff;
+  line-height: 1;
+  text-align: center;
+}
+@media screen and (min-width: 768px) {
+  .gadget-cookie_warning {
+    width: 20em;
+    left: 0;
+    right: auto;
+  }
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0Nvb2tpZVdhcm5pbmctcGFnZXN0eWxlcy9Db29raWVXYXJuaW5nLXBhZ2VzdHlsZXMubGVzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiLmdhZGdldC1jb29raWVfd2FybmluZyB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgei1pbmRleDogMTAxO1xuICBib3R0b206IDFlbTtcbiAgcmlnaHQ6IDA7XG4gIGxlZnQ6IDA7XG4gIG1heC13aWR0aDogOTIuNSU7XG4gIHBhZGRpbmc6IDAuNzVlbTtcbiAgYm9yZGVyOiAxcHggc29saWQgI2U2ZTZlNjtcbiAgYm9yZGVyLXJhZGl1czogMC41ZW07XG4gIG1hcmdpbjogMC43NWVtO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmO1xuICBjb2xvcjogIzE5MTkxOTtcbiAgZm9udC1zaXplOiAwLjllbTtcbiAgbGluZS1oZWlnaHQ6IDEuMjU7XG4gIG9wYWNpdHk6IDE7XG4gIHBvaW50ZXItZXZlbnRzOiBhdXRvO1xufVxuLmdhZGdldC1jb29raWVfd2FybmluZyBwIHtcbiAgbWFyZ2luOiAwIGF1dG8gMC41cmVtO1xufVxuLmdhZGdldC1jb29raWVfd2FybmluZyAubXctdWktYnV0dG9uLFxuLmdhZGdldC1jb29raWVfd2FybmluZyAuY2R4LWJ1dHRvbiB7XG4gIGRpc3BsYXk6IGJsb2NrO1xuICB3aWR0aDogMTAwJTtcbiAgcGFkZGluZzogMC41ZW0gMDtcbiAgYm9yZGVyLWNvbG9yOiAjMzM4YzYwO1xuICBib3JkZXItcmFkaXVzOiAwLjI1ZW07XG4gIG1hcmdpbjogMCBhdXRvO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMzM4YzYwO1xuICBjb2xvcjogI2ZmZjtcbiAgbGluZS1oZWlnaHQ6IDE7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbkBtZWRpYSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDc2OHB4KSB7XG4gIC5nYWRnZXQtY29va2llX3dhcm5pbmcge1xuICAgIHdpZHRoOiAyMGVtO1xuICAgIGxlZnQ6IDA7XG4gICAgcmlnaHQ6IGF1dG87XG4gIH1cbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLENBQUM7QUFDQyxZQUFVO0FBQ1YsV0FBUztBQUNULFVBQVE7QUFDUixTQUFPO0FBQ1AsUUFBTTtBQUNOLGFBQVc7QUFDWCxXQUFTO0FBQ1QsVUFBUSxJQUFJLE1BQU07QUFDbEIsaUJBQWU7QUFDZixVQUFRO0FBQ1Isb0JBQWtCO0FBQ2xCLFNBQU87QUFDUCxhQUFXO0FBQ1gsZUFBYTtBQUNiLFdBQVM7QUFDVCxrQkFBZ0I7QUFDbEI7QUFDQSxDQWxCQyxzQkFrQnNCO0FBQ3JCLFVBQVEsRUFBRSxLQUFLO0FBQ2pCO0FBQ0EsQ0FyQkMsc0JBcUJzQixDQUFDO0FBQ3hCLENBdEJDLHNCQXNCc0IsQ0FBQztBQUN0QixXQUFTO0FBQ1QsU0FBTztBQUNQLFdBQVMsTUFBTTtBQUNmLGdCQUFjO0FBQ2QsaUJBQWU7QUFDZixVQUFRLEVBQUU7QUFDVixvQkFBa0I7QUFDbEIsU0FBTztBQUNQLGVBQWE7QUFDYixjQUFZO0FBQ2Q7QUFDQSxPQUFPLE9BQU8sSUFBSSxDQUFDLFNBQVMsRUFBRTtBQUM1QixHQW5DRDtBQW9DRyxXQUFPO0FBQ1AsVUFBTTtBQUNOLFdBQU87QUFDVDtBQUNGOyIsCiAgIm5hbWVzIjogW10KfQo= */
