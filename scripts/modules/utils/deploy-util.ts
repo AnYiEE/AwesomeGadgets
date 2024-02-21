@@ -129,6 +129,12 @@ const generateTargets = (): DeploymentTargets => {
 		}
 	}
 
+	for (const [gadgetName, {files}] of Object.entries(targets)) {
+		if (!files.length) {
+			delete targets[gadgetName];
+		}
+	}
+
 	if (!Object.keys(targets).length) {
 		console.log(chalk.yellow('━ No gadget need to deploy'));
 		return {};
@@ -312,11 +318,8 @@ const loadConfig = (): typeof credentials => {
 		logError('broken');
 	}
 
-	if (
-		!isMissing &&
-		(!Object.keys(credentials).length ||
-			!Object.keys(credentials[Object.keys(credentials)[0] as string] as Partial<Credentials>).length)
-	) {
+	const sites: string[] = Object.keys(credentials);
+	if (!isMissing && (!sites.length || !Object.keys(credentials[sites[0] as string] as Partial<Credentials>).length)) {
 		logError('empty');
 	}
 
