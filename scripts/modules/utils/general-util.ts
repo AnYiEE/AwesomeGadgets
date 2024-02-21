@@ -82,8 +82,11 @@ const sortObject = <T extends object>(object: T, isSortArray?: boolean): T => {
 			natural: true,
 		})
 	)) {
-		const key = _key as keyof T;
-		const value = object[key];
+		type Key = keyof T;
+		type Value = T[Key];
+
+		const key = _key as Key;
+		const value: Value = object[key];
 
 		objectSorted[key] =
 			isSortArray && Array.isArray(value)
@@ -92,7 +95,7 @@ const sortObject = <T extends object>(object: T, isSortArray?: boolean): T => {
 							caseInsensitive: true,
 							natural: true,
 						})
-					) as typeof value)
+					) as Value)
 				: value;
 	}
 
