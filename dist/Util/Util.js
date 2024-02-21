@@ -4,7 +4,7 @@
  *
  * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/Util}
  * @author 安忆 <i@anyi.in>
- * @license GPL-3.0-or-later {@link https://www.qiuwenbaike.cn/wiki/H:GPL-3.0}
+ * @license GPL-3.0-or-later {@link https://youshou.wiki/wiki/H:GPLV3}
  */
 /**
  * +------------------------------------------------------------+

@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-Edit0\"></span> 为页面的[[Project:序言章节|序言章节]]添加“编辑”链接",
+	"section": "edit",
+	"actions": ["view"],
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.Util", "mediawiki.Uri"],
+	"rights": ["edit"]
+}

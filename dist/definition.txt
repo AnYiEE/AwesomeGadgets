@@ -20,6 +20,8 @@
 * AjaxLogin[ResourceLoader|default|dependencies=ext.gadget.FilterAlteredClicks,ext.gadget.i18n,ext.gadget.React,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util,oojs-ui-core,oojs-ui-windows,oojs-ui.styles.icons-interactions,oojs-ui.styles.icons-user|hidden|requiresES6]|AjaxLogin.js
 * AutoLink[ResourceLoader|dependencies=ext.gadget.Util,mediawiki.util|requiresES6]|AutoLink.js
 * CodeLinks[ResourceLoader|default|dependencies=ext.gadget.React,ext.gadget.Util,mediawiki.util|rights=edit|requiresES6]|CodeLinks.js
+* CopyCodeBlock[ResourceLoader|actions=view|default|dependencies=ext.gadget.Clipboard,ext.gadget.i18n,ext.gadget.Tippy,ext.gadget.Toastify,mediawiki.util,oojs-ui-core,oojs-ui.styles.icons-editing-advanced|peers=CopyCodeBlock-pagestyles|requiresES6]|CopyCodeBlock.js
+* CopyCodeBlock-pagestyles[ResourceLoader|hidden|requiresES6]|CopyCodeBlock-pagestyles.css
 * NavbarAvatar[ResourceLoader|default|hidden|rights=edit|requiresES6]|NavbarAvatar.js
 * Scroller[ResourceLoader|default|hidden|requiresES6]|Scroller.js
 * ShortURL[ResourceLoader|default|dependencies=ext.gadget.Clipboard,ext.gadget.i18n,ext.gadget.Tippy,ext.gadget.Util,mediawiki.api,mediawiki.util,mediawiki.widgets,oojs-ui-windows|peers=ShortURL-pagestyles|rights=edit|requiresES6]|ShortURL.js
@@ -47,4 +49,12 @@
 == edit ==
 * Cat-a-lot[ResourceLoader|actions=view|dependencies=ext.gadget.React,ext.gadget.Util,jquery.ui,mediawiki.jqueryMsg,mediawiki.util|peers=Cat-a-lot-pagestyles|rights=skipcaptcha|requiresES6]|Cat-a-lot.js
 * Cat-a-lot-pagestyles[ResourceLoader|hidden|requiresES6]|Cat-a-lot-pagestyles.css
+* DefaultSummaries[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,oojs-ui-core|hidden|rights=edit|requiresES6]|DefaultSummaries.js
+* EasyArchive[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Toastify,ext.gadget.Util|peers=EasyArchive-pagestyles|rights=skipcaptcha|requiresES6]|EasyArchive.js
+* EasyArchive-pagestyles[ResourceLoader|hidden|requiresES6]|EasyArchive-pagestyles.css
+* Edit0[ResourceLoader|actions=view|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.Uri|rights=edit|requiresES6]|Edit0.js|Edit0.css
+* EditConflict[ResourceLoader|actions=edit,submit|dependencies=ext.gadget.i18n,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api|rights=skipcaptcha|requiresES6]|EditConflict.js
+* EditCount[ResourceLoader|skins=gongbi,vector,vector-2022|requiresES6]|EditCount.js
+* EditForm[ResourceLoader|hidden|rights=edit|requiresES6]|EditForm.css
+* EditForm_JS[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.util,oojs-ui-core|hidden|peers=EditForm|rights=edit|requiresES6]|EditForm_JS.js
 * InPageEdit[ResourceLoader|rights=skipcaptcha|requiresES6]|InPageEdit.js

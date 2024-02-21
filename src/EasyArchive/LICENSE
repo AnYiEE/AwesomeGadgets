@@ -1,0 +1,9 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-easy-archive.js}
+ * @base {@link https://meta.wikimedia.org/w/index.php?oldid=18915644}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/EasyArchive}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */

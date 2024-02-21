@@ -1,0 +1,36 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-easy-archive.js}
+ * @base {@link https://meta.wikimedia.org/w/index.php?oldid=18915644}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/EasyArchive-pagestyles}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/EasyArchive-pagestyles/EasyArchive-pagestyles.less */
+.ve-activated #easy_archive_enable_notice,
+.ve-activated #easy_archive_stop_notice,
+.ve-activated #easy_archive_supports_notice {
+  display: none;
+}
+.skin-citizen .easy-archive-section-id-span {
+  font-size: 0.875rem;
+  margin: 0 0.5rem;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0Vhc3lBcmNoaXZlLXBhZ2VzdHlsZXMvRWFzeUFyY2hpdmUtcGFnZXN0eWxlcy5sZXNzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyIudmUtYWN0aXZhdGVkICNlYXN5X2FyY2hpdmVfZW5hYmxlX25vdGljZSxcbi52ZS1hY3RpdmF0ZWQgI2Vhc3lfYXJjaGl2ZV9zdG9wX25vdGljZSxcbi52ZS1hY3RpdmF0ZWQgI2Vhc3lfYXJjaGl2ZV9zdXBwb3J0c19ub3RpY2Uge1xuICBkaXNwbGF5OiBub25lO1xufVxuLnNraW4tY2l0aXplbiAuZWFzeS1hcmNoaXZlLXNlY3Rpb24taWQtc3BhbiB7XG4gIGZvbnQtc2l6ZTogMC44NzVyZW07XG4gIG1hcmdpbjogMCAwLjVyZW07XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLENBQUMsYUFBYSxDQUFDO0FBQ2YsQ0FEQyxhQUNhLENBQUM7QUFDZixDQUZDLGFBRWEsQ0FBQztBQUNiLFdBQVM7QUFDWDtBQUNBLENBQUMsYUFBYSxDQUFDO0FBQ2IsYUFBVztBQUNYLFVBQVEsRUFBRTtBQUNaOyIsCiAgIm5hbWVzIjogW10KfQo= */

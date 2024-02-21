@@ -5,7 +5,7 @@
  * @base {@link https://rs.miraheze.org/wiki/MediaWiki:Gadget-collapsible.js}
  * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src//Collapsible}
  * @author SolidBlock
- * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
  */
 /**
  * +------------------------------------------------------------+

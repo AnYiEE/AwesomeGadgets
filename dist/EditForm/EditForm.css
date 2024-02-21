@@ -1,0 +1,72 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/EditForm}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/EditForm/EditForm.less */
+.mw-editform #editpage-copywarn {
+  font-size: 1em !important;
+}
+.ext-WikiEditor-twopanes-TwoPaneLayout .ext-WikiEditor-twopanes-pane2 {
+  border-right: 1px solid;
+}
+.ve-ui-toolbar .oo-ui-tool-name-heading1 {
+  display: none !important;
+}
+.mw-continue-editing a {
+  display: inline-block;
+  min-width: 4em;
+  max-width: 28.75em;
+  min-height: 32px;
+  box-sizing: border-box;
+  padding: 0.5em 0.95em;
+  border: 1px solid #808080;
+  border-radius: 0;
+  margin: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fcfcfc;
+  color: #191919;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: bold;
+  line-height: 1.2857em;
+  text-align: center;
+  transition:
+    background-color 100ms,
+    color 100ms,
+    border-color 100ms,
+    box-shadow 100ms;
+  vertical-align: middle;
+}
+.mw-continue-editing a:hover {
+  background-color: #fff;
+  color: #4d4d4d;
+}
+.tdg-editscreen-main {
+  padding: 0.25em 1em;
+  border: 1px solid rgba(51, 102, 204, 0.25);
+  margin-top: 1em;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0VkaXRGb3JtL0VkaXRGb3JtLmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbIi5tdy1lZGl0Zm9ybSAjZWRpdHBhZ2UtY29weXdhcm4ge1xuICBmb250LXNpemU6IDFlbSAhaW1wb3J0YW50O1xufVxuLmV4dC1XaWtpRWRpdG9yLXR3b3BhbmVzLVR3b1BhbmVMYXlvdXQgLmV4dC1XaWtpRWRpdG9yLXR3b3BhbmVzLXBhbmUyIHtcbiAgYm9yZGVyLXJpZ2h0OiAxcHggc29saWQ7XG59XG4udmUtdWktdG9vbGJhciAub28tdWktdG9vbC1uYW1lLWhlYWRpbmcxIHtcbiAgZGlzcGxheTogbm9uZSAhaW1wb3J0YW50O1xufVxuLyoqXG4gKiDnvJbovpHnlYzpnaLigJzihpIg5YmN5b6A57yW6L6R5Yy64oCd5oyJ6ZKuXG4gKiBDb3BpZWQgZnJvbSAubXctdWktYnV0dG9uIGFuZCAuY2R4LWJ1dHRvblxuICovXG4ubXctY29udGludWUtZWRpdGluZyBhIHtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICBtaW4td2lkdGg6IDRlbTtcbiAgbWF4LXdpZHRoOiAyOC43NWVtO1xuICBtaW4taGVpZ2h0OiAzMnB4O1xuICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xuICBwYWRkaW5nOiAwLjVlbSAwLjk1ZW07XG4gIGJvcmRlcjogMXB4IHNvbGlkICM4MDgwODA7XG4gIGJvcmRlci1yYWRpdXM6IDA7XG4gIG1hcmdpbjogMDtcbiAgLXdlYmtpdC1hcHBlYXJhbmNlOiBub25lO1xuICAgICAtbW96LWFwcGVhcmFuY2U6IG5vbmU7XG4gICAgICAgICAgYXBwZWFyYW5jZTogbm9uZTtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZjZmNmYztcbiAgY29sb3I6ICMxOTE5MTk7XG4gIGN1cnNvcjogcG9pbnRlcjtcbiAgZm9udC1mYW1pbHk6IGluaGVyaXQ7XG4gIGZvbnQtc2l6ZTogMWVtO1xuICBmb250LXdlaWdodDogYm9sZDtcbiAgbGluZS1oZWlnaHQ6IDEuMjg1N2VtO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHRyYW5zaXRpb246IGJhY2tncm91bmQtY29sb3IgMTAwbXMsIGNvbG9yIDEwMG1zLCBib3JkZXItY29sb3IgMTAwbXMsIGJveC1zaGFkb3cgMTAwbXM7XG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG59XG4ubXctY29udGludWUtZWRpdGluZyBhOmhvdmVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcbiAgY29sb3I6ICM0ZDRkNGQ7XG59XG4vKiBUZW1wbGF0ZURhdGEgZWRpdCBidXR0b24gKi9cbi50ZGctZWRpdHNjcmVlbi1tYWluIHtcbiAgcGFkZGluZzogMC4yNWVtIDFlbTtcbiAgYm9yZGVyOiAxcHggc29saWQgcmdiYSg1MSwgMTAyLCAyMDQsIDAuMjUpO1xuICBtYXJnaW4tdG9wOiAxZW07XG4gIGJhY2tncm91bmQ6IHJnYmEoMjU1LCAyNTUsIDI1NSwgMC43NSk7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxDQUFDLFlBQVksQ0FBQztBQUNaLGFBQVc7QUFDYjtBQUNBLENBQUMsc0NBQXNDLENBQUM7QUFDdEMsZ0JBQWMsSUFBSTtBQUNwQjtBQUNBLENBQUMsY0FBYyxDQUFDO0FBQ2QsV0FBUztBQUNYO0FBS0EsQ0FBQyxvQkFBb0I7QUFDbkIsV0FBUztBQUNULGFBQVc7QUFDWCxhQUFXO0FBQ1gsY0FBWTtBQUNaLGNBQVk7QUFDWixXQUFTLE1BQU07QUFDZixVQUFRLElBQUksTUFBTTtBQUNsQixpQkFBZTtBQUNmLFVBQVE7QUFDUixzQkFBb0I7QUFDakIsbUJBQWlCO0FBQ1osY0FBWTtBQUNwQixvQkFBa0I7QUFDbEIsU0FBTztBQUNQLFVBQVE7QUFDUixlQUFhO0FBQ2IsYUFBVztBQUNYLGVBQWE7QUFDYixlQUFhO0FBQ2IsY0FBWTtBQUNaO0FBQUEsSUFBWSxpQkFBaUIsS0FBSztBQUFBLElBQUUsTUFBTSxLQUFLO0FBQUEsSUFBRSxhQUFhLEtBQUs7QUFBQSxJQUFFLFdBQVc7QUFDaEYsa0JBQWdCO0FBQ2xCO0FBQ0EsQ0F4QkMsb0JBd0JvQixDQUFDO0FBQ3BCLG9CQUFrQjtBQUNsQixTQUFPO0FBQ1Q7QUFFQSxDQUFDO0FBQ0MsV0FBUyxPQUFPO0FBQ2hCLFVBQVEsSUFBSSxNQUFNLEtBQUssRUFBRSxFQUFFLEdBQUcsRUFBRSxHQUFHLEVBQUU7QUFDckMsY0FBWTtBQUNaLGNBQVksS0FBSyxHQUFHLEVBQUUsR0FBRyxFQUFFLEdBQUcsRUFBRTtBQUNsQzsiLAogICJuYW1lcyI6IFtdCn0K */
