@@ -5,7 +5,7 @@
 	"properties": {
 		"enable": {
 			"type": "boolean",
-			"title": "是否启用当前小工具 / Enable current gadget or not",
+			"title": "是否启用当前小工具 / Enable the current gadget or not",
 			"default": true
 		},
 		"excludeSites": {

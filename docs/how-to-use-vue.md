@@ -1,8 +1,8 @@
 ### 如何使用 Vue？<br>How to use Vue?
 
-#### 准备依赖 / Prepare dependencies
+#### 准备依赖<br>Prepare dependencies
 
-在本仓库中使用 Vue，有两种方式<br>To use Vue in this repository, there are two ways
+在本仓库中使用 Vue，有以下两种方式：<br>To use Vue in this repository, there are two ways:
 
 -   使用 MediaWiki 内置的`vue`、`pinia`和`@wikimedia/codex`等 Vue 相关的包<br>Use Vue-related packages such as `vue`, `pinia` and `@wikimedia/codex` built into MediaWiki
     -   确保目标 MediaWiki 的版本至少为 1.41<br>Ensure that the target MediaWiki version is at least 1.41
@@ -19,7 +19,7 @@
     -   目标 MediaWiki 版本过低，尚未包含 Vue 相关的包，但依然需要使用 Vue<br>The target MediaWiki version is too low and does not yet built-in the Vue-related packages, but still needs to use Vue
     -   安装所需的包，直接使用即可<br>Install the required packages directly
 
-#### 示例 / Example
+#### 示例<br>Example
 
 ```vue
 <!-- App.vue -->
@@ -53,7 +53,7 @@ document.body.append(root);
 createMwApp(App).mount(root);
 ```
 
-#### 特别说明 / Notes
+#### 特别说明<br>Notes
 
 -   `vue`和`pinia`已经内置在仓库中，无需额外安装<br>`vue` and `pinia` are already built into the repository, no need to install
 -   `@wikimedia/codex`等其他 Vue 相关的组件包需要额外按需安装<br>Other Vue-related components need to be installed separately
