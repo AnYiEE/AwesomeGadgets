@@ -1,6 +1,6 @@
 {
 	"name": "awesome-gadgets",
-	"version": "4.3.4",
+	"version": "4.3.5",
 	"description": "Storage, management, compilation, and automatic deployment of MediaWiki gadgets.",
 	"type": "module",
 	"scripts": {
@@ -109,6 +109,7 @@
 		"pug": "^3.0.2",
 		"rimraf": "^5.0.5",
 		"stylelint": "^15.11.0",
+		"stylelint-config-css-modules": "4.2.0",
 		"stylelint-config-wikimedia": "latest",
 		"tsx": "^4.7.1",
 		"types-mediawiki-renovate": "latest",
