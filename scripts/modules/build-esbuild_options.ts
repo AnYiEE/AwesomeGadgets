@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import {type BuildOptions, type Plugin} from 'esbuild';
 import {type Targets, browserslistToTargets} from 'lightningcss';
-import CssModulesPlugin from 'esbuild-css-modules-plugin';
 // @ts-expect-error TS7016
 import LessPluginNpmImport from 'less-plugin-npm-import';
 // @ts-expect-error TS7016
 import LessPluginPresetEnv from 'less-plugin-preset-env';
 import {SOURCE_MAP} from '../constant';
 import browserslist from 'browserslist';
-import {lessLoader} from 'esbuild-plugin-less';
-import postcss from 'esbuild-postcss';
+import esbuildPluginCssModules from 'esbuild-css-modules-plugin';
+import {lessLoader as esbuildPluginLess} from 'esbuild-plugin-less';
+import esbuildPluginPostcss from 'esbuild-postcss';
+import esbuildPluginVue from 'esbuild-plugin-vue3';
 import postcssLoadConfig from 'postcss-load-config';
-import vuePlugin from 'esbuild-plugin-vue3';
 
 /**
  * @summary Do not forget to declare these file extensions in `src/global.d.ts`
@@ -29,7 +29,7 @@ const loader = {
 const lessOptions: Less.Options = {
 	plugins: [new LessPluginPresetEnv() as unknown as Less.Plugin, new LessPluginNpmImport() as unknown as Less.Plugin],
 };
-const postcssConfig = await postcssLoadConfig();
+const postcssConfig: postcssLoadConfig.Result = await postcssLoadConfig();
 const targets: Targets = browserslistToTargets(browserslist());
 
 /**
@@ -45,18 +45,18 @@ const esbuildOptions = {
 	format: 'cjs',
 	legalComments: 'inline',
 	plugins: [
-		vuePlugin({
+		esbuildPluginVue({
 			enableDevTools: false,
 			postcss: postcssConfig,
 			preprocessorOptions: lessOptions,
 		}) as unknown as Plugin,
-		CssModulesPlugin({
+		esbuildPluginCssModules({
 			targets,
 			filter: /\.module\.(?:css|less)$/i,
 			namedExports: true,
 		}),
-		postcss(),
-		lessLoader(lessOptions),
+		esbuildPluginPostcss(),
+		esbuildPluginLess(lessOptions),
 	],
 	sourcemap: SOURCE_MAP ? 'inline' : false,
 	treeShaking: true,

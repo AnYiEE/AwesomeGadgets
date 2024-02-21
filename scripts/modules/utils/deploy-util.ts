@@ -318,7 +318,7 @@ const loadConfig = (): typeof credentials => {
 		logError('broken');
 	}
 
-	const sites = Object.keys(credentials);
+	const sites: string[] = Object.keys(credentials);
 	if (!isMissing && (!sites.length || !Object.keys(credentials[sites[0] as string] as Partial<Credentials>).length)) {
 		logError('empty');
 	}
