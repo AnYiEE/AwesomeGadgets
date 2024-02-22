@@ -1,0 +1,46 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://www.mediawiki.org/wiki/Skin:Timeless#CSS_snippets}
+ * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/OneSideMenu}
+ * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/OneSideMenu/OneSideMenu.less */
+@media (min-width: 768px) {
+  #mw-content-block {
+    display: block;
+  }
+  #mw-content,
+  #content-bottom-stuff {
+    margin-right: 1em;
+    margin-left: 12em;
+  }
+  #mw-content-wrapper {
+    width: 100%;
+    margin-left: -12em;
+    float: right;
+  }
+  #mw-related-navigation {
+    width: 12em;
+    padding: 0 1em 0 0;
+    border-width: 0 1px 0 0;
+  }
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL09uZVNpZGVNZW51L09uZVNpZGVNZW51Lmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbIi8qIE9uZS1zaWRlZCBuYXZpZ2F0aW9uIG1lbnUgKi9cbkBtZWRpYSAobWluLXdpZHRoOiA3NjhweCkge1xuICAjbXctY29udGVudC1ibG9jayB7XG4gICAgZGlzcGxheTogYmxvY2s7XG4gIH1cbiAgI213LWNvbnRlbnQsXG4gICNjb250ZW50LWJvdHRvbS1zdHVmZiB7XG4gICAgbWFyZ2luLXJpZ2h0OiAxZW07XG4gICAgbWFyZ2luLWxlZnQ6IDEyZW07XG4gIH1cbiAgI213LWNvbnRlbnQtd3JhcHBlciB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgbWFyZ2luLWxlZnQ6IC0xMmVtO1xuICAgIGZsb2F0OiByaWdodDtcbiAgfVxuICAjbXctcmVsYXRlZC1uYXZpZ2F0aW9uIHtcbiAgICB3aWR0aDogMTJlbTtcbiAgICBwYWRkaW5nOiAwIDFlbSAwIDA7XG4gICAgYm9yZGVyLXdpZHRoOiAwIDFweCAwIDA7XG4gIH1cbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxPQUFPLENBQUMsU0FBUyxFQUFFO0FBQ2pCLEdBQUM7QUFDQyxhQUFTO0FBQ1g7QUFDQSxHQUFDO0FBQUEsRUFDRCxDQUFDO0FBQ0Msa0JBQWM7QUFDZCxpQkFBYTtBQUNmO0FBQ0EsR0FBQztBQUNDLFdBQU87QUFDUCxpQkFBYTtBQUNiLFdBQU87QUFDVDtBQUNBLEdBQUM7QUFDQyxXQUFPO0FBQ1AsYUFBUyxFQUFFLElBQUksRUFBRTtBQUNqQixrQkFBYyxFQUFFLElBQUksRUFBRTtBQUN4QjtBQUNGOyIsCiAgIm5hbWVzIjogW10KfQo= */
