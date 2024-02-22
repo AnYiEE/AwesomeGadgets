@@ -224,6 +224,7 @@
 		"jsdoc/no-undefined-types": "off",
 
 		"mediawiki/class-doc": "warn",
+		"mediawiki/no-nodelist-unsupported-methods": "off",
 
 		"no-jquery/no-animate": [
 			"warn",
