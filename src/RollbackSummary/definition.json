@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-RollbackSummary\"></span> 回退时启用自定义摘要 <small>建议拥有[[LIB:回退|回退权限]]的用户使用，以避免不必要争议</small>",
+	"section": "sysop",
+	"default": true,
+	"dependencies": ["ext.gadget.FilterAlteredClicks", "ext.gadget.i18n", "mediawiki.util"],
+	"rights": ["rollback"]
+}

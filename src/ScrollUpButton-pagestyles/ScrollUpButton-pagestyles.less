@@ -1,0 +1,23 @@
+.gadget-scroll_up_button {
+	content: data-uri('./images/scroll-button.svg');
+	position: fixed;
+	right: 8px;
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+	opacity: 0.7;
+	user-select: none;
+
+	.client-darkmode & {
+		transition: none 0s ease 0s;
+	}
+
+	&-down {
+		bottom: 45px;
+		transform: rotate(180deg);
+	}
+
+	&-up {
+		bottom: 85px;
+	}
+}

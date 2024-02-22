@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-ScrollUpButton\"></span> 在页面右下角添加页顶、页底跳转按钮",
+	"section": "browser",
+	"default": true,
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.React", "ext.gadget.Tippy", "ext.gadget.Util"],
+	"peers": ["ScrollUpButton-pagestyles"]
+}
