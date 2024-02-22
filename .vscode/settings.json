@@ -80,6 +80,7 @@
 	"css.lint.unknownAtRules": "ignore",
 	"css.lint.validProperties": ["composes"],
 	"less.format.spaceAroundSelectorSeparator": true,
+	"less.lint.unknownAtRules": "ignore",
 	"less.lint.validProperties": ["composes"],
 	"errorLens.editorHoverPartsEnabled": {
 		"buttonsEnabled": false
