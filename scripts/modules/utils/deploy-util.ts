@@ -21,8 +21,8 @@ import {
 	writeFileContent,
 } from './general-util';
 import {basename, extname, join} from 'node:path';
+import {env, exit, stdout} from 'node:process';
 import {existsSync, open} from 'node:fs';
-import {exit, stdout} from 'node:process';
 import {ESLint} from 'eslint';
 import {MwnError} from 'mwn/build/error';
 import {Window} from 'happy-dom';
@@ -324,15 +324,16 @@ const loadConfig = (): typeof credentials => {
 	};
 
 	let isMissing: boolean = false;
+	const {CREDENTIALS_JSON} = env;
 
 	const credentialsFilePath: string = join(__rootDir, 'scripts/credentials.json');
-	if (!existsSync(credentialsFilePath)) {
+	if (!CREDENTIALS_JSON && !existsSync(credentialsFilePath)) {
 		isMissing = true;
 		logError('missing');
 	}
 
-	let credentialsJsonText: string = '{}';
-	if (!isMissing) {
+	let credentialsJsonText: string = CREDENTIALS_JSON || '{}';
+	if (!CREDENTIALS_JSON && !isMissing) {
 		credentialsJsonText = readFileContent(credentialsFilePath);
 	}
 
