@@ -26,7 +26,7 @@ const cfg = {
 	/* Whether intentional links to disambiguation pages can be explicitly marked by adding " (disambiguation)" */
 	intentionalLinkOption: false,
 	/* Namespaces that will be searched for incoming links to the disambiguation page (pages in other namespaces will be ignored) */
-	targetNamespaces: [6, 10, 14, 118, 0],
+	targetNamespaces: [6, 10, 14, 302, 0],
 	/* Number of backlinks that will be downloaded at once When using blredirect, the maximum limit is supposedly halved (see http://www.mediawiki.org/wiki/API:Backlinks) */
 	backlinkLimit: 250,
 	/* Number of titles we can query for at once */

@@ -38,7 +38,7 @@ const generateSummaryDropdown = ($wpSummary: JQuery): JQuery => {
 		addOptionsToDropdown(dropdownWidget, ARTICLE_SUMMARIES);
 	} else if (WG_NAMESPACE_NUMBER % 2 !== 0 && WG_NAMESPACE_NUMBER !== 3) {
 		addOptionsToDropdown(dropdownWidget, TALKPAGE_SUMMARIES);
-	} else if (WG_NAMESPACE_NUMBER === 118) {
+	} else if (WG_NAMESPACE_NUMBER === 302) {
 		addOptionsToDropdown(dropdownWidget, ARTICLE_SUMMARIES);
 	}
 

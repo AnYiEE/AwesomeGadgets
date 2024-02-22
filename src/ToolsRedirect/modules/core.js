@@ -561,8 +561,8 @@ export const ToolsRedirect = {
 				.then(({parse}) => {
 					const {displaytitle} = parse;
 					// Example:
-					// - Before: <span class="mw-page-title-namespace">求闻百科</span><span class="mw-page-title-separator">:</span><span class="mw-page-title-main">沙盒</span>
-					// - After: 求闻百科:沙盒
+					// - Before: <span class="mw-page-title-namespace">有兽档案馆</span><span class="mw-page-title-separator">:</span><span class="mw-page-title-main">沙盒</span>
+					// - After: 有兽档案馆:沙盒
 					let title = $('<span>').append(displaytitle).eq(0).text().trim();
 					title = fixNamespace(title);
 					setRedirectTextSuffix(title, '\n{{简繁重定向}}', SUFFIX_APPEND);

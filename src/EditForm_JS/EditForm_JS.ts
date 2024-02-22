@@ -21,7 +21,7 @@ void getBody().then(function editForm($body: JQuery<HTMLBodyElement>): void {
 
 	// 新用户引导至条目创建向导（[[LIBAFC]]）
 	const curid = mw.config.get('wgArticleId');
-	if (!curid && ![2, 3, 118].includes(WG_NAMESPACE_NUMBER)) {
+	if (!curid && ![2, 3, 302].includes(WG_NAMESPACE_NUMBER)) {
 		introAFC();
 	}
 
