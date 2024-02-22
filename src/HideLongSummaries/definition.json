@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-HideLongSummaries\"></span> 隐藏过长的[[Help:编辑摘要|编辑摘要]]",
+	"section": "browser",
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.Util"]
+}
