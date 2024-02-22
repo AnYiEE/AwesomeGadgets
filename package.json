@@ -20,7 +20,7 @@
 		"lint": "pnpm eslint && pnpm stylelint",
 		"lint:fix": "pnpm eslint:fix && pnpm stylelint:fix",
 		"preinstall": "npx only-allow pnpm",
-		"prepare": "husky install"
+		"prepare": "husky"
 	},
 	"author": {
 		"name": "AnYiEE",
