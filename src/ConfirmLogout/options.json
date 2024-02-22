@@ -1,0 +1,5 @@
+{
+	"logoutElementSelector": "#ca-cb-logout>a,#topbar>a[href*=\"UserLogout\"],#pt-logout>a",
+	"logoutElementSelectorOfVector2022StickyHeader": "#pt-logout-sticky-header>a",
+	"version": "3.0"
+}

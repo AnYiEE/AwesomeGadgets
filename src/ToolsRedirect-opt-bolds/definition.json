@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-ToolsRedirect-opt-bolds\"></span> ToolsRedirect选项：获取页面中加粗文字为重定向候选 <small>必须启用ToolsRedirect</small>",
+	"section": "edit",
+	"actions": ["view"],
+	"dependencies": ["ext.gadget.Util", "user.options"],
+	"rights": ["edit"]
+}

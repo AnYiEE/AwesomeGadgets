@@ -8,7 +8,7 @@
  * @base {@link https://commons.wikimedia.org/wiki/MediaWiki:Gadget-Cat-a-lot.js}
  * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/Cat-a-lot/modules/core.ts}
  * @author Magnus Manske, Ilmari Karonen, DieBuche, 安忆 <i@anyi.in>
- * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
  */
 
 /**
@@ -20,7 +20,7 @@
  * @base {@link https://commons.wikimedia.org/wiki/MediaWiki:Gadget-Cat-a-lot.js/zh-hans}
  * @base {@link https://commons.wikimedia.org/wiki/MediaWiki:Gadget-Cat-a-lot.js/zh-hant}
  * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/Cat-a-lot/modules/messages.ts}
- * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
  */
 
 /**
@@ -33,5 +33,5 @@
  * @base {@link https://commons.wikimedia.org/wiki/MediaWiki:Gadget-Cat-a-lot.js}
  * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/Cat-a-lot/modules/extendJQueryPrototype.ts}
  * @author Krinkle <krinklemail@gmail.com>
- * @license GPL-2.0-or-later {@link https://www.qiuwenbaike.cn/wiki/H:GPL-2.0}
+ * @license GPL-2.0-or-later {@link https://youshou.wiki/wiki/H:GPLV2}
  */

@@ -1,38 +1,75 @@
 <div class="mw-message-box mw-message-box-notice">
 <big>本页面内容由脚本自动生成，维护于Git仓库内。对本页面内容的变更，应通知技术团队，以免在代码部署时被误覆盖。</big>
+* 若需要查看本地小工具说明，请前往[[Special:Gadgets|“小工具”界面]]。
 * 若需要查看本地小工具使用情况，请前往[[Special:GadgetUsage|“小工具使用统计”界面]]。
 * 若需要设置您所需启用或关闭的小工具，请前往[[Special:参数设置#mw-prefsection-gadgets|参数设置]]。
 </div>
 
 == appear ==
 * DisambigLinks[ResourceLoader|default|rights=edit|requiresES6]|DisambigLinks.css
+* FoldRef[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util|peers=FoldRef-pagestyles|requiresES6]|FoldRef.js
+* FoldRef-pagestyles[ResourceLoader|hidden|requiresES6]|FoldRef-pagestyles.css
+* GadgetsDefinition[ResourceLoader|default|dependencies=ext.gadget.Util,mediawiki.util|requiresES6]|GadgetsDefinition.js|GadgetsDefinition.css
+* HanSect[ResourceLoader|default|requiresES6]|HanSect.css
 * HideConversionTab[ResourceLoader|default|requiresES6]|HideConversionTab.css
 * InterwikiTips[ResourceLoader|default|requiresES6]|InterwikiTips.css
 * LoginToEdit[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.util,oojs-ui-windows|hidden|requiresES6]|LoginToEdit.js
+* NavboxCSS[ResourceLoader|default|hidden|requiresES6]|NavboxCSS.css
 * NotifyConversion[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.storage,mediawiki.Uri,mediawiki.util,oojs-ui-core,oojs-ui-widgets,oojs-ui-windows,oojs-ui.styles.icons-editing-advanced|peers=NotifyConversion-pagestyles|requiresES6]|NotifyConversion.js
 * NotifyConversion-pagestyles[ResourceLoader|hidden|requiresES6]|NotifyConversion-pagestyles.css
+* OneSideMenu[ResourceLoader|skins=gongbi|requiresES6]|OneSideMenu.css
 * ShowAvatar[ResourceLoader|default|requiresES6]|ShowAvatar.js
+* StickyTableHeaders[ResourceLoader|peers=StickyTableHeaders-pagestyles|skins=gongbi,vector,vector-2022|requiresES6]|StickyTableHeaders.js
+* StickyTableHeaders-pagestyles[ResourceLoader|hidden|requiresES6]|StickyTableHeaders-pagestyles.css
+* TextSpacing[ResourceLoader|requiresES6]|TextSpacing.js|TextSpacing.css
+* TOC3-gongbi[ResourceLoader|skins=gongbi|requiresES6]|TOC3-gongbi.css
 
 == browser ==
 * AddSectionPlus[ResourceLoader|dependencies=ext.gadget.Util|peers=AddSectionPlus-pagestyles|rights=edit|requiresES6]|AddSectionPlus.js
 * AddSectionPlus-pagestyles[ResourceLoader|hidden|requiresES6]|AddSectionPlus-pagestyles.css
 * AjaxLogin[ResourceLoader|default|dependencies=ext.gadget.FilterAlteredClicks,ext.gadget.i18n,ext.gadget.React,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util,oojs-ui-core,oojs-ui-windows,oojs-ui.styles.icons-interactions,oojs-ui.styles.icons-user|hidden|requiresES6]|AjaxLogin.js
 * AutoLink[ResourceLoader|dependencies=ext.gadget.Util,mediawiki.util|requiresES6]|AutoLink.js
+* CodeLinks[ResourceLoader|default|dependencies=ext.gadget.React,ext.gadget.Util,mediawiki.util|rights=edit|requiresES6]|CodeLinks.js
+* CopyCodeBlock[ResourceLoader|actions=view|default|dependencies=ext.gadget.Clipboard,ext.gadget.i18n,ext.gadget.Tippy,ext.gadget.Toastify,mediawiki.util,oojs-ui-core,oojs-ui.styles.icons-editing-advanced|peers=CopyCodeBlock-pagestyles|requiresES6]|CopyCodeBlock.js
+* CopyCodeBlock-pagestyles[ResourceLoader|hidden|requiresES6]|CopyCodeBlock-pagestyles.css
+* DiffLink[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util,mediawiki.widgets,oojs-ui-windows|requiresES6]|DiffLink.js
+* EnhancedSpecialSearch[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util|requiresES6]|EnhancedSpecialSearch.js
+* FloatTOC[ResourceLoader|actions=view|default|dependencies=ext.gadget.FilterAlteredClicks,ext.gadget.i18n,ext.gadget.Util,mediawiki.notification,mediawiki.storage,oojs-ui.styles.icons-editing-citation,oojs-ui.styles.icons-interactions,oojs-ui.styles.icons-movement|skins=citizen,vector|requiresES6]|FloatTOC.js|FloatTOC.css
+* FullwidthSearchFix[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Toastify,mediawiki.Uri,mediawiki.util|requiresES6]|FullwidthSearchFix.js
+* HideLongSummaries[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util|requiresES6]|HideLongSummaries.js
 * NavbarAvatar[ResourceLoader|default|hidden|rights=edit|requiresES6]|NavbarAvatar.js
+* PurgePageCache[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util|rights=edit|requiresES6]|PurgePageCache.js
 * Scroller[ResourceLoader|default|hidden|requiresES6]|Scroller.js
+* ScrollUpButton[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Tippy,ext.gadget.Util|peers=ScrollUpButton-pagestyles|requiresES6]|ScrollUpButton.js
+* ScrollUpButton-pagestyles[ResourceLoader|hidden|requiresES6]|ScrollUpButton-pagestyles.css
+* SearchShortcuts[ResourceLoader|requiresES6]|SearchShortcuts.js
 * ShortURL[ResourceLoader|default|dependencies=ext.gadget.Clipboard,ext.gadget.i18n,ext.gadget.Tippy,ext.gadget.Util,mediawiki.api,mediawiki.util,mediawiki.widgets,oojs-ui-windows|peers=ShortURL-pagestyles|rights=edit|requiresES6]|ShortURL.js
 * ShortURL-pagestyles[ResourceLoader|hidden|requiresES6]|ShortURL-pagestyles.css
+* SmoothTOC[ResourceLoader|default|dependencies=ext.gadget.Util|skins=gongbi,vector,vector-2022|requiresES6]|SmoothTOC.js
 
 == compatibility ==
 * AccessKeyCheatsheet[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,oojs-ui-windows|requiresES6]|AccessKeyCheatsheet.js
 * AdvancedSiteNotices[ResourceLoader|actions=view|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Tippy,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.storage,mediawiki.Uri|peers=AdvancedSiteNotices-pagestyles|requiresES6]|AdvancedSiteNotices.js
 * AdvancedSiteNotices-pagestyles[ResourceLoader|hidden|requiresES6]|AdvancedSiteNotices-pagestyles.css
 * Clipboard[ResourceLoader|hidden|requiresES6]|Clipboard.js
+* Collapsible[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util|hidden|peers=Collapsible-pagestyles|requiresES6]|Collapsible.js
+* Collapsible-pagestyles[ResourceLoader|hidden|requiresES6]|Collapsible-pagestyles.css
+* ConfirmLogout[ResourceLoader|default|dependencies=ext.gadget.FilterAlteredClicks,ext.gadget.i18n,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util,oojs-ui-windows|rights=edit|requiresES6]|ConfirmLogout.js
+* CookieWarning[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.storage,mediawiki.util|hidden|peers=CookieWarning-pagestyles|requiresES6]|CookieWarning.js
+* CookieWarning-pagestyles[ResourceLoader|hidden|requiresES6]|CookieWarning-pagestyles.css
 * FilterAlteredClicks[ResourceLoader|hidden|requiresES6]|FilterAlteredClicks.js
+* Geo[ResourceLoader|dependencies=mediawiki.storage|hidden|requiresES6]|Geo.js
+* GeoLocation[ResourceLoader|dependencies=ext.gadget.Geo,ext.gadget.i18n,ext.gadget.Util,mediawiki.api,mediawiki.Uri|requiresES6]|GeoLocation.js
+* GeoLocationReader[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.api,mediawiki.Title,mediawiki.Uri|hidden|namespaces=2|peers=GeoLocationReader-pagestyles|rights=edit|requiresES6]|GeoLocationReader.js
+* GeoLocationReader-pagestyles[ResourceLoader|hidden|requiresES6]|GeoLocationReader-pagestyles.css
 * i18n[ResourceLoader|dependencies=ext.gadget.Util|hidden|requiresES6]|i18n.js
 * morebits[ResourceLoader|dependencies=ext.gadget.select2,jquery.ui,mediawiki.Title,mediawiki.user,mediawiki.util|hidden|requiresES6]|morebits.js|morebits.css
+* NavFrame[ResourceLoader|default|dependencies=ext.gadget.i18n|hidden|peers=NavFrame-pagestyles|requiresES6]|NavFrame.js
+* NavFrame-pagestyles[ResourceLoader|hidden|requiresES6]|NavFrame-pagestyles.css
+* PrintOptions[ResourceLoader|dependencies=ext.gadget.i18n,mediawiki.util,oojs-ui-core,oojs-ui-widgets,oojs-ui-windows|requiresES6]|PrintOptions.js
 * React[ResourceLoader|hidden|requiresES6]|React.js
 * select2[ResourceLoader|dependencies=jquery|hidden|requiresES6]|select2.js|select2.css
+* SpecialWikitext[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.api,mediawiki.util|hidden|requiresES6]|SpecialWikitext.js
 * Tippy[ResourceLoader|hidden|requiresES6]|Tippy.js|Tippy.css
 * Toastify[ResourceLoader|hidden|requiresES6]|Toastify.js|Toastify.css
 * Util[ResourceLoader|dependencies=ext.gadget.React|hidden|requiresES6]|Util.js
@@ -40,4 +77,39 @@
 == edit ==
 * Cat-a-lot[ResourceLoader|actions=view|dependencies=ext.gadget.React,ext.gadget.Util,jquery.ui,mediawiki.jqueryMsg,mediawiki.util|peers=Cat-a-lot-pagestyles|rights=skipcaptcha|requiresES6]|Cat-a-lot.js
 * Cat-a-lot-pagestyles[ResourceLoader|hidden|requiresES6]|Cat-a-lot-pagestyles.css
+* DefaultSummaries[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,oojs-ui-core|hidden|rights=edit|requiresES6]|DefaultSummaries.js
+* DisamAssist[ResourceLoader|dependencies=ext.gadget.Util,mediawiki.api,mediawiki.Title|peers=DisamAssist-pagestyles|rights=skipcaptcha|requiresES6]|DisamAssist.js
+* DisamAssist-pagestyles[ResourceLoader|hidden|requiresES6]|DisamAssist-pagestyles.css
+* EasyArchive[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Toastify,ext.gadget.Util|peers=EasyArchive-pagestyles|rights=skipcaptcha|requiresES6]|EasyArchive.js
+* EasyArchive-pagestyles[ResourceLoader|hidden|requiresES6]|EasyArchive-pagestyles.css
+* Edit0[ResourceLoader|actions=view|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.Uri|rights=edit|requiresES6]|Edit0.js|Edit0.css
+* EditConflict[ResourceLoader|actions=edit,submit|dependencies=ext.gadget.i18n,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api|rights=skipcaptcha|requiresES6]|EditConflict.js
+* EditCount[ResourceLoader|skins=gongbi,vector,vector-2022|requiresES6]|EditCount.js
+* EditForm[ResourceLoader|hidden|rights=edit|requiresES6]|EditForm.css
+* EditForm_JS[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.util,oojs-ui-core|hidden|peers=EditForm|rights=edit|requiresES6]|EditForm_JS.js
+* Edittools-customizeToolbar[ResourceLoader|actions=edit,submit|dependencies=ext.gadget.Util,ext.wikiEditor,user.options|hidden|requiresES6]|Edittools-customizeToolbar.js
+* Edittools-delh[ResourceLoader|actions=edit,submit|dependencies=ext.gadget.Edittools-customizeToolbar,ext.gadget.i18n|rights=autoconfirmed|requiresES6]|Edittools-delh.js
+* Edittools-refToolbar[ResourceLoader|actions=edit,submit|default|dependencies=ext.gadget.Util,ext.wikiEditor,mediawiki.jqueryMsg,mediawiki.util,user.options|rights=edit|requiresES6]|Edittools-refToolbar.js|Edittools-refToolbar.css
+* Edittools-vector[ResourceLoader|actions=edit,submit|default|dependencies=ext.gadget.Edittools-customizeToolbar|rights=edit|requiresES6]|Edittools-vector.js
+* Edittools-vplus[ResourceLoader|actions=edit,submit|default|dependencies=ext.gadget.Edittools-customizeToolbar,ext.gadget.i18n|rights=edit|requiresES6]|Edittools-vplus.js
+* HotCat[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Util,jquery.ui,mediawiki.jqueryMsg,mediawiki.storage,mediawiki.user,mediawiki.util|peers=HotCat-pagestyles|rights=skipcaptcha|requiresES6]|HotCat.js
+* HotCat-pagestyles[ResourceLoader|hidden|requiresES6]|HotCat-pagestyles.css
 * InPageEdit[ResourceLoader|rights=skipcaptcha|requiresES6]|InPageEdit.js
+* Navigation_popups[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.api,mediawiki.jqueryMsg,mediawiki.user,mediawiki.util,user.options|peers=Navigation_popups-pagestyles|requiresES6]|Navigation_popups.js
+* Navigation_popups-pagestyles[ResourceLoader|hidden|requiresES6]|Navigation_popups-pagestyles.css
+* PreviewWithVariant[ResourceLoader|dependencies=ext.gadget.i18n,mediawiki.Uri,oojs-ui,oojs-ui-core,user.options|peers=PreviewWithVariant-pagestyles|rights=edit|requiresES6]|PreviewWithVariant.js
+* PreviewWithVariant-pagestyles[ResourceLoader|hidden|requiresES6]|PreviewWithVariant-pagestyles.css
+* ToolsRedirect[ResourceLoader|actions=view|dependencies=ext.gadget.Util,jquery.ui,mediawiki.jqueryMsg,user.options|rights=edit|requiresES6]|ToolsRedirect.js|ToolsRedirect.css
+* ToolsRedirect-bio-latin-names[ResourceLoader|actions=view|dependencies=ext.gadget.Util,user.options|rights=edit|requiresES6]|ToolsRedirect-bio-latin-names.js
+* ToolsRedirect-courtesy-and-art-names[ResourceLoader|actions=view|dependencies=ext.gadget.Util,user.options|rights=edit|requiresES6]|ToolsRedirect-courtesy-and-art-names.js
+* ToolsRedirect-opt-bolds[ResourceLoader|actions=view|dependencies=ext.gadget.Util,user.options|rights=edit|requiresES6]|ToolsRedirect-opt-bolds.js
+
+== sysop ==
+* HRTProtectLink[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.util|rights=protect|requiresES6]|HRTProtectLink.js
+* OnlineAdmins[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.api,mediawiki.util|peers=OnlineAdmins-pagestyles|requiresES6]|OnlineAdmins.js
+* OnlineAdmins-pagestyles[ResourceLoader|hidden|requiresES6]|OnlineAdmins-pagestyles.css
+* PagePatroller[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.api,mediawiki.util|rights=autopatrol,patrol|requiresES6]|PagePatroller.js
+* QuickPatrol[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.api,mediawiki.util|rights=patrol|requiresES6]|QuickPatrol.js
+* RollbackSummary[ResourceLoader|default|dependencies=ext.gadget.FilterAlteredClicks,ext.gadget.i18n,mediawiki.util|rights=rollback|requiresES6]|RollbackSummary.js
+* RRD[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,jquery.ui,mediawiki.api|rights=skipcaptcha|requiresES6]|RRD.js|RRD.css
+* TranslateVariants[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.api,mediawiki.diff.styles,mediawiki.util|rights=editinterface|requiresES6]|TranslateVariants.js

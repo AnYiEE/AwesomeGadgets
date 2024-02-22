@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-Edittools-delh\"></span> 编辑工具栏扩展：增加与删除管理相关的下拉菜单",
+	"section": "edit",
+	"actions": ["edit", "submit"],
+	"dependencies": ["ext.gadget.Edittools-customizeToolbar", "ext.gadget.i18n"],
+	"rights": ["autoconfirmed"]
+}

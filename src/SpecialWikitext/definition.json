@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-SpecialWikitext\"></span> 为支持CSS、JS、JSON、模块等特殊页面显示页顶文字及提报删除而设置的插件 <small>{{tl|Special wikitext}}模板配套脚本</small>",
+	"section": "compatibility",
+	"default": true,
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.React", "ext.gadget.Util", "mediawiki.api", "mediawiki.util"],
+	"hidden": true
+}

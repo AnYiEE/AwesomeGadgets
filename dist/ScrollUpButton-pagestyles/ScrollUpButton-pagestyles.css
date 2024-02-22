@@ -1,0 +1,56 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * _addText: '{{Gadget Header|license=GPL-3.0-or-later}}'
+ *
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/ScrollUpButton-pagestyles}
+ * @author 安忆 <i@anyi.in>
+ */
+
+/**
+ * Up Arrow (with blue color and white background)
+ *
+ * @source {@link https://www.qiuwenbaike.cn/wiki/File:Up_Arrow_(Blue,_White_BG).svg}
+ * @author WaitSpring
+ * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ * @license GPL-3.0-or-later {@link https://www.qiuwenbaike.cn/wiki/H:GPL-3.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/ScrollUpButton-pagestyles/ScrollUpButton-pagestyles.less */
+.gadget-scroll_up_button {
+  content: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2250%22%20height%3D%2250%22%20viewBox%3D%220%200%2013.229%2013.229%22%3E%3Ccircle%20cx%3D%226.614%22%20cy%3D%226.614%22%20r%3D%225.957%22%20fill%3D%22%23fff%22%20stroke%3D%22%2336c%22%20stroke-width%3D%221.315%22%2F%3E%3Cpath%20fill%3D%22%2336c%22%20d%3D%22M5.866%2010.264h1.497V5.17l1.941%202.177%201.015-.89-3.674-3.81h-.061L2.91%206.456l1.027.89%201.93-2.177Z%22%20style%3D%22stroke-width%3A.309192%22%2F%3E%3C%2Fsvg%3E);
+  position: fixed;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  opacity: 0.7;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+.client-darkmode .gadget-scroll_up_button {
+  transition: none 0s ease 0s;
+}
+.gadget-scroll_up_button-down {
+  bottom: 45px;
+  transform: rotate(180deg);
+}
+.gadget-scroll_up_button-up {
+  bottom: 85px;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1Njcm9sbFVwQnV0dG9uLXBhZ2VzdHlsZXMvU2Nyb2xsVXBCdXR0b24tcGFnZXN0eWxlcy5sZXNzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyIuZ2FkZ2V0LXNjcm9sbF91cF9idXR0b24ge1xuICBjb250ZW50OiB1cmwoXCJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnJTIweG1sbnMlM0QlMjJodHRwJTNBJTJGJTJGd3d3LnczLm9yZyUyRjIwMDAlMkZzdmclMjIlMjB3aWR0aCUzRCUyMjUwJTIyJTIwaGVpZ2h0JTNEJTIyNTAlMjIlMjB2aWV3Qm94JTNEJTIyMCUyMDAlMjAxMy4yMjklMjAxMy4yMjklMjIlM0UlM0NjaXJjbGUlMjBjeCUzRCUyMjYuNjE0JTIyJTIwY3klM0QlMjI2LjYxNCUyMiUyMHIlM0QlMjI1Ljk1NyUyMiUyMGZpbGwlM0QlMjIlMjNmZmYlMjIlMjBzdHJva2UlM0QlMjIlMjMzNmMlMjIlMjBzdHJva2Utd2lkdGglM0QlMjIxLjMxNSUyMiUyRiUzRSUzQ3BhdGglMjBmaWxsJTNEJTIyJTIzMzZjJTIyJTIwZCUzRCUyMk01Ljg2NiUyMDEwLjI2NGgxLjQ5N1Y1LjE3bDEuOTQxJTIwMi4xNzclMjAxLjAxNS0uODktMy42NzQtMy44MWgtLjA2MUwyLjkxJTIwNi40NTZsMS4wMjcuODklMjAxLjkzLTIuMTc3WiUyMiUyMHN0eWxlJTNEJTIyc3Ryb2tlLXdpZHRoJTNBLjMwOTE5MiUyMiUyRiUzRSUzQyUyRnN2ZyUzRVwiKTtcbiAgcG9zaXRpb246IGZpeGVkO1xuICByaWdodDogOHB4O1xuICB3aWR0aDogMzJweDtcbiAgaGVpZ2h0OiAzMnB4O1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIG9wYWNpdHk6IDAuNztcbiAgLXdlYmtpdC11c2VyLXNlbGVjdDogbm9uZTtcbiAgICAgLW1vei11c2VyLXNlbGVjdDogbm9uZTtcbiAgICAgICAgICB1c2VyLXNlbGVjdDogbm9uZTtcbn1cbi5jbGllbnQtZGFya21vZGUgLmdhZGdldC1zY3JvbGxfdXBfYnV0dG9uIHtcbiAgdHJhbnNpdGlvbjogbm9uZSAwcyBlYXNlIDBzO1xufVxuLmdhZGdldC1zY3JvbGxfdXBfYnV0dG9uLWRvd24ge1xuICBib3R0b206IDQ1cHg7XG4gIHRyYW5zZm9ybTogcm90YXRlKDE4MGRlZyk7XG59XG4uZ2FkZ2V0LXNjcm9sbF91cF9idXR0b24tdXAge1xuICBib3R0b206IDg1cHg7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxDQUFDO0FBQ0MsV0FBUztBQUNULFlBQVU7QUFDVixTQUFPO0FBQ1AsU0FBTztBQUNQLFVBQVE7QUFDUixVQUFRO0FBQ1IsV0FBUztBQUNULHVCQUFxQjtBQUNsQixvQkFBa0I7QUFDYixlQUFhO0FBQ3ZCO0FBQ0EsQ0FBQyxnQkFBZ0IsQ0FaaEI7QUFhQyxjQUFZLEtBQUssR0FBRyxLQUFLO0FBQzNCO0FBQ0EsQ0FBQztBQUNDLFVBQVE7QUFDUixhQUFXLE9BQU87QUFDcEI7QUFDQSxDQUFDO0FBQ0MsVUFBUTtBQUNWOyIsCiAgIm5hbWVzIjogW10KfQo= */

@@ -34,14 +34,18 @@ const apiQueue: PQueue = new PQueue({
 /**
  * Deploy definitions, scripts and styles
  *
- * @param {boolean} [isTest] Run the deploy process in test mode or not
+ * @param {boolean} [isSkipAsk=false] Run the deploy process directly or not
+ * @param {boolean} [isTest=false] Run the deploy process in test mode or not
  */
-const deploy = async (isTest?: boolean): Promise<void> => {
+const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Promise<void> => {
 	// Note: The program may terminate due to an expected exception
 	const definitionText: string = readDefinition();
 
 	const config: ReturnType<typeof loadConfig> = isTest ? fakeConfig : loadConfig();
-	await checkConfig(config, true);
+	await checkConfig(config, {
+		isSkipAsk,
+		isCheckApiUrlOnly: true,
+	});
 
 	const uncheckedApis: Api[] = [];
 	for (const [site, credentials] of Object.entries(config)) {
@@ -59,27 +63,35 @@ const deploy = async (isTest?: boolean): Promise<void> => {
 
 	const sites: Api['site'][] =
 		uncheckedApis.length > 1
-			? ((await prompt({
-					type: 'multiselect',
-					message: 'Select sites to deploy',
-					choices: uncheckedApis.reduce(
+			? isSkipAsk
+				? uncheckedApis.reduce(
 						(accumulator, {site}) => {
-							accumulator.push({
-								title: site,
-								value: site,
-								selected: true,
-							});
+							accumulator.push(site);
 							return accumulator;
 						},
-						[] as {
-							title: string;
-							value: string;
-							selected: boolean;
-						}[]
-					),
-					max: Number.POSITIVE_INFINITY,
-					min: 0,
-				})) as typeof sites)
+						[] as typeof sites
+					)
+				: ((await prompt({
+						type: 'multiselect',
+						message: 'Select sites to deploy',
+						choices: uncheckedApis.reduce(
+							(accumulator, {site}) => {
+								accumulator.push({
+									title: site,
+									value: site,
+									selected: true,
+								});
+								return accumulator;
+							},
+							[] as {
+								title: string;
+								value: string;
+								selected: boolean;
+							}[]
+						),
+						max: Number.POSITIVE_INFINITY,
+						min: 0,
+					})) as typeof sites)
 			: [uncheckedApis[0]!.site];
 
 	const apis: Api[] = [];
@@ -93,7 +105,9 @@ const deploy = async (isTest?: boolean): Promise<void> => {
 			apiInstance.initOAuth();
 			isUseOAuth = true;
 		} catch {
-			await checkConfig(config);
+			await checkConfig(config, {
+				isSkipAsk,
+			});
 			apiInstance.setOptions(config);
 		}
 
@@ -122,10 +136,12 @@ const deploy = async (isTest?: boolean): Promise<void> => {
 		exit(1);
 	}
 
-	await prompt('> Confirm start deployment?', 'confirm', true);
+	if (!isSkipAsk) {
+		await prompt('> Confirm start deployment?', 'confirm', true);
+	}
 
 	const targets: DeploymentTargets = generateTargets();
-	const fallbackEditSummary: string = await makeEditSummary();
+	const fallbackEditSummary: string = await makeEditSummary(isSkipAsk);
 
 	for (const api of apis) {
 		const {site} = api;
@@ -141,22 +157,28 @@ const deploy = async (isTest?: boolean): Promise<void> => {
 			enabledGadgets.push(gadgetName);
 
 			const originDefinitionFilePath: string = join(__rootDir, `src/${gadgetName}/definition.json`);
-			const originDefinitionEditSummary: string = await makeEditSummary(
-				originDefinitionFilePath,
-				fallbackEditSummary
-			);
+			const originDefinitionEditSummary: string = await makeEditSummary(isSkipAsk, {
+				fallbackEditSummary,
+				filePath: originDefinitionFilePath,
+			});
 			saveDescription(gadgetName, description, api, originDefinitionEditSummary);
 
 			for (const [originFileName, fileName] of files) {
 				const filePath: string = join(__rootDir, `dist/${gadgetName}/${originFileName}`);
 				const fileContent: string = readFileContent(filePath);
-				const fileEditSummary: string = await makeEditSummary(filePath, fallbackEditSummary);
+				const fileEditSummary: string = await makeEditSummary(isSkipAsk, {
+					fallbackEditSummary,
+					filePath,
+				});
 				saveFiles(gadgetName, fileName, fileContent, api, fileEditSummary);
 			}
 		}
 
 		const definitionFilePath: string = join(__rootDir, 'dist/definition.txt');
-		const definitionEditSummary: string = await makeEditSummary(definitionFilePath, fallbackEditSummary);
+		const definitionEditSummary: string = await makeEditSummary(isSkipAsk, {
+			fallbackEditSummary,
+			filePath: definitionFilePath,
+		});
 		const currentSiteDefinitionText: string = saveDefinition(
 			definitionText,
 			enabledGadgets,
@@ -167,7 +189,10 @@ const deploy = async (isTest?: boolean): Promise<void> => {
 
 		const globalTargets: DeploymentDirectTargets = await generateDirectTargets(site);
 		const globalTargetsFilePath: string = join(__rootDir, 'src/global.json');
-		const globalTargetsEditSummary: string = await makeEditSummary(globalTargetsFilePath, fallbackEditSummary);
+		const globalTargetsEditSummary: string = await makeEditSummary(isSkipAsk, {
+			fallbackEditSummary,
+			filePath: globalTargetsFilePath,
+		});
 		for (const [pageTitle, pageContent] of globalTargets) {
 			savePages(pageTitle, pageContent, api, globalTargetsEditSummary);
 		}
@@ -178,7 +203,7 @@ const deploy = async (isTest?: boolean): Promise<void> => {
 
 		console.log(chalk.yellow(`--- [${chalk.bold(site)}] starting delete unused pages ---`));
 
-		await deleteUnusedPages(api, fallbackEditSummary);
+		await deleteUnusedPages(api, fallbackEditSummary, isSkipAsk);
 
 		await apiQueue.onIdle();
 

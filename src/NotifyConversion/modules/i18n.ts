@@ -13,14 +13,14 @@ const getI18nMessages = () => {
 			'zh-hant': '為避免內容顯示簡繁混雜，請選擇您偏好的中文變體。',
 		}),
 		dialogDescExtend1: localize({
-			en: 'To meet needs of readers, Qiuwen Baike utilizes a conversion mechanism for Chinese language variants.',
+			en: 'To meet needs of readers, Youshou Arxiv utilizes a conversion mechanism for Chinese language variants.',
 			'zh-hans': '为满足各地中文用户需求，有兽档案馆采用自动转换技术，提供不同中文变体。',
 			'zh-hant': '為滿足各地中文使用者需求，有獸檔案館採用自動轉換技術，提供不同中文變體。',
 		}),
 		dialogDescExtend2: localize({
 			en: 'For your better experience, we would appreciate it if you select your preferred Chinese language variant. We apologize for any inconvenience.',
-			'zh-hans': '出于阅读体验之考量，我们建议您可以选择所偏好的中文语言变体。给您带来不便，敬请谅解！',
-			'zh-hant': '出於閱讀體驗之考量，我們建議您可以選擇所偏好的中文語言變體。給您帶來不便，敬請諒解！',
+			'zh-hans': '为了确保您的阅读体验，我们建议您可以选择所偏好的中文语言变体。给您带来不便，敬请谅解！',
+			'zh-hant': '為了確保您的閱讀體驗，我們建議您可以選擇所偏好的中文語言變體。給您帶來不便，敬請諒解！',
 		}),
 		'variant-zh-cn': localize({
 			en: 'Chinese Mainland (Simplified) (中国大陆简体)',

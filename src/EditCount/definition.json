@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-EditCount\"></span> 编辑次数计数 <small>在“{{int:mycontris}}”链接旁边显示贡献数量</small>",
+	"section": "edit",
+	"skins": ["gongbi", "vector", "vector-2022"]
+}

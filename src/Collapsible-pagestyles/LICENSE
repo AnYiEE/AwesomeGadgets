@@ -1,0 +1,9 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://rs.miraheze.org/wiki/MediaWiki:Gadget-collapsible.css}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src//Collapsible-pagestyles}
+ * @author SolidBlock
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */

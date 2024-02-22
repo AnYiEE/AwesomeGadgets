@@ -1,0 +1,35 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://en.wiktionary.org/wiki/User:Erutuon/scripts/gadgets-definition.js}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/GadgetsDefinition}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/GadgetsDefinition/GadgetsDefinition.less */
+.rootpage-MediaWiki_Gadgets-definition li:target {
+  padding: 0.125em 0.25em;
+  border: 1px solid #9e9;
+  background-color: #eee;
+}
+.client-darkmode .rootpage-MediaWiki_Gadgets-definition li:target {
+  border-color: #c71590;
+  background-color: rgba(17, 17, 17, 0.25);
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0dhZGdldHNEZWZpbml0aW9uL0dhZGdldHNEZWZpbml0aW9uLmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbIi5yb290cGFnZS1NZWRpYVdpa2lfR2FkZ2V0cy1kZWZpbml0aW9uIGxpOnRhcmdldCB7XG4gIHBhZGRpbmc6IDAuMTI1ZW0gMC4yNWVtO1xuICBib3JkZXI6IDFweCBzb2xpZCAjOWU5O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZWVlO1xufVxuLmNsaWVudC1kYXJrbW9kZSAucm9vdHBhZ2UtTWVkaWFXaWtpX0dhZGdldHMtZGVmaW5pdGlvbiBsaTp0YXJnZXQge1xuICBib3JkZXItY29sb3I6ICNjNzE1OTA7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMTcsIDE3LCAxNywgMC4yNSk7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsQ0FBQyxzQ0FBc0MsRUFBRTtBQUN2QyxXQUFTLFFBQVE7QUFDakIsVUFBUSxJQUFJLE1BQU07QUFDbEIsb0JBQWtCO0FBQ3BCO0FBQ0EsQ0FBQyxnQkFBZ0IsQ0FMaEIsc0NBS3VELEVBQUU7QUFDeEQsZ0JBQWM7QUFDZCxvQkFBa0IsS0FBSyxFQUFFLEVBQUUsRUFBRSxFQUFFLEVBQUUsRUFBRTtBQUNyQzsiLAogICJuYW1lcyI6IFtdCn0K */

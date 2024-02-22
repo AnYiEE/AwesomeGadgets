@@ -1,10 +1,12 @@
 {
 	"diffEditor.codeLens": true,
 	"diffEditor.experimental.showMoves": true,
-	"diffEditor.ignoreTrimWhitespace": false,
+	"diffEditor.ignoreTrimWhitespace": true,
+	"diffEditor.maxComputationTime": 0,
 	"editor.bracketPairColorization.independentColorPoolPerBracketType": true,
 	"editor.cursorBlinking": "smooth",
 	"editor.cursorSmoothCaretAnimation": "on",
+	"editor.fontLigatures": true,
 	"editor.guides.bracketPairs": "active",
 	"editor.insertSpaces": false,
 	"editor.linkedEditing": true,
@@ -14,6 +16,9 @@
 	"editor.renderWhitespace": "all",
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.stickyScroll.enabled": true,
+	"files.associations": {
+		"*.css": "css"
+	},
 	"git.autoStash": true,
 	"git.allowForcePush": true,
 	"terminal.integrated.scrollback": 10000,
@@ -73,6 +78,10 @@
 	"typescript.updateImportsOnFileMove.enabled": "always",
 	"css.format.spaceAroundSelectorSeparator": true,
 	"css.lint.unknownAtRules": "ignore",
+	"css.lint.validProperties": ["composes"],
+	"less.format.spaceAroundSelectorSeparator": true,
+	"less.lint.unknownAtRules": "ignore",
+	"less.lint.validProperties": ["composes"],
 	"errorLens.editorHoverPartsEnabled": {
 		"buttonsEnabled": false
 	},

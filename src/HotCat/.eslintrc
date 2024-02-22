@@ -1,0 +1,17 @@
+{
+	"rules": {
+		"camelcase": "off",
+		"@typescript-eslint/no-this-alias": [
+			"error",
+			{
+				"allowDestructuring": true,
+				"allowedNames": ["self"]
+			}
+		],
+		"no-new": "off"
+	},
+	"globals": {
+		"HotCat": "readonly",
+		"UploadForm": "readonly"
+	}
+}

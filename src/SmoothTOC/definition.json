@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-SmoothTOC\"></span> 点击目录时平滑滚动至目标章节",
+	"section": "browser",
+	"default": true,
+	"dependencies": ["ext.gadget.Util"],
+	"skins": ["gongbi", "vector", "vector-2022"]
+}

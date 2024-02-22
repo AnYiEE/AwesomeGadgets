@@ -21,5 +21,11 @@
 		"stylistic/selector-descendant-combinator-no-non-space": null,
 		"stylistic/selector-pseudo-class-parentheses-space-inside": "never",
 		"stylistic/value-list-comma-newline-after": null
-	}
+	},
+	"overrides": [
+		{
+			"files": ["**/*.module.css", "**/*.module.less"],
+			"extends": ["stylelint-config-css-modules"]
+		}
+	]
 }

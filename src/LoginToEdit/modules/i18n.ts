@@ -28,7 +28,7 @@ const getI18nMessages = () => {
 		}),
 		DialogTitle: localize({
 			en: 'Welcome to Youshou Archives!',
-			ja: '有獣アーカイブスへようこそ！',
+			ja: '「有兽档案馆」へようこそです！',
 			'zh-hans': '欢迎来到有兽档案馆！',
 			'zh-hant': '歡迎來到有獸檔案館！',
 		}),

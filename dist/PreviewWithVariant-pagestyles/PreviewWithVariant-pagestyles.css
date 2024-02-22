@@ -1,0 +1,32 @@
+/**
+ * SPDX-License-Identifier: MIT
+ * _addText: '{{Gadget Header|license=MIT}}'
+ *
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/PreviewWithVariant-pagestyles}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/PreviewWithVariant-pagestyles/PreviewWithVariant-pagestyles.less */
+#pwv-area {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+}
+#pwv-area .oo-ui-fieldLayout {
+  margin-top: 0;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1ByZXZpZXdXaXRoVmFyaWFudC1wYWdlc3R5bGVzL1ByZXZpZXdXaXRoVmFyaWFudC1wYWdlc3R5bGVzLmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbIiNwd3YtYXJlYSB7XG4gIGRpc3BsYXk6IGlubGluZS1mbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogcm93O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xufVxuI3B3di1hcmVhIC5vby11aS1maWVsZExheW91dCB7XG4gIG1hcmdpbi10b3A6IDA7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLENBQUM7QUFDQyxXQUFTO0FBQ1Qsa0JBQWdCO0FBQ2hCLGVBQWE7QUFDZjtBQUNBLENBTEMsU0FLUyxDQUFDO0FBQ1QsY0FBWTtBQUNkOyIsCiAgIm5hbWVzIjogW10KfQo= */

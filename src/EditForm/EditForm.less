@@ -1,0 +1,65 @@
+@import (reference) '../variables.less';
+
+.mw-editform {
+	#editpage-copywarn {
+		font-size: 1em !important;
+	}
+}
+
+.ext-WikiEditor-twopanes-TwoPaneLayout {
+	.ext-WikiEditor-twopanes-pane2 {
+		border-right: 1px solid;
+	}
+}
+
+.ve-ui-toolbar {
+	.oo-ui-tool-name-heading1 {
+		display: none !important;
+	}
+}
+
+/**
+ * 编辑界面“→ 前往编辑区”按钮
+ * Copied from .mw-ui-button and .cdx-button
+ */
+.mw-continue-editing {
+	a {
+		display: inline-block;
+		min-width: 4em;
+		max-width: 28.75em;
+		min-height: 32px;
+		box-sizing: border-box;
+		padding: 0.5em 0.95em;
+		border: 1px solid @const-color-inactive;
+		border-radius: 0;
+		margin: 0;
+		appearance: none;
+		background-color: @const-color-gray--lighter;
+		color: @const-color-primary;
+		cursor: pointer;
+		font-family: inherit;
+		font-size: 1em;
+		font-weight: bold;
+		line-height: 1.2857em;
+		text-align: center;
+		transition:
+			background-color 100ms,
+			color 100ms,
+			border-color 100ms,
+			box-shadow 100ms;
+		vertical-align: middle;
+
+		&:hover {
+			background-color: @const-color-white;
+			color: @const-color-secondary;
+		}
+	}
+}
+
+/* TemplateData edit button */
+.tdg-editscreen-main {
+	padding: 0.25em 1em;
+	border: 1px solid @background-color-primary;
+	margin-top: 1em;
+	background: @background-color-light;
+}

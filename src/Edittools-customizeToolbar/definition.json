@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-Edittools-customizeToolbar\"></span> 编辑工具栏扩展依赖：增加菜单",
+	"section": "edit",
+	"actions": ["edit", "submit"],
+	"dependencies": ["ext.gadget.Util", "ext.wikiEditor", "user.options"],
+	"hidden": true
+}
