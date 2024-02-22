@@ -2,9 +2,9 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  * _addText: '{{Gadget Header|license=GPL-3.0-or-later}}'
  *
- * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/EnhancedSpecialSearch}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/EnhancedSpecialSearch}
  * @author 安忆 <i@anyi.in>
- * @license GPL-3.0-or-later {@link https://www.qiuwenbaike.cn/wiki/H:GPL-3.0}
+ * @license GPL-3.0-or-later {@link https://youshou.wiki/wiki/H:GPL-3.0}
  */
 /**
  * +------------------------------------------------------------+
