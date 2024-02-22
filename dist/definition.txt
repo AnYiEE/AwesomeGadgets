@@ -14,6 +14,7 @@
 * HideConversionTab[ResourceLoader|default|requiresES6]|HideConversionTab.css
 * InterwikiTips[ResourceLoader|default|requiresES6]|InterwikiTips.css
 * LoginToEdit[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.util,oojs-ui-windows|hidden|requiresES6]|LoginToEdit.js
+* NavboxCSS[ResourceLoader|default|hidden|requiresES6]|NavboxCSS.css
 * NotifyConversion[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.storage,mediawiki.Uri,mediawiki.util,oojs-ui-core,oojs-ui-widgets,oojs-ui-windows,oojs-ui.styles.icons-editing-advanced|peers=NotifyConversion-pagestyles|requiresES6]|NotifyConversion.js
 * NotifyConversion-pagestyles[ResourceLoader|hidden|requiresES6]|NotifyConversion-pagestyles.css
 * OneSideMenu[ResourceLoader|skins=gongbi|requiresES6]|OneSideMenu.css
@@ -63,6 +64,8 @@
 * GeoLocationReader-pagestyles[ResourceLoader|hidden|requiresES6]|GeoLocationReader-pagestyles.css
 * i18n[ResourceLoader|dependencies=ext.gadget.Util|hidden|requiresES6]|i18n.js
 * morebits[ResourceLoader|dependencies=ext.gadget.select2,jquery.ui,mediawiki.Title,mediawiki.user,mediawiki.util|hidden|requiresES6]|morebits.js|morebits.css
+* NavFrame[ResourceLoader|default|dependencies=ext.gadget.i18n|hidden|peers=NavFrame-pagestyles|requiresES6]|NavFrame.js
+* NavFrame-pagestyles[ResourceLoader|hidden|requiresES6]|NavFrame-pagestyles.css
 * PrintOptions[ResourceLoader|dependencies=ext.gadget.i18n,mediawiki.util,oojs-ui-core,oojs-ui-widgets,oojs-ui-windows|requiresES6]|PrintOptions.js
 * React[ResourceLoader|hidden|requiresES6]|React.js
 * select2[ResourceLoader|dependencies=jquery|hidden|requiresES6]|select2.js|select2.css
@@ -92,6 +95,8 @@
 * HotCat[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Util,jquery.ui,mediawiki.jqueryMsg,mediawiki.storage,mediawiki.user,mediawiki.util|peers=HotCat-pagestyles|rights=skipcaptcha|requiresES6]|HotCat.js
 * HotCat-pagestyles[ResourceLoader|hidden|requiresES6]|HotCat-pagestyles.css
 * InPageEdit[ResourceLoader|rights=skipcaptcha|requiresES6]|InPageEdit.js
+* Navigation_popups[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.api,mediawiki.jqueryMsg,mediawiki.user,mediawiki.util,user.options|peers=Navigation_popups-pagestyles|requiresES6]|Navigation_popups.js
+* Navigation_popups-pagestyles[ResourceLoader|hidden|requiresES6]|Navigation_popups-pagestyles.css
 * PreviewWithVariant[ResourceLoader|dependencies=ext.gadget.i18n,mediawiki.Uri,oojs-ui,oojs-ui-core,user.options|peers=PreviewWithVariant-pagestyles|rights=edit|requiresES6]|PreviewWithVariant.js
 * PreviewWithVariant-pagestyles[ResourceLoader|hidden|requiresES6]|PreviewWithVariant-pagestyles.css
 * ToolsRedirect[ResourceLoader|actions=view|dependencies=ext.gadget.Util,jquery.ui,mediawiki.jqueryMsg,user.options|rights=edit|requiresES6]|ToolsRedirect.js|ToolsRedirect.css

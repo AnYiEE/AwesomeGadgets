@@ -1,0 +1,86 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-NavFrame.css}
+ * @base {@link https://www.mediawiki.org/wiki/MediaWiki:Gadget-NavFrame.css}
+ * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/NavFrame-pagestyles}
+ */
+
+/**
+ * Warning: NavFrame is retained for compatibility. Use .mw-collapsible instead.
+ * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/NavFrame-pagestyles/NavFrame-pagestyles.less */
+div.Boxmerge,
+div.NavFrame {
+  padding: 4px;
+  border: 1px solid #aaa;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 95%;
+  text-align: center;
+}
+div.NavContent {
+  text-align: left;
+}
+div.Boxmerge div.NavFrame,
+div.NavFrame + div.NavFrame,
+div.NavFrame + table.collapsible,
+table.collapsible + div.NavFrame,
+table.collapsible + table.collapsible {
+  border-top-style: hidden;
+}
+div.NavPic {
+  padding: 2px;
+  margin: 0;
+  background-color: #fff;
+  float: left;
+}
+div.NavFrame div.NavHead {
+  position: relative;
+  background-color: #ccf;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 1.6em;
+}
+div.NavFrame p,
+div.NavFrame div.NavContent,
+div.NavFrame div.NavContent p {
+  font-size: 100%;
+}
+div.NavEnd {
+  padding: 0;
+  margin: 0;
+  clear: both;
+  line-height: 0.0625rem;
+}
+span.NavToggle {
+  padding-right: 1.125em;
+  float: right;
+  font-size: 90%;
+  font-weight: normal;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+.client-js .NavFrame.collapsed > .NavContent {
+  display: none;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL05hdkZyYW1lLXBhZ2VzdHlsZXMvTmF2RnJhbWUtcGFnZXN0eWxlcy5sZXNzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyJkaXYuQm94bWVyZ2UsXG5kaXYuTmF2RnJhbWUge1xuICBwYWRkaW5nOiA0cHg7XG4gIGJvcmRlcjogMXB4IHNvbGlkICNhYWE7XG4gIG1hcmdpbjogMDtcbiAgYm9yZGVyLWNvbGxhcHNlOiBjb2xsYXBzZTtcbiAgZm9udC1zaXplOiA5NSU7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbmRpdi5OYXZDb250ZW50IHtcbiAgdGV4dC1hbGlnbjogbGVmdDtcbn1cbmRpdi5Cb3htZXJnZSBkaXYuTmF2RnJhbWUsXG5kaXYuTmF2RnJhbWUgKyBkaXYuTmF2RnJhbWUsXG5kaXYuTmF2RnJhbWUgKyB0YWJsZS5jb2xsYXBzaWJsZSxcbnRhYmxlLmNvbGxhcHNpYmxlICsgZGl2Lk5hdkZyYW1lLFxudGFibGUuY29sbGFwc2libGUgKyB0YWJsZS5jb2xsYXBzaWJsZSB7XG4gIGJvcmRlci10b3Atc3R5bGU6IGhpZGRlbjtcbn1cbmRpdi5OYXZQaWMge1xuICBwYWRkaW5nOiAycHg7XG4gIG1hcmdpbjogMDtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcbiAgZmxvYXQ6IGxlZnQ7XG59XG5kaXYuTmF2RnJhbWUgZGl2Lk5hdkhlYWQge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIGJhY2tncm91bmQtY29sb3I6ICNjY2Y7XG4gIGN1cnNvcjogcG9pbnRlcjtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIGxpbmUtaGVpZ2h0OiAxLjZlbTtcbn1cbmRpdi5OYXZGcmFtZSBwLFxuZGl2Lk5hdkZyYW1lIGRpdi5OYXZDb250ZW50LFxuZGl2Lk5hdkZyYW1lIGRpdi5OYXZDb250ZW50IHAge1xuICBmb250LXNpemU6IDEwMCU7XG59XG5kaXYuTmF2RW5kIHtcbiAgcGFkZGluZzogMDtcbiAgbWFyZ2luOiAwO1xuICBjbGVhcjogYm90aDtcbiAgbGluZS1oZWlnaHQ6IDAuMDYyNXJlbTtcbn1cbnNwYW4uTmF2VG9nZ2xlIHtcbiAgcGFkZGluZy1yaWdodDogMS4xMjVlbTtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBmb250LXNpemU6IDkwJTtcbiAgZm9udC13ZWlnaHQ6IG5vcm1hbDtcbiAgLXdlYmtpdC11c2VyLXNlbGVjdDogbm9uZTtcbiAgICAgLW1vei11c2VyLXNlbGVjdDogbm9uZTtcbiAgICAgICAgICB1c2VyLXNlbGVjdDogbm9uZTtcbn1cbi5jbGllbnQtanMgLk5hdkZyYW1lLmNvbGxhcHNlZCA+IC5OYXZDb250ZW50IHtcbiAgZGlzcGxheTogbm9uZTtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLEdBQUcsQ0FBQztBQUNKLEdBQUcsQ0FBQztBQUNGLFdBQVM7QUFDVCxVQUFRLElBQUksTUFBTTtBQUNsQixVQUFRO0FBQ1IsbUJBQWlCO0FBQ2pCLGFBQVc7QUFDWCxjQUFZO0FBQ2Q7QUFDQSxHQUFHLENBQUM7QUFDRixjQUFZO0FBQ2Q7QUFDQSxHQUFHLENBWkMsU0FZUyxHQUFHLENBWFo7QUFZSixHQUFHLENBWkMsU0FZUyxFQUFFLEdBQUcsQ0FaZDtBQWFKLEdBQUcsQ0FiQyxTQWFTLEVBQUUsS0FBSyxDQUFDO0FBQ3JCLEtBQUssQ0FEZ0IsWUFDSCxFQUFFLEdBQUcsQ0FkbkI7QUFlSixLQUFLLENBRmdCLFlBRUgsRUFBRSxLQUFLLENBRko7QUFHbkIsb0JBQWtCO0FBQ3BCO0FBQ0EsR0FBRyxDQUFDO0FBQ0YsV0FBUztBQUNULFVBQVE7QUFDUixvQkFBa0I7QUFDbEIsU0FBTztBQUNUO0FBQ0EsR0FBRyxDQXhCQyxTQXdCUyxHQUFHLENBQUM7QUFDZixZQUFVO0FBQ1Ysb0JBQWtCO0FBQ2xCLFVBQVE7QUFDUixlQUFhO0FBQ2IsZUFBYTtBQUNmO0FBQ0EsR0FBRyxDQS9CQyxTQStCUztBQUNiLEdBQUcsQ0FoQ0MsU0FnQ1MsR0FBRyxDQXhCWjtBQXlCSixHQUFHLENBakNDLFNBaUNTLEdBQUcsQ0F6QlosV0F5QndCO0FBQzFCLGFBQVc7QUFDYjtBQUNBLEdBQUcsQ0FBQztBQUNGLFdBQVM7QUFDVCxVQUFRO0FBQ1IsU0FBTztBQUNQLGVBQWE7QUFDZjtBQUNBLElBQUksQ0FBQztBQUNILGlCQUFlO0FBQ2YsU0FBTztBQUNQLGFBQVc7QUFDWCxlQUFhO0FBQ2IsdUJBQXFCO0FBQ2xCLG9CQUFrQjtBQUNiLGVBQWE7QUFDdkI7QUFDQSxDQUFDLFVBQVUsQ0FuRFAsUUFtRGdCLENBQUMsVUFBVSxFQUFFLENBM0M3QjtBQTRDRixXQUFTO0FBQ1g7IiwKICAibmFtZXMiOiBbXQp9Cg== */
