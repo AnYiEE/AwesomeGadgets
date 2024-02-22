@@ -4,8 +4,8 @@
  *
  * @base {@link https://en.wikipedia.org/wiki/MediaWiki:Gadget-popups.js}
  * @base {@link https://zh.wikipedia.org/w/index.php?title=User:Lupin/strings-draft&oldid=579996170}
- * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/Navigation_popups}
- * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/Navigation_popups}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
  */
 /**
  * +------------------------------------------------------------+
