@@ -33,6 +33,7 @@
 * FullwidthSearchFix[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Toastify,mediawiki.Uri,mediawiki.util|requiresES6]|FullwidthSearchFix.js
 * HideLongSummaries[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util|requiresES6]|HideLongSummaries.js
 * NavbarAvatar[ResourceLoader|default|hidden|rights=edit|requiresES6]|NavbarAvatar.js
+* PurgePageCache[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util|rights=edit|requiresES6]|PurgePageCache.js
 * Scroller[ResourceLoader|default|hidden|requiresES6]|Scroller.js
 * ShortURL[ResourceLoader|default|dependencies=ext.gadget.Clipboard,ext.gadget.i18n,ext.gadget.Tippy,ext.gadget.Util,mediawiki.api,mediawiki.util,mediawiki.widgets,oojs-ui-windows|peers=ShortURL-pagestyles|rights=edit|requiresES6]|ShortURL.js
 * ShortURL-pagestyles[ResourceLoader|hidden|requiresES6]|ShortURL-pagestyles.css
@@ -84,9 +85,11 @@
 * InPageEdit[ResourceLoader|rights=skipcaptcha|requiresES6]|InPageEdit.js
 * PreviewWithVariant[ResourceLoader|dependencies=ext.gadget.i18n,mediawiki.Uri,oojs-ui,oojs-ui-core,user.options|peers=PreviewWithVariant-pagestyles|rights=edit|requiresES6]|PreviewWithVariant.js
 * PreviewWithVariant-pagestyles[ResourceLoader|hidden|requiresES6]|PreviewWithVariant-pagestyles.css
+* QuickImport[ResourceLoader|dependencies=ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util|rights=import|requiresES6]|QuickImport.js
 
 == sysop ==
 * HRTProtectLink[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.util|rights=protect|requiresES6]|HRTProtectLink.js
 * OnlineAdmins[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.api,mediawiki.util|peers=OnlineAdmins-pagestyles|requiresES6]|OnlineAdmins.js
 * OnlineAdmins-pagestyles[ResourceLoader|hidden|requiresES6]|OnlineAdmins-pagestyles.css
 * PagePatroller[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.api,mediawiki.util|rights=autopatrol,patrol|requiresES6]|PagePatroller.js
+* QuickPatrol[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.api,mediawiki.util|rights=patrol|requiresES6]|QuickPatrol.js

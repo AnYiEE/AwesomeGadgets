@@ -3,7 +3,7 @@
  * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
  *
  * @base {@link https://en.wikipedia.org/wiki/MediaWiki:Gadget-PrintOptions.js}
- * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/PrintOptions}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/PrintOptions}
  * @author Derk-Jan Hartman, English Wikipedia Contributors and Qiuwen Baike Contributors.
  */
 
