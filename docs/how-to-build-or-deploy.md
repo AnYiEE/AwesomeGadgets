@@ -82,6 +82,8 @@
     }
     ```
 
+    也可以将字符串化后的`credentials.json`文本声明为`CREDENTIALS_JSON`环境变量。此时，`credentials.json`文件将被忽略<br>You can declare the stringified `credentials.json` text as the `CREDENTIALS_JSON` environment variable, in which case the `credentials.json` file will be ignored.
+
     根据工具需要，你应该授予机器人账号以下额外权限<br>Grant the robot account the following additional permissions:
 
     - 大量编辑<br>High-volume editing
