@@ -8,12 +8,14 @@ const {
 	build: isBuild,
 	deploy: isDeploy,
 	'format-json': isFormatJSON,
+	'skip-ask': isSkipAsk,
 	test: isTest,
 	...rest
 } = minimist<{
 	build?: boolean;
 	deploy?: boolean;
 	'format-json'?: boolean;
+	'skip-ask'?: boolean;
 	test: boolean;
 }>(argv.slice(2));
 
@@ -22,7 +24,7 @@ if (isBuild) {
 }
 
 if (isDeploy) {
-	await deploy(isTest);
+	await deploy(isSkipAsk, isTest);
 }
 
 if (isFormatJSON) {

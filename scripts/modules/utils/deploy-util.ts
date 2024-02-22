@@ -21,8 +21,8 @@ import {
 	writeFileContent,
 } from './general-util';
 import {basename, extname, join} from 'node:path';
+import {env, exit, stdout} from 'node:process';
 import {existsSync, open} from 'node:fs';
-import {exit, stdout} from 'node:process';
 import {ESLint} from 'eslint';
 import {MwnError} from 'mwn/build/error';
 import {Window} from 'happy-dom';
@@ -237,18 +237,45 @@ const generateDirectTargets = async (site: Api['site']): Promise<DeploymentDirec
  * Check the integrity of configuration items
  *
  * @param {Object} config To be completed configuration
- * @param {boolean} [isCheckApiUrlOnly=false] Only check `config[site].apiUrl` is empty or not
+ * @param {Object} [object]
+ * @param {boolean} [object.isCheckApiUrlOnly] Only check `config[site].apiUrl` is empty or not
+ * @param {boolean} [object.isSkipAsk] Run the deploy process directly or not
  * @return {Promise<void>}
  */
 async function checkConfig(
 	config: {
 		[key: string]: Partial<CredentialsOnlyPassword>;
 	},
-	isCheckApiUrlOnly: true
+	{
+		isCheckApiUrlOnly,
+		isSkipAsk,
+	}: {
+		isCheckApiUrlOnly: true;
+		isSkipAsk?: boolean;
+	}
 ): Promise<void>;
-async function checkConfig(config: ReturnType<typeof loadConfig>, isCheckApiUrlOnly?: boolean): Promise<void>;
+async function checkConfig(config: ReturnType<typeof loadConfig>): Promise<void>;
+async function checkConfig(
+	config: ReturnType<typeof loadConfig>,
+	{
+		isCheckApiUrlOnly,
+		isSkipAsk,
+	}: {
+		isCheckApiUrlOnly?: boolean;
+		isSkipAsk?: boolean;
+	}
+): Promise<void>;
 // eslint-disable-next-line func-style
-async function checkConfig(config: ReturnType<typeof loadConfig>, isCheckApiUrlOnly: boolean = false): Promise<void> {
+async function checkConfig(
+	config: ReturnType<typeof loadConfig>,
+	{
+		isCheckApiUrlOnly,
+		isSkipAsk,
+	}: {
+		isCheckApiUrlOnly?: boolean;
+		isSkipAsk?: boolean;
+	} = {}
+): Promise<void> {
 	const exitWithError = (reason: string): void => {
 		console.log(chalk.red(`✘ ${reason} in ${chalk.italic('credentials.json')}`));
 		exit(1);
@@ -269,10 +296,10 @@ async function checkConfig(config: ReturnType<typeof loadConfig>, isCheckApiUrlO
 
 	for (const [site, credentials] of Object.entries(config)) {
 		if (isCheckApiUrlOnly) {
-			if (!credentials.apiUrl) {
+			if (!credentials.apiUrl && !isSkipAsk) {
 				credentials.apiUrl = await prompt(`> [${site}] Enter api url (eg. https://your.wiki/api.php)`);
 			}
-		} else {
+		} else if (!isSkipAsk) {
 			const _credentials = credentials as Partial<CredentialsOnlyPassword>;
 			if (!_credentials.username) {
 				_credentials.username = await prompt(`> [${site}] Enter username}`);
@@ -297,15 +324,16 @@ const loadConfig = (): typeof credentials => {
 	};
 
 	let isMissing: boolean = false;
+	const {CREDENTIALS_JSON} = env;
 
 	const credentialsFilePath: string = join(__rootDir, 'scripts/credentials.json');
-	if (!existsSync(credentialsFilePath)) {
+	if (!CREDENTIALS_JSON && !existsSync(credentialsFilePath)) {
 		isMissing = true;
 		logError('missing');
 	}
 
-	let credentialsJsonText: string = '{}';
-	if (!isMissing) {
+	let credentialsJsonText: string = CREDENTIALS_JSON || '{}';
+	if (!CREDENTIALS_JSON && !isMissing) {
 		credentialsJsonText = readFileContent(credentialsFilePath);
 	}
 
@@ -329,14 +357,32 @@ const loadConfig = (): typeof credentials => {
 /**
  * Make editing summary
  *
- * @param {string} [filePath] The target file path
- * @param {string} [fallbackEditSummary] The fallback editing summary
+ * @param {boolean} [isSkipAsk] Run the deploy process directly or not
+ * @param {Object} [object] The target file path and the fallback editing summary
  * @return {Promise<string>} The editing summary
  */
-async function makeEditSummary(): Promise<string>;
-async function makeEditSummary(filePath: string, fallbackEditSummary: string): Promise<string>;
+async function makeEditSummary(isSkipAsk?: boolean): Promise<string>;
+async function makeEditSummary(
+	isSkipAsk: boolean,
+	{
+		filePath,
+		fallbackEditSummary,
+	}: {
+		filePath?: string;
+		fallbackEditSummary?: string;
+	}
+): Promise<string>;
 // eslint-disable-next-line func-style
-async function makeEditSummary(filePath?: string, fallbackEditSummary?: string): Promise<string> {
+async function makeEditSummary(
+	isSkipAsk?: boolean,
+	{
+		filePath,
+		fallbackEditSummary,
+	}: {
+		filePath?: string;
+		fallbackEditSummary?: string;
+	} = {}
+): Promise<string> {
 	const execLog = async (path: string): Promise<string> => {
 		try {
 			const {stdout: _log} = await exec(`git log --pretty=format:"%H %s" -1 -- ${path}`);
@@ -384,7 +430,7 @@ async function makeEditSummary(filePath?: string, fallbackEditSummary?: string):
 		summary = _summary.trim();
 	} catch {}
 
-	const customSummary: string = await prompt('> Custom editing summary message (optional):');
+	const customSummary: string = isSkipAsk ? '' : await prompt('> Custom editing summary message (optional):');
 	const customSummaryTrimmed: string = trim(customSummary, {
 		addNewline: false,
 	});
@@ -394,7 +440,9 @@ async function makeEditSummary(filePath?: string, fallbackEditSummary?: string):
 		chalk.white(`${customSummaryTrimmed ? 'Editing' : 'Fallback editing'} summary is: ${chalk.bold(editSummary)}`)
 	);
 
-	await prompt('> Confirm to continue deployment?', 'confirm', true);
+	if (!isSkipAsk) {
+		await prompt('> Confirm to continue deployment?', 'confirm', true);
+	}
 
 	console.log(chalk.yellow('--- deployment will continue in three seconds ---'));
 	await setTimeout(3 * 1000);
@@ -704,8 +752,9 @@ const savePages = (pageTitle: string, pageContent: string, api: Api, editSummary
  *
  * @param {Api} api The api instance and the site name
  * @param {string} editSummary The editing summary used by this api instance
+ * @param {boolean} [isSkipAsk] Run the deploy process directly or not
  */
-const deleteUnusedPages = async (api: Api, editSummary: string): Promise<void> => {
+const deleteUnusedPages = async (api: Api, editSummary: string, isSkipAsk?: boolean): Promise<void> => {
 	const {apiInstance, site} = api;
 	const storeFilePath: string = join(__rootDir, 'dist/store.txt');
 
@@ -761,7 +810,10 @@ const deleteUnusedPages = async (api: Api, editSummary: string): Promise<void> =
 	}
 
 	stdout.write(`The following pages will be deleted:\n${needToDeletePages.join('\n')}\n`);
-	await prompt('> Confirm to continue deleting?', 'confirm', true);
+
+	if (!isSkipAsk) {
+		await prompt('> Confirm to continue deleting?', 'confirm', true);
+	}
 
 	console.log(chalk.yellow(`--- [${chalk.bold(site)}] deleting will continue in three seconds ---`));
 	await setTimeout(3 * 1000);
