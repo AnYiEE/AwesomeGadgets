@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"excludeSites": ["testwiki"],
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-EnhancedSpecialSearch\"></span> 在[[Special:Search|搜索]]页面加入一个下拉菜单，以调用外部搜索引擎搜索",
+	"section": "browser",
+	"default": true,
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.React", "ext.gadget.Util"]
+}
