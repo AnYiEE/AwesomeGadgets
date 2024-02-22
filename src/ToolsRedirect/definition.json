@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-ToolsRedirect\"></span> ToolsRedirect <small>可视化的重定向修复和创建工具</small>",
+	"section": "edit",
+	"actions": ["view"],
+	"dependencies": ["ext.gadget.Util", "jquery.ui", "mediawiki.jqueryMsg", "user.options"],
+	"rights": ["edit"]
+}

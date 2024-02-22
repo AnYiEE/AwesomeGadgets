@@ -1,0 +1,9 @@
+{
+	"enable": true,
+	"excludeSites": ["licencewiki"],
+	"description": "<span id=\"Gadget-ToolsRedirect-bio-latin-names\"></span> ToolsRedirect选项：获取生物学学名为重定向候选 <small>必须启用ToolsRedirect</small>",
+	"section": "edit",
+	"actions": ["view"],
+	"dependencies": ["ext.gadget.Util", "user.options"],
+	"rights": ["edit"]
+}

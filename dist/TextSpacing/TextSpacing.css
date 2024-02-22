@@ -3,7 +3,7 @@
  * _addText: '{{Gadget Header|license=BSD}}'
  *
  * @base {@link https://github.com/diskdance/gadget-text-spacing}
- * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/TextSpacing}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/TextSpacing}
  */
 /**
  * +------------------------------------------------------------+

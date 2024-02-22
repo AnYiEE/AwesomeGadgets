@@ -1,0 +1,41 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|title=ToolsRedirect|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect.js}
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect.css}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/ToolsRedirect}
+ */
+
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|title2=ToolsRedirect Messages|license2=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect-msg-zh-hans.js}
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect-msg-zh-hant.js}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/ToolsRedirect/messages.js}
+ */
+
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|title3=ToolsRedirect-bio-latin-names|license3=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/Special:Permalink/61193369}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/ToolsRedirect/bio-latin-names.js}
+ */
+
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|title3=ToolsRedirect-courtesy-and-art-names|license3=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect-courtesy-and-art-names.js}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/ToolsRedirect/courtesy-and-art-names.js}
+ */
+
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|title3=ToolsRedirect-opt-bolds|license3=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect-opt-bolds.js}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/ToolsRedirect/opt-bolds.js}
+ */
