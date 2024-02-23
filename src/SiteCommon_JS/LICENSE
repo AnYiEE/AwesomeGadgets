@@ -1,0 +1,13 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Common.js}
+ * @base {@link https://en.wikipedia.org/wiki/MediaWiki:Gadget-exlinks.js}
+ * @base {@link https://meta.wikimedia.org/wiki/MediaWiki:Gadget-ShortLink.js}
+ * @base {@link https://www.mediawiki.org/wiki/MediaWiki:Gadget-workinprogress.js}
+ * @base {@link https://www.mediawiki.org/wiki/Snippets/Load_JS_and_CSS_by_URL}
+ * @base {@link https://en.wikipedia.org/wiki/MediaWiki:Gadget-search-new-tab.js}
+ * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/SiteCommon_JS}
+ * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ */

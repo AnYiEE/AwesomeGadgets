@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-SkinVector2022\"></span> 为Vector皮肤（2022年新版）补充样式",
+	"section": "skin",
+	"default": true,
+	"hidden": true,
+	"skins": ["vector-2022"]
+}

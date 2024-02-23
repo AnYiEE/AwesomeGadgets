@@ -14,7 +14,6 @@
 * HideConversionTab[ResourceLoader|default|requiresES6]|HideConversionTab.css
 * InterwikiTips[ResourceLoader|default|requiresES6]|InterwikiTips.css
 * LoginToEdit[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.util,oojs-ui-windows|hidden|requiresES6]|LoginToEdit.js
-* MboxCSS[ResourceLoader|default|hidden|requiresES6]|MboxCSS.css
 * NavboxCSS[ResourceLoader|default|hidden|requiresES6]|NavboxCSS.css
 * NotifyConversion[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.storage,mediawiki.Uri,mediawiki.util,oojs-ui-core,oojs-ui-widgets,oojs-ui-windows,oojs-ui.styles.icons-editing-advanced|peers=NotifyConversion-pagestyles|requiresES6]|NotifyConversion.js
 * NotifyConversion-pagestyles[ResourceLoader|hidden|requiresES6]|NotifyConversion-pagestyles.css
@@ -72,6 +71,9 @@
 * PrintOptions[ResourceLoader|dependencies=ext.gadget.i18n,mediawiki.util,oojs-ui-core,oojs-ui-widgets,oojs-ui-windows|requiresES6]|PrintOptions.js
 * React[ResourceLoader|hidden|requiresES6]|React.js
 * select2[ResourceLoader|dependencies=jquery|hidden|requiresES6]|select2.js|select2.css
+* SiteCommon[ResourceLoader|default|hidden|requiresES6]|SiteCommon.css
+* SiteCommon_Filepage[ResourceLoader|default|hidden|requiresES6]|SiteCommon_Filepage.css
+* SiteCommon_JS[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Tippy,mediawiki.Title,mediawiki.util|hidden|peers=SiteCommon|requiresES6]|SiteCommon_JS.js
 * SpecialWikitext[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.api,mediawiki.util|hidden|requiresES6]|SpecialWikitext.js
 * Tippy[ResourceLoader|hidden|requiresES6]|Tippy.js|Tippy.css
 * Toastify[ResourceLoader|hidden|requiresES6]|Toastify.js|Toastify.css
@@ -109,6 +111,12 @@
 * Wikicache[ResourceLoader|actions=edit,submit|default|dependencies=ext.gadget.Util,mediawiki.storage|rights=edit|requiresES6]|Wikicache.js
 * Wikiplus[ResourceLoader|dependencies=user.options|rights=skipcaptcha|requiresES6]|Wikiplus.js|Wikiplus.css
 * Wikiplus-highlight[ResourceLoader|actions=view|dependencies=ext.gadget.Util,user.options|rights=skipcaptcha|requiresES6]|Wikiplus-highlight.js
+
+== skin ==
+* SkinCitizen[ResourceLoader|default|hidden|skins=citizen|requiresES6]|SkinCitizen.js
+* SkinGongbi[ResourceLoader|default|hidden|skins=gongbi|requiresES6]|SkinGongbi.css
+* SkinVector[ResourceLoader|default|hidden|skins=vector,vector-2022|requiresES6]|SkinVector.css
+* SkinVector2022[ResourceLoader|default|hidden|skins=vector-2022|requiresES6]|SkinVector2022.css
 
 == sysop ==
 * HRTProtectLink[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.util|rights=protect|requiresES6]|HRTProtectLink.js

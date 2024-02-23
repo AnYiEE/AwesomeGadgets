@@ -1,0 +1,176 @@
+@import (reference) '../variables.less';
+
+/**
+ * Infobox template style
+ * Including Vertical Navbox
+ */
+
+.infobox,
+.vertical-navbox {
+	position: relative;
+	display: flex;
+	width: 100% !important;
+	max-width: 100% !important;
+	flex: 1 1 100%;
+	flex-flow: column nowrap;
+	padding: 0.2em;
+	border: 1px solid #a2a9b1;
+	margin: auto 0 2em;
+	background-color: #f8f9fa;
+	color: #000;
+	float: none !important;
+	font-size: 90%;
+	box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+	.infobox,
+	.vertical-navbox {
+		width: auto;
+		max-width: 320px !important;
+		margin: 0 0 2em 2em !important;
+		clear: right !important;
+		float: right !important;
+	}
+}
+
+.infobox td,
+.infobox th,
+.vertical-navbox td,
+.vertical-navbox th {
+	padding: 0.75vh 0.75vw;
+	border: 0;
+	vertical-align: top;
+}
+
+.infobox caption,
+.vertical-navbox caption {
+	padding: 10px 10px 0;
+	font-size: larger;
+	text-align: center !important;
+}
+
+.infobox tbody > tr > td,
+.infobox tbody > tr > th,
+.vertical-navbox tbody > tr > td,
+.vertical-navbox tbody > tr > th {
+	flex: 1 0;
+}
+
+.infobox tbody > tr > td img,
+.infobox tbody > tr > th img,
+.vertical-navbox tbody > tr > td img,
+.vertical-navbox tbody > tr > th img {
+	max-width: 100% !important;
+	object-fit: contain;
+}
+
+.infobox td:only-child,
+.infobox th:only-child,
+.vertical-navbox td:only-child,
+.vertical-navbox th:only-child {
+	width: 100%;
+	text-align: center;
+}
+
+.infobox tr:last-child th,
+.infobox tr:last-child td,
+.vertical-navbox tr:last-child th,
+.vertical-navbox tr:last-child td {
+	border: 0;
+}
+
+.infobox > tbody,
+.infobox > caption,
+.vertical-navbox > tbody,
+.vertical-navbox > caption {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.infobox > tbody > tr,
+.vertical-navbox > tbody > tr {
+	display: flex;
+	min-width: 100%;
+	flex-flow: row wrap;
+}
+
+.mw-content-ltr .infobox,
+.mw-content-ltr .vertical-navbox {
+	text-align: left;
+}
+
+.mw-content-rtl .infobox,
+.mw-content-ltr .vertical-navbox {
+	text-align: right;
+}
+
+/* For bordered Infobox */
+.infobox.bordered {
+	border-collapse: collapse;
+}
+
+.infobox.bordered td,
+.infobox.bordered th {
+	border: 1px solid #a2a9b1;
+}
+
+.infobox.bordered .borderless td,
+.infobox.bordered .borderless th {
+	border: 0;
+}
+
+.infobox.bordered tr:last-child th,
+.infobox.bordered tr:last-child td,
+.vertical-navbox.bordered tr:last-child th,
+.vertical-navbox.bordered tr:last-child td {
+	border: 1px solid #a2a9b1;
+}
+
+.infobox.sisterproject {
+	width: 20em;
+	font-size: 90%;
+}
+
+/* styles for bordered infobox with merged rows */
+.infobox.bordered .mergedtoprow td,
+.infobox.bordered .mergedtoprow th {
+	border: 0;
+	border-top: 1px solid #a2a9b1;
+	border-right: 1px solid #a2a9b1;
+}
+
+.infobox.bordered .mergedrow td,
+.infobox.bordered .mergedrow th {
+	border: 0;
+	border-right: 1px solid #a2a9b1;
+}
+
+/* styles for geography infoboxes, e.g. countries, country subdivisions, cities, etc. */
+
+.infobox.geography {
+	border-collapse: collapse;
+	font-size: 90%;
+	line-height: 1.2em;
+	text-align: left;
+}
+
+.infobox.geography td,
+.infobox.geography th {
+	padding: 0.4em 0.6em;
+}
+
+.infobox.geography .mergedtoprow td,
+.infobox.geography .mergedtoprow th {
+	padding: 0.4em 0.6em 0.2em;
+}
+
+.infobox.geography .mergedrow td,
+.infobox.geography .mergedrow th {
+	padding: 0 0.6em 0.2em;
+}
+
+.infobox.geography .mergedbottomrow td,
+.infobox.geography .mergedbottomrow th {
+	padding: 0 0.6em 0.4em;
+}

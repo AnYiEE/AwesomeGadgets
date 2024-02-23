@@ -1,0 +1,79 @@
+/* 移动端优化 */
+@media only screen and (max-width: 768px) {
+	/* !important to ignore inline styles */
+
+	/* .mw-body-content to increase specificity */
+	.mw-body-content table {
+		overflow: auto;
+		max-width: 100% !important;
+		margin-right: auto !important;
+		margin-left: auto !important;
+		float: none !important;
+	}
+
+	.mw-body-content .thumb {
+		margin: 0.5em auto;
+		clear: none;
+		float: none;
+	}
+
+	.mw-body-content .thumbinner {
+		max-width: 100%;
+		box-sizing: border-box;
+		border: 0;
+		margin: 0 auto;
+		background-color: transparent;
+	}
+
+	.mw-body-content .thumbinner .thumbimage {
+		max-width: 100%;
+		height: auto;
+		object-fit: contain;
+	}
+
+	.mw-body-content .thumbimage {
+		border: 0;
+		background-color: transparent;
+	}
+
+	.mw-body-content .thumbcaption {
+		text-align: center;
+	}
+
+	.mw-body-content .thumbcaption > .magnify {
+		display: none;
+	}
+
+	#firstHeading .mw-editsection,
+	#coordinates {
+		display: none;
+	}
+
+	.mw-body-content .image > img {
+		min-width: 20px;
+		max-width: 100%;
+		height: auto;
+		object-fit: contain;
+	}
+
+	.mw-body-content {
+		word-wrap: break-word;
+	}
+}
+
+/* stylelint-disable-next-line media-feature-name-no-unknown */
+@media only screen and (max-width: 768px) and (min-device-pixel-ratio: 1.5),
+	only screen and (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1.5),
+	only screen and (max-width: 768px) and (min-resolution: 1.5dppx) {
+	@supports (object-fit: contain) {
+		.mw-body-content div.thumbinner {
+			width: 100% !important;
+		}
+
+		.mw-body-content div.thumbinner .thumbimage {
+			width: 100%;
+			max-height: 60vh;
+			object-fit: contain;
+		}
+	}
+}

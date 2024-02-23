@@ -1,0 +1,86 @@
+/* 参考来源列表字号 */
+ol.references,
+div.reflist {
+	margin-bottom: 0.5em;
+
+	/* 默认字号 */
+	font-size: 90%;
+}
+
+/* 重置包含于<div class="reflist">参考列表的字号 */
+div.reflist ol.references {
+	font-size: 100%;
+}
+
+div.reflist ol.references,
+div.notelist ol.references {
+	/* 继承母列表的自定义列表类型 */
+	list-style-type: inherit;
+}
+
+ol.references .mw-extended-references {
+	margin-bottom: 0.3em;
+	margin-left: 1.25em;
+}
+
+/* 蓝色突出显示单所点击的引用项，以便于用户查找 */
+ol.references li,
+span.citation,
+sup.reference {
+	&:target {
+		background-color: #def;
+	}
+}
+
+/* Parsoid Cite支持 */
+[rel='mw:referencedBy'] {
+	a& {
+		&::before {
+			content: '^';
+			font-weight: bold;
+		}
+	}
+
+	span& {
+		&::before {
+			content: '^ ';
+		}
+
+		& > a::before {
+			font-weight: bold;
+		}
+	}
+}
+
+.mw-ref > a {
+	&[data-mw-group='upper-roman']::after {
+		content: '[' counter(mw-Ref, upper-roman) ']';
+	}
+
+	&[data-mw-group='lower-greek']::after {
+		content: '[' counter(mw-Ref, lower-greek) ']';
+	}
+
+	&[data-mw-group='lower-roman']::after {
+		content: '[' counter(mw-Ref, lower-roman) ']';
+	}
+
+	&[data-mw-group='lower-alpha']::after {
+		content: '[' counter(mw-Ref, lower-alpha) ']';
+	}
+
+	&[data-mw-group='upper-alpha']::after {
+		content: '[' counter(mw-Ref, upper-alpha) ']';
+	}
+}
+
+/**
+ * For linked citation numbers and document IDs,
+ * where the number need not be shown on a screen or a handheld,
+ * but should be included in the printed version
+ */
+@media screen, handheld, projection {
+	cite *.printonly {
+		display: none;
+	}
+}

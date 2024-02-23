@@ -1,0 +1,59 @@
+/* 隐藏首页的页顶、页尾及其他无用要素 */
+.page-LIB_首页,
+.page-Fanmade_同人主页 {
+	&.action-view {
+		.mw-indicators,
+		#contentSub,
+		#siteSub,
+		.firstHeading,
+		.mw-redirectedfrom,
+		.vector-article-toolbar,
+		#mw-page-header-links,
+		#mw-related-navigation {
+			display: none !important;
+		}
+
+		&.skin-citizen {
+			.citizen-body {
+				/* 隐藏页边 */
+				grid-area: unset;
+			}
+
+			.mw-body-header {
+				/* 隐藏页头 */
+				display: none;
+			}
+
+			.citizen-footer {
+				position: relative;
+			}
+		}
+
+		&.skin-vector-2022 {
+			.vector-page-toolbar {
+				/* 隐藏工具栏 */
+				display: none;
+			}
+		}
+	}
+
+	#catlinks {
+		/* 隐藏首页下方的Catlink */
+		display: none;
+	}
+
+	#footer-info-lastmod {
+		/* 隐藏首页下方的“最后编辑于” */
+		display: none;
+	}
+}
+
+/* 禁止删除首页及其相关模板 */
+.rootpage-LIB_首页,
+.rootpage-Fanmade_同人主页,
+.rootpage-Template_首页 {
+	#ca-delete,
+	#deleteconfirm {
+		display: none !important;
+	}
+}

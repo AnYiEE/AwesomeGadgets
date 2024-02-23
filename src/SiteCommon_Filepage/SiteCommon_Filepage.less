@@ -1,0 +1,150 @@
+@import (reference) '../variables.less';
+
+/* 此处的CSS只会包含在文件名字空间的页面中 */
+.ns-6 {
+	table {
+		/* Lots of crappy tables on file pages without classes etc */
+		box-sizing: border-box !important;
+
+		/* 文件历史 */
+		&.filehistory {
+			display: block;
+			overflow: auto;
+		}
+	}
+
+	#mw-imagepage-section-duplicates {
+		display: none;
+	}
+
+	#mw-imglangselector-line option[value^='zh-'] {
+		/* Hide unsupported SVG variants */
+		display: none;
+	}
+
+	.exif-gps {
+		&latitude,
+		&longitude,
+		&altitude {
+			/* Hide GPS */
+			display: none;
+		}
+	}
+}
+
+/* 仅当文件页图像具有透明背景时，在图像描述页上显示棋盘格背景；<gallery>情况类似 */
+#file,
+body:not(.ns-0, .ns-2) .gallerybox .thumb {
+	img {
+		background: data-uri('./images/gallery-background.svg') repeat;
+		background-color: #f8f9fa;
+	}
+}
+
+/* 许可证模板 */
+.licensetpl {
+	&_wrapper,
+	&_metadata {
+		display: none;
+	}
+}
+
+/* 文件信息模板 */
+.fileinfotpl {
+	width: 95%;
+	padding: 0.5em;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #999;
+	border-radius: @border-radius--small;
+	margin: 1em auto;
+	background-color: #f9f9f9;
+	border-collapse: inherit;
+
+	td {
+		padding: 0.5em;
+		background-color: #f7f8ff;
+		vertical-align: top;
+
+		&.fileinfo-paramfield {
+			width: 5em;
+			background-color: #def;
+			font-weight: bold;
+			text-align: right;
+
+			.client-darkmode & {
+				filter: invert(1) hue-rotate(180deg);
+			}
+		}
+	}
+
+	tbody {
+		> tr {
+			&:first-child > td:first-child {
+				border-radius: 0.25em 0 0;
+			}
+
+			&:first-child > td:last-child {
+				border-radius: 0 0.25em 0 0;
+			}
+
+			&:last-child > td:first-child {
+				border-radius: 0 0 0 0.25em;
+			}
+
+			&:last-child > td:last-child {
+				border-radius: 0 0 0.25em;
+			}
+		}
+	}
+
+	.fn {
+		display: none;
+	}
+}
+
+@media (max-width: 768px) {
+	.fileinfotpl {
+		width: 100%;
+		max-width: 100%;
+
+		tbody {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: center;
+
+			> tr {
+				&:first-child > td:first-child {
+					border-radius: 0.25em 0.25em 0 0;
+				}
+
+				&:first-child > td:last-child {
+					border-radius: 0;
+				}
+
+				&:last-child > td:first-child {
+					border-radius: 0;
+				}
+
+				&:last-child > td:last-child {
+					border-radius: 0 0 0.25em 0.25em;
+				}
+			}
+		}
+
+		tr {
+			display: flex;
+			flex: 1 1 100%;
+			flex-wrap: wrap;
+		}
+
+		td {
+			flex: 1 1 100%;
+
+			&.fileinfo-paramfield {
+				text-align: center;
+			}
+		}
+	}
+}

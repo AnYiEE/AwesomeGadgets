@@ -1,0 +1,20 @@
+@import (reference) '../../variables.less';
+
+/* {{僻字}} */
+
+.inline-unihan {
+	border-bottom: 1px dotted;
+	cursor: help;
+	font-family: @sans-serif-zh-hans, @unihan, sans-serif, @emoji-font;
+	font-variant: normal;
+
+	html:lang(zh-hant) & {
+		font-family: @sans-serif-zh-hant, @unihan, sans-serif, @emoji-font;
+	}
+
+	&-tooltip {
+		padding: 2px;
+		border: 1px solid #aaa;
+		background-color: #fffbe1;
+	}
+}
