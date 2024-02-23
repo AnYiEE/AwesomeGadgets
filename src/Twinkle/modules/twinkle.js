@@ -3,14 +3,14 @@
 /*! Twinkle.js - twinkle.js */
 (function twinkle($) {
 	const $body = $('body');
+	const Twinkle = {};
+	window.Twinkle ||= Twinkle; // allow global access
 	// Wrap with anonymous function
 	// Check if account is experienced enough to use Twinkle
 	if (!Morebits.userIsInGroup('autoconfirmed') && !Morebits.userIsInGroup('confirmed')) {
 		console.warn('[Twinkle]非确认用户或自动确认用户，Twinkle不会运行。');
 		return;
 	}
-	const Twinkle = {};
-	window.Twinkle ||= Twinkle; // allow global access
 	/**
 	 * Twinkle-specific data shared by multiple modules
 	 * Likely customized per installation
