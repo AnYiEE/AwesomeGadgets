@@ -2124,6 +2124,7 @@
 		"MediaWiki:Gadget-RRD/zh-sg",
 		"MediaWiki:Gadget-RRD/zh-tw",
 		"MediaWiki:Gadget-Scroller",
+		"MediaWiki:Gadget-Scroller.css",
 		"MediaWiki:Gadget-Scroller.js",
 		"MediaWiki:Gadget-Scroller/zh",
 		"MediaWiki:Gadget-Scroller/zh-cn",

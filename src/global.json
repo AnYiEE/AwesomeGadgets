@@ -16,17 +16,13 @@
 			"enable": true,
 			"sourceCode": "mw.loader.using(['ext.gadget.Group-confirmed']);"
 		},
-		"Group-autoreviewer.js": {
+		"Group-autopatroller.js": {
 			"enable": true,
 			"sourceCode": "mw.loader.using(['ext.gadget.Group-autoreviewer']);"
 		},
 		"Group-confirmed.js": {
 			"enable": true,
 			"sourceCode": "mw.loader.using(['ext.gadget.Group-confirmed']);"
-		},
-		"Group-eventsponsor.js": {
-			"enable": true,
-			"sourceCode": "mw.loader.using(['ext.gadget.Group-eventsponsor']);"
 		},
 		"Group-interface-admin.js": {
 			"enable": true,
@@ -36,19 +32,7 @@
 			"enable": true,
 			"sourceCode": "mw.loader.using(['ext.gadget.Group-massmessage-sender']);"
 		},
-		"Group-patroller.js": {
-			"enable": true,
-			"sourceCode": "mw.loader.using(['ext.gadget.Group-patroller']);"
-		},
-		"Group-qiuwen.js": {
-			"enable": true,
-			"sourceCode": "mw.loader.using(['ext.gadget.Group-steward']);"
-		},
-		"Group-senioreditor.js": {
-			"enable": true,
-			"sourceCode": "mw.loader.using(['ext.gadget.Group-senioreditor']);"
-		},
-		"Group-steward.js": {
+		"Group-bureaucrat.js": {
 			"enable": true,
 			"sourceCode": "mw.loader.using(['ext.gadget.Group-steward']);"
 		},
@@ -60,7 +44,69 @@
 			"enable": true,
 			"sourceCode": "mw.loader.using(['ext.gadget.Group-templateeditor']);"
 		},
-		"Group-transwiki.js": {
+		"Group-importer.js": {
+			"enable": true,
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-transwiki']);"
+		},
+		"Group-user.js": {
+			"enable": true,
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-user', 'ext.gadget.Group-user_JS']);"
+		},
+		"Vector-2022.js": {
+			"enable": true,
+			"sourceCode": "mw.loader.using(['ext.gadget.SkinVector2022']);"
+		},
+		"Vector.js": {
+			"enable": true,
+			"sourceCode": "mw.loader.using(['ext.gadget.SkinVector']);"
+		}
+	},
+	"testysarxiv": {
+		"Citizen.js": {
+			"enable": true,
+			"sourceCode": "mw.loader.using(['ext.gadget.SkinCitizen']);"
+		},
+		"Common.js": {
+			"enable": true,
+			"sourceCode": "mw.loader.using(['ext.gadget.SiteCommon', 'ext.gadget.SiteCommon_JS']);"
+		},
+		"Gongbi.js": {
+			"enable": true,
+			"sourceCode": "mw.loader.using(['ext.gadget.SkinGongbi']);"
+		},
+		"Group-autoconfirmed.js": {
+			"enable": true,
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-confirmed']);"
+		},
+		"Group-autopatroller.js": {
+			"enable": true,
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-autoreviewer']);"
+		},
+		"Group-confirmed.js": {
+			"enable": true,
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-confirmed']);"
+		},
+		"Group-interface-admin.js": {
+			"enable": true,
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-interface-admin']);"
+		},
+		"Group-massmessage-sender.js": {
+			"enable": true,
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-massmessage-sender']);"
+		},
+		"Group-bureaucrat.js": {
+			"enable": true,
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-steward']);"
+		},
+		"Group-sysop.js": {
+			"enable": true,
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-sysop']);"
+		},
+		"Group-templateeditor.js": {
+			"enable": true,
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-templateeditor']);"
+		},
+		"Group-importer.js": {
 			"enable": true,
 			"sourceCode": "mw.loader.using(['ext.gadget.Group-transwiki']);"
 		},
