@@ -1,13 +1,26 @@
 /* WIKI背景图 （新年） */
 /* 原背景图 https://youshou.wiki/images/f/ff/%E6%9C%89%E5%85%BD%E7%84%89%E5%8A%A8%E7%94%BB%E6%88%AA%E5%9B%BE.jpg */
+/* 基础样式 */
 body {
-	background: url('https://youshou.wiki/images/d/d0/2024%E9%99%A4%E5%A4%95%E8%B4%BA%E5%9B%BE.jpg') no-repeat center
-		center fixed;
 	background-size: cover;
+	opacity: 0;
+	animation: fadeInBackground 5s ease-out forwards;
+	background-image: url('https://youshou.wiki/images/d/d0/2024%E9%99%A4%E5%A4%95%E8%B4%BA%E5%9B%BE.jpg') no-repeat
+		center center fixed;
 }
 
+/* 暗黑模式背景 */
 .client-darkmode body {
-	background: url('https://youshou.wiki/images/d/d7/2024%E9%99%A4%E5%A4%95%E8%B4%BA%E5%9B%BE-%E5%8F%8D%E8%89%B2.jpg')
-		no-repeat center center fixed;
 	background-size: cover;
+	opacity: 0;
+	animation: fadeInBackground 5s ease-out forwards;
+	background-image: url('https://youshou.wiki/images/d/d7/2024%E9%99%A4%E5%A4%95%E8%B4%BA%E5%9B%BE-%E5%8F%8D%E8%89%B2.jpg')
+		no-repeat center center fixed;
+}
+
+/* 定义动画 */
+@keyframes fadeInBackground {
+	to {
+		opacity: 1;
+	}
 }
