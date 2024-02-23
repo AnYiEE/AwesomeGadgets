@@ -1,5 +1,5 @@
 {
-	"enable": true,
+	"enable": false,
 	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-UserLinkAvatar\"></span> 在用户名旁显示头像",
 	"section": "appear",
 	"default": true,

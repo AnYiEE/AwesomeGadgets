@@ -40,7 +40,7 @@
 * HideLongSummaries[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util|requiresES6]|HideLongSummaries.js
 * NavbarAvatar[ResourceLoader|default|hidden|rights=edit|requiresES6]|NavbarAvatar.js|NavbarAvatar.css
 * PurgePageCache[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util|rights=edit|requiresES6]|PurgePageCache.js
-* Scroller[ResourceLoader|default|hidden|requiresES6]|Scroller.js
+* Scroller[ResourceLoader|default|hidden|requiresES6]|Scroller.js|Scroller.css
 * ScrollUpButton[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Tippy,ext.gadget.Util|peers=ScrollUpButton-pagestyles|requiresES6]|ScrollUpButton.js
 * ScrollUpButton-pagestyles[ResourceLoader|hidden|requiresES6]|ScrollUpButton-pagestyles.css
 * SearchShortcuts[ResourceLoader|requiresES6]|SearchShortcuts.js

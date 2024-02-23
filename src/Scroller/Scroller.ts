@@ -1,3 +1,4 @@
+import './Scroller.less';
 const Scroller = function (element: HTMLElement) {
 	const wheelHandler = function (e: WheelEvent) {
 		if (e.deltaY && !e.deltaX) {
