@@ -1,3 +1,5 @@
+import './SkinCitizen.less';
+
 mw.loader
 	.using(['mediawiki.util'])
 	.then(() => {
