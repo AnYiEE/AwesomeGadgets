@@ -1,0 +1,51 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0
+ * _addText: '{{Gadget Header|license=GPL-3.0}}'
+ *
+ * @source <https://github.com/TopRealm/InterfaceCodes/tree/master/src/Gadgets/Appearance/ShowAvatar.css>
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/ShowAvatar/ShowAvatar.less */
+#pt-userpage {
+  background: none !important;
+  padding-left: 0 !important;
+}
+#pt-avatar {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+#pt-avatar img {
+  width: 2.5em;
+  border-radius: 50%;
+}
+.skin-citizen #user-rootpage-avatar {
+  border-radius: 5px;
+  top: 8px;
+}
+.skin-gongbi #user-rootpage-avatar {
+  border-radius: 10px;
+  padding: 4px;
+}
+#p-personal #pt-notifications-alert,
+#p-personal #pt-notifications-notice {
+  margin-top: 0.8em;
+}
+a[title=查看头像] {
+  vertical-align: bottom;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1Nob3dBdmF0YXIvU2hvd0F2YXRhci5sZXNzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyIjcHQtdXNlcnBhZ2Uge1xuICBiYWNrZ3JvdW5kOiBub25lICFpbXBvcnRhbnQ7XG4gIHBhZGRpbmctbGVmdDogMCAhaW1wb3J0YW50O1xufVxuI3B0LWF2YXRhciB7XG4gIG1hcmdpbi10b3A6IDAgIWltcG9ydGFudDtcbiAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xufVxuI3B0LWF2YXRhciBpbWcge1xuICB3aWR0aDogMi41ZW07XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbn1cbi5za2luLWNpdGl6ZW4gI3VzZXItcm9vdHBhZ2UtYXZhdGFyIHtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICB0b3A6IDhweDtcbn1cbi5za2luLWdvbmdiaSAjdXNlci1yb290cGFnZS1hdmF0YXIge1xuICBib3JkZXItcmFkaXVzOiAxMHB4O1xuICBwYWRkaW5nOiA0cHg7XG59XG4vKiAxLjI4KyBFY2hvIGZpeCAqL1xuI3AtcGVyc29uYWwgI3B0LW5vdGlmaWNhdGlvbnMtYWxlcnQsXG4jcC1wZXJzb25hbCAjcHQtbm90aWZpY2F0aW9ucy1ub3RpY2Uge1xuICBtYXJnaW4tdG9wOiAwLjhlbTtcbn1cbi8qIGZpeDrlpLTlg4/kvY3nva4gKi9cbmFbdGl0bGU9J+afpeeci+WktOWDjyddIHtcbiAgdmVydGljYWwtYWxpZ246IGJvdHRvbTtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsQ0FBQztBQUNDLGNBQVk7QUFDWixnQkFBYztBQUNoQjtBQUNBLENBQUM7QUFDQyxjQUFZO0FBQ1osaUJBQWU7QUFDakI7QUFDQSxDQUpDLFVBSVU7QUFDVCxTQUFPO0FBQ1AsaUJBQWU7QUFDakI7QUFDQSxDQUFDLGFBQWEsQ0FBQztBQUNiLGlCQUFlO0FBQ2YsT0FBSztBQUNQO0FBQ0EsQ0FBQyxZQUFZLENBSkU7QUFLYixpQkFBZTtBQUNmLFdBQVM7QUFDWDtBQUVBLENBQUMsV0FBVyxDQUFDO0FBQ2IsQ0FEQyxXQUNXLENBQUM7QUFDWCxjQUFZO0FBQ2Q7QUFFQSxDQUFDLENBQUM7QUFDQSxrQkFBZ0I7QUFDbEI7IiwKICAibmFtZXMiOiBbXQp9Cg== */
