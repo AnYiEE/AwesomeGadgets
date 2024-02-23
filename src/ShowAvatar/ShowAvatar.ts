@@ -1,3 +1,4 @@
+import './ShowAvatar.less';
 $(() => {
 	const avatarUrl = new mw.Uri('https://youshou.wiki/');
 	avatarUrl.query['user'] = mw.config.get('wgPageName').replace(/^user:/i, '');
