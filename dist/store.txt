@@ -2271,6 +2271,7 @@
 		"MediaWiki:Gadget-ShortURL/zh-sg",
 		"MediaWiki:Gadget-ShortURL/zh-tw",
 		"MediaWiki:Gadget-ShowAvatar",
+		"MediaWiki:Gadget-ShowAvatar.css",
 		"MediaWiki:Gadget-ShowAvatar.js",
 		"MediaWiki:Gadget-ShowAvatar/zh",
 		"MediaWiki:Gadget-ShowAvatar/zh-cn",
