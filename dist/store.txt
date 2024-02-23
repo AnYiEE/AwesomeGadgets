@@ -2315,6 +2315,7 @@
 		"MediaWiki:Gadget-SiteCommon_JS/zh-sg",
 		"MediaWiki:Gadget-SiteCommon_JS/zh-tw",
 		"MediaWiki:Gadget-SkinCitizen",
+		"MediaWiki:Gadget-SkinCitizen.css",
 		"MediaWiki:Gadget-SkinCitizen.js",
 		"MediaWiki:Gadget-SkinCitizen/zh",
 		"MediaWiki:Gadget-SkinCitizen/zh-cn",
