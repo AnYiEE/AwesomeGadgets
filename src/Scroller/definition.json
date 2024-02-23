@@ -1,6 +1,6 @@
 {
 	"enable": true,
-	"description": "<span id=\"Gadget-Scroller\"></span> Scroller <small>首页新闻鼠标滚轮滚动工具。</small>",
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-Scroller\"></span> Scroller <small>首页新闻鼠标滚轮滚动工具。</small>",
 	"section": "browser",
 	"default": true,
 	"hidden": true

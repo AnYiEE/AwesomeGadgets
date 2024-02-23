@@ -1,6 +1,6 @@
 {
 	"enable": true,
-	"description": "<span id=\"Gadget-AccessKeyCheatsheet\"></span> 键盘快捷键提示（{{keypress|Alt}} + {{keypress|Shift}} + {{keypress|?}}）",
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-AccessKeyCheatsheet\"></span> 键盘快捷键提示（{{keypress|Alt}} + {{keypress|Shift}} + {{keypress|?}}）",
 	"section": "compatibility",
 	"default": true,
 	"dependencies": ["ext.gadget.i18n", "ext.gadget.React", "ext.gadget.Util", "oojs-ui-windows"]
