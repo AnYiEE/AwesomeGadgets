@@ -6,6 +6,7 @@
 	// Wrap with anonymous function
 	// Check if account is experienced enough to use Twinkle
 	if (!Morebits.userIsInGroup('autoconfirmed') && !Morebits.userIsInGroup('confirmed')) {
+		console.log('[Twinkle]非确认用户或自动确认用户');
 		return;
 	}
 	const Twinkle = {};
