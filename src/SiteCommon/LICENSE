@@ -8,6 +8,6 @@
  * @base {@link https://en.wikipedia.org/wiki/MediaWiki:Common.css}
  * @base {@link https://en.wikipedia.org/wiki/MediaWiki:Gadget-responsiveContentBase.css}
  * @base {@link https://www.mediawiki.org/wiki/Snippets/Horizontal_lists}
- * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/SiteCommon}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/SiteCommon}
  * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
  */

@@ -8,6 +8,6 @@
  * @base {@link https://www.mediawiki.org/wiki/MediaWiki:Gadget-workinprogress.js}
  * @base {@link https://www.mediawiki.org/wiki/Snippets/Load_JS_and_CSS_by_URL}
  * @base {@link https://en.wikipedia.org/wiki/MediaWiki:Gadget-search-new-tab.js}
- * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/SiteCommon_JS}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/SiteCommon_JS}
  * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
  */

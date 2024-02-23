@@ -130,3 +130,6 @@
 * Twinkle[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.morebits,ext.gadget.select2,ext.gadget.Util,mediawiki.api,mediawiki.language|rights=skipcaptcha|requiresES6]|Twinkle.js|Twinkle.css
 * WhoIsActive[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.api,mediawiki.Title,mediawiki.util|peers=WhoIsActive-pagestyles|requiresES6]|WhoIsActive.js
 * WhoIsActive-pagestyles[ResourceLoader|hidden|requiresES6]|WhoIsActive-pagestyles.css
+
+== usergroup ==
+* Group-user_JS[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.util,user.options|hidden|peers=Group-user|rights=edit|requiresES6]|Group-user_JS.js

@@ -3,7 +3,7 @@
  * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
  *
  * @base {@link https://www.mediawiki.org/wiki/MediaWiki:Gadget-whoisactive.js}
- * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/WhoIsActive}
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/WhoIsActive}
  * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
  */
 /**
