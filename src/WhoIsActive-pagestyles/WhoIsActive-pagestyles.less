@@ -1,0 +1,85 @@
+@import (reference) '../variables.less';
+
+.gadget-whoisactive {
+	&__span {
+		display: inline-block;
+		padding: 0 0.5em !important;
+		border: 1px solid #ddd;
+		margin: 0 0.25em;
+		white-space: nowrap;
+		border-radius: @border-radius--small;
+		font-size: 0.9em;
+
+		.mw-footer & {
+			margin-bottom: 0.25em !important;
+
+			.ve-activated & {
+				display: none;
+			}
+		}
+	}
+
+	&__ThisWeek {
+		border-color: @color--success;
+		color: @color--success !important;
+	}
+
+	&__ThisMonth {
+		border-color: @color--info;
+		color: @color--info !important;
+	}
+
+	&__ThisYear {
+		border-color: @color--warning;
+		color: @color--warning !important;
+	}
+
+	&__OverAYear {
+		border-color: @color--error;
+		color: @color--error !important;
+	}
+
+	&__icon {
+		margin: 0;
+
+		&::before {
+			display: inline-block;
+			width: 15px;
+			height: 15px;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: 15px;
+			content: '';
+			vertical-align: middle;
+		}
+
+		&__ThisWeek::before {
+			background-image: data-uri('./images/userContributions-green.svg');
+		}
+
+		&__ThisMonth::before {
+			background-image: data-uri('./images/userContributions-blue.svg');
+		}
+
+		&__ThisYear::before {
+			background-image: data-uri('./images/userContributions-brown.svg');
+		}
+
+		&__OverAYear::before {
+			background-image: data-uri('./images/userContributions-red.svg');
+		}
+	}
+
+	&__text {
+		margin-left: 5px;
+		vertical-align: middle;
+	}
+
+	&__notext {
+		display: inline-block;
+		width: 1px;
+		height: 1px;
+		margin-left: 0;
+		text-indent: -9999px;
+	}
+}

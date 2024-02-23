@@ -1,0 +1,61 @@
+#utcdate {
+	a {
+		font-weight: bolder;
+		font-size: 120%;
+	}
+
+	/**
+	 * Explicitly set width of the UTC-clock list element, so that we can use a
+	 * hidden peer gadget to add space where the clock would go before it loads.
+	 */
+	.skin-vector & {
+		width: 6em;
+
+		/**
+		 * The default margin-left is 0.75em, but set it again here explicitly, so
+		 * we can be sure of the exact width.
+		 */
+		margin-left: 0.75em;
+	}
+}
+
+/**
+ * This is loaded as a hidden peer gadget of UTCLiveClock.
+ * Before UTCLiveClock has loaded, it adds space where the clock would go,
+ * so that the personal toolbar does not "jump".
+ */
+
+.client-js > body.skin-vector-legacy #p-personal {
+	/**
+	 * In Vector, by default the li elements in the p-personal bar have a font-size
+	 * of 0.75em. Duplicate that here so that we can be sure of the proper factor to
+	 * multiply the ul element's margin-right by.
+	 */
+	li {
+		font-size: 0.75em;
+	}
+
+	/**
+	 * Reserve space for the clock gadget after the end of the p-personal ul
+	 * element.
+	 */
+	ul {
+		/**
+		 * The clock width plus its left margin, multiplied by the relative font
+		 * size: (6em + 0.75em) * 0.75
+		 */
+		margin-right: 5.0625em;
+	}
+}
+
+/**
+ * Vector-2022:
+ * The header is not designed to hold too many items (see T301583#7712430) so push down to new line.
+ */
+@media screen and (min-width: 1200px) {
+	body.skin-vector-2022 #p-personal-more #utcdate {
+		position: absolute;
+		top: 60px;
+		right: 0;
+	}
+}

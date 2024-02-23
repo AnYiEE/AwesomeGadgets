@@ -1,0 +1,61 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://www.mediawiki.org/wiki/MediaWiki:Gadget-UTCLiveClock.js}
+ * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/UTCLiveClock}
+ * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ */
+
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://www.mediawiki.org/wiki/MediaWiki:Gadget-UTCLiveClock.css}
+ * @base {@link https://www.mediawiki.org/wiki/MediaWiki:Gadget-UTCLiveClock-pagestyles.css}
+ * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/UTCLiveClock}
+ * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/UTCLiveClock/UTCLiveClock.less */
+#utcdate {
+}
+#utcdate a {
+  font-weight: bolder;
+  font-size: 120%;
+}
+.skin-vector #utcdate {
+  width: 6em;
+  margin-left: 0.75em;
+}
+.client-js > body.skin-vector-legacy #p-personal {
+}
+.client-js > body.skin-vector-legacy #p-personal li {
+  font-size: 0.75em;
+}
+.client-js > body.skin-vector-legacy #p-personal ul {
+  margin-right: 5.0625em;
+}
+@media screen and (min-width: 1200px) {
+  body.skin-vector-2022 #p-personal-more #utcdate {
+    position: absolute;
+    top: 60px;
+    right: 0;
+  }
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1VUQ0xpdmVDbG9jay9VVENMaXZlQ2xvY2subGVzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiI3V0Y2RhdGUge1xuICAvKipcblx0ICogRXhwbGljaXRseSBzZXQgd2lkdGggb2YgdGhlIFVUQy1jbG9jayBsaXN0IGVsZW1lbnQsIHNvIHRoYXQgd2UgY2FuIHVzZSBhXG5cdCAqIGhpZGRlbiBwZWVyIGdhZGdldCB0byBhZGQgc3BhY2Ugd2hlcmUgdGhlIGNsb2NrIHdvdWxkIGdvIGJlZm9yZSBpdCBsb2Fkcy5cblx0ICovXG59XG4jdXRjZGF0ZSBhIHtcbiAgZm9udC13ZWlnaHQ6IGJvbGRlcjtcbiAgZm9udC1zaXplOiAxMjAlO1xufVxuLnNraW4tdmVjdG9yICN1dGNkYXRlIHtcbiAgd2lkdGg6IDZlbTtcbiAgLyoqXG5cdFx0ICogVGhlIGRlZmF1bHQgbWFyZ2luLWxlZnQgaXMgMC43NWVtLCBidXQgc2V0IGl0IGFnYWluIGhlcmUgZXhwbGljaXRseSwgc29cblx0XHQgKiB3ZSBjYW4gYmUgc3VyZSBvZiB0aGUgZXhhY3Qgd2lkdGguXG5cdFx0ICovXG4gIG1hcmdpbi1sZWZ0OiAwLjc1ZW07XG59XG4vKipcbiAqIFRoaXMgaXMgbG9hZGVkIGFzIGEgaGlkZGVuIHBlZXIgZ2FkZ2V0IG9mIFVUQ0xpdmVDbG9jay5cbiAqIEJlZm9yZSBVVENMaXZlQ2xvY2sgaGFzIGxvYWRlZCwgaXQgYWRkcyBzcGFjZSB3aGVyZSB0aGUgY2xvY2sgd291bGQgZ28sXG4gKiBzbyB0aGF0IHRoZSBwZXJzb25hbCB0b29sYmFyIGRvZXMgbm90IFwianVtcFwiLlxuICovXG4uY2xpZW50LWpzID4gYm9keS5za2luLXZlY3Rvci1sZWdhY3kgI3AtcGVyc29uYWwge1xuICAvKipcblx0ICogSW4gVmVjdG9yLCBieSBkZWZhdWx0IHRoZSBsaSBlbGVtZW50cyBpbiB0aGUgcC1wZXJzb25hbCBiYXIgaGF2ZSBhIGZvbnQtc2l6ZVxuXHQgKiBvZiAwLjc1ZW0uIER1cGxpY2F0ZSB0aGF0IGhlcmUgc28gdGhhdCB3ZSBjYW4gYmUgc3VyZSBvZiB0aGUgcHJvcGVyIGZhY3RvciB0b1xuXHQgKiBtdWx0aXBseSB0aGUgdWwgZWxlbWVudCdzIG1hcmdpbi1yaWdodCBieS5cblx0ICovXG4gIC8qKlxuXHQgKiBSZXNlcnZlIHNwYWNlIGZvciB0aGUgY2xvY2sgZ2FkZ2V0IGFmdGVyIHRoZSBlbmQgb2YgdGhlIHAtcGVyc29uYWwgdWxcblx0ICogZWxlbWVudC5cblx0ICovXG59XG4uY2xpZW50LWpzID4gYm9keS5za2luLXZlY3Rvci1sZWdhY3kgI3AtcGVyc29uYWwgbGkge1xuICBmb250LXNpemU6IDAuNzVlbTtcbn1cbi5jbGllbnQtanMgPiBib2R5LnNraW4tdmVjdG9yLWxlZ2FjeSAjcC1wZXJzb25hbCB1bCB7XG4gIC8qKlxuXHRcdCAqIFRoZSBjbG9jayB3aWR0aCBwbHVzIGl0cyBsZWZ0IG1hcmdpbiwgbXVsdGlwbGllZCBieSB0aGUgcmVsYXRpdmUgZm9udFxuXHRcdCAqIHNpemU6ICg2ZW0gKyAwLjc1ZW0pICogMC43NVxuXHRcdCAqL1xuICBtYXJnaW4tcmlnaHQ6IDUuMDYyNWVtO1xufVxuLyoqXG4gKiBWZWN0b3ItMjAyMjpcbiAqIFRoZSBoZWFkZXIgaXMgbm90IGRlc2lnbmVkIHRvIGhvbGQgdG9vIG1hbnkgaXRlbXMgKHNlZSBUMzAxNTgzIzc3MTI0MzApIHNvIHB1c2ggZG93biB0byBuZXcgbGluZS5cbiAqL1xuQG1lZGlhIHNjcmVlbiBhbmQgKG1pbi13aWR0aDogMTIwMHB4KSB7XG4gIGJvZHkuc2tpbi12ZWN0b3ItMjAyMiAjcC1wZXJzb25hbC1tb3JlICN1dGNkYXRlIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgdG9wOiA2MHB4O1xuICAgIHJpZ2h0OiAwO1xuICB9XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLENBQUM7QUFLRDtBQUNBLENBTkMsUUFNUTtBQUNQLGVBQWE7QUFDYixhQUFXO0FBQ2I7QUFDQSxDQUFDLFlBQVksQ0FWWjtBQVdDLFNBQU87QUFLUCxlQUFhO0FBQ2Y7QUFNQSxDQUFDLFVBQVUsRUFBRSxJQUFJLENBQUMsbUJBQW1CLENBQUM7QUFVdEM7QUFDQSxDQVhDLFVBV1UsRUFBRSxJQUFJLENBWEMsbUJBV21CLENBWEMsV0FXVztBQUMvQyxhQUFXO0FBQ2I7QUFDQSxDQWRDLFVBY1UsRUFBRSxJQUFJLENBZEMsbUJBY21CLENBZEMsV0FjVztBQUsvQyxnQkFBYztBQUNoQjtBQUtBLE9BQU8sT0FBTyxJQUFJLENBQUMsU0FBUyxFQUFFO0FBQzVCLE1BQUksQ0FBQyxpQkFBaUIsQ0FBQyxnQkFBZ0IsQ0FqRHhDO0FBa0RHLGNBQVU7QUFDVixTQUFLO0FBQ0wsV0FBTztBQUNUO0FBQ0Y7IiwKICAibmFtZXMiOiBbXQp9Cg== */

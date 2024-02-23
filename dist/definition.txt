@@ -47,6 +47,8 @@
 * ShortURL[ResourceLoader|default|dependencies=ext.gadget.Clipboard,ext.gadget.i18n,ext.gadget.Tippy,ext.gadget.Util,mediawiki.api,mediawiki.util,mediawiki.widgets,oojs-ui-windows|peers=ShortURL-pagestyles|rights=edit|requiresES6]|ShortURL.js
 * ShortURL-pagestyles[ResourceLoader|hidden|requiresES6]|ShortURL-pagestyles.css
 * SmoothTOC[ResourceLoader|default|dependencies=ext.gadget.Util|skins=gongbi,vector,vector-2022|requiresES6]|SmoothTOC.js
+* UTCLiveClock[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.api,mediawiki.util|requiresES6]|UTCLiveClock.js|UTCLiveClock.css
+* WordCount[ResourceLoader|actions=view|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util|requiresES6]|WordCount.js|WordCount.css
 
 == compatibility ==
 * AccessKeyCheatsheet[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,oojs-ui-windows|requiresES6]|AccessKeyCheatsheet.js
@@ -104,6 +106,9 @@
 * ToolsRedirect-bio-latin-names[ResourceLoader|actions=view|dependencies=ext.gadget.Util,user.options|rights=edit|requiresES6]|ToolsRedirect-bio-latin-names.js
 * ToolsRedirect-courtesy-and-art-names[ResourceLoader|actions=view|dependencies=ext.gadget.Util,user.options|rights=edit|requiresES6]|ToolsRedirect-courtesy-and-art-names.js
 * ToolsRedirect-opt-bolds[ResourceLoader|actions=view|dependencies=ext.gadget.Util,user.options|rights=edit|requiresES6]|ToolsRedirect-opt-bolds.js
+* Wikicache[ResourceLoader|actions=edit,submit|default|dependencies=ext.gadget.Util,mediawiki.storage|rights=edit|requiresES6]|Wikicache.js
+* Wikiplus[ResourceLoader|dependencies=user.options|rights=skipcaptcha|requiresES6]|Wikiplus.js|Wikiplus.css
+* Wikiplus-highlight[ResourceLoader|actions=view|dependencies=ext.gadget.Util,user.options|rights=skipcaptcha|requiresES6]|Wikiplus-highlight.js
 
 == sysop ==
 * HRTProtectLink[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.util|rights=protect|requiresES6]|HRTProtectLink.js
@@ -115,3 +120,5 @@
 * RRD[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,jquery.ui,mediawiki.api|rights=skipcaptcha|requiresES6]|RRD.js|RRD.css
 * TranslateVariants[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.api,mediawiki.diff.styles,mediawiki.util|rights=editinterface|requiresES6]|TranslateVariants.js
 * Twinkle[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.morebits,ext.gadget.select2,ext.gadget.Util,mediawiki.api,mediawiki.language|rights=skipcaptcha|requiresES6]|Twinkle.js|Twinkle.css
+* WhoIsActive[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.api,mediawiki.Title,mediawiki.util|peers=WhoIsActive-pagestyles|requiresES6]|WhoIsActive.js
+* WhoIsActive-pagestyles[ResourceLoader|hidden|requiresES6]|WhoIsActive-pagestyles.css

@@ -1,0 +1,36 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-Wordcount.js}
+ * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/WordCount}
+ * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* esbuild-css-modules-plugin-ns-css:src/WordCount/components/WordCount.module.less */
+.WordCount-module__tip_HBDn5a__440 {
+  margin: 4px;
+  padding: 6px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+.ve-activated .WordCount-module__tip_HBDn5a__440 {
+  display: none !important;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiZXNidWlsZC1jc3MtbW9kdWxlcy1wbHVnaW4tbnMtY3NzOnNyYy9Xb3JkQ291bnQvY29tcG9uZW50cy9Xb3JkQ291bnQubW9kdWxlLmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbIi5Xb3JkQ291bnQtbW9kdWxlX190aXBfSEJEbjVhX180NDAge1xuICBtYXJnaW46IDRweDtcbiAgcGFkZGluZzogNnB4O1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGJvdHRvbTogMDtcbiAgcmlnaHQ6IDA7XG59XG5cbi52ZS1hY3RpdmF0ZWQgLldvcmRDb3VudC1tb2R1bGVfX3RpcF9IQkRuNWFfXzQ0MCB7XG4gIGRpc3BsYXk6IG5vbmUgIWltcG9ydGFudDtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxDQUFDO0FBQ0MsVUFBUTtBQUNSLFdBQVM7QUFDVCxZQUFVO0FBQ1YsVUFBUTtBQUNSLFNBQU87QUFDVDtBQUVBLENBQUMsYUFBYSxDQVJiO0FBU0MsV0FBUztBQUNYOyIsCiAgIm5hbWVzIjogW10KfQo= */
