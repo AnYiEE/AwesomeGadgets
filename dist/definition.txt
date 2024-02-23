@@ -23,7 +23,7 @@
 * StickyTableHeaders-pagestyles[ResourceLoader|hidden|requiresES6]|StickyTableHeaders-pagestyles.css
 * TextSpacing[ResourceLoader|requiresES6]|TextSpacing.js|TextSpacing.css
 * TOC3-gongbi[ResourceLoader|skins=gongbi|requiresES6]|TOC3-gongbi.css
-* UserLinkAvatar[ResourceLoader|dependencies=user.options,ext.gadget.jQueryLazyload|requiresES6]|UserLinkAvatar.js|UserLinkAvatar.css
+* UserLinkAvatar[ResourceLoader|default|dependencies=user.options|requiresES6]|UserLinkAvatar.js|UserLinkAvatar.css
 
 == browser ==
 * AddSectionPlus[ResourceLoader|dependencies=ext.gadget.Util|peers=AddSectionPlus-pagestyles|rights=edit|requiresES6]|AddSectionPlus.js
