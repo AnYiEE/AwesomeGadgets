@@ -2183,13 +2183,13 @@ import {initMwApi} from 'ext.gadget.Util';
 					blockoptions.reblock = 1; // Writing over a block will fail otherwise
 				}
 				const groupsCanBeRemoved = [
-					'autoreviewer',
+					'autopatrolled',
 					'confirmed',
 					'rnrsverify-exempt',
 					'massmessage-sender',
 					'patroller',
 					'templateeditor',
-					'transwiki',
+					'importer',
 				];
 				let groupsToBeRemoved = [];
 				if (user && Morebits.string.isInfinity(blockoptions.expiry)) {

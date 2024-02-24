@@ -16,9 +16,9 @@
 			"enable": true,
 			"sourceCode": "mw.loader.using(['ext.gadget.Group-confirmed']);"
 		},
-		"Group-autopatroller.js": {
+		"Group-autopatrolled.js": {
 			"enable": true,
-			"sourceCode": "mw.loader.using(['ext.gadget.Group-autoreviewer']);"
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-autopatrolled']);"
 		},
 		"Group-confirmed.js": {
 			"enable": true,
@@ -46,7 +46,7 @@
 		},
 		"Group-importer.js": {
 			"enable": true,
-			"sourceCode": "mw.loader.using(['ext.gadget.Group-transwiki']);"
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-importer']);"
 		},
 		"Group-user.js": {
 			"enable": true,
@@ -78,9 +78,9 @@
 			"enable": true,
 			"sourceCode": "mw.loader.using(['ext.gadget.Group-confirmed']);"
 		},
-		"Group-autopatroller.js": {
+		"Group-autopatrolled.js": {
 			"enable": true,
-			"sourceCode": "mw.loader.using(['ext.gadget.Group-autoreviewer']);"
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-autopatrolled']);"
 		},
 		"Group-confirmed.js": {
 			"enable": true,
@@ -108,7 +108,7 @@
 		},
 		"Group-importer.js": {
 			"enable": true,
-			"sourceCode": "mw.loader.using(['ext.gadget.Group-transwiki']);"
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-importer']);"
 		},
 		"Group-user.js": {
 			"enable": true,
