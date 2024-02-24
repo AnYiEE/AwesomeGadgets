@@ -34,7 +34,7 @@
 		},
 		"Group-bureaucrat.js": {
 			"enable": true,
-			"sourceCode": "mw.loader.using(['ext.gadget.Group-steward']);"
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-bureaucrat]);"
 		},
 		"Group-sysop.js": {
 			"enable": true,
@@ -96,7 +96,7 @@
 		},
 		"Group-bureaucrat.js": {
 			"enable": true,
-			"sourceCode": "mw.loader.using(['ext.gadget.Group-steward']);"
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-bureaucrat']);"
 		},
 		"Group-sysop.js": {
 			"enable": true,

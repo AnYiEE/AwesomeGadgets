@@ -69,6 +69,8 @@
 * morebits[ResourceLoader|dependencies=ext.gadget.select2,jquery.ui,mediawiki.Title,mediawiki.user,mediawiki.util|hidden|requiresES6]|morebits.js|morebits.css
 * NavFrame[ResourceLoader|default|dependencies=ext.gadget.i18n|hidden|peers=NavFrame-pagestyles|requiresES6]|NavFrame.js
 * NavFrame-pagestyles[ResourceLoader|hidden|requiresES6]|NavFrame-pagestyles.css
+* NoteTA[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,jquery.makeCollapsible,mediawiki.api,oojs-ui-core,oojs-ui-windows|hidden|peers=NoteTA-pagestyles|requiresES6]|NoteTA.js
+* NoteTA-pagestyles[ResourceLoader|hidden|requiresES6]|NoteTA-pagestyles.css
 * PrintOptions[ResourceLoader|dependencies=ext.gadget.i18n,mediawiki.util,oojs-ui-core,oojs-ui-widgets,oojs-ui-windows|requiresES6]|PrintOptions.js
 * React[ResourceLoader|hidden|requiresES6]|React.js
 * select2[ResourceLoader|dependencies=jquery|hidden|requiresES6]|select2.js|select2.css
@@ -121,6 +123,14 @@
 
 == sysop ==
 * HRTProtectLink[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.util|rights=protect|requiresES6]|HRTProtectLink.js
+* ListUsersLastActive[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.api|requiresES6]|ListUsersLastActive.js
+* LogFilter[ResourceLoader|dependencies=ext.gadget.Util,mediawiki.util|requiresES6]|LogFilter.js
+* MarkBlocked[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.api,mediawiki.Uri,mediawiki.util|peers=MarkBlocked-pagestyles|requiresES6]|MarkBlocked.js
+* MarkBlocked-pagestyles[ResourceLoader|hidden|requiresES6]|MarkBlocked-pagestyles.css
+* MarkRights[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.api,mediawiki.util|peers=MarkRights-pagestyles|requiresES6]|MarkRights.js
+* MarkRights-pagestyles[ResourceLoader|hidden|requiresES6]|MarkRights-pagestyles.css
+* MarkRights-Userpage[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.api,mediawiki.Title|peers=MarkRights-Userpage-pagestyles|requiresES6]|MarkRights-Userpage.js
+* MarkRights-Userpage-pagestyles[ResourceLoader|hidden|requiresES6]|MarkRights-Userpage-pagestyles.css
 * OnlineAdmins[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.api,mediawiki.util|peers=OnlineAdmins-pagestyles|requiresES6]|OnlineAdmins.js
 * OnlineAdmins-pagestyles[ResourceLoader|hidden|requiresES6]|OnlineAdmins-pagestyles.css
 * PagePatroller[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.api,mediawiki.util|rights=autopatrol,patrol|requiresES6]|PagePatroller.js

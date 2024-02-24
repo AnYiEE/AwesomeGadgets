@@ -1,0 +1,137 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-MarkRights.css}
+ * @source {@link https://git.qiuwen.net.cn/InterfaceAdmin/QiuwenGadgets/src/branch/master/src/MarkRights-pagestyles}
+ * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/MarkRights-pagestyles/MarkRights-pagestyles.less */
+.gadgets-markrights {
+  display: inline-block;
+}
+.gadgets-markrights__responsibleoperator::after {
+  content: "责";
+}
+.gadgets-markrights__bureaucrat::after {
+  content: "理";
+}
+.gadgets-markrights__sysop::after {
+  content: "管";
+}
+.gadgets-markrights__interface-admin::after {
+  content: "界";
+}
+html:lang(zh-hant) .gadgets-markrights__interface-admin::after {
+  content: "介";
+}
+.gadgets-markrights__checkuser::after {
+  content: "查";
+}
+.gadgets-markrights__suppress::after {
+  content: "监";
+}
+html:lang(zh-hant) .gadgets-markrights__suppress::after {
+  content: "監";
+}
+.gadgets-markrights__patroller::after {
+  content: "巡";
+}
+.gadgets-markrights__eventsponsor::after {
+  content: "活";
+}
+.gadgets-markrights__templateeditor::after {
+  content: "模";
+}
+.gadgets-markrights__importer::after {
+  content: "导";
+}
+html:lang(zh-hant) .gadgets-markrights__importer::after {
+  content: "匯";
+}
+.gadgets-markrights__massmessage-sender::after {
+  content: "发";
+}
+html:lang(zh-hant) .gadgets-markrights__massmessage-sender::after {
+  content: "發";
+}
+.gadgets-markrights__bot::after {
+  content: "机";
+}
+html:lang(zh-hant) .gadgets-markrights__bot::after {
+  content: "機";
+}
+.gadgets-markrights__confirmed::after {
+  content: "确";
+}
+html:lang(zh-hant) .gadgets-markrights__confirmed::after {
+  content: "確";
+}
+.gadgets-markrights__autopatrolled::after {
+  content: "优";
+}
+.gadgets-markrights__ipblock-exempt::after {
+  content: "代";
+}
+.gadgets-markrights__rnrsverify-exempt::after {
+  content: "认";
+}
+html:lang(zh-hant) .gadgets-markrights__rnrsverify-exempt::after {
+  content: "認";
+}
+.gadgets-markrights__flood::after {
+  content: "机";
+}
+html:lang(zh-hant) .gadgets-markrights__flood::after {
+  content: "機";
+}
+.gadgets-markrights__responsibleoperator,
+.gadgets-markrights__bureaucrat {
+  border-color: #800080;
+  color: #800080;
+}
+.gadgets-markrights__sysop,
+.gadgets-markrights__interface-admin,
+.gadgets-markrights__suppress,
+.gadgets-markrights__checkuser {
+  border-color: #c71590;
+  color: #c71590;
+}
+.gadgets-markrights__patroller,
+.gadgets-markrights__eventsponsor {
+  border-color: #a60;
+  color: #a60;
+}
+.gadgets-markrights__templateeditor,
+.gadgets-markrights__importer,
+.gadgets-markrights__massmessage-sender,
+.gadgets-markrights__bot {
+  border-color: #36c;
+  color: #36c;
+}
+.gadgets-markrights__confirmed,
+.gadgets-markrights__autoconfirmed,
+.gadgets-markrights__autorpatrolled,
+.gadgets-markrights__ipblock-exempt,
+.gadgets-markrights__rnrsverify-exempt,
+.gadgets-markrights__flood {
+  border-color: #181;
+  color: #181;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL01hcmtSaWdodHMtcGFnZXN0eWxlcy9NYXJrUmlnaHRzLXBhZ2VzdHlsZXMubGVzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiLyog5Zyo5pyA6L+R5L+u5pS544CB55uR6KeG5YiX6KGo44CB5p2h55uu5Y6G5Y+y6K6w5b2V562J5L2N572u5Lul54m55q6K5qC85byP5pi+56S65pyJ54m55q6K5p2D6ZmQ55qE55So5oi3ICovXG4uZ2FkZ2V0cy1tYXJrcmlnaHRzIHtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAvKiDmoaPmoYjnkIbkuovlkZjvvJrntKvpu5EgKi9cbiAgLyog6auY57qn566h55CG5Lq65ZGY77yI566h44CB55WM44CB55uR44CB5p+l77yJ77ya57Sr57qiICovXG4gIC8qIOS4gOiIrOeuoeeQhuS6uuWRmO+8iOW3oeOAgea0u++8ie+8muajlSAqL1xuICAvKiDnvJbovpHmnYPpmZDvvIjmqKHjgIHlr7wv5rGH44CB5Y+R44CB5py65Zmo5Lq677yJ77ya6JOdICovXG4gIC8qIOeJueauiuadg+mZkO+8iOehruOAgeiHquOAgeWFjeOAgeS7o+OAgeacuuWZqOeUqOaIt++8ie+8mue7v+iJsiAqL1xufVxuLmdhZGdldHMtbWFya3JpZ2h0c19fcmVzcG9uc2libGVvcGVyYXRvcjo6YWZ0ZXIge1xuICBjb250ZW50OiAn6LSjJztcbn1cbi5nYWRnZXRzLW1hcmtyaWdodHNfX2J1cmVhdWNyYXQ6OmFmdGVyIHtcbiAgY29udGVudDogJ+eQhic7XG59XG4uZ2FkZ2V0cy1tYXJrcmlnaHRzX19zeXNvcDo6YWZ0ZXIge1xuICBjb250ZW50OiAn566hJztcbn1cbi5nYWRnZXRzLW1hcmtyaWdodHNfX2ludGVyZmFjZS1hZG1pbjo6YWZ0ZXIge1xuICBjb250ZW50OiAn55WMJztcbn1cbmh0bWw6bGFuZyh6aC1oYW50KSAuZ2FkZ2V0cy1tYXJrcmlnaHRzX19pbnRlcmZhY2UtYWRtaW46OmFmdGVyIHtcbiAgY29udGVudDogJ+S7iyc7XG59XG4uZ2FkZ2V0cy1tYXJrcmlnaHRzX19jaGVja3VzZXI6OmFmdGVyIHtcbiAgY29udGVudDogJ+afpSc7XG59XG4uZ2FkZ2V0cy1tYXJrcmlnaHRzX19zdXBwcmVzczo6YWZ0ZXIge1xuICBjb250ZW50OiAn55uRJztcbn1cbmh0bWw6bGFuZyh6aC1oYW50KSAuZ2FkZ2V0cy1tYXJrcmlnaHRzX19zdXBwcmVzczo6YWZ0ZXIge1xuICBjb250ZW50OiAn55ujJztcbn1cbi5nYWRnZXRzLW1hcmtyaWdodHNfX3BhdHJvbGxlcjo6YWZ0ZXIge1xuICBjb250ZW50OiAn5behJztcbn1cbi5nYWRnZXRzLW1hcmtyaWdodHNfX2V2ZW50c3BvbnNvcjo6YWZ0ZXIge1xuICBjb250ZW50OiAn5rS7Jztcbn1cbi5nYWRnZXRzLW1hcmtyaWdodHNfX3RlbXBsYXRlZWRpdG9yOjphZnRlciB7XG4gIGNvbnRlbnQ6ICfmqKEnO1xufVxuLmdhZGdldHMtbWFya3JpZ2h0c19faW1wb3J0ZXI6OmFmdGVyIHtcbiAgY29udGVudDogJ+WvvCc7XG59XG5odG1sOmxhbmcoemgtaGFudCkgLmdhZGdldHMtbWFya3JpZ2h0c19faW1wb3J0ZXI6OmFmdGVyIHtcbiAgY29udGVudDogJ+WMryc7XG59XG4uZ2FkZ2V0cy1tYXJrcmlnaHRzX19tYXNzbWVzc2FnZS1zZW5kZXI6OmFmdGVyIHtcbiAgY29udGVudDogJ+WPkSc7XG59XG5odG1sOmxhbmcoemgtaGFudCkgLmdhZGdldHMtbWFya3JpZ2h0c19fbWFzc21lc3NhZ2Utc2VuZGVyOjphZnRlciB7XG4gIGNvbnRlbnQ6ICfnmbwnO1xufVxuLmdhZGdldHMtbWFya3JpZ2h0c19fYm90OjphZnRlciB7XG4gIGNvbnRlbnQ6ICfmnLonO1xufVxuaHRtbDpsYW5nKHpoLWhhbnQpIC5nYWRnZXRzLW1hcmtyaWdodHNfX2JvdDo6YWZ0ZXIge1xuICBjb250ZW50OiAn5qmfJztcbn1cbi5nYWRnZXRzLW1hcmtyaWdodHNfX2NvbmZpcm1lZDo6YWZ0ZXIge1xuICBjb250ZW50OiAn56GuJztcbn1cbmh0bWw6bGFuZyh6aC1oYW50KSAuZ2FkZ2V0cy1tYXJrcmlnaHRzX19jb25maXJtZWQ6OmFmdGVyIHtcbiAgY29udGVudDogJ+eiuic7XG59XG4uZ2FkZ2V0cy1tYXJrcmlnaHRzX19hdXRvcGF0cm9sbGVkOjphZnRlciB7XG4gIGNvbnRlbnQ6ICfkvJgnO1xufVxuLmdhZGdldHMtbWFya3JpZ2h0c19faXBibG9jay1leGVtcHQ6OmFmdGVyIHtcbiAgY29udGVudDogJ+S7oyc7XG59XG4uZ2FkZ2V0cy1tYXJrcmlnaHRzX19ybnJzdmVyaWZ5LWV4ZW1wdDo6YWZ0ZXIge1xuICBjb250ZW50OiAn6K6kJztcbn1cbmh0bWw6bGFuZyh6aC1oYW50KSAuZ2FkZ2V0cy1tYXJrcmlnaHRzX19ybnJzdmVyaWZ5LWV4ZW1wdDo6YWZ0ZXIge1xuICBjb250ZW50OiAn6KqNJztcbn1cbi5nYWRnZXRzLW1hcmtyaWdodHNfX2Zsb29kOjphZnRlciB7XG4gIGNvbnRlbnQ6ICfmnLonO1xufVxuaHRtbDpsYW5nKHpoLWhhbnQpIC5nYWRnZXRzLW1hcmtyaWdodHNfX2Zsb29kOjphZnRlciB7XG4gIGNvbnRlbnQ6ICfmqZ8nO1xufVxuLmdhZGdldHMtbWFya3JpZ2h0c19fcmVzcG9uc2libGVvcGVyYXRvcixcbi5nYWRnZXRzLW1hcmtyaWdodHNfX2J1cmVhdWNyYXQge1xuICBib3JkZXItY29sb3I6ICM4MDAwODA7XG4gIGNvbG9yOiAjODAwMDgwO1xufVxuLmdhZGdldHMtbWFya3JpZ2h0c19fc3lzb3AsXG4uZ2FkZ2V0cy1tYXJrcmlnaHRzX19pbnRlcmZhY2UtYWRtaW4sXG4uZ2FkZ2V0cy1tYXJrcmlnaHRzX19zdXBwcmVzcyxcbi5nYWRnZXRzLW1hcmtyaWdodHNfX2NoZWNrdXNlciB7XG4gIGJvcmRlci1jb2xvcjogI2M3MTU5MDtcbiAgY29sb3I6ICNjNzE1OTA7XG59XG4uZ2FkZ2V0cy1tYXJrcmlnaHRzX19wYXRyb2xsZXIsXG4uZ2FkZ2V0cy1tYXJrcmlnaHRzX19ldmVudHNwb25zb3Ige1xuICBib3JkZXItY29sb3I6ICNhNjA7XG4gIGNvbG9yOiAjYTYwO1xufVxuLmdhZGdldHMtbWFya3JpZ2h0c19fdGVtcGxhdGVlZGl0b3IsXG4uZ2FkZ2V0cy1tYXJrcmlnaHRzX19pbXBvcnRlcixcbi5nYWRnZXRzLW1hcmtyaWdodHNfX21hc3NtZXNzYWdlLXNlbmRlcixcbi5nYWRnZXRzLW1hcmtyaWdodHNfX2JvdCB7XG4gIGJvcmRlci1jb2xvcjogIzM2YztcbiAgY29sb3I6ICMzNmM7XG59XG4uZ2FkZ2V0cy1tYXJrcmlnaHRzX19jb25maXJtZWQsXG4uZ2FkZ2V0cy1tYXJrcmlnaHRzX19hdXRvY29uZmlybWVkLFxuLmdhZGdldHMtbWFya3JpZ2h0c19fYXV0b3JwYXRyb2xsZWQsXG4uZ2FkZ2V0cy1tYXJrcmlnaHRzX19pcGJsb2NrLWV4ZW1wdCxcbi5nYWRnZXRzLW1hcmtyaWdodHNfX3JucnN2ZXJpZnktZXhlbXB0LFxuLmdhZGdldHMtbWFya3JpZ2h0c19fZmxvb2Qge1xuICBib3JkZXItY29sb3I6ICMxODE7XG4gIGNvbG9yOiAjMTgxO1xufVxuIl0sCiAgIm1hcHBpbmdzIjogIjs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLENBQUM7QUFDQyxXQUFTO0FBTVg7QUFDQSxDQUFDLHVDQUF1QztBQUN0QyxXQUFTO0FBQ1g7QUFDQSxDQUFDLDhCQUE4QjtBQUM3QixXQUFTO0FBQ1g7QUFDQSxDQUFDLHlCQUF5QjtBQUN4QixXQUFTO0FBQ1g7QUFDQSxDQUFDLG1DQUFtQztBQUNsQyxXQUFTO0FBQ1g7QUFDQSxJQUFJLE1BQU0sU0FBUyxDQUhsQixtQ0FHc0Q7QUFDckQsV0FBUztBQUNYO0FBQ0EsQ0FBQyw2QkFBNkI7QUFDNUIsV0FBUztBQUNYO0FBQ0EsQ0FBQyw0QkFBNEI7QUFDM0IsV0FBUztBQUNYO0FBQ0EsSUFBSSxNQUFNLFNBQVMsQ0FIbEIsNEJBRytDO0FBQzlDLFdBQVM7QUFDWDtBQUNBLENBQUMsNkJBQTZCO0FBQzVCLFdBQVM7QUFDWDtBQUNBLENBQUMsZ0NBQWdDO0FBQy9CLFdBQVM7QUFDWDtBQUNBLENBQUMsa0NBQWtDO0FBQ2pDLFdBQVM7QUFDWDtBQUNBLENBQUMsNEJBQTRCO0FBQzNCLFdBQVM7QUFDWDtBQUNBLElBQUksTUFBTSxTQUFTLENBSGxCLDRCQUcrQztBQUM5QyxXQUFTO0FBQ1g7QUFDQSxDQUFDLHNDQUFzQztBQUNyQyxXQUFTO0FBQ1g7QUFDQSxJQUFJLE1BQU0sU0FBUyxDQUhsQixzQ0FHeUQ7QUFDeEQsV0FBUztBQUNYO0FBQ0EsQ0FBQyx1QkFBdUI7QUFDdEIsV0FBUztBQUNYO0FBQ0EsSUFBSSxNQUFNLFNBQVMsQ0FIbEIsdUJBRzBDO0FBQ3pDLFdBQVM7QUFDWDtBQUNBLENBQUMsNkJBQTZCO0FBQzVCLFdBQVM7QUFDWDtBQUNBLElBQUksTUFBTSxTQUFTLENBSGxCLDZCQUdnRDtBQUMvQyxXQUFTO0FBQ1g7QUFDQSxDQUFDLGlDQUFpQztBQUNoQyxXQUFTO0FBQ1g7QUFDQSxDQUFDLGtDQUFrQztBQUNqQyxXQUFTO0FBQ1g7QUFDQSxDQUFDLHFDQUFxQztBQUNwQyxXQUFTO0FBQ1g7QUFDQSxJQUFJLE1BQU0sU0FBUyxDQUhsQixxQ0FHd0Q7QUFDdkQsV0FBUztBQUNYO0FBQ0EsQ0FBQyx5QkFBeUI7QUFDeEIsV0FBUztBQUNYO0FBQ0EsSUFBSSxNQUFNLFNBQVMsQ0FIbEIseUJBRzRDO0FBQzNDLFdBQVM7QUFDWDtBQUNBLENBM0VDO0FBNEVELENBekVDO0FBMEVDLGdCQUFjO0FBQ2QsU0FBTztBQUNUO0FBQ0EsQ0ExRUM7QUEyRUQsQ0F4RUM7QUF5RUQsQ0FoRUM7QUFpRUQsQ0FwRUM7QUFxRUMsZ0JBQWM7QUFDZCxTQUFPO0FBQ1Q7QUFDQSxDQS9EQztBQWdFRCxDQTdEQztBQThEQyxnQkFBYztBQUNkLFNBQU87QUFDVDtBQUNBLENBOURDO0FBK0RELENBNURDO0FBNkRELENBdkRDO0FBd0RELENBbERDO0FBbURDLGdCQUFjO0FBQ2QsU0FBTztBQUNUO0FBQ0EsQ0FoREM7QUFpREQsQ0FBQztBQUNELENBQUM7QUFDRCxDQTFDQztBQTJDRCxDQXhDQztBQXlDRCxDQW5DQztBQW9DQyxnQkFBYztBQUNkLFNBQU87QUFDVDsiLAogICJuYW1lcyI6IFtdCn0K */

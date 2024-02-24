@@ -7711,7 +7711,7 @@ export const popups = () => {
 				if (mw.config.get('wgUserGroups')[g] === 'sysop') {
 					userIsSysop = true;
 				}
-				if (mw.config.get('wgUserGroups')[g] === 'steward') {
+				if (mw.config.get('wgUserGroups')[g] === 'bureaucrat') {
 					userIsSysop = true;
 				}
 			}

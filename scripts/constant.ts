@@ -69,6 +69,7 @@ const DEFINITION_SECTION_MAP = {
 	browser: '浏览类小工具',
 	compatibility: '基础类小工具',
 	edit: '编辑类小工具',
+	skin: '皮肤脚本、样式表',
 	sysop: '管理类小工具',
 } as const satisfies DefaultSectionMap;
 
