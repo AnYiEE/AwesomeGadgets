@@ -29,7 +29,11 @@ export const translateVariants = (): void => {
 	const api: mw.Api = initMwApi('TranslateVariants/1.1');
 	let basepagetext: string = '';
 	const $table: JQuery = ($(<div id="TranslateVariants" />) as JQuery).prependTo('#bodyContent');
-	const $submitAll: JQuery = $(<button>{window.wgULS('发布所有更改', '發佈所有變更')}</button>) as JQuery;
+	const $submitAll: JQuery = $(
+		<button className={['mw-ui-button', 'mw-ui-progressive', 'cdx-button', 'cdx-button--action-progressive']}>
+			{window.wgULS('发布所有更改', '發佈所有變更')}
+		</button>
+	) as JQuery;
 	$submitAll.on('click', (): void => {
 		const $body: JQuery<HTMLBodyElement> = $('body');
 		const $buttons: JQuery = $body.find('.TranslateVariants-publish-changes');
@@ -134,7 +138,7 @@ export const translateVariants = (): void => {
 							const $submit: JQuery = $(
 								(
 									<button
-										className={['TranslateVariants-publish-changes']}
+										className={['mw-ui-button', 'cdx-button']}
 										style={{
 											float: 'right',
 										}}
