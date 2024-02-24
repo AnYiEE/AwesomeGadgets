@@ -5,7 +5,7 @@ import {initMwApi} from 'ext.gadget.Util';
 import {toastify} from 'ext.gadget.Toastify';
 
 (function easyArchive() {
-	if (mw.config.get('wgNamespaceNumber') < 0 || mw.config.get('wgPageName') === 'LIB:首页') {
+	if (mw.config.get('wgNamespaceNumber') < 0 || mw.config.get('wgPageName') === '有兽档案馆:首页') {
 		return;
 	}
 	window.easy_archive ??= {};
