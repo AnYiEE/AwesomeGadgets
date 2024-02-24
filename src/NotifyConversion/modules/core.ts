@@ -10,7 +10,7 @@ const isExperiencedUser = (): boolean => {
 		return false;
 	}
 	return (
-		['sysop', 'senioreditor', 'bureaucrat'].some((element: string): boolean => {
+		['sysop', 'bureaucrat'].some((element: string): boolean => {
 			return wgUserGroups.includes(element);
 		}) ||
 		SYSTEM_SCRIPT_LIST.includes(wgUserName) ||
