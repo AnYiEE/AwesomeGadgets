@@ -25,6 +25,6 @@ jobs:
       run: pnpm install
 
     - name: 部署
-      run: pnpm run deploy
+      run: pnpm run deploy:directly
       env:
         CREDENTIALS_JSON: ${{ secrets.JSON_STRING }}
