@@ -18,6 +18,9 @@ jobs:
       with:
         node-version: '20'
 
+    - name: 安装 pnpm
+      run: npm install -g pnpm
+
     - name: pnpm 依赖处理
       run: pnpm install
 
