@@ -138,7 +138,7 @@ export const translateVariants = (): void => {
 							const $submit: JQuery = $(
 								(
 									<button
-										className={['mw-ui-button', 'cdx-button']}
+										className={['TranslateVariants-publish-changes', 'mw-ui-button', 'cdx-button']}
 										style={{
 											float: 'right',
 										}}
@@ -199,7 +199,7 @@ export const translateVariants = (): void => {
 							const $submit: JQuery = $(
 								(
 									<button
-										className="TranslateVariants-publish-changes"
+										className={['TranslateVariants-publish-changes', 'mw-ui-button', 'cdx-button']}
 										style={{
 											float: 'right',
 										}}
