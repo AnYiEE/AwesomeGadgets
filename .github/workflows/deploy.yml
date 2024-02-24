@@ -1,0 +1,27 @@
+name: 网站部署
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: 配置 Node.js 环境
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+
+    - name: pnpm 依赖处理
+      run: pnpm install
+
+    - name: 部署
+      run: pnpm run deploy
+      env:
+        CREDENTIALS_JSON: ${{ secrets.JSON_STRING }}
