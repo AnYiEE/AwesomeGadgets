@@ -1,9 +1,7 @@
 name: 网站部署
 
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
 
 jobs:
   build:
