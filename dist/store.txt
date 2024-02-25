@@ -4121,7 +4121,7 @@
 		"MediaWiki:Gadgets-definition",
 		"MediaWiki:Gongbi.js",
 		"MediaWiki:Group-autoconfirmed.js",
-		"MediaWiki:Group-autopatroller.js",
+		"MediaWiki:Group-autopatrolled.js",
 		"MediaWiki:Group-confirmed.js",
 		"MediaWiki:Group-importer.js",
 		"MediaWiki:Group-interface-admin.js",
