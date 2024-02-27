@@ -1,10 +1,13 @@
-import {wgUserVariant} from './constant';
+import {WG_USER_VARIANT} from './constant';
 
 export const preserveVariant = (): void => {
 	if (
-		!wgUserVariant ||
-		!wgUserVariant.includes('zh-') ||
-		!(window.location.pathname.includes(`/${wgUserVariant}/`) && mw.util.getParamValue('variant') !== wgUserVariant)
+		!WG_USER_VARIANT ||
+		!WG_USER_VARIANT.includes('zh-') ||
+		!(
+			window.location.pathname.includes(`/${WG_USER_VARIANT}/`) &&
+			mw.util.getParamValue('variant') !== WG_USER_VARIANT
+		)
 	) {
 		return;
 	}
@@ -22,11 +25,11 @@ export const preserveVariant = (): void => {
 		}
 		if (!('variant' in uri.query)) {
 			if (originalHref.includes('/wiki/')) {
-				self.href = `/${wgUserVariant}${originalHref.slice(5)}`;
+				self.href = `/${WG_USER_VARIANT}${originalHref.slice(5)}`;
 			} else if (originalHref.includes('/index.php?')) {
 				self.href = uri
 					.extend({
-						variant: wgUserVariant,
+						variant: WG_USER_VARIANT,
 					})
 					.getRelativePath();
 			}
