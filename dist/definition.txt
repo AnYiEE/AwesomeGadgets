@@ -15,8 +15,7 @@
 * InterwikiTips[ResourceLoader|default|requiresES6]|InterwikiTips.css
 * LoginToEdit[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.util,oojs-ui-windows|hidden|requiresES6]|LoginToEdit.js
 * NavboxCSS[ResourceLoader|default|hidden|requiresES6]|NavboxCSS.css
-* NotifyConversion[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.storage,mediawiki.Uri,mediawiki.util,oojs-ui-core,oojs-ui-widgets,oojs-ui-windows,oojs-ui.styles.icons-editing-advanced|peers=NotifyConversion-pagestyles|requiresES6]|NotifyConversion.js
-* NotifyConversion-pagestyles[ResourceLoader|hidden|requiresES6]|NotifyConversion-pagestyles.css
+* NotifyConversion[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.storage,mediawiki.Uri,mediawiki.util,oojs-ui-core,oojs-ui-widgets,oojs-ui-windows,oojs-ui.styles.icons-editing-advanced|peers=NotifyConversion-pagestyles|requiresES6]|NotifyConversion.js|NotifyConversion.css
 * OneSideMenu[ResourceLoader|skins=gongbi|requiresES6]|OneSideMenu.css
 * ShowAvatar[ResourceLoader|default|requiresES6]|ShowAvatar.js|ShowAvatar.css
 * StickyTableHeaders[ResourceLoader|peers=StickyTableHeaders-pagestyles|skins=gongbi,vector,vector-2022|requiresES6]|StickyTableHeaders.js
