@@ -15,7 +15,6 @@
 * InterwikiTips[ResourceLoader|default|requiresES6]|InterwikiTips.css
 * LoginToEdit[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.util,oojs-ui-windows|hidden|requiresES6]|LoginToEdit.js
 * NavboxCSS[ResourceLoader|default|hidden|requiresES6]|NavboxCSS.css
-* NotifyConversion[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.storage,mediawiki.Uri,mediawiki.util,oojs-ui-core,oojs-ui-widgets,oojs-ui-windows,oojs-ui.styles.icons-editing-advanced|peers=NotifyConversion-pagestyles|requiresES6]|NotifyConversion.js|NotifyConversion.css
 * OneSideMenu[ResourceLoader|skins=gongbi|requiresES6]|OneSideMenu.css
 * ShowAvatar[ResourceLoader|default|requiresES6]|ShowAvatar.js|ShowAvatar.css
 * StickyTableHeaders[ResourceLoader|peers=StickyTableHeaders-pagestyles|skins=gongbi,vector,vector-2022|requiresES6]|StickyTableHeaders.js
@@ -23,6 +22,8 @@
 * TextSpacing[ResourceLoader|requiresES6]|TextSpacing.js|TextSpacing.css
 * TOC3-gongbi[ResourceLoader|skins=gongbi|requiresES6]|TOC3-gongbi.css
 * UserLinkAvatar[ResourceLoader|default|dependencies=user.options|requiresES6]|UserLinkAvatar.js|UserLinkAvatar.css
+* VariantAlly[ResourceLoader|default|dependencies=user.options|requiresES6]|VariantAlly.js
+* VariantAllyDialog[ResourceLoader|dependencies=ext.gadget.VariantAlly,vue|hidden|requiresES6]|VariantAllyDialog.js|VariantAllyDialog.css
 
 == browser ==
 * AddSectionPlus[ResourceLoader|dependencies=ext.gadget.Util|peers=AddSectionPlus-pagestyles|rights=edit|requiresES6]|AddSectionPlus.js
