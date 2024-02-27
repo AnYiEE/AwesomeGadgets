@@ -1,4 +1,11 @@
-import {GADGET_NAME, SYSTEM_SCRIPT_LIST, WEBMASTER_LIST, wgUserGroups, wgUserName, wgUserVariant} from './constant';
+import {
+	GADGET_NAME,
+	SYSTEM_SCRIPT_LIST,
+	WEBMASTER_LIST,
+	WG_USER_GROUPS,
+	WG_USER_NAME,
+	WG_USER_VARIANT,
+} from './constant';
 import {getMessage} from './i18n';
 import {initMwApi} from 'ext.gadget.Util';
 
@@ -6,15 +13,15 @@ const locationHref: string = location.href;
 const api: mw.Api = initMwApi('NotifyConversion/2.0');
 
 const isExperiencedUser = (): boolean => {
-	if (!wgUserName || !wgUserGroups) {
+	if (!WG_USER_NAME || !WG_USER_GROUPS) {
 		return false;
 	}
 	return (
-		['sysop', 'bureaucrat'].some((element: string): boolean => {
-			return wgUserGroups.includes(element);
+		['sysop', 'senioreditor', 'steward', 'qiuwen'].some((element: string): boolean => {
+			return WG_USER_GROUPS.includes(element);
 		}) ||
-		SYSTEM_SCRIPT_LIST.includes(wgUserName) ||
-		WEBMASTER_LIST.includes(wgUserName)
+		SYSTEM_SCRIPT_LIST.includes(WG_USER_NAME) ||
+		WEBMASTER_LIST.includes(WG_USER_NAME)
 	);
 };
 
@@ -79,7 +86,9 @@ const showDialog = (): void => {
 			$('<p>').addClass('gadget-notify_conversion__message_extend').text(getMessage('dialogDescExtend1')),
 			$('<p>').addClass('gadget-notify_conversion__message_extend').text(getMessage('dialogDescExtend2')),
 			buttonSelect.$element.addClass('gadget-notify_conversion__selection'),
-			$('<p>').addClass('gadget-notify_conversion__message_privacy-notice').text(getMessage('privacyNotice'))
+			$('<p>')
+				.addClass('gadget-notify_conversion__message_privacy-notice')
+				.text(WG_USER_NAME ? getMessage('privacyNoticeLoggedIn') : getMessage('privacyNoticeNotLoggedIn'))
 		);
 
 	const windowManager: OO.ui.WindowManager = new OO.ui.WindowManager();
@@ -119,7 +128,7 @@ const showDialog = (): void => {
 				const selectedItem: OO.ui.OptionWidget = buttonSelect.findSelectedItem() as OO.ui.OptionWidget;
 				const variant: string = selectedItem.getData() as string;
 				clearWindows(variant);
-				if (mw.config.get('wgUserName')) {
+				if (WG_USER_NAME) {
 					void api.saveOption('variant', variant).then((): void => {
 						location.href = locationHref.replace(URL_REGEX, '$1wiki$3');
 					});
@@ -138,10 +147,10 @@ const showDialog = (): void => {
 };
 
 const preferredVariant: string | null =
-	((mw.config.get('wgUserName') ? mw.user.options.get('variant') : mw.config.get('wgUserVariant')) as string) ?? null;
+	((WG_USER_NAME ? mw.user.options.get('variant') : WG_USER_VARIANT) as string) ?? null;
 
 export const notifyConversion = (): void => {
-	if (!wgUserVariant) {
+	if (!WG_USER_VARIANT) {
 		return; // on Special pages
 	}
 	if (isLanguageSet()) {
