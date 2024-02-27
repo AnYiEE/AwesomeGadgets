@@ -19,8 +19,8 @@ const getI18nMessages = () => {
 		}),
 		dialogDescExtend2: localize({
 			en: 'For your better experience, we would appreciate it if you select your preferred Chinese language variant. We apologize for any inconvenience.',
-			'zh-hans': '为了确保您的阅读体验，我们建议您可以选择所偏好的中文语言变体。给您带来不便，敬请谅解！',
-			'zh-hant': '為了確保您的閱讀體驗，我們建議您可以選擇所偏好的中文語言變體。給您帶來不便，敬請諒解！',
+			'zh-hans': '出于阅读体验之考量，我们建议您可以选择所偏好的中文语言变体。给您带来不便，敬请谅解！',
+			'zh-hant': '出於閱讀體驗之考量，我們建議您可以選擇所偏好的中文語言變體。給您帶來不便，敬請諒解！',
 		}),
 		'variant-zh-cn': localize({
 			en: 'Chinese Mainland (Simplified) (中国大陆简体)',
@@ -46,10 +46,15 @@ const getI18nMessages = () => {
 			en: 'Taiwan, Province of China (Traditional) (中國臺灣繁體)',
 			zh: '中國臺灣繁體',
 		}),
-		privacyNotice: localize({
+		privacyNoticeNotLoggedIn: localize({
 			en: 'Your choices will be only stored in your browser only. We will not track your choices.',
 			'zh-hans': '您的选择将仅存储在您的浏览器中，我们不会追踪您的选择。',
 			'zh-hant': '您的選擇將僅存儲在您的瀏覽器中，我們不會追蹤您的選擇。',
+		}),
+		privacyNoticeLoggedIn: localize({
+			en: 'Your choices will be stored in your browser and your user preferences. However, We will not track your choices.',
+			'zh-hans': '您的选择将存储在您的浏览器及用户参数设置中；但是，我们不会追踪您的选择。',
+			'zh-hant': '您的選擇將存儲在您的瀏覽器及使用者偏好設定中；但是，我們不會追蹤您的選擇。',
 		}),
 		confirm: localize({
 			en: 'Confirm',
