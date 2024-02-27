@@ -39,9 +39,11 @@ const build = async (): Promise<void> => {
 				continue;
 			}
 
+			const {dependencies, externalPackages} = definition;
 			const builtScriptFileNames: string[] = await buildFiles(gadgetName, 'script', {
+				dependencies,
+				externalPackages,
 				licenseText,
-				dependencies: definition.dependencies,
 				files: generateFileArray(script, scripts),
 			});
 			const scriptFileNames: string = generateFileNames(gadgetName, builtScriptFileNames);

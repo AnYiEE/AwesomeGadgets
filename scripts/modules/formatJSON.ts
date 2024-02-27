@@ -96,13 +96,15 @@ const formatJSON = async (paths: string[]): Promise<void> => {
 					break;
 				}
 
-				const {enable, excludeSites, description, section} = object as unknown as DefaultDefinition;
+				const {enable, description, section, excludeSites, externalPackages} =
+					object as unknown as DefaultDefinition;
 
 				let definitionSorted: Partial<DefaultDefinition> = {
 					enable,
-					excludeSites,
 					description,
 					section,
+					excludeSites,
+					externalPackages,
 				};
 				definitionSorted = {
 					...definitionSorted,

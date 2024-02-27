@@ -35,9 +35,10 @@ type Credentials = CredentialsOnlyOAuth | CredentialsOnlyOAuth2 | CredentialsOnl
 
 interface DefaultDefinition {
 	enable: boolean;
-	excludeSites: string[];
 	description: string;
 	section: string;
+	excludeSites: string[];
+	externalPackages: string[];
 	actions: string[];
 	contentModels: string[];
 	default: boolean;
@@ -53,8 +54,6 @@ interface DefaultDefinition {
 interface DefaultSectionMap {
 	[key: DefaultDefinition['section']]: string;
 }
-
-type Dependencies = DefaultDefinition['dependencies'];
 
 type DeploymentDirectTargets = [string, string][];
 
@@ -95,7 +94,6 @@ export type {
 	CredentialsOnlyPassword,
 	DefaultDefinition,
 	DefaultSectionMap,
-	Dependencies,
 	DeploymentDirectTargets,
 	DeploymentTargets,
 	GlobalSourceFiles,
