@@ -2,10 +2,11 @@ import * as PACKAGE from '../../../package.json';
 import {BANNER, GLOBAL_REQUIRES_ES6, SOURCE_MAP} from '../../constant';
 import {type BabelFileResult, type TransformOptions, transformAsync} from '@babel/core';
 import {type BuildResult, type OutputFile, build as esbuild} from 'esbuild';
-import type {BuiltFiles, Dependencies, SourceFiles} from '../types';
+import type {BuiltFiles, DefaultDefinition, SourceFiles} from '../types';
 import {type Path, globSync} from 'glob';
 import {
 	__rootDir,
+	generateArray,
 	generateBannerAndFooter,
 	generateDefinition,
 	readFileContent,
@@ -38,7 +39,10 @@ const writeFile = (outputFilePath: string, sourceCode: string): void => {
  * @private
  * @param {string} inputFilePath
  * @param {string} outputFilePath
- * @param {Dependencies} [dependencies]
+ * @param {Object} object
+ * @param {DefaultDefinition['dependencies']|undefined} [object.dependencies]
+ * @param {DefaultDefinition['externalPackages']|undefined} [object.externalPackages]
+ * @param {string} object.licenseText
  * @return {Promise<BuiltFiles>}
  */
 const build = async (
@@ -46,9 +50,11 @@ const build = async (
 	outputFilePath: string,
 	{
 		dependencies,
+		externalPackages,
 		licenseText,
 	}: {
-		dependencies?: Dependencies | undefined;
+		dependencies?: DefaultDefinition['dependencies'] | undefined;
+		externalPackages?: DefaultDefinition['externalPackages'] | undefined;
 		licenseText: string | undefined;
 	}
 ): Promise<BuiltFiles> => {
@@ -60,7 +66,7 @@ const build = async (
 			licenseText,
 			isProcessJs: false,
 		}),
-		external: dependencies ?? [],
+		external: generateArray(dependencies, externalPackages),
 		entryPoints: [inputFilePath],
 		outfile: outputFilePath,
 	});
@@ -87,7 +93,10 @@ const build = async (
  * @private
  * @param {string} outputFilePath
  * @param {string} sourceCode
- * @param {Dependencies} dependencies
+ * @param {Object} object
+ * @param {DefaultDefinition['dependencies']|undefined} object.dependencies
+ * @param {DefaultDefinition['externalPackages']|undefined} object.externalPackages
+ * @param {string} object.licenseText
  * @return {Promise<string>}
  */
 const bundle = async (
@@ -95,9 +104,11 @@ const bundle = async (
 	sourceCode: string,
 	{
 		dependencies,
+		externalPackages,
 		licenseText,
 	}: {
-		dependencies: Dependencies | undefined;
+		dependencies: DefaultDefinition['dependencies'] | undefined;
+		externalPackages: DefaultDefinition['externalPackages'] | undefined;
 		licenseText: string | undefined;
 	}
 ): Promise<string> => {
@@ -106,7 +117,7 @@ const bundle = async (
 		...generateBannerAndFooter({
 			licenseText,
 		}),
-		external: dependencies ?? [],
+		external: generateArray(dependencies, externalPackages),
 		stdin: {
 			contents: sourceCode,
 			resolveDir: __rootDir,
@@ -220,7 +231,10 @@ const transform = async (inputFilePath: string, sourceCode: string): Promise<str
  * @private
  * @param {string} gadgetName
  * @param {string} scriptFileName
- * @param {{dependencies:Dependencies; licenseText:string|undefined}} object
+ * @param {Object} object
+ * @param {DefaultDefinition['dependencies']|undefined} object.dependencies
+ * @param {DefaultDefinition['externalPackages']|undefined} object.externalPackages
+ * @param {string} object.licenseText
  * @return {Promise<string[]>}
  */
 const buildScript = async (
@@ -228,9 +242,11 @@ const buildScript = async (
 	scriptFileName: string,
 	{
 		dependencies,
+		externalPackages,
 		licenseText,
 	}: {
-		dependencies: Dependencies | undefined;
+		dependencies: DefaultDefinition['dependencies'] | undefined;
+		externalPackages: DefaultDefinition['externalPackages'] | undefined;
 		licenseText: string | undefined;
 	}
 ): Promise<string[]> => {
@@ -244,6 +260,7 @@ const buildScript = async (
 
 	const builtFiles: BuiltFiles = await build(inputFilePath, outputFilePath, {
 		dependencies,
+		externalPackages,
 		licenseText,
 	});
 	for (const builtFile of builtFiles) {
@@ -261,6 +278,7 @@ const buildScript = async (
 				const transformOutput: string = await transform(inputFilePath, text);
 				const bundleOutput: string = await bundle(outputFilePath, transformOutput, {
 					dependencies,
+					externalPackages,
 					licenseText,
 				});
 				if (!bundleOutput) {
@@ -306,7 +324,11 @@ const buildStyle = async (
 /**
  * @param {string} gadgetName The gadget name
  * @param {'script'|'style'} type The type of target files
- * @param {{dependencies?:Dependencies; files:string[]; licenseText:string|undefined}} object The dependencies of this gadget, the array of file name for this gadget and the license file content of this gadget
+ * @param {Object} object
+ * @param {DefaultDefinition['dependencies']} [object.dependencies]
+ * @param {DefaultDefinition['externalPackages']} [object.externalPackages]
+ * @param {string[]} object.files
+ * @param {string} object.licenseText
  * @return {Promise<string[]>} The array of built file names
  */
 async function buildFiles(
@@ -314,10 +336,12 @@ async function buildFiles(
 	type: 'script',
 	{
 		dependencies,
+		externalPackages,
 		files,
 		licenseText,
 	}: {
-		dependencies: Dependencies;
+		dependencies: DefaultDefinition['dependencies'];
+		externalPackages: DefaultDefinition['externalPackages'];
 		files: string[];
 		licenseText: string | undefined;
 	}
@@ -339,10 +363,12 @@ async function buildFiles(
 	type: 'script' | 'style',
 	{
 		dependencies,
+		externalPackages,
 		files,
 		licenseText,
 	}: {
-		dependencies?: Dependencies;
+		dependencies?: DefaultDefinition['dependencies'];
+		externalPackages?: DefaultDefinition['externalPackages'];
 		files: string[];
 		licenseText: string | undefined;
 	}
@@ -355,6 +381,7 @@ async function buildFiles(
 				outputFileNames.push(
 					...(await buildScript(gadgetName, fileName, {
 						dependencies,
+						externalPackages,
 						licenseText,
 					}))
 				);
@@ -400,20 +427,25 @@ const fallbackDefinition = (sourceFiles: SourceFiles): void => {
  * @param {SourceFiles} sourceFiles
  */
 const filterOutInvalidDependencies = (sourceFiles: SourceFiles): void => {
-	for (const gadgetFiles of Object.values(sourceFiles)) {
-		const {
-			definition: {dependencies},
-		} = gadgetFiles;
-
-		gadgetFiles.definition.dependencies = dependencies
-			.filter((dependency: string): boolean => {
-				return typeof dependency === 'string' && !!dependency.trim();
+	const filter = (array: string[]): string[] => {
+		return array
+			.filter((item: string): boolean => {
+				return typeof item === 'string' && !!item.trim();
 			})
-			.map((dependency: string): string => {
-				return trim(dependency, {
+			.map((item: string): string => {
+				return trim(item, {
 					addNewline: false,
 				});
 			});
+	};
+
+	for (const gadgetFiles of Object.values(sourceFiles)) {
+		const {
+			definition: {dependencies, externalPackages},
+		} = gadgetFiles;
+
+		gadgetFiles.definition.dependencies = filter(dependencies);
+		gadgetFiles.definition.externalPackages = filter(externalPackages);
 	}
 };
 
@@ -600,9 +632,10 @@ const generateDefinitionItem = (
 			[
 				// Keys for internal use
 				'enable',
-				'excludeSites',
 				'description',
 				'section',
+				'excludeSites',
+				'externalPackages',
 				// Keys that no need to be specified
 				'package',
 				'targets',
@@ -666,7 +699,7 @@ const generateDefinitionItem = (
  * @return {string[]} The generated file name array
  */
 const generateFileArray = (file: string | undefined, files: string[] | undefined): string[] => {
-	return file ? [file] : files ?? [];
+	return file ? generateArray(file) : generateArray(files);
 };
 
 /**

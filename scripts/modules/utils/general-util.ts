@@ -67,6 +67,31 @@ const writeFileContent = (filePath: number | string, fileContent: string): void 
 };
 
 /**
+ * Generate an array and filter out null and undefined values
+ *
+ * @param {T} args The given arguments
+ * @return {NonNullable<T>[]} The generated array
+ */
+function generateArray<T extends []>(...args: (T | T[])[]): NonNullable<T>[];
+function generateArray<T = unknown>(...args: (T | T[])[]): NonNullable<T>[];
+// eslint-disable-next-line func-style
+function generateArray<T>(...args: (T | T[])[]): T[] {
+	return args.flatMap((arg) => {
+		if (arg === null || arg === undefined) {
+			return [];
+		}
+
+		if (Array.isArray(arg)) {
+			return arg.filter((item): boolean => {
+				return item !== null && item !== undefined;
+			});
+		}
+
+		return [arg];
+	});
+}
+
+/**
  * Sort an object
  *
  * @param {Object} object The object to sort
@@ -299,6 +324,7 @@ export {
 	exec,
 	readFileContent,
 	writeFileContent,
+	generateArray,
 	sortObject,
 	trim,
 	prompt,

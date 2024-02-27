@@ -35,9 +35,10 @@ const HEADER = `/**
  */
 const DEFAULT_DEFINITION = {
 	enable: true,
-	excludeSites: [],
 	description: '', // 回落值为小工具名称 / Fallback value: the name of the current gadget
 	section: '', // 回落值为 appear / Fallback value: appear
+	excludeSites: [],
+	externalPackages: [],
 	actions: [],
 	contentModels: [],
 	default: false,
