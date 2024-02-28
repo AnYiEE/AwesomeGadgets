@@ -58,8 +58,7 @@
 * Collapsible[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util|hidden|peers=Collapsible-pagestyles|requiresES6]|Collapsible.js
 * Collapsible-pagestyles[ResourceLoader|hidden|requiresES6]|Collapsible-pagestyles.css
 * ConfirmLogout[ResourceLoader|default|dependencies=ext.gadget.FilterAlteredClicks,ext.gadget.i18n,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util,oojs-ui-windows|rights=edit|requiresES6]|ConfirmLogout.js
-* CookieWarning[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.storage,mediawiki.util|hidden|peers=CookieWarning-pagestyles|requiresES6]|CookieWarning.js
-* CookieWarning-pagestyles[ResourceLoader|hidden|requiresES6]|CookieWarning-pagestyles.css
+* CookieWarning[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.storage,mediawiki.util|hidden|requiresES6]
 * FilterAlteredClicks[ResourceLoader|hidden|requiresES6]|FilterAlteredClicks.js
 * Geo[ResourceLoader|dependencies=mediawiki.storage|hidden|requiresES6]|Geo.js
 * GeoLocation[ResourceLoader|dependencies=ext.gadget.Geo,ext.gadget.i18n,ext.gadget.Util,mediawiki.api,mediawiki.Uri|requiresES6]|GeoLocation.js
