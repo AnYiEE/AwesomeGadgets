@@ -1,0 +1,65 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/CookieWarning}
+ * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* esbuild-css-modules-plugin-ns-css:src/CookieWarning/components/CookieWarning.module.less */
+.CookieWarning-module__warning_ukvfyG__450 {
+  z-index: 101;
+  color: #191919;
+  opacity: 1;
+  pointer-events: auto;
+  background-color: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: .5em;
+  max-width: 92.5%;
+  margin: .75em;
+  padding: .75em;
+  font-size: .9em;
+  line-height: 1.25;
+  position: fixed;
+  bottom: 1em;
+  left: 0;
+  right: 0;
+}
+.CookieWarning-module__warning_ukvfyG__450 p {
+  margin: 0 auto .5rem;
+}
+:is(.CookieWarning-module__warning_ukvfyG__450 .mw-ui-button, .CookieWarning-module__warning_ukvfyG__450 .cdx-button) {
+  color: #fff;
+  text-align: center;
+  background-color: #36c;
+  border-color: #36c;
+  border-radius: .25em;
+  width: 100%;
+  margin: 0 auto;
+  padding: .5em 0;
+  line-height: 1;
+  display: block;
+}
+@media screen and (min-width: 768px) {
+  .CookieWarning-module__warning_ukvfyG__450 {
+    width: 20em;
+    left: 0;
+    right: auto;
+  }
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiZXNidWlsZC1jc3MtbW9kdWxlcy1wbHVnaW4tbnMtY3NzOnNyYy9Db29raWVXYXJuaW5nL2NvbXBvbmVudHMvQ29va2llV2FybmluZy5tb2R1bGUubGVzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiLkNvb2tpZVdhcm5pbmctbW9kdWxlX193YXJuaW5nX3VrdmZ5R19fNDUwIHtcbiAgei1pbmRleDogMTAxO1xuICBjb2xvcjogIzE5MTkxOTtcbiAgb3BhY2l0eTogMTtcbiAgcG9pbnRlci1ldmVudHM6IGF1dG87XG4gIGJhY2tncm91bmQtY29sb3I6ICNmZmY7XG4gIGJvcmRlcjogMXB4IHNvbGlkICNlNmU2ZTY7XG4gIGJvcmRlci1yYWRpdXM6IC41ZW07XG4gIG1heC13aWR0aDogOTIuNSU7XG4gIG1hcmdpbjogLjc1ZW07XG4gIHBhZGRpbmc6IC43NWVtO1xuICBmb250LXNpemU6IC45ZW07XG4gIGxpbmUtaGVpZ2h0OiAxLjI1O1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGJvdHRvbTogMWVtO1xuICBsZWZ0OiAwO1xuICByaWdodDogMDtcbn1cblxuLkNvb2tpZVdhcm5pbmctbW9kdWxlX193YXJuaW5nX3VrdmZ5R19fNDUwIHAge1xuICBtYXJnaW46IDAgYXV0byAuNXJlbTtcbn1cblxuOmlzKC5Db29raWVXYXJuaW5nLW1vZHVsZV9fd2FybmluZ191a3ZmeUdfXzQ1MCAubXctdWktYnV0dG9uLCAuQ29va2llV2FybmluZy1tb2R1bGVfX3dhcm5pbmdfdWt2ZnlHX180NTAgLmNkeC1idXR0b24pIHtcbiAgY29sb3I6ICNmZmY7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzM2YztcbiAgYm9yZGVyLWNvbG9yOiAjMzZjO1xuICBib3JkZXItcmFkaXVzOiAuMjVlbTtcbiAgd2lkdGg6IDEwMCU7XG4gIG1hcmdpbjogMCBhdXRvO1xuICBwYWRkaW5nOiAuNWVtIDA7XG4gIGxpbmUtaGVpZ2h0OiAxO1xuICBkaXNwbGF5OiBibG9jaztcbn1cblxuQG1lZGlhIHNjcmVlbiBhbmQgKG1pbi13aWR0aDogNzY4cHgpIHtcbiAgLkNvb2tpZVdhcm5pbmctbW9kdWxlX193YXJuaW5nX3VrdmZ5R19fNDUwIHtcbiAgICB3aWR0aDogMjBlbTtcbiAgICBsZWZ0OiAwO1xuICAgIHJpZ2h0OiBhdXRvO1xuICB9XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxDQUFDO0FBQ0MsV0FBUztBQUNULFNBQU87QUFDUCxXQUFTO0FBQ1Qsa0JBQWdCO0FBQ2hCLG9CQUFrQjtBQUNsQixVQUFRLElBQUksTUFBTTtBQUNsQixpQkFBZTtBQUNmLGFBQVc7QUFDWCxVQUFRO0FBQ1IsV0FBUztBQUNULGFBQVc7QUFDWCxlQUFhO0FBQ2IsWUFBVTtBQUNWLFVBQVE7QUFDUixRQUFNO0FBQ04sU0FBTztBQUNUO0FBRUEsQ0FuQkMsMENBbUIwQztBQUN6QyxVQUFRLEVBQUUsS0FBSztBQUNqQjtBQUVBLElBQUksQ0F2QkgsMENBdUI4QyxDQUFDLGNBQWMsQ0F2QjdELDBDQXVCd0csQ0FBQztBQUN4RyxTQUFPO0FBQ1AsY0FBWTtBQUNaLG9CQUFrQjtBQUNsQixnQkFBYztBQUNkLGlCQUFlO0FBQ2YsU0FBTztBQUNQLFVBQVEsRUFBRTtBQUNWLFdBQVMsS0FBSztBQUNkLGVBQWE7QUFDYixXQUFTO0FBQ1g7QUFFQSxPQUFPLE9BQU8sSUFBSSxDQUFDLFNBQVMsRUFBRTtBQUM1QixHQXJDRDtBQXNDRyxXQUFPO0FBQ1AsVUFBTTtBQUNOLFdBQU87QUFDVDtBQUNGOyIsCiAgIm5hbWVzIjogW10KfQo= */
