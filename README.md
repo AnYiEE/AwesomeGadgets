@@ -13,6 +13,7 @@
 > 1. 本站已支持直接使用 ES6 语法，且所有小工具强制开启 ES6 语法检查。
 > 2. 若小工具文件夹内同时包含 TS(JS)/LESS(CSS) ，请在对应 JS/TS 文件中声明对应样式表，否则样式表将不会加载。
 > 3. 初次 Clone 请自行加载 Node.js, pnpm 等必备工具。
+> 4. 请务必参照其他已有小工具格式添加LICENSE文件。
 
 ## 底层支持 Powered By
 本小工具库是 [**AnYiEE/AwsomeGadgets**](https://github.com/AnYiEE/AwesomeGadgets) 的分支。
