@@ -39,6 +39,9 @@ patchedDependencies:
   alpha-sort@5.0.0:
     hash: soz2x3l6v7xocle4w7vguzc5ha
     path: patches/alpha-sort@5.0.0.patch
+  esbuild-css-modules-plugin@3.1.0:
+    hash: shxpupndyaiq54c4yivdwvg3ju
+    path: patches/esbuild-css-modules-plugin@3.1.0.patch
   eslint-config-wikimedia@0.26.0:
     hash: iaiepfmd777wt5zivqax6j6mj4
     path: patches/eslint-config-wikimedia@0.26.0.patch
@@ -148,7 +151,7 @@ devDependencies:
     version: 0.20.1
   esbuild-css-modules-plugin:
     specifier: ^3.1.0
-    version: 3.1.0(esbuild@0.20.1)
+    version: 3.1.0(patch_hash=shxpupndyaiq54c4yivdwvg3ju)(esbuild@0.20.1)
   esbuild-plugin-less:
     specifier: ^1.3.2
     version: 1.3.2(esbuild@0.20.1)
@@ -4191,7 +4194,7 @@ packages:
     dev: true
     optional: true
 
-  /esbuild-css-modules-plugin@3.1.0(esbuild@0.20.1):
+  /esbuild-css-modules-plugin@3.1.0(patch_hash=shxpupndyaiq54c4yivdwvg3ju)(esbuild@0.20.1):
     resolution: {integrity: sha512-3+BYIKHlGqhL1/9FbWFUD3bGyxR9+H0wGHH2QpzqJZ5UIYBwr6oyWspio3YGgZeJvzstiOgX+UdY7MBaXt+aAg==}
     engines: {node: '>= 16.20.0'}
     peerDependencies:
@@ -4201,6 +4204,7 @@ packages:
       lightningcss: 1.24.0
       lodash-es: 4.17.21
     dev: true
+    patched: true
 
   /esbuild-darwin-64@0.14.54:
     resolution: {integrity: sha512-jtdKWV3nBviOd5v4hOpkVmpxsBy90CGzebpbO9beiqUYVMBtSc0AL9zGftFuBon7PNDcdvNCEuQqw2x0wP9yug==}
