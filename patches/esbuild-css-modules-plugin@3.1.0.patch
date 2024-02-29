@@ -1,0 +1,13 @@
+diff --git a/lib/css.helper.js b/lib/css.helper.js
+index f527b34d8d8e900633cf0863f29f30d375c70727..5ffbe08e99b42d3d32f74747098719dc832e7615 100644
+--- a/lib/css.helper.js
++++ b/lib/css.helper.js
+@@ -271,7 +271,7 @@ ${uniqNames.map(([o, l]) => `  "${o}": ${l}`).join(',\n')}
+       filename: fullpath,
+       cssModules: {
+         dashedIdents: options?.dashedIndents,
+-        pattern: options?.pattern ?? `${opt?.prefix ?? ''}__[local]_[hash]__${opt?.suffix ?? ''}`
++        pattern: options?.pattern ?? `${opt?.prefix ?? ''}__[local]_[hash]`
+       },
+       drafts: {
+         customMedia: true,
