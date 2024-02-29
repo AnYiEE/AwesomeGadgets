@@ -7,7 +7,7 @@
 本仓库为有兽档案馆的代码仓库，为网站小工具、用户js/css等核心代码提供协作与部署支持。
 
 ## 如何贡献 Contributing
-请阅读位于[**文档部分**](https://github.com/TopRealm/YsArxiv-Gadgets/blob/master/docs/how-to-build-or-deploy.md) ，获取技术细节。
+请阅读[**文档部分**](https://github.com/TopRealm/YsArxiv-Gadgets/blob/master/docs/how-to-build-or-deploy.md) ，获取技术细节。
 > [!IMPORTANT]
 > 开发者注意：
 > 1. 本站已支持直接使用 ES6 语法，且所有小工具强制开启 ES6 语法检查。
