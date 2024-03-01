@@ -16,6 +16,6 @@
 > 4. 请务必参照其他已有小工具格式添加LICENSE文件。
 
 ## 底层支持 Powered By
-本小工具库是 [**AnYiEE/AwsomeGadgets**](https://github.com/AnYiEE/AwesomeGadgets) 的分支。
+本小工具库基于 [**AnYiEE/AwsomeGadgets**](https://github.com/AnYiEE/AwesomeGadgets) 。
 
 > Awesome Gadgets 是面向 MediaWiki 网站，用以统一存储、管理并编译全站小工具（Gadget）的工具。小工具开发者只需关心小工具本身的代码实现，无需关心其他方面。工具将自动检查语法、编译并部署到网站。
