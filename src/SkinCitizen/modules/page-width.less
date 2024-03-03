@@ -1,18 +1,14 @@
 /* 页面内容宽度 */
 @media (min-width: 1440px) {
 	.ns-0 .mw-body-content .mw-parser-output {
-		& > *:not(figure, .mw-halign-left, .mw-halign-center, .mbox) {
+		& > * {
 			margin-right: 0;
 		}
 
-		& > div,
-		& > table,
-		& > figure {
-			&.tleft,
-			&.floatleft,
-			&.mw-halign-left {
-				margin-right: 1.25rem !important;
-			}
+		&.tleft,
+		&.floatleft,
+		&.mw-halign-left {
+			margin-right: 1.25rem !important;
 		}
 
 		& > table:not(.metadata, .infobox, .sidebar, .vertical-navbox) {
