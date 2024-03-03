@@ -5,7 +5,7 @@ import {initMwApi} from 'ext.gadget.Util';
 const groups: Record<UserRights, string[]> = {
 	// 全站管理型权限
 	responsibleoperator: [],
-	bureaucrat: [],
+	steward: [],
 	checkuser: [],
 	suppress: [],
 	sysop: [],
@@ -102,7 +102,7 @@ export const markUserRights = async ($content: JQuery): Promise<void> => {
 				$sups.append(
 					// The following classes are used here:
 					// * gadget-markrights__responsibleoperator
-					// * gadget-markrights__bureaucrat
+					// * gadget-markrights__steward
 					// * gadget-markrights__checkuser
 					// * gadget-markrights__suppress
 					// * gadget-markrights__sysop

@@ -1,7 +1,7 @@
 type UserRights =
 	// 全站管理型权限
 	| 'responsibleoperator'
-	| 'bureaucrat'
+	| 'steward'
 	| 'checkuser'
 	| 'suppress'
 	| 'sysop'

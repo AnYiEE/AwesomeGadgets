@@ -16,7 +16,7 @@ export const onlineAdmins = (): void => {
 		event.preventDefault();
 		let users: string[] = [];
 		const usersExt: string[] = [];
-		const bureaucrats: string[] = [];
+		const stewards: string[] = [];
 		const admins: string[] = [];
 		const patrollers: string[] = [];
 		// 最近更改30分钟内的编辑用户
@@ -74,8 +74,8 @@ export const onlineAdmins = (): void => {
 						if (groups.includes('bot') || BLACK_LIST.includes(name) || !name) {
 							continue;
 						}
-						if (groups.includes('bureaucrat')) {
-							bureaucrats.push(name);
+						if (groups.includes('steward')) {
+							stewards.push(name);
 						}
 						if (groups.includes('sysop')) {
 							admins.push(name);
@@ -102,17 +102,17 @@ export const onlineAdmins = (): void => {
 					`User talk:${_user}`
 				)}" rel="noopener" target="_blank">留言</a>）</span></li>`;
 			};
-			if (bureaucrats.length + admins.length + patrollers.length > 0) {
+			if (stewards.length + admins.length + patrollers.length > 0) {
 				const adminsstring: string[] = [`<p>${getMessage('OnlineWithin30Minutes')}</p>`];
 				const onlineCountText: string = getMessage(' ($1 online):');
-				if (bureaucrats.length > 0) {
+				if (stewards.length > 0) {
 					adminsstring.push(
-						`<div class="onlineadmin-section">${getMessage('Bureaucrats')}${onlineCountText.replace(
+						`<div class="onlineadmin-section">${getMessage('Stewards')}${onlineCountText.replace(
 							'$1',
-							String(bureaucrats.length)
+							String(stewards.length)
 						)}<ul class="onlineadmin-list">`
 					);
-					for (const element of bureaucrats) {
+					for (const element of stewards) {
 						adminsstring.push(userlink(element));
 					}
 					adminsstring.push('</ul></div>');

@@ -20,8 +20,8 @@ const getI18nMessages = () => {
 			'zh-hans': '巡查员',
 			'zh-hant': '巡查員',
 		}),
-		Bureaucrats: localize({
-			en: 'Bureaucrats',
+		Stewards: localize({
+			en: 'Stewards',
 			ja: 'スチュワード',
 			'zh-hans': '档案理事员',
 			'zh-hant': '檔案理事員',

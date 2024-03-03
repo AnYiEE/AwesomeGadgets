@@ -24,8 +24,8 @@ export const getPermissions = async (): Promise<void> => {
 		if (WEBMASTER_LIST.includes(WG_RELEVANT_USER_NAME) || groups.includes('responsibleoperator')) {
 			appendIcon(getMessage('Webmaster'), 'responsibleoperator');
 		}
-		if (groups.includes('bureaucrat')) {
-			appendIcon(getMessage('Bureaucrat'), 'bureaucrat');
+		if (groups.includes('steward')) {
+			appendIcon(getMessage('Steward'), 'steward');
 		}
 		if (groups.includes('checkuser')) {
 			appendIcon(getMessage('CheckUser'), 'checkuser');
