@@ -10,7 +10,7 @@ const img = $('<img>').attr({
 	src: imgUrl,
 	title: '上传头像',
 });
-const link = $('<a>').attr('href', 'https://youshou.wiki/Special:UploadAvatar').append(img);
+const link = $('<a>').attr('href', 'https://youshou.wiki/wiki/Special:UploadAvatar').append(img);
 $('#pt-userpage').before($('<li id="pt-avatar"></li>').append(link));
 if (mw.config.get('wgNamespaceNumber') === 2 && !mw.config.get('wgPageName').includes('/')) {
 	const hrefUrl = new mw.Uri(avatarUrl);
