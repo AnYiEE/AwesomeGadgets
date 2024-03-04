@@ -115,8 +115,8 @@
 * Wikiplus-highlight[ResourceLoader|actions=view|dependencies=ext.gadget.Util,user.options|rights=skipcaptcha|requiresES6]|Wikiplus-highlight.js
 
 == skin ==
-* SkinCitizen_CSS[ResourceLoader|default|hidden|skins=citizen|requiresES6]|SkinCitizen_CSS-SkinCitizen.css
-* SkinCitizen_JS[ResourceLoader|default|hidden|skins=citizen|requiresES6]|SkinCitizen_JS-SkinCitizen.js
+* SkinCitizen_CSS[ResourceLoader|default|hidden|skins=citizen|requiresES6]|SkinCitizen_CSS.css
+* SkinCitizen_JS[ResourceLoader|default|hidden|skins=citizen|requiresES6]|SkinCitizen_JS.js
 * SkinGongbi[ResourceLoader|default|hidden|skins=gongbi|requiresES6]|SkinGongbi.css
 * SkinVector[ResourceLoader|default|hidden|skins=vector,vector-2022|requiresES6]|SkinVector.css
 * SkinVector2022[ResourceLoader|default|hidden|skins=vector-2022|requiresES6]|SkinVector2022.css
