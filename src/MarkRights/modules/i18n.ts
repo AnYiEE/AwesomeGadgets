@@ -3,7 +3,7 @@ import {localize} from 'ext.gadget.i18n';
 const getI18nMessages = () => {
 	return {
 		responsibleoperator: localize({
-			en: 'Webmaster',
+			en: 'ResponsibleOperator',
 			'zh-hans': '责任运营',
 			'zh-hant': '責任運營',
 		}),
