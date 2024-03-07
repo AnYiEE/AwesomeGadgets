@@ -1,9 +1,9 @@
 {
 	"enable": true,
-	"excludeSites": ["testwiki"],
 	"description": "<span id=\"Gadget-GeoLocation\"></span> 自动更新自己的IP地理位置信息",
 	"section": "compatibility",
-	"dependencies": ["ext.gadget.Geo", "ext.gadget.i18n", "ext.gadget.Util", "mediawiki.api", "mediawiki.Uri"],
+	"excludeSites": ["testwiki"],
 	"default": true,
-	"hidden": true,
+	"dependencies": ["ext.gadget.Geo", "ext.gadget.i18n", "ext.gadget.Util", "mediawiki.api", "mediawiki.Uri"],
+	"hidden": true
 }
