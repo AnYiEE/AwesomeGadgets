@@ -13,7 +13,7 @@
 	Twinkle.close = () => {
 		if (
 			Twinkle.getPref('XfdClose') === 'hide' ||
-			!/^LIB([_ ]talk)?:存废讨论\/记录(?:\/\d+){3}$/.test(mw.config.get('wgPageName'))
+			!/^有兽档案馆([_ ]talk)?:存废讨论\/记录(?:\/\d+){3}$/.test(mw.config.get('wgPageName'))
 		) {
 			return;
 		}
