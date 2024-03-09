@@ -4,7 +4,8 @@
  *
  * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-rollback-summary.js}
  * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/RollbackSummary}
- * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+
+* @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
  */
 /**
  * +------------------------------------------------------------+
