@@ -244,15 +244,15 @@
 		Morebits.wiki.actionCompleted.redirect = mw.config.get('wgPageName');
 		Morebits.wiki.actionCompleted.notice = window.wgULS('标记完成', '標記完成');
 		// Tagging image
-		const ysarxiv_page = new Morebits.wiki.page(
+		const ysarchives_page = new Morebits.wiki.page(
 			mw.config.get('wgPageName'),
 			window.wgULS('加入删除标记', '加入刪除標記')
 		);
-		ysarxiv_page.setCallbackParameters(params);
-		ysarxiv_page.load(Twinkle.image.callbacks.taggingImage);
+		ysarchives_page.setCallbackParameters(params);
+		ysarchives_page.load(Twinkle.image.callbacks.taggingImage);
 		// Notifying uploader
 		if (notify) {
-			ysarxiv_page.lookupCreation(Twinkle.image.callbacks.userNotification);
+			ysarchives_page.lookupCreation(Twinkle.image.callbacks.userNotification);
 		} else {
 			// add to CSD log if desired
 			if (lognomination) {
@@ -283,18 +283,18 @@
 			const params = pageobj.getCallbackParameters();
 			// remove tag - deletion-tagged files cannot be moved
 			text = text.replace(
-				/\{\{(mtc|(copy |move )?to ?(share|commons)|move to (ysarxiv share|wikimedia commons)|copy to (ysarxiv share|wikimedia commons))[^}]*\}\}/gi,
+				/\{\{(mtc|(copy |move )?to ?(share|commons)|move to (ysarchives share|wikimedia commons)|copy to (ysarchives share|wikimedia commons))[^}]*\}\}/gi,
 				''
 			);
 			// Adding discussion
 			if (params.type !== 'orphaned fair use') {
-				const ysarxiv_page = new Morebits.wiki.page(
+				const ysarchives_page = new Morebits.wiki.page(
 					'LIB_talk:存废讨论/文件快速删除提报',
 					window.wgULS('加入快速删除记录项', '加入快速刪除記錄項')
 				);
-				ysarxiv_page.setFollowRedirect(true);
-				ysarxiv_page.setCallbackParameters(params);
-				ysarxiv_page.load(Twinkle.image.callbacks.imageList);
+				ysarchives_page.setFollowRedirect(true);
+				ysarchives_page.setCallbackParameters(params);
+				ysarchives_page.load(Twinkle.image.callbacks.imageList);
 			}
 			let tag = '';
 			switch (params.type) {

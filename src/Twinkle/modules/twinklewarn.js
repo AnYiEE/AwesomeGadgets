@@ -1412,10 +1412,13 @@
 		Morebits.status.init(e.target);
 		Morebits.wiki.actionCompleted.redirect = userTalkPage;
 		Morebits.wiki.actionCompleted.notice = window.wgULS('警告完成，将在几秒后刷新', '警告完成，將在幾秒後重新整理');
-		const ysarxiv_page = new Morebits.wiki.page(userTalkPage, window.wgULS('用户讨论页修改', '使用者討論頁修改'));
-		ysarxiv_page.setCallbackParameters(params);
-		ysarxiv_page.setFollowRedirect(true, false);
-		ysarxiv_page.load(Twinkle.warn.callbacks.main);
+		const ysarchives_page = new Morebits.wiki.page(
+			userTalkPage,
+			window.wgULS('用户讨论页修改', '使用者討論頁修改')
+		);
+		ysarchives_page.setCallbackParameters(params);
+		ysarchives_page.setFollowRedirect(true, false);
+		ysarchives_page.load(Twinkle.warn.callbacks.main);
 	};
 	Twinkle.addInitCallback(Twinkle.warn, 'warn');
 })(jQuery);

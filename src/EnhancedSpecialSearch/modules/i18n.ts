@@ -17,8 +17,8 @@ const getI18nMessages = () => {
 			ja: 'Google',
 			zh: '谷歌',
 		}),
-		YsArxiv: localize({
-			en: 'Youshou Arxiv',
+		YsArchives: localize({
+			en: 'Youshou Archives',
 			ja: '有兽档案馆',
 			'zh-hans': '有兽档案馆',
 			'zh-hant': '有獸檔案館',

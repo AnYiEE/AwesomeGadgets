@@ -10,7 +10,7 @@ type OptionData = {
 const getOptionData = (): OptionData[] => {
 	return [
 		{
-			site: getMessage('YsArxiv'),
+			site: getMessage('YsArchives'),
 			origin: true,
 		},
 		{

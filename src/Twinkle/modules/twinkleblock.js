@@ -2255,12 +2255,12 @@ import {initMwApi} from 'ext.gadget.Util';
 			Morebits.simpleWindow.setButtonsEnabled(false);
 			Morebits.status.init(e.target);
 			const userPage = `User:${mw.config.get('wgRelevantUserName')}`;
-			const ysarxiv_page = new Morebits.wiki.page(
+			const ysarchives_page = new Morebits.wiki.page(
 				userPage,
 				window.wgULS('标记或保护用户页', '標記或保護使用者頁面')
 			);
-			ysarxiv_page.setCallbackParameters(params);
-			ysarxiv_page.load(Twinkle.block.callback.taguserpage);
+			ysarchives_page.setCallbackParameters(params);
+			ysarchives_page.load(Twinkle.block.callback.taguserpage);
 		}
 		if (toUnblock) {
 			if (!unblockoptions.reason) {
@@ -2386,9 +2386,12 @@ import {initMwApi} from 'ext.gadget.Util';
 			'完成，将在几秒后加载用户讨论页',
 			'完成，將在幾秒後載入使用者討論頁'
 		);
-		const ysarxiv_page = new Morebits.wiki.page(userTalkPage, window.wgULS('用户讨论页修改', '使用者討論頁修改'));
-		ysarxiv_page.setCallbackParameters(params);
-		ysarxiv_page.load(Twinkle.block.callback.main);
+		const ysarchives_page = new Morebits.wiki.page(
+			userTalkPage,
+			window.wgULS('用户讨论页修改', '使用者討論頁修改')
+		);
+		ysarchives_page.setCallbackParameters(params);
+		ysarchives_page.load(Twinkle.block.callback.main);
 	};
 	Twinkle.block.callback.closeRequest = (vipPage) => {
 		const params = vipPage.getCallbackParameters();

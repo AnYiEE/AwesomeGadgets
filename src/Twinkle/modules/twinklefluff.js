@@ -377,13 +377,13 @@
 			meta: 'tokens',
 			type: 'csrf',
 		};
-		const ysarxiv_api = new Morebits.wiki.api(
+		const ysarchives_api = new Morebits.wiki.api(
 			window.wgULS('抓取较早修订版本信息', '抓取較早修訂版本資訊'),
 			query,
 			Twinkle.fluff.callbacks.main
 		);
-		ysarxiv_api.params = params;
-		ysarxiv_api.post();
+		ysarchives_api.params = params;
+		ysarchives_api.post();
 	};
 	Twinkle.fluff.revertToRevision = (oldrev) => {
 		let summary = '';
@@ -403,16 +403,16 @@
 			meta: 'tokens',
 			type: 'csrf',
 		};
-		const ysarxiv_api = new Morebits.wiki.api(
+		const ysarchives_api = new Morebits.wiki.api(
 			window.wgULS('抓取较早修订版本信息', '抓取較早修訂版本資訊'),
 			query,
 			Twinkle.fluff.callbacks.toRevision
 		);
-		ysarxiv_api.params = {
+		ysarchives_api.params = {
 			rev: oldrev,
 			summary,
 		};
-		ysarxiv_api.post();
+		ysarchives_api.post();
 	};
 	Twinkle.fluff.callbacks = {
 		toRevision: (apiobj) => {
@@ -476,14 +476,14 @@
 			}
 			Morebits.wiki.actionCompleted.redirect = mw.config.get('wgPageName');
 			Morebits.wiki.actionCompleted.notice = '回退完成';
-			const ysarxiv_api = new Morebits.wiki.api(
+			const ysarchives_api = new Morebits.wiki.api(
 				window.wgULS('保存回退内容', '儲存回退內容'),
 				query,
 				Twinkle.fluff.callbacks.complete,
 				apiobj.statelem
 			);
-			ysarxiv_api.params = apiobj.params;
-			ysarxiv_api.post();
+			ysarchives_api.params = apiobj.params;
+			ysarchives_api.post();
 		},
 		main: (apiobj) => {
 			const xmlDoc = apiobj.responseXML;
@@ -810,14 +810,14 @@
 				Morebits.wiki.actionCompleted.redirect = params.pagename;
 			}
 			Morebits.wiki.actionCompleted.notice = '回退完成';
-			const ysarxiv_api = new Morebits.wiki.api(
+			const ysarchives_api = new Morebits.wiki.api(
 				window.wgULS('保存回退内容', '儲存回退內容'),
 				query,
 				Twinkle.fluff.callbacks.complete,
 				statelem
 			);
-			ysarxiv_api.params = params;
-			ysarxiv_api.post();
+			ysarchives_api.params = params;
+			ysarchives_api.post();
 		},
 		complete: (apiobj) => {
 			// TODO Most of this is copy-pasted from Morebits.wiki.page#fnSaveSuccess. Unify it

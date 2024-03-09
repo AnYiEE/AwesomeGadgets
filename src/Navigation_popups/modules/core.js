@@ -1562,7 +1562,7 @@ export const popups = () => {
 			},
 		};
 		// options with default values or backreferences
-		(_b = Insta.conf.user).name || (_b.name = 'Youshou Arxiv contributors');
+		(_b = Insta.conf.user).name || (_b.name = 'Youshou Archives contributors');
 		Insta.conf.user.signature = `[[${Insta.conf.locale.user}:${Insta.conf.user.name}|${Insta.conf.user.name}]]`;
 		// define constants
 		Insta.BLOCK_IMAGE = new RegExp(

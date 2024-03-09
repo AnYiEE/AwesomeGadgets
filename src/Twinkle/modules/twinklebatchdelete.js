@@ -176,7 +176,7 @@
 		Window.display();
 		Twinkle.batchdelete.pages = {};
 		const statelem = new Morebits.status(window.wgULS('抓取页面列表', '抓取頁面列表'));
-		const ysarxiv_api = new Morebits.wiki.api(
+		const ysarchives_api = new Morebits.wiki.api(
 			window.wgULS('加载中…', '載入中…'),
 			query,
 			(apiobj) => {
@@ -269,11 +269,11 @@
 			},
 			statelem
 		);
-		ysarxiv_api.params = {
+		ysarchives_api.params = {
 			form,
 			Window,
 		};
-		ysarxiv_api.post();
+		ysarchives_api.post();
 	};
 	const generateArrowLinks = (checkbox) => {
 		const link = Morebits.htmlNode('a', ' >');
@@ -435,7 +435,7 @@
 						subpageLister.workerSuccess();
 						return;
 					}
-					const ysarxiv_api = new Morebits.wiki.api(
+					const ysarchives_api = new Morebits.wiki.api(
 						window.wgULS('正在获取 ', '正在取得 ') + pageName + window.wgULS(' 的子页面', ' 的子頁面'),
 						{
 							action: 'query',
@@ -508,7 +508,7 @@
 							subpageLister.workerFailure();
 						}
 					);
-					ysarxiv_api.post();
+					ysarchives_api.post();
 				},
 				() => {
 					// List 'em on the interface
@@ -617,18 +617,18 @@
 					reason,
 					pageDeleter,
 				};
-				const ysarxiv_page = new Morebits.wiki.page(
+				const ysarchives_page = new Morebits.wiki.page(
 					pageName,
 					window.wgULS('正在删除页面 ', '正在刪除頁面 ') + pageName
 				);
-				ysarxiv_page.setCallbackParameters(params);
+				ysarchives_page.setCallbackParameters(params);
 				if (delete_page) {
-					ysarxiv_page.setEditSummary(`${reason}（批量）`);
-					ysarxiv_page.setChangeTags(Twinkle.changeTags);
-					ysarxiv_page.suppressProtectWarning();
-					ysarxiv_page.deletePage(Twinkle.batchdelete.callbacks.doExtras, pageDeleter.workerFailure);
+					ysarchives_page.setEditSummary(`${reason}（批量）`);
+					ysarchives_page.setChangeTags(Twinkle.changeTags);
+					ysarchives_page.suppressProtectWarning();
+					ysarchives_page.deletePage(Twinkle.batchdelete.callbacks.doExtras, pageDeleter.workerFailure);
 				} else {
-					Twinkle.batchdelete.callbacks.doExtras(ysarxiv_page);
+					Twinkle.batchdelete.callbacks.doExtras(ysarchives_page);
 				}
 			},
 			() => {
@@ -650,15 +650,15 @@
 							reason,
 							pageDeleter: subpageDeleter,
 						};
-						const ysarxiv_page = new Morebits.wiki.page(
+						const ysarchives_page = new Morebits.wiki.page(
 							pageName,
 							window.wgULS('正在删除子页面 ', '正在刪除子頁面 ') + pageName
 						);
-						ysarxiv_page.setCallbackParameters(params);
-						ysarxiv_page.setEditSummary(`${reason}（批量）`);
-						ysarxiv_page.setChangeTags(Twinkle.changeTags);
-						ysarxiv_page.suppressProtectWarning();
-						ysarxiv_page.deletePage(Twinkle.batchdelete.callbacks.doExtras, pageDeleter.workerFailure);
+						ysarchives_page.setCallbackParameters(params);
+						ysarchives_page.setEditSummary(`${reason}（批量）`);
+						ysarchives_page.setChangeTags(Twinkle.changeTags);
+						ysarchives_page.suppressProtectWarning();
+						ysarchives_page.deletePage(Twinkle.batchdelete.callbacks.doExtras, pageDeleter.workerFailure);
 					});
 				}
 			}
@@ -675,7 +675,7 @@
 			// succeeded by now
 			params.pageDeleter.workerSuccess(thingWithParameters);
 			let query;
-			let ysarxiv_api;
+			let ysarchives_api;
 			if (params.unlink_page) {
 				Twinkle.batchdelete.unlinkCache = {};
 				query = {
@@ -687,13 +687,13 @@
 					bllimit: 'max', // 500 is max for normal users, 5000 for bots and sysops
 				};
 
-				ysarxiv_api = new Morebits.wiki.api(
+				ysarchives_api = new Morebits.wiki.api(
 					window.wgULS('正在获取链入', '正在取得連入'),
 					query,
 					Twinkle.batchdelete.callbacks.unlinkBacklinksMain
 				);
-				ysarxiv_api.params = params;
-				ysarxiv_api.post();
+				ysarchives_api.params = params;
+				ysarchives_api.post();
 			}
 			if (params.unlink_file) {
 				query = {
@@ -703,13 +703,13 @@
 					iulimit: 'max', // 500 is max for normal users, 5000 for bots and sysops
 				};
 
-				ysarxiv_api = new Morebits.wiki.api(
+				ysarchives_api = new Morebits.wiki.api(
 					window.wgULS('正在获取文件链入', '正在取得檔案連入'),
 					query,
 					Twinkle.batchdelete.callbacks.unlinkImageInstancesMain
 				);
-				ysarxiv_api.params = params;
-				ysarxiv_api.post();
+				ysarchives_api.params = params;
+				ysarchives_api.post();
 			}
 			if (params.delete_page) {
 				if (params.delete_redirects) {
@@ -720,13 +720,13 @@
 						rdlimit: 'max', // 500 is max for normal users, 5000 for bots and sysops
 					};
 
-					ysarxiv_api = new Morebits.wiki.api(
+					ysarchives_api = new Morebits.wiki.api(
 						window.wgULS('正在获取重定向', '正在取得重新導向'),
 						query,
 						Twinkle.batchdelete.callbacks.deleteRedirectsMain
 					);
-					ysarxiv_api.params = params;
-					ysarxiv_api.post();
+					ysarchives_api.params = params;
+					ysarchives_api.post();
 				}
 				if (params.delete_talk) {
 					const pageTitle = mw.Title.newFromText(params.page);
@@ -736,14 +736,14 @@
 							action: 'query',
 							titles: pageTitle.toText(),
 						};
-						ysarxiv_api = new Morebits.wiki.api(
+						ysarchives_api = new Morebits.wiki.api(
 							window.wgULS('正在检查讨论页面是否存在', '正在檢查討論頁面是否存在'),
 							query,
 							Twinkle.batchdelete.callbacks.deleteTalk
 						);
-						ysarxiv_api.params = params;
-						ysarxiv_api.params.talkPage = pageTitle.toText();
-						ysarxiv_api.post();
+						ysarchives_api.params = params;
+						ysarchives_api.params.talkPage = pageTitle.toText();
+						ysarchives_api.post();
 					}
 				}
 			}
@@ -767,18 +767,18 @@
 			redirectDeleter.setOption('chunkSize', Twinkle.getPref('batchChunks'));
 			redirectDeleter.setPageList(pages);
 			redirectDeleter.run((pageName) => {
-				const ysarxiv_page = new Morebits.wiki.page(
+				const ysarchives_page = new Morebits.wiki.page(
 					pageName,
 					window.wgULS('正在删除 ', '正在刪除 ') + pageName
 				);
-				ysarxiv_page.setEditSummary(
+				ysarchives_page.setEditSummary(
 					`[[LIB:CSD#G9|G9]]: ${window.wgULS('指向已删页面“', '指向已刪頁面「')}${apiobj.params.page}${window.wgULS(
 						'”的重定向',
 						'」的重新導向'
 					)}`
 				);
-				ysarxiv_page.setChangeTags(Twinkle.changeTags);
-				ysarxiv_page.deletePage(redirectDeleter.workerSuccess, redirectDeleter.workerFailure);
+				ysarchives_page.setChangeTags(Twinkle.changeTags);
+				ysarchives_page.deletePage(redirectDeleter.workerSuccess, redirectDeleter.workerFailure);
 			});
 		},
 		deleteTalk: (apiobj) => {
@@ -820,7 +820,7 @@
 			unlinker.setOption('chunkSize', Twinkle.getPref('batchChunks'));
 			unlinker.setPageList(pages);
 			unlinker.run((pageName) => {
-				const ysarxiv_page = new Morebits.wiki.page(
+				const ysarchives_page = new Morebits.wiki.page(
 					pageName,
 					`正在取消 ${pageName}${window.wgULS(' 上的链入', ' 上的連入')}`
 				);
@@ -829,8 +829,8 @@
 				};
 				params.title = pageName;
 				params.unlinker = unlinker;
-				ysarxiv_page.setCallbackParameters(params);
-				ysarxiv_page.load(Twinkle.batchdelete.callbacks.unlinkBacklinks);
+				ysarchives_page.setCallbackParameters(params);
+				ysarchives_page.load(Twinkle.batchdelete.callbacks.unlinkBacklinks);
 			});
 		},
 		unlinkBacklinks: (pageobj) => {
@@ -847,8 +847,8 @@
 				text = pageobj.getPageText();
 			}
 			const old_text = text;
-			const ysarxiv_page = new Morebits.wikitext.page(text);
-			text = ysarxiv_page.removeLink(params.page).getText();
+			const ysarchives_page = new Morebits.wikitext.page(text);
+			text = ysarchives_page.removeLink(params.page).getText();
 			Twinkle.batchdelete.unlinkCache[params.title] = text;
 			if (text === old_text) {
 				// Nothing to do, return
@@ -881,7 +881,7 @@
 			unlinker.setOption('chunkSize', Twinkle.getPref('batchChunks'));
 			unlinker.setPageList(pages);
 			unlinker.run((pageName) => {
-				const ysarxiv_page = new Morebits.wiki.page(
+				const ysarchives_page = new Morebits.wiki.page(
 					pageName,
 					`取消 ${pageName}${window.wgULS(' 的文件使用', ' 的檔案使用')}`
 				);
@@ -890,8 +890,8 @@
 				};
 				params.title = pageName;
 				params.unlinker = unlinker;
-				ysarxiv_page.setCallbackParameters(params);
-				ysarxiv_page.load(Twinkle.batchdelete.callbacks.unlinkImageInstances);
+				ysarchives_page.setCallbackParameters(params);
+				ysarchives_page.load(Twinkle.batchdelete.callbacks.unlinkImageInstances);
 			});
 		},
 		unlinkImageInstances: (pageobj) => {
@@ -909,8 +909,8 @@
 				text = pageobj.getPageText();
 			}
 			const old_text = text;
-			const ysarxiv_page = new Morebits.wikitext.page(text);
-			text = ysarxiv_page
+			const ysarchives_page = new Morebits.wikitext.page(text);
+			text = ysarchives_page
 				.commentOutImage(image, window.wgULS('因文件已删，故注解', '因檔案已刪，故註解'))
 				.getText();
 			Twinkle.batchdelete.unlinkCache[params.title] = text;

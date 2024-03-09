@@ -101,9 +101,9 @@
 			} else {
 				Twinkle.copyvio.callbacks.taggingArticle(pageobj);
 				// Contributor specific edits
-				const ysarxiv_page = new Morebits.wiki.page(mw.config.get('wgPageName'));
-				ysarxiv_page.setCallbackParameters(pageobj.getCallbackParameters());
-				ysarxiv_page.lookupCreation(Twinkle.copyvio.callbacks.main);
+				const ysarchives_page = new Morebits.wiki.page(mw.config.get('wgPageName'));
+				ysarchives_page.setCallbackParameters(pageobj.getCallbackParameters());
+				ysarchives_page.lookupCreation(Twinkle.copyvio.callbacks.main);
 			}
 		},
 		main: (pageobj) => {
@@ -111,13 +111,13 @@
 			const params = pageobj.getCallbackParameters();
 			const initialContrib = pageobj.getCreator();
 			// Adding discussion
-			const ysarxiv_page = new Morebits.wiki.page(
+			const ysarchives_page = new Morebits.wiki.page(
 				params.logpage,
 				window.wgULS('加入侵权记录项', '加入侵權記錄項')
 			);
-			ysarxiv_page.setFollowRedirect(true);
-			ysarxiv_page.setCallbackParameters(params);
-			ysarxiv_page.load(Twinkle.copyvio.callbacks.copyvioList);
+			ysarchives_page.setFollowRedirect(true);
+			ysarchives_page.setCallbackParameters(params);
+			ysarchives_page.load(Twinkle.copyvio.callbacks.copyvioList);
 			// Notification to first contributor
 			if (params.notify) {
 				const usertalkpage = new Morebits.wiki.page(
@@ -223,12 +223,12 @@
 			'提報完成，將在幾秒內重新整理頁面'
 		);
 		// Tagging file
-		const ysarxiv_page = new Morebits.wiki.page(
+		const ysarchives_page = new Morebits.wiki.page(
 			mw.config.get('wgPageName'),
 			window.wgULS('加入侵权模板到页面', '加入侵權模板到頁面')
 		);
-		ysarxiv_page.setCallbackParameters(params);
-		ysarxiv_page.load(Twinkle.copyvio.callbacks.tryTagging);
+		ysarchives_page.setCallbackParameters(params);
+		ysarchives_page.load(Twinkle.copyvio.callbacks.tryTagging);
 		Morebits.wiki.removeCheckpoint();
 	};
 	Twinkle.addInitCallback(Twinkle.copyvio, 'copyvio');

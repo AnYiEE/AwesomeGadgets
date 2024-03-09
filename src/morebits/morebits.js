@@ -2477,7 +2477,7 @@ import './morebits.less';
 			return JSON.parse(wikitext);
 		});
 	};
-	let morebitsWikiApiUserAgent = 'YsArxiv/1.1 (morebits.js)';
+	let morebitsWikiApiUserAgent = 'YsArchives/1.1 (morebits.js)';
 	/**
 	 * Set the custom user agent header, which is used for server-side logging.
 	 * Note that doing so will set the useragent for every `Morebits.wiki.api`
@@ -2487,12 +2487,12 @@ import './morebits.less';
 	 * for original announcement.
 	 *
 	 * @memberof Morebits.wiki.api
-	 * @param {string} [ua=YsArxiv/1.1 (morebits.js)] - User agent.  The default
+	 * @param {string} [ua=YsArchives/1.1 (morebits.js)] - User agent.  The default
 	 * value of `morebits.js` will be appended to any provided
 	 * value.
 	 */
 	Morebits.wiki.api.setApiUserAgent = (ua) => {
-		morebitsWikiApiUserAgent = `YsArxiv/1.1 (morebits.js${ua ? `; ${ua}` : ''})`;
+		morebitsWikiApiUserAgent = `YsArchives/1.1 (morebits.js${ua ? `; ${ua}` : ''})`;
 	};
 	/**
 	 * Change/revision tag applied to Morebits actions when no other tags are specified.

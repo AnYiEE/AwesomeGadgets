@@ -1,5 +1,5 @@
 {
-	"ysarxiv": {
+	"ysarchives": {
 		"Citizen.js": {
 			"enable": true,
 			"sourceCode": "mw.loader.using(['ext.gadget.SkinCitizen']);"
@@ -61,7 +61,7 @@
 			"sourceCode": "mw.loader.using(['ext.gadget.SkinVector']);"
 		}
 	},
-	"testysarxiv": {
+	"testysarchives": {
 		"Citizen.js": {
 			"enable": true,
 			"sourceCode": "mw.loader.using(['ext.gadget.SkinCitizen']);"

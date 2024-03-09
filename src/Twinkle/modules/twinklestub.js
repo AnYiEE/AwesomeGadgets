@@ -395,21 +395,21 @@
 		if (Twinkle.stub.mode === '重定向') {
 			Morebits.wiki.actionCompleted.followRedirect = false;
 		}
-		const ysarxiv_page = new Morebits.wiki.page(
+		const ysarchives_page = new Morebits.wiki.page(
 			mw.config.get('wgPageName'),
 			window.wgULS('正在标记', '正在標記') + Twinkle.stub.mode
 		);
-		ysarxiv_page.setCallbackParameters(params);
+		ysarchives_page.setCallbackParameters(params);
 		switch (Twinkle.stub.mode) {
 			case '條目':
 			case '条目':
 			/* falls through */
 			case '重定向':
-				ysarxiv_page.load(Twinkle.stub.callbacks.main);
+				ysarchives_page.load(Twinkle.stub.callbacks.main);
 				return;
 			case '文件':
 			case '檔案':
-				ysarxiv_page.load(Twinkle.stub.callbacks.file);
+				ysarchives_page.load(Twinkle.stub.callbacks.file);
 				break;
 			default:
 				mw.notify(`Twinkle.stub：未知模式 ${Twinkle.stub.mode}`, {

@@ -1820,13 +1820,13 @@
 				}
 				// Insert tag after short description or any hatnotes,
 				// as well as deletion/protection-related templates
-				const ysarxiv_page = new Morebits.wikitext.page(pageText);
+				const ysarchives_page = new Morebits.wikitext.page(pageText);
 				const templatesAfter =
 					// Protection templates
 					// CSD
 					// AfD
 					`${Twinkle.hatnoteRegex}pp|pp-.*?|(?:Delete|Db-reason|D|Deletebecause|Db|速删|速刪|Speedy|SD|快删|快刪|CSD)|[rsaiftcmv]fd|vfd-(?:b|q|s|source|v|wikt)|(?:移动到维基|移動到維基)(?:教科书|教科書|语录|語錄|文库|文庫|导游|導遊|词典|詞典)`;
-				pageText = ysarxiv_page.insertAfterTemplates(tagText, templatesAfter).getText();
+				pageText = ysarchives_page.insertAfterTemplates(tagText, templatesAfter).getText();
 				removeTags();
 			};
 			// Separate tags into groupable ones (`groupableTags`) and non-groupable ones (`tags`)
@@ -1844,13 +1844,13 @@
 								)
 							))
 					) {
-						const ysarxiv_page = new Morebits.wiki.page(
+						const ysarchives_page = new Morebits.wiki.page(
 							'LIB_talk:存废讨论/关注度提报',
 							window.wgULS('加入关注度记录项', '加入關注度記錄項')
 						);
-						ysarxiv_page.setFollowRedirect(true);
-						ysarxiv_page.setCallbackParameters(params);
-						ysarxiv_page.load(Twinkle.tag.callbacks.notabilityList);
+						ysarchives_page.setFollowRedirect(true);
+						ysarchives_page.setCallbackParameters(params);
+						ysarchives_page.load(Twinkle.tag.callbacks.notabilityList);
 					}
 					// condition Twinkle.tag.article.tags[tag] to ensure that its not a custom tag
 					// Custom tags are assumed non-groupable, since we don't know whether MI template supports them
@@ -2095,9 +2095,9 @@
 				let currentTag;
 				for (const tag of params.tags) {
 					// when other commons-related tags are placed, remove "move to Share" tag
-					if (['Keep local', 'Now YsArxiv Share', 'Do not move to YsArxiv Share'].includes(tag)) {
+					if (['Keep local', 'Now YsArchives Share', 'Do not move to YsArchives Share'].includes(tag)) {
 						text = text.replace(
-							/{{(mtc|(copy |move )?to ?share|move to ysarxiv share|copy to ysarxiv share)[^}]*}}/gi,
+							/{{(mtc|(copy |move )?to ?share|move to ysarchives share|copy to ysarchives share)[^}]*}}/gi,
 							''
 						);
 					}
@@ -2311,12 +2311,12 @@
 		if (Twinkle.tag.modeEn === 'redirect') {
 			Morebits.wiki.actionCompleted.followRedirect = false;
 		}
-		const ysarxiv_page = new Morebits.wiki.page(
+		const ysarchives_page = new Morebits.wiki.page(
 			Morebits.pageNameNorm,
 			window.wgULS('正在标记', '正在標記') + Twinkle.tag.mode
 		);
-		ysarxiv_page.setCallbackParameters(params);
-		ysarxiv_page.load(Twinkle.tag.callbacks[Twinkle.tag.modeEn]);
+		ysarchives_page.setCallbackParameters(params);
+		ysarchives_page.load(Twinkle.tag.callbacks[Twinkle.tag.modeEn]);
 	};
 	Twinkle.addInitCallback(Twinkle.tag, 'tag');
 })(jQuery);

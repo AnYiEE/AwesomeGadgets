@@ -1,5 +1,5 @@
 {
-	"testysarxiv": [
+	"testysarchives": [
 		"MediaWiki:Citizen.js",
 		"MediaWiki:Common.js",
 		"MediaWiki:Gadget-AccessKeyCheatsheet",
@@ -1494,7 +1494,7 @@
 		"MediaWiki:Vector-2022.js",
 		"MediaWiki:Vector.js"
 	],
-	"ysarxiv": [
+	"ysarchives": [
 		"MediaWiki:Citizen.js",
 		"MediaWiki:Common.js",
 		"MediaWiki:Gadget-AccessKeyCheatsheet",

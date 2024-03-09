@@ -107,21 +107,21 @@
 		} else {
 			query.blfilterredir = 'nonredirects';
 		}
-		const ysarxiv_api = new Morebits.wiki.api(
+		const ysarchives_api = new Morebits.wiki.api(
 			window.wgULS('抓取链入', '抓取連入'),
 			query,
 			Twinkle.unlink.callbacks.display.backlinks
 		);
-		ysarxiv_api.params = {
+		ysarchives_api.params = {
 			form,
 			Window,
 			image: fileSpace,
 		};
-		ysarxiv_api.post();
+		ysarchives_api.post();
 		const root = document.createElement('div');
 		root.style.padding = '15px'; // just so it doesn't look broken
 		Morebits.status.init(root);
-		ysarxiv_api.statelem.status(window.wgULS('加载中……', '載入中……'));
+		ysarchives_api.statelem.status(window.wgULS('加载中……', '載入中……'));
 		Window.setContent(root);
 		Window.display();
 	};
@@ -162,17 +162,17 @@
 			unlinker,
 		};
 		unlinker.run((pageName) => {
-			const ysarxiv_page = new Morebits.wiki.page(
+			const ysarchives_page = new Morebits.wiki.page(
 				pageName,
 				window.wgULS('在页面“', '在頁面「') + pageName + window.wgULS('”中取消链入', '」中取消連入')
 			);
-			ysarxiv_page.setBotEdit(true); // unlink considered a floody operation
-			ysarxiv_page.setCallbackParameters({
+			ysarchives_page.setBotEdit(true); // unlink considered a floody operation
+			ysarchives_page.setCallbackParameters({
 				doBacklinks: input.backlinks.includes(pageName),
 				doImageusage: input.imageusage.includes(pageName),
 				...params,
 			});
-			ysarxiv_page.load(Twinkle.unlink.callbacks.unlinkBacklinks);
+			ysarchives_page.load(Twinkle.unlink.callbacks.unlinkBacklinks);
 		});
 	};
 	Twinkle.unlink.callbacks = {
@@ -335,13 +335,15 @@
 		unlinkBacklinks: (pageobj) => {
 			let oldtext = pageobj.getPageText();
 			const params = pageobj.getCallbackParameters();
-			const ysarxiv_page = new Morebits.wikitext.page(oldtext);
+			const ysarchives_page = new Morebits.wikitext.page(oldtext);
 			let summaryText = '';
 			let warningString = false;
 			let text;
 			// remove image usages
 			if (params.doImageusage) {
-				text = ysarxiv_page.commentOutImage(mw.config.get('wgTitle'), window.wgULS('注释', '注釋')).getText();
+				text = ysarchives_page
+					.commentOutImage(mw.config.get('wgTitle'), window.wgULS('注释', '注釋'))
+					.getText();
 				// did we actually make any changes?
 				if (text === oldtext) {
 					warningString = window.wgULS('文件使用', '檔案使用');
@@ -352,8 +354,8 @@
 			}
 			// remove backlinks
 			if (params.doBacklinks) {
-				text = ysarxiv_page.removeLink(Morebits.pageNameNorm).getText();
-				text = ysarxiv_page.removeTemplate(mw.config.get('wgTitle')).getText();
+				text = ysarchives_page.removeLink(Morebits.pageNameNorm).getText();
+				text = ysarchives_page.removeTemplate(mw.config.get('wgTitle')).getText();
 				// did we actually make any changes?
 				if (text === oldtext) {
 					warningString = warningString

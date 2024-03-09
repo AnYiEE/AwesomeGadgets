@@ -108,12 +108,12 @@
 			elquery: 'userjs.invalid/noTalkback',
 			ellimit: '1',
 		};
-		const ysarxiv_api = new Morebits.wiki.api(
+		const ysarchives_api = new Morebits.wiki.api(
 			window.wgULS('抓取退出通告信息', '抓取退出通告資訊'),
 			query,
 			Twinkle.talkback.callback.optoutStatus
 		);
-		ysarxiv_api.post();
+		ysarchives_api.post();
 	};
 	Twinkle.talkback.optout = '';
 	Twinkle.talkback.callback.optoutStatus = (apiobj) => {

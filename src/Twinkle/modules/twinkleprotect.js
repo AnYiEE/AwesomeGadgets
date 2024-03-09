@@ -1405,8 +1405,8 @@ import {initMwApi} from 'ext.gadget.Util';
 						tag = `{{${tag}}}\n`;
 					}
 					// Insert tag after short description or any hatnotes
-					const ysarxiv_page = new Morebits.wikitext.page(text);
-					text = ysarxiv_page.insertAfterTemplates(tag, Twinkle.hatnoteRegex).getText();
+					const ysarchives_page = new Morebits.wikitext.page(text);
+					text = ysarchives_page.insertAfterTemplates(tag, Twinkle.hatnoteRegex).getText();
 				}
 				summary = `加入{{${params.tag}}}`;
 			}

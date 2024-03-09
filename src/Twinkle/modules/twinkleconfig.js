@@ -1761,12 +1761,12 @@
 		const userjs = `${mw.config.get('wgFormattedNamespaces')[mw.config.get('wgNamespaceIds').user]}:${mw.config.get(
 			'wgUserName'
 		)}/twinkleoptions.js`;
-		const ysarxiv_page = new Morebits.wiki.page(
+		const ysarchives_page = new Morebits.wiki.page(
 			userjs,
 			window.wgULS('保存参数设置到 ', '儲存偏好設定到 ') + userjs
 		);
-		ysarxiv_page.setCallbackParameters(e.target);
-		ysarxiv_page.load(Twinkle.config.writePrefs);
+		ysarchives_page.setCallbackParameters(e.target);
+		ysarchives_page.load(Twinkle.config.writePrefs);
 		return false;
 	};
 	Twinkle.config.writePrefs = (pageobj) => {

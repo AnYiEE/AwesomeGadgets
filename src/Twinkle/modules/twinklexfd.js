@@ -404,8 +404,8 @@
 					pageobj.patrol();
 				}
 				// Insert tag after short description or any hatnotes
-				const ysarxiv_page = new Morebits.wikitext.page(text);
-				text = ysarxiv_page.insertAfterTemplates(tag, Twinkle.hatnoteRegex).getText();
+				const ysarchives_page = new Morebits.wikitext.page(text);
+				text = ysarchives_page.insertAfterTemplates(tag, Twinkle.hatnoteRegex).getText();
 				pageobj.setPageText(text);
 				pageobj.setEditSummary(
 					`${window.wgULS('页面存废讨论：[[', '頁面存廢討論：[[') + params.logpage}#${Morebits.pageNameNorm}]]`
@@ -539,13 +539,13 @@
 				const params = tagging_page.getCallbackParameters();
 				Twinkle.xfd.callbacks.ffd.taggingImage(tagging_page);
 				// Adding discussion
-				const ysarxiv_page = new Morebits.wiki.page(
+				const ysarchives_page = new Morebits.wiki.page(
 					params.logpage,
 					window.wgULS('加入讨论到当日列表', '加入討論到當日列表')
 				);
-				ysarxiv_page.setFollowRedirect(true);
-				ysarxiv_page.setCallbackParameters(params);
-				ysarxiv_page.load(Twinkle.xfd.callbacks.ffd.todaysList);
+				ysarchives_page.setFollowRedirect(true);
+				ysarchives_page.setCallbackParameters(params);
+				ysarchives_page.load(Twinkle.xfd.callbacks.ffd.todaysList);
 				// Notification to first contributor
 				if (params.notify) {
 					// Disallow warning yourself
@@ -782,13 +782,13 @@
 					'提名完成，重新導向到討論頁'
 				);
 				// Lookup creation
-				const ysarxiv_page = new Morebits.wiki.page(
+				const ysarchives_page = new Morebits.wiki.page(
 					mw.config.get('wgPageName'),
 					window.wgULS('获取页面创建信息', '取得頁面建立資訊')
 				);
-				ysarxiv_page.setCallbackParameters(params);
-				ysarxiv_page.setLookupNonRedirectCreator(true); // Look for author of first non-redirect revision
-				ysarxiv_page.lookupCreation(Twinkle.xfd.callbacks.ffd.lookupCreation);
+				ysarchives_page.setCallbackParameters(params);
+				ysarchives_page.setLookupNonRedirectCreator(true); // Look for author of first non-redirect revision
+				ysarchives_page.lookupCreation(Twinkle.xfd.callbacks.ffd.lookupCreation);
 				Morebits.wiki.removeCheckpoint();
 				break;
 			}

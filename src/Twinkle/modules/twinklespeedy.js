@@ -1125,14 +1125,14 @@
 						rdlimit: 5000, // 500 is max for normal users, 5000 for bots and sysops
 					};
 
-					const ysarxiv_api = new Morebits.wiki.api(
+					const ysarchives_api = new Morebits.wiki.api(
 						window.wgULS('获取重定向列表…', '取得重新導向列表…'),
 						query,
 						Twinkle.speedy.callbacks.sysop.deleteRedirectsMain,
 						new Morebits.status(window.wgULS('删除重定向', '刪除重新導向'))
 					);
-					ysarxiv_api.params = params;
-					ysarxiv_api.post();
+					ysarchives_api.params = params;
+					ysarchives_api.post();
 				}
 				// prompt for protect on G7
 				let $link;
@@ -1387,7 +1387,7 @@
 				if (mw.config.get('wgNamespaceNumber') === 6) {
 					// remove "move to Commons" tag - deletion-tagged files cannot be moved to Commons
 					text = text.replace(
-						/\{\{(mtc|(copy |move )?to ?(share|commons)|move to (ysarxiv share|wikimedia commons)|copy to (ysarxiv share|wikimedia commons))[^}]*\}\}/gi,
+						/\{\{(mtc|(copy |move )?to ?(share|commons)|move to (ysarchives share|wikimedia commons)|copy to (ysarchives share|wikimedia commons))[^}]*\}\}/gi,
 						''
 					);
 				}
@@ -1420,8 +1420,8 @@
 					text = code;
 				} else {
 					// Insert tag after short description or any hatnotes
-					const ysarxiv_page = new Morebits.wikitext.page(text);
-					text = ysarxiv_page.insertAfterTemplates(`${code}\n`, Twinkle.hatnoteRegex).getText();
+					const ysarchives_page = new Morebits.wikitext.page(text);
+					text = ysarchives_page.insertAfterTemplates(`${code}\n`, Twinkle.hatnoteRegex).getText();
 				}
 				pageobj.setPageText(text);
 				pageobj.setEditSummary(editsummary);
@@ -1785,9 +1785,12 @@
 		Morebits.status.init(form);
 		Morebits.wiki.actionCompleted.redirect = mw.config.get('wgPageName');
 		Morebits.wiki.actionCompleted.notice = window.wgULS('标记完成', '標記完成');
-		const ysarxiv_page = new Morebits.wiki.page(mw.config.get('wgPageName'), window.wgULS('标记页面', '標記頁面'));
-		ysarxiv_page.setCallbackParameters(params);
-		ysarxiv_page.load(Twinkle.speedy.callbacks.user.main);
+		const ysarchives_page = new Morebits.wiki.page(
+			mw.config.get('wgPageName'),
+			window.wgULS('标记页面', '標記頁面')
+		);
+		ysarchives_page.setCallbackParameters(params);
+		ysarchives_page.load(Twinkle.speedy.callbacks.user.main);
 	};
 	Twinkle.addInitCallback(Twinkle.speedy, 'speedy');
 })(jQuery);

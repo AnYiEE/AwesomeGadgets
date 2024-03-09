@@ -410,9 +410,9 @@
 					Twinkle.close.callbacks.del(params);
 					break;
 				case 'keep': {
-					const ysarxiv_page = new Morebits.wiki.page(params.title, '移除存废讨论模板');
-					ysarxiv_page.setCallbackParameters(params);
-					ysarxiv_page.load(Twinkle.close.callbacks.keep);
+					const ysarchives_page = new Morebits.wiki.page(params.title, '移除存废讨论模板');
+					ysarchives_page.setCallbackParameters(params);
+					ysarchives_page.load(Twinkle.close.callbacks.keep);
 					break;
 				}
 				default:
@@ -426,7 +426,7 @@
 	Twinkle.close.callbacks = {
 		del: (params) => {
 			let query;
-			let ysarxiv_api;
+			let ysarchives_api;
 			Morebits.wiki.addCheckpoint();
 			const page = new Morebits.wiki.page(params.title, '删除页面');
 			if (params.code === 'sd') {
@@ -460,13 +460,13 @@
 					rdlimit: 'max', // 500 is max for normal users, 5000 for bots and sysops
 				};
 
-				ysarxiv_api = new Morebits.wiki.api(
+				ysarchives_api = new Morebits.wiki.api(
 					'正在获取重定向',
 					query,
 					Twinkle.close.callbacks.deleteRedirectsMain
 				);
-				ysarxiv_api.params = params;
-				ysarxiv_api.post();
+				ysarchives_api.params = params;
+				ysarchives_api.post();
 			}
 			if (params.talkPage) {
 				const pageTitle = mw.Title.newFromText(params.title);
@@ -476,14 +476,14 @@
 						action: 'query',
 						titles: pageTitle.toText(),
 					};
-					ysarxiv_api = new Morebits.wiki.api(
+					ysarchives_api = new Morebits.wiki.api(
 						'正在检查讨论页面是否存在',
 						query,
 						Twinkle.close.callbacks.deleteTalk
 					);
-					ysarxiv_api.params = params;
-					ysarxiv_api.apiobj.params.talkPage = pageTitle.toText();
-					ysarxiv_api.post();
+					ysarchives_api.params = params;
+					ysarchives_api.apiobj.params.talkPage = pageTitle.toText();
+					ysarchives_api.post();
 				}
 			}
 			Morebits.wiki.removeCheckpoint();
@@ -507,18 +507,18 @@
 			redirectDeleter.setOption('chunkSize', Twinkle.getPref('batchdeleteChunks'));
 			redirectDeleter.setPageList(pages);
 			redirectDeleter.run((pageName) => {
-				const ysarxiv_page = new Morebits.wiki.page(
+				const ysarchives_page = new Morebits.wiki.page(
 					pageName,
 					window.wgULS('正在删除 ', '正在刪除 ') + pageName
 				);
-				ysarxiv_page.setEditSummary(
+				ysarchives_page.setEditSummary(
 					`[[LIB:CSD#G5|G5]]：${window.wgULS('指向已删页面“', '指向已刪頁面「')}${apiobj.params.title}${window.wgULS(
 						'”的重定向',
 						'」的重新導向'
 					)}`
 				);
-				ysarxiv_page.setChangeTags(Twinkle.changeTags);
-				ysarxiv_page.deletePage(redirectDeleter.workerSuccess, redirectDeleter.workerFailure);
+				ysarchives_page.setChangeTags(Twinkle.changeTags);
+				ysarchives_page.deletePage(redirectDeleter.workerSuccess, redirectDeleter.workerFailure);
 			});
 		},
 		deleteTalk: (apiobj) => {
@@ -590,8 +590,8 @@
 					.concat('subst:')
 					.concat(`Merge approved/auto|discuss=${mw.config.get('wgPageName')}#${params.title}}}\n`);
 				// Insert tag after short description or any hatnotes
-				const ysarxiv_page = new Morebits.wikitext.page(newtext);
-				newtext = ysarxiv_page.insertAfterTemplates(tag, Twinkle.hatnoteRegex).getText();
+				const ysarchives_page = new Morebits.wikitext.page(newtext);
+				newtext = ysarchives_page.insertAfterTemplates(tag, Twinkle.hatnoteRegex).getText();
 			}
 			if (newtext === text) {
 				statelem.warn('未找到存废讨论模板，可能已被移除');
@@ -610,10 +610,10 @@
 			Twinkle.close.callbacks.talkend(params);
 		},
 		talkend: (params) => {
-			const ysarxiv_page = new Morebits.wiki.page(mw.config.get('wgPageName'), '关闭讨论');
-			ysarxiv_page.setCallbackParameters(params);
-			ysarxiv_page.setPageSection(params.section);
-			ysarxiv_page.load(Twinkle.close.callbacks.saveTalk);
+			const ysarchives_page = new Morebits.wiki.page(mw.config.get('wgPageName'), '关闭讨论');
+			ysarchives_page.setCallbackParameters(params);
+			ysarchives_page.setPageSection(params.section);
+			ysarchives_page.load(Twinkle.close.callbacks.saveTalk);
 		},
 		saveTalk: (pageobj) => {
 			const statelem = pageobj.getStatusElement();

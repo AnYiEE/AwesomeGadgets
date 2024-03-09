@@ -72,15 +72,15 @@
 			rvuser: user,
 		};
 		Morebits.status.init(document.querySelector('#mw-content-text'));
-		const ysarxiv_api = new Morebits.wiki.api(
+		const ysarchives_api = new Morebits.wiki.api(
 			window.wgULS('抓取最初贡献者信息', '抓取最初貢獻者資訊'),
 			query,
 			Twinkle.diff.callbacks.main
 		);
-		ysarxiv_api.params = {
+		ysarchives_api.params = {
 			user,
 		};
-		ysarxiv_api.post();
+		ysarchives_api.post();
 	};
 	Twinkle.diff.callbacks = {
 		main: (self) => {

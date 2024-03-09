@@ -172,7 +172,7 @@
 		Morebits.status.init(statusdiv);
 		Window.display();
 		const statelem = new Morebits.status('抓取页面列表');
-		const ysarxiv_api = new Morebits.wiki.api(
+		const ysarchives_api = new Morebits.wiki.api(
 			'加载中……',
 			query,
 			(apiobj) => {
@@ -262,7 +262,7 @@
 			},
 			statelem
 		);
-		ysarxiv_api.post();
+		ysarchives_api.post();
 	};
 	Twinkle.batchprotect.currentProtectCounter = 0;
 	Twinkle.batchprotect.currentprotector = 0;
@@ -302,19 +302,19 @@
 				titles: pageName,
 				format: 'json',
 			};
-			const ysarxiv_api = new Morebits.wiki.api(
+			const ysarchives_api = new Morebits.wiki.api(
 				`正在检查页面“${pageName}”是否存在`,
 				query,
 				Twinkle.batchprotect.callbacks.main,
 				null,
 				batchOperation.workerFailure
 			);
-			ysarxiv_api.params = {
+			ysarchives_api.params = {
 				page: pageName,
 				batchOperation,
 				...input,
 			};
-			ysarxiv_api.post();
+			ysarchives_api.post();
 		});
 	};
 	Twinkle.batchprotect.callbacks = {
