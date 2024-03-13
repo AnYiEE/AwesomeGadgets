@@ -1,7 +1,7 @@
 import './ShowAvatar.less';
 /* eslint-disable no-jquery/no-parse-html-literal */
 
-const avatarUrl = new mw.Uri('https://youshou.wiki/');
+const avatarUrl = new mw.Uri(mw.config.get('wgServer'));
 avatarUrl.query['user'] = mw.config.get('wgPageName').replace(/^user:/i, '');
 avatarUrl.path = '/extensions/Avatar/avatar.php';
 const imgUrl = new mw.Uri(avatarUrl);
