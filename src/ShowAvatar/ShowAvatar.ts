@@ -14,7 +14,7 @@ const link = $('<a>').attr('href', 'https://youshou.wiki/wiki/Special:UploadAvat
 $('#pt-userpage').before($('<li id="pt-avatar"></li>').append(link));
 if (mw.config.get('wgNamespaceNumber') === 2 && !mw.config.get('wgPageName').includes('/')) {
 	const hrefUrl = new mw.Uri(avatarUrl);
-	hrefUrl.path = '/Special:Viewavatar';
+	hrefUrl.path = '/wiki/Special:Viewavatar';
 	const srcUrl = new mw.Uri(avatarUrl);
 	$('.ns-2 #firstHeading').prepend(
 		$('<a/>')
