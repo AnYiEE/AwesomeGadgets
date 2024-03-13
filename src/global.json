@@ -32,9 +32,9 @@
 			"enable": true,
 			"sourceCode": "mw.loader.using(['ext.gadget.Group-massmessage-sender']);"
 		},
-		"Group-bureaucrat.js": {
+		"Group-steward.js": {
 			"enable": true,
-			"sourceCode": "mw.loader.using(['ext.gadget.Group-bureaucrat]);"
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-steward]);"
 		},
 		"Group-sysop.js": {
 			"enable": true,
