@@ -289,17 +289,21 @@ async function checkConfig(
 		if (!site) {
 			exitWithError('Site Name should be a non-empty string');
 		}
-		if (/^\s|\s$/.test(site)) {
+		if (site !== site.trim()) {
 			exitWithError('Site name should not start or end with whitespace characters');
 		}
 	}
 
 	for (const [site, credentials] of Object.entries(config)) {
 		if (isCheckApiUrlOnly) {
-			if (!credentials.apiUrl && !isSkipAsk) {
-				credentials.apiUrl = await prompt(`> [${site}] Enter api url (eg. https://your.wiki/api.php)`);
+			if (credentials.apiUrl || isSkipAsk) {
+				continue;
 			}
-		} else if (!isSkipAsk) {
+			credentials.apiUrl = await prompt(`> [${site}] Enter api url (eg. https://your.wiki/api.php)`);
+		} else {
+			if (isSkipAsk) {
+				continue;
+			}
 			const _credentials = credentials as Partial<CredentialsOnlyPassword>;
 			if (!_credentials.username) {
 				_credentials.username = await prompt(`> [${site}] Enter username}`);
@@ -494,7 +498,9 @@ const convertVariant = (pageTitle: string, content: string, api: Api, editSummar
 			url: apiInstance.options.apiUrl as string,
 		});
 		document.body.innerHTML = `<div>${parsedHtml}</div>`;
-		const convertedDescription: string = document.querySelector('.convertVariant').textContent.replace(/-{}-/g, '');
+		const convertedDescription: string = document
+			.querySelector('.convertVariant')!
+			.textContent.replace(/-{}-/g, '');
 
 		const convertPageTitle: string = `${pageTitle}/${variant}`;
 
