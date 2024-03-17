@@ -27,7 +27,7 @@ const build = async (): Promise<void> => {
 		const licenseText: string | undefined = getLicense(gadgetName, license);
 
 		if (script || scripts?.length) {
-			const hasVue: boolean = !!scripts?.some((fileName: string): boolean => {
+			const hasVue: boolean = !!scripts?.some((fileName) => {
 				return fileName.endsWith('.vue');
 			});
 			if (hasVue && !script) {

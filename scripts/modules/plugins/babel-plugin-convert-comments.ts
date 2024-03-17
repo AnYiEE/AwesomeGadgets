@@ -1,16 +1,15 @@
 /**
  * @file Convert comments to preservable comments when passing the source code to esbuild
  */
-import type {Comment, Program} from '@babel/types';
-import type {NodePath} from 'babel__traverse';
+import type {Comment} from '@babel/types';
 import {declare} from '@babel/helper-plugin-utils';
 
 const plugin = declare(() => {
 	return {
 		visitor: {
-			Program(path: NodePath<Program>): void {
+			Program(path) {
 				path.traverse({
-					enter(p: NodePath) {
+					enter(p) {
 						const {
 							node: {innerComments, leadingComments, trailingComments},
 						} = p;
@@ -20,7 +19,7 @@ const plugin = declare(() => {
 								continue;
 							}
 
-							comments = comments.map((comment: Comment): Comment => {
+							comments = comments.map<Comment>((comment) => {
 								const {type, value} = comment;
 
 								if (type === 'CommentLine' && value.trim().startsWith('src/')) {
