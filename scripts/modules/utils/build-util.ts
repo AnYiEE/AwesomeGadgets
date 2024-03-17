@@ -401,7 +401,7 @@ const cleanUpDist = async (): Promise<void> => {
 	const paths: string[] = globSync('!(*.txt)', {
 		cwd: join(__rootDir, 'dist'),
 		withFileTypes: true,
-	}).map((path: Path): string => {
+	}).map<string>((path) => {
 		return path.fullpath();
 	});
 
@@ -429,10 +429,10 @@ const fallbackDefinition = (sourceFiles: SourceFiles): void => {
 const filterOutInvalidDependencies = (sourceFiles: SourceFiles): void => {
 	const filter = (array: string[]): string[] => {
 		return array
-			.filter((item: string): boolean => {
+			.filter((item) => {
 				return typeof item === 'string' && !!item.trim();
 			})
-			.map((item: string): string => {
+			.map<string>((item) => {
 				return trim(item, {
 					addNewline: false,
 				});
@@ -569,7 +569,7 @@ const findSourceFile = (): SourceFiles => {
 		const removeFiles = (currentFiles: string[], ext: string): string[] => {
 			return [
 				...new Set(
-					currentFiles.filter((currentFile: string): boolean => {
+					currentFiles.filter((currentFile) => {
 						return currentFile !== fileName.replace(new RegExp(`\\${fileExt}$`), ext);
 					})
 				),
@@ -655,10 +655,10 @@ const generateDefinitionItem = (
 			case 'object':
 				if (isArray) {
 					const valueFiltered: string = (value as [])
-						.filter((item: keyof []): boolean => {
+						.filter((item: keyof []) => {
 							return ['number', 'string'].includes(typeof item) && !!item.toString().trim();
 						})
-						.map((item: number | string): string => {
+						.map<string>((item: number | string) => {
 							return trim(item.toString(), {
 								addNewline: false,
 							});
@@ -699,7 +699,7 @@ const generateDefinitionItem = (
  * @return {string[]} The generated file name array
  */
 const generateFileArray = (file: string | undefined, files: string[] | undefined): string[] => {
-	return file ? generateArray(file) : generateArray(files);
+	return generateArray(file ?? files);
 };
 
 /**
@@ -721,7 +721,7 @@ const removeDuplicateFileName = (gadgetName: string, fileName: string): string =
  */
 const generateFileNames = (gadgetName: string, fileNames: string[]): string => {
 	return fileNames
-		.map((fileName: string): string => {
+		.map<string>((fileName) => {
 			return removeDuplicateFileName(gadgetName, fileName);
 		})
 		.join('|');

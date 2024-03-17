@@ -80,11 +80,11 @@ const generateTargets = (): DeploymentTargets => {
 	const targets: DeploymentTargets = {};
 
 	const definitionText: string = readDefinition();
-	const definitions: string[] = definitionText.split('\n').filter((lineContent: string): boolean => {
+	const definitions: string[] = definitionText.split('\n').filter((lineContent) => {
 		return /^\*\s\S+?\[ResourceLoader[|\]]/.test(lineContent);
 	});
 
-	const gadgetNames: string[] = definitions.map((definition: string): string => {
+	const gadgetNames: string[] = definitions.map<string>((definition) => {
 		const regExpMatchArray = definition.match(/^\*\s(\S+?)\[/) as [string, string];
 		return regExpMatchArray[1];
 	});
@@ -470,11 +470,11 @@ const convertVariant = (pageTitle: string, content: string, api: Api, editSummar
 	 * @license CC-BY-SA-4.0
 	 */
 	content = content
-		.replace(/[\s#&*_[\]{}|:'<>]/gim, (substring: string): string => {
+		.replace(/[\s#&*_[\]{}|:'<>]/gim, (substring) => {
 			return `&#${substring.codePointAt(0)};`;
 		})
 		.replace(/(&#91;&#91;)((?:(?!&#124;)(?!&#93;).)+?)(&#124;(?:(?!&#93;).)+?&#93;&#93;)/g, '$1-{$2}-$3')
-		.replace(/-&#123;(.+?)&#125;-/g, (substring: string): string => {
+		.replace(/-&#123;(.+?)&#125;-/g, (substring) => {
 			return substring
 				.replace('-&#123;', '-{')
 				.replace('&#125;-', '}-')
@@ -521,7 +521,7 @@ const convertVariant = (pageTitle: string, content: string, api: Api, editSummar
 
 	apiQueue
 		.addAll(taskQueue)
-		.then((nochanges: boolean[]): void => {
+		.then((nochanges): void => {
 			const isNoChange: boolean = nochanges.every(Boolean);
 			if (isNoChange) {
 				console.log(chalk.yellow(`━ No change converting ${chalk.bold(pageTitle)}`));
@@ -529,7 +529,7 @@ const convertVariant = (pageTitle: string, content: string, api: Api, editSummar
 				console.log(chalk.green(`✔ Successfully converted ${chalk.bold(pageTitle)}`));
 			}
 		})
-		.catch((error: unknown): void => {
+		.catch((error): void => {
 			console.log(chalk.red(`✘ Failed to convert ${chalk.bold(pageTitle)}`));
 			console.error(error);
 		});
@@ -553,7 +553,7 @@ const saveDefinition = (definitionText: string, enabledGadgets: string[], api: A
 
 	definitionText = definitionText
 		.split('\n')
-		.filter((lineContent: string): boolean => {
+		.filter((lineContent) => {
 			const regex: RegExp = /^\*\s(\S+?)\[ResourceLoader[|\]]/;
 			const regExpMatchArray: RegExpMatchArray | null = lineContent.match(regex);
 			if (regExpMatchArray && regExpMatchArray[1]) {
@@ -599,7 +599,7 @@ const saveDefinition = (definitionText: string, enabledGadgets: string[], api: A
 			} else {
 				console.log(chalk.green(`✔ Successfully saved ${chalk.bold('gadget definitions')}`));
 			}
-		} catch (error: unknown) {
+		} catch (error) {
 			console.log(chalk.red(`✘ Failed to save ${chalk.bold('gadget definitions')}`));
 			console.error(error);
 		}
@@ -618,12 +618,12 @@ const saveDefinition = (definitionText: string, enabledGadgets: string[], api: A
 const saveDefinitionSectionPage = (definitionText: string, api: Api, editSummary: string): void => {
 	const {apiInstance, site} = api;
 
-	const sections: string[] = (definitionText.match(/^==([\S\s]+?)==$/gm) as RegExpMatchArray).map(
-		(sectionHeader: string): string => {
+	const sections: string[] = (definitionText.match(/^==([\S\s]+?)==$/gm) as RegExpMatchArray).map<string>(
+		(sectionHeader) => {
 			return sectionHeader.replace(/[=]=/g, '').trim();
 		}
 	);
-	const pageTitles: string[] = sections.map((section: string): string => {
+	const pageTitles: string[] = sections.map<string>((section) => {
 		return `MediaWiki:Gadget-section-${section}`;
 	});
 
@@ -643,7 +643,7 @@ const saveDefinitionSectionPage = (definitionText: string, api: Api, editSummary
 				} else {
 					console.log(chalk.green(`✔ Successfully saved ${chalk.bold(pageTitle)}`));
 				}
-			} catch (error: unknown) {
+			} catch (error) {
 				console.log(chalk.red(`✘ Failed to save ${chalk.bold(pageTitle)}`));
 				console.error(error);
 			}
@@ -678,7 +678,7 @@ const saveDescription = (gadgetName: string, description: string, api: Api, edit
 			} else {
 				console.log(chalk.green(`✔ Successfully saved ${chalk.bold(`${gadgetName} description`)}`));
 			}
-		} catch (error: unknown) {
+		} catch (error) {
 			console.log(chalk.red(`✘ Failed to save ${chalk.bold(`${gadgetName} description`)}`));
 			console.error(error);
 		}
@@ -717,7 +717,7 @@ const saveFiles = (gadgetName: string, fileName: string, fileContent: string, ap
 					chalk.green(`✔ Successfully saved ${chalk.underline(fileName)} to ${chalk.bold(gadgetName)}`)
 				);
 			}
-		} catch (error: unknown) {
+		} catch (error) {
 			console.log(chalk.red(`✘ Failed to save ${chalk.underline(fileName)} to ${chalk.bold(gadgetName)}`));
 			console.error(error);
 		}
@@ -746,7 +746,7 @@ const savePages = (pageTitle: string, pageContent: string, api: Api, editSummary
 			} else {
 				console.log(chalk.green(`✔ Successfully saved ${chalk.underline(pageTitle)}`));
 			}
-		} catch (error: unknown) {
+		} catch (error) {
 			console.log(chalk.red(`✘ Failed to save ${chalk.underline(pageTitle)}`));
 			console.error(error);
 		}
@@ -807,7 +807,7 @@ const deleteUnusedPages = async (api: Api, editSummary: string, isSkipAsk?: bool
 				natural: true,
 			})
 		)
-		.filter((page: string): boolean => {
+		.filter((page) => {
 			return !currentSiteDeloyPages.includes(page);
 		});
 	if (!needToDeletePages.length) {
@@ -828,7 +828,7 @@ const deleteUnusedPages = async (api: Api, editSummary: string, isSkipAsk?: bool
 		try {
 			await apiInstance.delete(pageTitle, editSummary);
 			console.log(chalk.green(`✔ Successfully deleted ${chalk.bold(pageTitle)}`));
-		} catch (error: unknown) {
+		} catch (error) {
 			if (error instanceof MwnError && error.code === 'missingtitle') {
 				console.log(chalk.yellow(`━ Page ${chalk.bold(pageTitle)} no need to delete`));
 			} else {

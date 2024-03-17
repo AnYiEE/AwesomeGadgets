@@ -64,34 +64,30 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 	const sites: Api['site'][] =
 		uncheckedApis.length > 1
 			? isSkipAsk
-				? uncheckedApis.reduce(
-						(accumulator, {site}) => {
-							accumulator.push(site);
-							return accumulator;
-						},
-						[] as typeof sites
-					)
-				: ((await prompt({
+				? uncheckedApis.reduce<typeof sites>((accumulator, {site}) => {
+						accumulator.push(site);
+						return accumulator;
+					}, [])
+				: await prompt({
 						type: 'multiselect',
 						message: 'Select sites to deploy',
-						choices: uncheckedApis.reduce(
-							(accumulator, {site}) => {
-								accumulator.push({
-									title: site,
-									value: site,
-									selected: true,
-								});
-								return accumulator;
-							},
-							[] as {
+						choices: uncheckedApis.reduce<
+							{
 								title: string;
 								value: string;
 								selected: boolean;
 							}[]
-						),
+						>((accumulator, {site}) => {
+							accumulator.push({
+								title: site,
+								value: site,
+								selected: true,
+							});
+							return accumulator;
+						}, []),
 						max: Number.POSITIVE_INFINITY,
 						min: 0,
-					})) as typeof sites)
+					})
 			: [uncheckedApis[0]!.site];
 
 	const apis: Api[] = [];
@@ -123,7 +119,7 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 				apiInstance,
 				site,
 			});
-		} catch (error: unknown) {
+		} catch (error) {
 			console.log(chalk.red(`--- [${chalk.bold(site)}] log in failed ---`));
 			console.log(chalk.red(`--- Skip deployment at ${chalk.bold(site)} ---`));
 			console.error(error);

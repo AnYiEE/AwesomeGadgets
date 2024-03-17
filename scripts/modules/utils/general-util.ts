@@ -82,7 +82,7 @@ function generateArray<T>(...args: (T | T[])[]): T[] {
 		}
 
 		if (Array.isArray(arg)) {
-			return arg.filter((item): boolean => {
+			return arg.filter((item) => {
 				return item !== null && item !== undefined;
 			});
 		}
@@ -178,7 +178,7 @@ const trim = (
  * @see {@link https://www.npmjs.com/package/prompts}
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function prompt(message: Omit<PromptObject, 'name'>): Promise<any>;
+async function prompt<T = any>(message: Omit<PromptObject, 'name'>): Promise<T>;
 async function prompt(message: string, type?: Exclude<PromptType, 'confirm'>, initial?: string): Promise<string>;
 async function prompt(message: string, type: 'confirm', initial?: boolean): Promise<boolean>;
 // eslint-disable-next-line func-style

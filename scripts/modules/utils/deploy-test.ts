@@ -15,7 +15,7 @@ const fakeCredentials: Credentials = {
 
 const fakeConfig = Array.from({
 	length: Math.floor(Math.random() * 3),
-}).reduce((config: Config): Config => {
+}).reduce<Config>((config) => {
 	config[`test${Object.keys(config).length + 1}`] = fakeCredentials;
 	return config;
 }, {}) satisfies Config;

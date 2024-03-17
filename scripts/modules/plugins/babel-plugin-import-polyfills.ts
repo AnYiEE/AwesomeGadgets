@@ -128,13 +128,13 @@ const addImport = (
 	const importDeclaration: ImportDeclaration = types.importDeclaration([], stringLiteral);
 
 	(
-		path.findParent((parent: NodePath): parent is NodePath<Program> => {
+		path.findParent((parent) => {
 			return parent.isProgram();
 		}) as NodePath<Program>
 	)?.unshiftContainer('body', importDeclaration);
 };
 
-const plugin = declare((api: BabelAPI) => {
+const plugin = declare((api) => {
 	const {types} = api;
 	const {isIdentifier, isMemberExpression, isStringLiteral} = types;
 
@@ -151,7 +151,7 @@ const plugin = declare((api: BabelAPI) => {
 
 	return {
 		visitor: {
-			CallExpression(path: NodePath<CallExpression>): void {
+			CallExpression(path): void {
 				const {
 					node: {callee, arguments: args},
 				} = path;
@@ -191,7 +191,7 @@ const plugin = declare((api: BabelAPI) => {
 				}
 			},
 
-			NewExpression(path: NodePath<NewExpression>) {
+			NewExpression(path) {
 				const {callee} = path.node;
 
 				for (const [name, {package: packageName, type}] of Object.entries(polyfills)) {
