@@ -167,12 +167,10 @@ const generateTransformOptions = (): typeof options => {
 		sourceMaps: SOURCE_MAP ? 'inline' : false,
 	} as const satisfies TransformOptions;
 
-	type Parset = (typeof options.presets)[0];
-
 	if (GLOBAL_REQUIRES_ES6) {
 		// 以下关键字和运算符无法被 MediaWiki（>= 1.39）的 JavaScript 压缩器良好支持，即使设置了 requiresES6 标识
 		// The following keywords and operators are not well supported by MediaWiki's (>= 1.39) JavaScript minifier, even if the `requiresES6` flag is true
-		(options.presets[0] as Parset)[1].include.push(
+		options.presets[0][1].include.push(
 			// keywords
 			// ES2015
 			'transform-for-of', // transform for-of loops
@@ -193,7 +191,7 @@ const generateTransformOptions = (): typeof options => {
 	} else {
 		// 以下关键字无法被旧版本的 MediaWiki（< 1.39）的 JavaScript 压缩器良好支持
 		// The following keywords are not well supported by the JavaScript minifier in older versions of MediaWiki (< 1.39)
-		(options.presets[0] as Parset)[1].include.push(
+		options.presets[0][1].include.push(
 			// keywords
 			// ES3
 			'transform-member-expression-literals', // obj.const -> obj['const']

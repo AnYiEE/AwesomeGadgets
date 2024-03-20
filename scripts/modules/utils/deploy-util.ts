@@ -489,6 +489,7 @@ const convertVariant = (pageTitle: string, content: string, api: Api, editSummar
 		const parsedHtml: string = await apiInstance.parseWikitext(
 			`{{NoteTA|G1=IT|G2=MediaWiki}}<div class="convertVariant">${content}</div>`,
 			{
+				action: 'parse',
 				prop: ['text'],
 				uselang: variant,
 			}
