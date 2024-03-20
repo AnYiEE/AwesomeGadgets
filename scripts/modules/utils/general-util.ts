@@ -202,7 +202,7 @@ async function prompt(
 				});
 
 	const answer = answers[name] as boolean | string | undefined;
-	if (type === 'confirm' && (!answer as boolean)) {
+	if (type === 'confirm' && !answer) {
 		// Not confirmed
 		console.log(chalk.red('User cancelled process, program terminated.'));
 		exit(0);
