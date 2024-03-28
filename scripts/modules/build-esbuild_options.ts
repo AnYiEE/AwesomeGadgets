@@ -23,7 +23,7 @@ const loader = {
 	'.jpg': 'dataurl',
 	'.jpeg': 'dataurl',
 	'.png': 'dataurl',
-	'.svg': 'text',
+	'.svg': 'dataurl',
 } as const satisfies BuildOptions['loader'];
 
 const lessOptions: Less.Options = {
