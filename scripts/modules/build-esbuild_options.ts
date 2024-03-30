@@ -53,6 +53,7 @@ const esbuildOptions = {
 		esbuildPluginCssModules({
 			targets,
 			filter: /\.module\.(?:css|less)$/i,
+			forceInlineImages: true,
 			namedExports: true,
 		}),
 		esbuildPluginPostcss(),
