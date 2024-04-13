@@ -598,11 +598,7 @@ import {initMwApi} from 'ext.gadget.Util';
 			selected: true,
 		},
 		{
-			label: window.wgULS('仅允许资深用户', '僅允許資深用戶'),
-			value: 'revisionprotected',
-		},
-		{
-			label: window.wgULS('仅允许裁决委员', '僅允許裁決委員'),
+			label: window.wgULS('仅允许档案理事员', '僅允許檔案理事員'),
 			value: 'officialprotected',
 		},
 	];
@@ -1668,10 +1664,7 @@ import {initMwApi} from 'ext.gadget.Util';
 				let level;
 				switch (settings.level) {
 					case 'officialprotected':
-						level = window.wgULS('仅允许裁决委员', '僅允許裁決委員');
-						break;
-					case 'revisionprotected':
-						level = window.wgULS('仅允许资深用户', '僅允許資深用戶');
+						level = window.wgULS('仅允许档案理事员', '僅允許檔案理事員');
 						break;
 					case 'autoconfirmed':
 						level = window.wgULS('仅允许自动确认用户', '僅允許自動確認使用者');
