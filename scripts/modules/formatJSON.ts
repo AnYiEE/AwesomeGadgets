@@ -1,8 +1,8 @@
 import type {DefaultDefinition, GlobalSourceFiles} from './types';
 import {type Options, format, resolveConfig, resolveConfigFile} from 'prettier';
 import {__rootDir, exec, readFileContent, sortObject, writeFileContent} from './utils/general-util';
-import {basename, join, relative, sep} from 'node:path';
 import {globSync} from 'glob';
+import path from 'node:path';
 
 type Files = {
 	isGlob?: boolean;
@@ -11,8 +11,8 @@ type Files = {
 }[];
 
 const checkTargetDir = (fileName: string, filePath: string): boolean => {
-	const relativePath: string = relative(__rootDir, filePath);
-	const parts: string[] = relativePath.split(sep);
+	const relativePath: string = path.relative(__rootDir, filePath);
+	const parts: string[] = relativePath.split(path.sep);
 
 	switch (fileName) {
 		case 'credentials.json':
@@ -35,23 +35,23 @@ const formatJSON = async (paths: string[]): Promise<void> => {
 	let files: Files = [];
 
 	if (paths.length) {
-		for (const path of paths) {
+		for (const currentPath of paths) {
 			files.push({
 				isGlob: false,
-				name: basename(path),
+				name: path.basename(currentPath),
 				fullpath(): string {
-					return path;
+					return currentPath;
 				},
 			});
 		}
 	} else {
 		files = [
 			...globSync('credentials.json', {
-				cwd: join(__rootDir, 'scripts'),
+				cwd: path.join(__rootDir, 'scripts'),
 				withFileTypes: true,
 			}),
 			...globSync(['*/definition.json', 'global.json'], {
-				cwd: join(__rootDir, 'src'),
+				cwd: path.join(__rootDir, 'src'),
 				withFileTypes: true,
 			}),
 		];

@@ -20,7 +20,7 @@ import {Mwn} from 'mwn';
 import PQueue from 'p-queue';
 import chalk from 'chalk';
 import {exit} from 'node:process';
-import {join} from 'node:path';
+import path from 'node:path';
 
 /**
  * @private
@@ -152,7 +152,7 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 
 			enabledGadgets.push(gadgetName);
 
-			const originDefinitionFilePath: string = join(__rootDir, `src/${gadgetName}/definition.json`);
+			const originDefinitionFilePath: string = path.join(__rootDir, `src/${gadgetName}/definition.json`);
 			const originDefinitionEditSummary: string = await makeEditSummary(isSkipAsk, {
 				fallbackEditSummary,
 				filePath: originDefinitionFilePath,
@@ -160,7 +160,7 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 			saveDescription(gadgetName, description, api, originDefinitionEditSummary);
 
 			for (const [originFileName, fileName] of files) {
-				const filePath: string = join(__rootDir, `dist/${gadgetName}/${originFileName}`);
+				const filePath: string = path.join(__rootDir, `dist/${gadgetName}/${originFileName}`);
 				const fileContent: string = readFileContent(filePath);
 				const fileEditSummary: string = await makeEditSummary(isSkipAsk, {
 					fallbackEditSummary,
@@ -170,7 +170,7 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 			}
 		}
 
-		const definitionFilePath: string = join(__rootDir, 'dist/definition.txt');
+		const definitionFilePath: string = path.join(__rootDir, 'dist/definition.txt');
 		const definitionEditSummary: string = await makeEditSummary(isSkipAsk, {
 			fallbackEditSummary,
 			filePath: definitionFilePath,
@@ -184,7 +184,7 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 		saveDefinitionSectionPage(currentSiteDefinitionText, api, definitionEditSummary);
 
 		const globalTargets: DeploymentDirectTargets = await generateDirectTargets(site);
-		const globalTargetsFilePath: string = join(__rootDir, 'src/global.json');
+		const globalTargetsFilePath: string = path.join(__rootDir, 'src/global.json');
 		const globalTargetsEditSummary: string = await makeEditSummary(isSkipAsk, {
 			fallbackEditSummary,
 			filePath: globalTargetsFilePath,

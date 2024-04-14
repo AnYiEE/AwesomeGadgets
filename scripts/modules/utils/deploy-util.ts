@@ -20,7 +20,6 @@ import {
 	trim,
 	writeFileContent,
 } from './general-util';
-import {basename, extname, join} from 'node:path';
 import {env, exit, stdout} from 'node:process';
 import {existsSync, open} from 'node:fs';
 import {ESLint} from 'eslint';
@@ -29,6 +28,7 @@ import {Window} from 'happy-dom';
 import alphaSort from 'alpha-sort';
 import {apiQueue} from '../deploy';
 import chalk from 'chalk';
+import path from 'node:path';
 import {setTimeout} from 'node:timers/promises';
 
 /**
@@ -60,7 +60,7 @@ const eslintOnlyAllowES5: ESLint = new ESLint({
  * @throws If `dist/definition.txt` is not found
  */
 const readDefinition = (): string => {
-	const definitionPath: string = join(__rootDir, 'dist/definition.txt');
+	const definitionPath: string = path.join(__rootDir, 'dist/definition.txt');
 	if (!existsSync(definitionPath)) {
 		console.log(chalk.red(`Failed to read ${chalk.italic('definition.txt')}, please try build again.`));
 		exit(1);
@@ -114,13 +114,13 @@ const generateTargets = (): DeploymentTargets => {
 		};
 
 		const distFiles: Path[] = globSync([`${gadgetName}/*.{css,js}`], {
-			cwd: join(__rootDir, 'dist'),
+			cwd: path.join(__rootDir, 'dist'),
 			withFileTypes: true,
 		});
 		for (const file of distFiles) {
 			const {name: fileName} = file;
-			const fileExt: string = extname(fileName);
-			const fileBaseName: string = basename(fileName, fileExt);
+			const fileExt: string = path.extname(fileName);
+			const fileBaseName: string = path.basename(fileName, fileExt);
 
 			(targets[gadgetName] as Target).files.push([
 				fileName,
@@ -158,7 +158,7 @@ const generateDirectTargets = async (site: Api['site']): Promise<DeploymentDirec
 		};
 	}
 
-	const globalJsonFilePath: string = join(__rootDir, 'src/global.json');
+	const globalJsonFilePath: string = path.join(__rootDir, 'src/global.json');
 	if (!existsSync(globalJsonFilePath)) {
 		console.log(chalk.white(`━ No ${chalk.bold('global.json')} found`));
 		return [];
@@ -330,7 +330,7 @@ const loadConfig = (): typeof credentials => {
 	let isMissing: boolean = false;
 	const {CREDENTIALS_JSON} = env;
 
-	const credentialsFilePath: string = join(__rootDir, 'scripts/credentials.json');
+	const credentialsFilePath: string = path.join(__rootDir, 'scripts/credentials.json');
 	if (!CREDENTIALS_JSON && !existsSync(credentialsFilePath)) {
 		isMissing = true;
 		logError('missing');
@@ -387,9 +387,9 @@ async function makeEditSummary(
 		fallbackEditSummary?: string;
 	} = {}
 ): Promise<string> {
-	const execLog = async (path: string): Promise<string> => {
+	const execLog = async (currentPath: string): Promise<string> => {
 		try {
-			const {stdout: _log} = await exec(`git log --pretty=format:"%H %s" -1 -- ${path}`);
+			const {stdout: _log} = await exec(`git log --pretty=format:"%H %s" -1 -- ${currentPath}`);
 			const log: string = _log.trim();
 			if (!log) {
 				return '';
@@ -401,11 +401,11 @@ async function makeEditSummary(
 			return '';
 		}
 	};
-	const getLog = async (path: string): Promise<string> => {
-		if (!existsSync(path)) {
+	const getLog = async (currentPath: string): Promise<string> => {
+		if (!existsSync(currentPath)) {
 			return '';
 		}
-		const log: string = await execLog(path);
+		const log: string = await execLog(currentPath);
 		if (!log) {
 			return '';
 		}
@@ -763,7 +763,7 @@ const savePages = (pageTitle: string, pageContent: string, api: Api, editSummary
  */
 const deleteUnusedPages = async (api: Api, editSummary: string, isSkipAsk?: boolean): Promise<void> => {
 	const {apiInstance, site} = api;
-	const storeFilePath: string = join(__rootDir, 'dist/store.txt');
+	const storeFilePath: string = path.join(__rootDir, 'dist/store.txt');
 
 	let lastDeployPages: typeof deployPages = {};
 	try {
