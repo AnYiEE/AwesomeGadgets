@@ -9,12 +9,12 @@ import {
 	readFileSync,
 	writeFileSync,
 } from 'node:fs';
-import {join, resolve} from 'node:path';
 import prompts, {type Answers, type PromptObject, type PromptType} from 'prompts';
 import {exec as _exec} from 'node:child_process';
 import alphaSort from 'alpha-sort';
 import chalk from 'chalk';
 import {exit} from 'node:process';
+import path from 'node:path';
 import {promisify} from 'node:util';
 
 /**
@@ -22,7 +22,7 @@ import {promisify} from 'node:util';
  * @return {string}
  */
 const getRootDir = (): string => {
-	const rootDir: string = resolve();
+	const rootDir: string = path.resolve();
 
 	return rootDir;
 };
@@ -291,7 +291,7 @@ const generateDefinition = (gadgetName: string, isShowLog: boolean = true): type
 
 	let isMissing: boolean = false;
 
-	const definitionFilePath: string = join(__rootDir, `src/${gadgetName}/definition.json`);
+	const definitionFilePath: string = path.join(__rootDir, `src/${gadgetName}/definition.json`);
 	if (!existsSync(definitionFilePath)) {
 		isMissing = true;
 		logError('missing');

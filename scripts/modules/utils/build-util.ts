@@ -14,11 +14,11 @@ import {
 	trim,
 	writeFileContent,
 } from './general-util';
-import {basename, dirname, extname, join} from 'node:path';
 import {existsSync, mkdirSync} from 'node:fs';
 import chalk from 'chalk';
 import {esbuildOptions} from '../build-esbuild_options';
 import {exit} from 'node:process';
+import path from 'node:path';
 import {rimraf} from 'rimraf';
 
 /**
@@ -27,7 +27,7 @@ import {rimraf} from 'rimraf';
  * @param {string} sourceCode
  */
 const writeFile = (outputFilePath: string, sourceCode: string): void => {
-	const outputDirectoryPath: string = dirname(outputFilePath);
+	const outputDirectoryPath: string = path.dirname(outputFilePath);
 	mkdirSync(outputDirectoryPath, {
 		recursive: true,
 	});
@@ -77,10 +77,10 @@ const build = async (
 	}
 
 	for (const outputFile of outputFiles) {
-		const {path, text} = outputFile;
+		const {path: outputPath, text} = outputFile;
 
 		builtFiles.push({
-			path,
+			path: outputPath,
 			// See `generateBannerAndFooter()` comment for more details
 			text: text.replace(/^\/\*\*\n\s\*\n\s\*\/\n/, ''),
 		});
@@ -161,8 +161,8 @@ const generateTransformOptions = (): typeof options => {
 		compact: false,
 		plugins: [
 			'@mrhenry/core-web',
-			join(__rootDir, 'scripts/modules/plugins/babel-plugin-convert-comments.ts'),
-			join(__rootDir, 'scripts/modules/plugins/babel-plugin-import-polyfills.ts'),
+			path.join(__rootDir, 'scripts/modules/plugins/babel-plugin-convert-comments.ts'),
+			path.join(__rootDir, 'scripts/modules/plugins/babel-plugin-import-polyfills.ts'),
 		],
 		sourceMaps: SOURCE_MAP ? 'inline' : false,
 	} as const satisfies TransformOptions;
@@ -253,8 +253,8 @@ const buildScript = async (
 	// The TypeScript file is always compiled into a JavaScript file, so replace the extension directly
 	const outputFileName: string = scriptFileName.replace(/\.[jt]sx?$/, '.js');
 
-	const inputFilePath: string = join(__rootDir, `src/${gadgetName}/${scriptFileName}`);
-	const outputFilePath: string = join(__rootDir, `dist/${gadgetName}/${outputFileName}`);
+	const inputFilePath: string = path.join(__rootDir, `src/${gadgetName}/${scriptFileName}`);
+	const outputFilePath: string = path.join(__rootDir, `dist/${gadgetName}/${outputFileName}`);
 
 	const builtFiles: BuiltFiles = await build(inputFilePath, outputFilePath, {
 		dependencies,
@@ -262,15 +262,15 @@ const buildScript = async (
 		licenseText,
 	});
 	for (const builtFile of builtFiles) {
-		const {path, text} = builtFile;
+		const {path: outputPath, text} = builtFile;
 
-		const fileName: string = basename(path);
+		const fileName: string = path.basename(outputPath);
 		outputFileNames.push(fileName);
 
-		const fileExt: string = extname(path);
+		const fileExt: string = path.extname(outputPath);
 		switch (fileExt) {
 			case '.css':
-				writeFile(path, text);
+				writeFile(outputPath, text);
 				break;
 			case '.js': {
 				const transformOutput: string = await transform(inputFilePath, text);
@@ -282,7 +282,7 @@ const buildScript = async (
 				if (!bundleOutput) {
 					continue;
 				}
-				writeFile(path, bundleOutput);
+				writeFile(outputPath, bundleOutput);
 				break;
 			}
 		}
@@ -306,8 +306,8 @@ const buildStyle = async (
 	// The Less file is always compiled into a CSS file, so replace the extension directly
 	const outputFileName: string = styleFileName.replace(/\.less$/, '.css');
 
-	const inputFilePath: string = join(__rootDir, `src/${gadgetName}/${styleFileName}`);
-	const outputFilePath: string = join(__rootDir, `dist/${gadgetName}/${outputFileName}`);
+	const inputFilePath: string = path.join(__rootDir, `src/${gadgetName}/${styleFileName}`);
+	const outputFilePath: string = path.join(__rootDir, `dist/${gadgetName}/${outputFileName}`);
 
 	const builtFiles: BuiltFiles = await build(inputFilePath, outputFilePath, {
 		licenseText,
@@ -397,10 +397,10 @@ async function buildFiles(
  */
 const cleanUpDist = async (): Promise<void> => {
 	const paths: string[] = globSync('!(*.txt)', {
-		cwd: join(__rootDir, 'dist'),
+		cwd: path.join(__rootDir, 'dist'),
 		withFileTypes: true,
-	}).map<string>((path) => {
-		return path.fullpath();
+	}).map<string>((currentPath) => {
+		return currentPath.fullpath();
 	});
 
 	await rimraf(paths);
@@ -456,7 +456,7 @@ const findSourceFile = (): SourceFiles => {
 	type Gadget = SourceFiles[keyof SourceFiles];
 
 	const files: Path[] = globSync(['*/*.{js,jsx,ts,tsx,vue,css,less}', '*/definition.json', '*/LICENSE'], {
-		cwd: join(__rootDir, 'src'),
+		cwd: path.join(__rootDir, 'src'),
 		withFileTypes: true,
 	});
 
@@ -483,7 +483,7 @@ const findSourceFile = (): SourceFiles => {
 		sourceFiles[gadgetName] ??= {} as Gadget;
 		const targetGadget = sourceFiles[gadgetName] as Gadget;
 
-		const fileExt: string = extname(fileName);
+		const fileExt: string = path.extname(fileName);
 		const isScriptFile: boolean = ['.js', '.jsx', '.ts', '.tsx', '.vue'].includes(fileExt);
 		const isStyleFile: boolean = ['.css', '.less'].includes(fileExt);
 
@@ -735,7 +735,7 @@ const getLicense = (gadgetName: string, licenseFileName: string | undefined): st
 		return;
 	}
 
-	const licenseFilePath: string = join(__rootDir, `src/${gadgetName}/${licenseFileName}`);
+	const licenseFilePath: string = path.join(__rootDir, `src/${gadgetName}/${licenseFileName}`);
 	const fileContent: string = readFileContent(licenseFilePath);
 
 	return fileContent.trim() ? fileContent : undefined;
@@ -771,7 +771,7 @@ const saveDefinition = (definitions: string[]): void => {
 	}
 	definitionText = trim(BANNER) + definitionText;
 
-	const definitionPath: string = join(__rootDir, 'dist/definition.txt');
+	const definitionPath: string = path.join(__rootDir, 'dist/definition.txt');
 	if (!existsSync(definitionPath)) {
 		console.log(
 			chalk.red(

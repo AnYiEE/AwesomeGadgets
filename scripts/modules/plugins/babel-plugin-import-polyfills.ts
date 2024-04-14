@@ -15,7 +15,7 @@ import {__rootDir} from '../utils/general-util';
  */
 // @ts-expect-error TS7016
 import {filterItems} from '@babel/helper-compilation-targets';
-import {join} from 'node:path';
+import path from 'node:path';
 
 /**
  * @private
@@ -89,7 +89,7 @@ const compatData = {
  */
 const polyfills = {
 	AudioContext: {
-		package: join(__rootDir, 'scripts/modules/polyfills/AudioContext'),
+		package: path.join(__rootDir, 'scripts/modules/polyfills/AudioContext'),
 		type: 'NewExpression',
 	},
 	BroadcastChannel: {
@@ -115,12 +115,12 @@ const polyfills = {
 
 /**
  * @private
- * @param {Object} path
+ * @param {Object} nodePath
  * @param {Object} types
  * @param {string} packageName
  */
 const addImport = (
-	path: NodePath<CallExpression | NewExpression>,
+	nodePath: NodePath<CallExpression | NewExpression>,
 	types: BabelAPI['types'],
 	packageName: (typeof polyfills)[Features]['package']
 ): void => {
@@ -128,7 +128,7 @@ const addImport = (
 	const importDeclaration: ImportDeclaration = types.importDeclaration([], stringLiteral);
 
 	(
-		path.findParent((parent) => {
+		nodePath.findParent((parent) => {
 			return parent.isProgram();
 		}) as NodePath<Program>
 	)?.unshiftContainer('body', importDeclaration);
@@ -151,10 +151,10 @@ const plugin = declare((api) => {
 
 	return {
 		visitor: {
-			CallExpression(path): void {
+			CallExpression(nodePath): void {
 				const {
 					node: {callee, arguments: args},
-				} = path;
+				} = nodePath;
 
 				for (const [name, {package: packageName, type}] of Object.entries(polyfills)) {
 					if (type !== 'CallExpression' || !needPolyfills.has(name)) {
@@ -187,12 +187,12 @@ const plugin = declare((api) => {
 							}
 					}
 
-					addImport(path, types, packageName);
+					addImport(nodePath, types, packageName);
 				}
 			},
 
-			NewExpression(path) {
-				const {callee} = path.node;
+			NewExpression(nodePath) {
+				const {callee} = nodePath.node;
 
 				for (const [name, {package: packageName, type}] of Object.entries(polyfills)) {
 					if (
@@ -205,7 +205,7 @@ const plugin = declare((api) => {
 						continue;
 					}
 
-					addImport(path, types, packageName);
+					addImport(nodePath, types, packageName);
 				}
 			},
 		},
