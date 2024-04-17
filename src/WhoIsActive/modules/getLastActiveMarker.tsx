@@ -1,12 +1,12 @@
 import React from 'ext.gadget.React';
 import {getMessage} from './i18n';
 
-type TimeSpan = 'ThisWeek' | 'ThisMonth' | 'ThisYear' | 'OverAYear';
+type TimeSpan = 'ThisWeek' | 'ThisMonth' | 'ThisSeason' | 'ThisSemiyear' | 'ThisYear' | 'OverAYear';
 
 function Wrapper(props: {timeSpan: TimeSpan; innerElement: React.ReactElement}) {
 	const {timeSpan, innerElement} = props;
 
-	const className: string[] = ['gadget-whoisactive__span', `gadget-whoisactive__${timeSpan}`];
+	const className: string[] = ['gadget-whoisactive', `gadget-whoisactive__${timeSpan}`];
 	const {skin} = mw.config.get();
 
 	if (skin === 'citizen') {
@@ -43,8 +43,12 @@ const getLastActiveMarker = (timestamp: string, indicator: boolean): React.React
 	let timeSpan: TimeSpan = 'ThisWeek';
 	if (diff > 365) {
 		timeSpan = 'OverAYear';
-	} else if (diff > 30) {
+	} else if (diff > 183) {
 		timeSpan = 'ThisYear';
+	} else if (diff > 92) {
+		timeSpan = 'ThisSemiyear';
+	} else if (diff > 31) {
+		timeSpan = 'ThisSeason';
 	} else if (diff > 7) {
 		timeSpan = 'ThisMonth';
 	}

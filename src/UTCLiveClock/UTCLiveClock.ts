@@ -1,31 +1,10 @@
-/**
+/*!
  * This gadget adds a clock in the personal toolbar that shows the current time
  * in UTC (or a different timezone of your choosing), and also provides a link
  * to purge the current page.
  *
  * Revision: July 2020
  * Source: https://www.mediawiki.org/wiki/MediaWiki:Gadget-UTCLiveClock.js
- *
- * Installation:
- *
- * 1. Copy the JS page at https://www.mediawiki.org/wiki/MediaWiki:Gadget-UTCLiveClock.js
- * to the page [[MediaWiki:Gadget-UTCLiveClock.js]] on your wiki.
- *
- * 2. Copy the CSS page at https://www.mediawiki.org/wiki/MediaWiki:Gadget-UTCLiveClock.css
- * to the page [[MediaWiki:Gadget-UTCLiveClock.css]] on your wiki.
- *
- * 3. Copy the CSS page at https://www.mediawiki.org/wiki/MediaWiki:Gadget-UTCLiveClock-pagestyles.css
- * to the page [[MediaWiki:Gadget-UTCLiveClock-pagestyles.css]] on your wiki.
- *
- * 4. Add a description of the gadget to the page [[MediaWiki:Gadget-UTCLiveClock]]
- * on your wiki. You can use https://www.mediawiki.org/wiki/MediaWiki:Gadget-UTCLiveClock
- * as a template.
- *
- * 5. Add the following code to your wiki's [[MediaWiki:Gadgets-definition]]:
- *
- * UTCLiveClock[ResourceLoader|type=general|dependencies=mediawiki.util,mediawiki.api|peers=UTCLiveClock-pagestyles]|UTCLiveClock.js|UTCLiveClock.css
- * UTCLiveClock-pagestyles[hidden|skins=vector]|UTCLiveClock-pagestyles.css
- *
  *
  * To set the timezone used to one other than UTC, set window.LiveClockTimeZone to
  * the desired timezone. For example, adding the following to your common.js
@@ -34,6 +13,31 @@
  * TZ database for valid options.
  */
 import './UTCLiveClock.less';
-import {liveClock} from './modules/core';
+import {getBody} from 'ext.gadget.Util';
+import {purge} from 'ext.gadget.PurgePageCache';
+import {showTime} from './modules/showTime';
 
-$(liveClock);
+void getBody().then(($body: JQuery<HTMLBodyElement>): void => {
+	// Reset whitespace that was set in the peer CSS gadget; this prevents the
+	// effect of the p-personal menu jumping to the left when the JavaScript
+	// loads.
+	$body.find('.client-js > body.skin-vector #p-personal ul').css('margin-right', 'initial');
+
+	// Add the portlet link.
+	const element: HTMLLIElement | null = mw.util.addPortletLink('p-personal', '#', '', 'utcdate');
+	if (!element) {
+		return;
+	}
+	const $element: JQuery = $(element);
+
+	// Purge the page when the clock is clicked. We have to do this through the
+	// API, as purge URLs now make people click through a confirmation screen.
+	const {wgPageName} = mw.config.get();
+	$element.on('click', (event: JQuery.ClickEvent): void => {
+		event.preventDefault();
+		void purge(wgPageName);
+	});
+
+	// Show the clock.
+	showTime($element.find('a:first'));
+});

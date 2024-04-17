@@ -1,5 +1,6 @@
 const checkDiffPage = ($content: JQuery): boolean => {
-	return $content.find('table').hasClass('diff') && !!mw.config.get('wgCurRevisionId');
+	const {wgCurRevisionId} = mw.config.get();
+	return $content.find('table').hasClass('diff') && !!wgCurRevisionId;
 };
 
 export {checkDiffPage};

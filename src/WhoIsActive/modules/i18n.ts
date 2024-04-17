@@ -18,6 +18,16 @@ const getI18nMessages = () => {
 			'zh-hans': '一月内有编辑',
 			'zh-hant': '一月內有編輯',
 		}),
+		ThisSeason: localize({
+			en: 'Edited in 3 months',
+			'zh-hans': '三月内有编辑',
+			'zh-hant': '三月內有編輯',
+		}),
+		ThisSemiyear: localize({
+			en: 'Edited in half a year',
+			'zh-hans': '半年内有编辑',
+			'zh-hant': '半年內有編輯',
+		}),
 		ThisYear: localize({
 			en: 'Edited this year',
 			'zh-hans': '一年内有编辑',

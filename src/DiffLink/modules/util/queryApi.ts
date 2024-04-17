@@ -21,7 +21,7 @@ const queryApi = async (diffId: number): Promise<CompareResponse> => {
 		return await api.get({
 			...parameters,
 			fromrev: diffId,
-		});
+		} as typeof parameters);
 	} catch (error: unknown) {
 		console.error('[DiffLink] Ajax error:', error);
 		toastify(

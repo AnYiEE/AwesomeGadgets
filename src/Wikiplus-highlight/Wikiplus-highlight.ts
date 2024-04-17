@@ -1,10 +1,10 @@
-import {initMwApi} from 'ext.gadget.Util';
+import {api} from './modules/api';
 
 if (!mw.user.options.get('gadget-Wikiplus')) {
-	void initMwApi('Wikiplus-highlight/2.0').postWithEditToken({
+	void api.postWithEditToken({
 		action: 'options',
 		change: 'gadget-Wikiplus=1',
-	});
+	} as ApiOptionsParams);
 
 	void mw.loader.using('ext.gadget.Wikiplus');
 }

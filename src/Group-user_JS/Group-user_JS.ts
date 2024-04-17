@@ -1,4 +1,7 @@
-import {addLog, addSubpage} from './modules/addSubpageAndLog';
+import * as OPTIONS from './options.json';
+import {addLog} from './modules/addLog';
+import {addSubpage} from './modules/addSubpage';
+import {fixReason} from './modules/fixReason';
 import {fixSummary} from './modules/fixSummary';
 import {getBody} from 'ext.gadget.Util';
 import {linkSearchEditButton} from './modules/linkSearchEditButton';
@@ -7,12 +10,14 @@ import {smartEditIntro} from './modules/smartEditIntro';
 import {smartNewSection} from './modules/smartNewSection';
 
 (function userJS(): void {
+	const {configKey} = OPTIONS;
+
 	// Guard against double inclusions
-	if (mw.config.get('wgUserJSInstalled')) {
+	if (mw.config.get(configKey)) {
 		return;
 	}
 	// Set guard
-	mw.config.set('wgUserJSInstalled', true);
+	mw.config.set(configKey, true);
 
 	/* 加载编辑界面脚本 */
 	void loadGadgetEditForm();
@@ -22,6 +27,8 @@ import {smartNewSection} from './modules/smartNewSection';
 		addLog();
 		/* 向侧边栏添加“子页面”菜单 */
 		addSubpage();
+		/* 修改删除摘要 */
+		fixReason($body);
 		/* 修改编辑摘要 */
 		fixSummary($body);
 		/* 在[[Special:LinkSearch]]显示“编辑”按钮 */

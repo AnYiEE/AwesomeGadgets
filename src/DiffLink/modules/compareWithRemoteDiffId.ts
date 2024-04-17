@@ -3,7 +3,8 @@ import {queryApi} from './util/queryApi';
 
 const compareWithRemoteDiffId = async (diffId: number): Promise<void> => {
 	const response: Awaited<ReturnType<typeof queryApi>> = await queryApi(diffId);
-	if (diffId === mw.config.get('wgDiffNewId') && response['compare']?.fromrevid === mw.config.get('wgDiffOldId')) {
+	const {wgDiffNewId, wgDiffOldId} = mw.config.get();
+	if (diffId === wgDiffNewId && response['compare']?.fromrevid === wgDiffOldId) {
 		buildLink(0, diffId);
 	}
 };

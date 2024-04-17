@@ -1,4 +1,5 @@
-import {CLASS_NAME_DISMISS, CLASS_NAME_NOTICE_CONTENT, STORAGE_KEY} from './constant';
+import * as OPTIONS from '../options.json';
+import {CLASS_NAME_DISMISS, CLASS_NAME_NOTICE_CONTENT} from './constant';
 import React from 'ext.gadget.React';
 import {type RemoteNotices} from './util/queryApi';
 import {generateArea} from './util/generateArea';
@@ -7,10 +8,10 @@ import {matchCriteria} from './util/matchCriteria';
 import {tippy} from 'ext.gadget.Tippy';
 import {toastify} from 'ext.gadget.Toastify';
 
-const broadcastChannel: BroadcastChannel = new BroadcastChannel(STORAGE_KEY);
+const broadcastChannel: BroadcastChannel = new BroadcastChannel(OPTIONS.storageKey);
 
 let currentVersion: string = '0';
-const localVersion: string | null = mw.storage.get(STORAGE_KEY) as string | null;
+const localVersion = mw.storage.get(OPTIONS.storageKey) as string | null;
 
 let timer: ReturnType<typeof setTimeout>;
 
@@ -23,7 +24,7 @@ const closeNotices = (): void => {
 	broadcastChannel.close();
 	clearTimeout(timer);
 	$area.remove();
-	mw.storage.set(STORAGE_KEY, currentVersion, 60 * 60 * 24 * 30 * 1000);
+	mw.storage.set(OPTIONS.storageKey, currentVersion, 60 * 60 * 24 * 30 * 1000);
 };
 
 broadcastChannel.addEventListener('message', closeNotices);

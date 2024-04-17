@@ -5,7 +5,7 @@ const addListener = (
 	windowManager: OO.ui.WindowManager,
 	messageDialogProperty: OO.ui.WindowManager.WindowOpeningData
 ): void => {
-	$element.on('click', (event: JQuery.ClickEvent): void => {
+	$element.on('click', (event): void => {
 		event.preventDefault();
 
 		if (messageDialog) {

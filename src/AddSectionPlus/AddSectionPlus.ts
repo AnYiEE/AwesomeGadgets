@@ -1,9 +1,11 @@
-import {WG_SKIN} from './modules/constant';
+import './AddSectionPlus.less';
 import {getBody} from 'ext.gadget.Util';
 import {processElement} from './modules/processElement';
 
 void getBody().then(function addSectionPlus($body: JQuery<HTMLBodyElement>): void {
-	if (WG_SKIN === 'citizen') {
+	const {skin} = mw.config.get();
+
+	if (skin === 'citizen') {
 		return; //! style is already added by [[MediaWiki:Gadget-AddSectionPlus-pagestyles.css]]
 	}
 
@@ -17,5 +19,5 @@ void getBody().then(function addSectionPlus($body: JQuery<HTMLBodyElement>): voi
 		return;
 	}
 
-	processElement($target);
+	processElement($target, skin);
 });

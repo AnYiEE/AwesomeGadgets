@@ -10,14 +10,14 @@ const getI18nMessages = () => {
 		CopyDiff: localize({
 			en: 'Copy the link to the diff version (wiki syntax)',
 			ja: '現在の版間の差分リンクをコピーします（ウィキ記法）',
-			'zh-hans': '复制链接到当前差异版本的wiki语法',
-			'zh-hant': '複製連結到當前差異版本的wiki語法',
+			'zh-hans': '复制链接到当前差异版本的维基语法',
+			'zh-hant': '複製連結到當前差異版本的維基語法',
 		}),
 		CopyPermanent: localize({
 			en: 'Copy the permanent link to the current version (wiki syntax)',
 			ja: 'このページのこの版への固定リンクをコピーします（ウィキ記法）',
-			'zh-hans': '复制链接到当前修订版本的wiki语法',
-			'zh-hant': '複製連結到當前修訂版本的wiki語法',
+			'zh-hans': '复制链接到当前修订版本的维基语法',
+			'zh-hant': '複製連結到當前修訂版本的維基語法',
 		}),
 		Diff: localize({
 			en: 'Diff link',

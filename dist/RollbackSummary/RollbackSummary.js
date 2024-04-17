@@ -3,7 +3,7 @@
  * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
  *
  * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-rollback-summary.js}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/RollbackSummary}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/RollbackSummary}
  * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
  */
 /**

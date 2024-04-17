@@ -2,5 +2,12 @@
 	"enable": true,
 	"description": "<span id=\"Gadget-UTCLiveClock\"></span> 顶栏时钟 <small>默认显示UTC+8时间；附加清除缓存链接功能</small>",
 	"section": "browser",
-	"dependencies": ["ext.gadget.i18n", "ext.gadget.Util", "mediawiki.api", "mediawiki.util"]
+	"dependencies": [
+		"ext.gadget.i18n",
+		"ext.gadget.PurgePageCache",
+		"ext.gadget.Toastify",
+		"ext.gadget.Util",
+		"mediawiki.api",
+		"mediawiki.util"
+	]
 }

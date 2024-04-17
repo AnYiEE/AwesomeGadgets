@@ -4,7 +4,7 @@
  *
  * @base {@link https://en.wiktionary.org/wiki/MediaWiki:Gadget-CodeLinks.js}
  * @base {@link https://zh.wiktionary.org/wiki/MediaWiki:Gadget-CodeLinks.js}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/CodeLinks}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/CodeLinks}
  * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
  */
 /**

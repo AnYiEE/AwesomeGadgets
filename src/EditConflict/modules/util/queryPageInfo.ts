@@ -24,7 +24,7 @@ const queryPageInfo = async (title: string): Promise<PageInfo> => {
 		return (await api.post({
 			...parameters,
 			titles: title,
-		})) as PageInfo;
+		} as typeof parameters)) as PageInfo;
 	} catch (error: unknown) {
 		console.error('[EditConflict] Ajax error:', error);
 		return {};

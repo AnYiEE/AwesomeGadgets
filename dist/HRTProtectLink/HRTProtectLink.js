@@ -1,9 +1,9 @@
 /**
  * SPDX-License-Identifier: CC-BY-SA-4.0
- * _addText: '{{Gadget Header|https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/HRTProtectLink|license=CC-BY-SA-4.0}}'
+ * _addText: '{{Gadget Header|https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/HRTProtectLink|license=CC-BY-SA-4.0}}'
  *
  * @base {@link https://zh.wikipedia.org/wiki/User:Xiplus/js/HRTProtectLink.js}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/HRTProtectLink}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/HRTProtectLink}
  */
 /**
  * +------------------------------------------------------------+

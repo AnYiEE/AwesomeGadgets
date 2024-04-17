@@ -53,6 +53,7 @@
 	};
 	/**
 	 * 渲染编辑器
+	 *
 	 * @param {JQuery} $target 目标编辑框
 	 * @param {JSON} setting 是否是Wikiplus设置（使用json语法）
 	 */

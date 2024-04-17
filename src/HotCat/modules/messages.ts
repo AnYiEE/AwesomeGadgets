@@ -1,7 +1,7 @@
-import {WG_USER_LANGUAGE} from './constant';
+const hotCatMessages = (): void => {
+	const {wgUserLanguage} = mw.config.get();
 
-export const hotCatMessages = (): void => {
-	if (['zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'].includes(WG_USER_LANGUAGE)) {
+	if (['zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'].includes(wgUserLanguage)) {
 		mw.messages.set({
 			'hotcat-messages-cat_removed': '已移除[[Category:$1]]',
 			'hotcat-messages-template_removed': '已移除{{[[Category:$1]]}}',
@@ -136,3 +136,5 @@ export const hotCatMessages = (): void => {
 		});
 	}
 };
+
+export {hotCatMessages};

@@ -1,4 +1,5 @@
 {
 	"translateVariantsSummary": "自动转换变体自[[$1]]（[[MediaWiki:Gadget-TranslateVariants.js|TranslateVariants]]）",
+	"contentID": "TranslateVariants-content",
 	"version": "2.0"
 }

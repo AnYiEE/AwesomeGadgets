@@ -1,11 +1,13 @@
 import {adjustTime} from './util/adjustTime';
 import {api} from './api';
+import {getMessage} from './i18n';
 
 const checkLastActive = async ($element: JQuery): Promise<void> => {
-	const userName: string = $element.find('.mw-userlink>bdi').text();
+	const userName: string = $element.find('.mw-userlink > bdi').text();
 
 	const logEventsParams: ApiQueryLogEventsParams = {
 		action: 'query',
+		format: 'json',
 		formatversion: '2',
 		list: 'logevents',
 		lelimit: 1,
@@ -39,9 +41,11 @@ const checkLastActive = async ($element: JQuery): Promise<void> => {
 			}
 		}
 
-		const lastActiveMessage: string = maxDate
-			? `（${window.wgULS('最后操作于', '最後動作於')}${adjustTime(maxDate)}）`
-			: `（${window.wgULS('从未有操作', '從未有動作')}）`;
+		const lastActiveMessage: string =
+			getMessage('(') +
+			(maxDate ? getMessage('Last active on').replace('$1', adjustTime(maxDate)) : getMessage('Never active')) +
+			getMessage(')');
+
 		$element.append(lastActiveMessage);
 	} catch (error: unknown) {
 		console.error('[ListUsersLastActive] Ajax error:', error);

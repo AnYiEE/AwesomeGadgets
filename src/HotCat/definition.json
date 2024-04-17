@@ -12,6 +12,5 @@
 		"mediawiki.user",
 		"mediawiki.util"
 	],
-	"peers": ["HotCat-pagestyles"],
 	"rights": ["skipcaptcha"]
 }

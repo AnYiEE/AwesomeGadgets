@@ -50,6 +50,7 @@ function normalizeVariant(extVariant: ExtVariant): Variant {
 
 /**
  * Get current variant of the page (don't be misled by config naming).
+ *
  * @returns variant, null for non-wikitext page (but NOT all such pages returns null!)
  */
 function getPageVariant(): Variant | null {
@@ -59,6 +60,7 @@ function getPageVariant(): Variant | null {
 
 /**
  * Get account variant.
+ *
  * @returns account variant, null for anonymous user
  */
 function getAccountVariant(): Variant | null {
@@ -79,6 +81,7 @@ function getLocalVariant(): Variant | null {
 
 /**
  * Return browser language if it's a Chinese variant.
+ *
  * @returns browser variant
  */
 function getBrowserVariant(): Variant | null {

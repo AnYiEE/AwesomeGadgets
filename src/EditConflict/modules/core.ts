@@ -1,7 +1,6 @@
-import {WG_CUR_REVISION_ID, WG_PAGE_NAME} from './constant';
 import {delay, getBody} from 'ext.gadget.Util';
+import {NoticeMessage} from './noticeMessage';
 import {getCurrentRevisionId} from './getCurrentRevisionId';
-import {getMessage} from './i18n';
 import {toastify} from 'ext.gadget.Toastify';
 
 const editConflict = async (): Promise<void> => {
@@ -14,14 +13,15 @@ const editConflict = async (): Promise<void> => {
 	});
 
 	const checkEditConflict = async (): Promise<void> => {
-		const pageRevisionId: number = await getCurrentRevisionId(WG_PAGE_NAME);
+		const {wgCurRevisionId, wgPageName} = mw.config.get();
+		const pageRevisionId: number = await getCurrentRevisionId(wgPageName);
 		if (!pageRevisionId) {
 			isContinue = false;
-		} else if (pageRevisionId > WG_CUR_REVISION_ID) {
+		} else if (pageRevisionId > wgCurRevisionId) {
 			isContinue = false;
 			toastify(
 				{
-					node: $(getMessage('Notice')).get(0),
+					node: NoticeMessage(),
 					close: true,
 					duration: -1,
 				},
@@ -31,8 +31,14 @@ const editConflict = async (): Promise<void> => {
 	};
 
 	while (true) {
+		// If !isContinue triggered (by onClick) then break
+		if (!isContinue) {
+			break;
+		}
+
 		await checkEditConflict();
 
+		// If !isContinue triggered (by checkEditConflict) then break
 		if (!isContinue) {
 			break;
 		}

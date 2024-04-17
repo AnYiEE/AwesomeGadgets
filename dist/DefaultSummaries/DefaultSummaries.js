@@ -3,7 +3,7 @@
  * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
  *
  * @base {@link https://en.wikipedia.org/wiki/MediaWiki:Gadget-defaultsummaries.js}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/DefaultSummaries}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/DefaultSummaries}
  * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
  */
 /**

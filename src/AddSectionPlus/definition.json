@@ -3,6 +3,5 @@
 	"description": "<span id=\"Gadget-AddSectionPlus\"></span> 将“{{int:skin-action-addsection}}”链接文本替换为加号（“+”）",
 	"section": "browser",
 	"dependencies": ["ext.gadget.Util"],
-	"peers": ["AddSectionPlus-pagestyles"],
 	"rights": ["edit"]
 }

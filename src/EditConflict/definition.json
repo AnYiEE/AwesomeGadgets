@@ -3,6 +3,6 @@
 	"description": "<span id=\"Gadget-EditConflict\"></span> [[Help:编辑冲突|编辑冲突]]提示",
 	"section": "edit",
 	"actions": ["edit", "submit"],
-	"dependencies": ["ext.gadget.i18n", "ext.gadget.Toastify", "ext.gadget.Util", "mediawiki.api"],
-	"rights": ["skipcaptcha"]
+	"default": true,
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.React", "ext.gadget.Toastify", "ext.gadget.Util", "mediawiki.api"]
 }

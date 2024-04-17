@@ -4,11 +4,11 @@
 		font-size: 120%;
 	}
 
-	/**
-	 * Explicitly set width of the UTC-clock list element, so that we can use a
-	 * hidden peer gadget to add space where the clock would go before it loads.
-	 */
 	.skin-vector & {
+		/**
+		 * Explicitly set width of the UTC-clock list element, so that we can use a
+		 * hidden peer gadget to add space where the clock would go before it loads.
+		 */
 		width: 6em;
 
 		/**
@@ -26,21 +26,20 @@
  */
 
 .client-js > body.skin-vector-legacy #p-personal {
-	/**
-	 * In Vector, by default the li elements in the p-personal bar have a font-size
-	 * of 0.75em. Duplicate that here so that we can be sure of the proper factor to
-	 * multiply the ul element's margin-right by.
-	 */
 	li {
+		/**
+		 * In Vector, by default the li elements in the p-personal bar have a font-size
+		 * of 0.75em. Duplicate that here so that we can be sure of the proper factor to
+		 * multiply the ul element's margin-right by.
+		 */
 		font-size: 0.75em;
 	}
 
-	/**
-	 * Reserve space for the clock gadget after the end of the p-personal ul
-	 * element.
-	 */
 	ul {
 		/**
+		 * Reserve space for the clock gadget after the end of the p-personal ul
+		 * element.
+		 *
 		 * The clock width plus its left margin, multiplied by the relative font
 		 * size: (6em + 0.75em) * 0.75
 		 */

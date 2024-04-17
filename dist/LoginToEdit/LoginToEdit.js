@@ -2,7 +2,7 @@
  * SPDX-License-Identifier: CC-BY-SA-4.0
  * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
  *
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/LoginToEdit}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/LoginToEdit}
  * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
  */
 /**

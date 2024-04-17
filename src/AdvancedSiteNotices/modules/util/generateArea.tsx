@@ -9,7 +9,7 @@ import React from 'ext.gadget.React';
 import {getMessage} from '../i18n';
 
 const generateArea = (): JQuery => {
-	const area = (
+	const area: React.ReactElement = (
 		<div className={[CLASS_NAME, 'noprint']}>
 			<div className={CLASS_NAME_TITLE}>{getMessage('Title')}</div>
 			<div className={CLASS_NAME_NOTICE}>

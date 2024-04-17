@@ -3,7 +3,7 @@
  * _addText: '{{Gadget Header|license=MIT}}'
  *
  * @base {@link https://github.com/fregante/filter-altered-clicks}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/FilterAlteredClicks}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/FilterAlteredClicks}
  */
 /**
  * +------------------------------------------------------------+

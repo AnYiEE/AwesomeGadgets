@@ -2,7 +2,7 @@ import {checkDiffPage} from './modules/util/checkDiffPage';
 import {checkRevisionPage} from './modules/util/checkRevisionPage';
 import {processId} from './modules/processId';
 
-mw.hook('wikipage.content').add(($content): void => {
+mw.hook('wikipage.content').add(function diffLink($content): void {
 	if ($content.attr('id') !== 'mw-content-text') {
 		return;
 	}
@@ -13,9 +13,11 @@ mw.hook('wikipage.content').add(($content): void => {
 		return;
 	}
 
+	const {wgDiffNewId, wgDiffOldId, wgRevisionId} = mw.config.get();
+
 	processId(isRevisionPage, {
-		diffId: mw.config.get('wgDiffNewId'),
-		oldId: mw.config.get('wgDiffOldId'),
-		revisionId: mw.config.get('wgRevisionId'),
+		diffId: wgDiffNewId ?? null,
+		oldId: wgDiffOldId ?? null,
+		revisionId: wgRevisionId ?? null,
 	});
 });

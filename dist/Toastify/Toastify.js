@@ -3,7 +3,7 @@
  * _addText: '{{Gadget Header|license=MIT|attribution=2018 apvarun}}'
  *
  * @base {@link https://github.com/apvarun/toastify-js}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/Toastify}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/Toastify}
  */
 /**
  * +------------------------------------------------------------+

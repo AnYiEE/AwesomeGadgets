@@ -3,7 +3,7 @@
  * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
  *
  * @base {@link https://rs.miraheze.org/wiki/MediaWiki:Gadget-collapsible.js}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src//Collapsible}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src//Collapsible}
  * @author SolidBlock
  * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
  */

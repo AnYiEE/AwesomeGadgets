@@ -1,17 +1,10 @@
-import {initMwApi} from 'ext.gadget.Util';
+import {api} from './modules/api';
 
-((): void => {
-	if (mw.user.options.get('gadget-ToolsRedirect')) {
-		return;
-	}
-
-	const api = initMwApi('ToolsRedirect-courtesy-and-art-names/2.0');
-
+if (!mw.user.options.get('gadget-ToolsRedirect')) {
 	void api.postWithEditToken({
 		action: 'options',
-		format: 'json',
 		change: 'gadget-ToolsRedirect=1',
-	});
+	} as ApiOptionsParams);
 
-	void mw.loader.using(['ext.gadget.ToolsRedirect']);
-})();
+	void mw.loader.using('ext.gadget.ToolsRedirect');
+}

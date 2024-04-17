@@ -2,7 +2,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  * _addText: '{{Gadget Header|license=GPL-3.0-or-later}}'
  *
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/SmoothTOC}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/SmoothTOC}
  * @author 安忆 <i@anyi.in>
  * @license GPL-3.0-or-later {@link https://youshou.wiki/wiki/H:GPL-3.0}
  */

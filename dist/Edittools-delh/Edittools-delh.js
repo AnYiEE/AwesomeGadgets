@@ -3,7 +3,7 @@
  * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
  *
  * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-Edittools-delh.js}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/Edittools-delh}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/Edittools-delh}
  * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
  */
 /**

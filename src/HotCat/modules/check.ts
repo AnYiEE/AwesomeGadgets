@@ -1,4 +1,5 @@
-import {initMwApi} from 'ext.gadget.Util';
+import {catcheckInlineIcon} from './check.module.less';
+import {mwApi} from './api';
 
 /**
  * CheckCategories HotCat Extension –
@@ -12,11 +13,11 @@ import {initMwApi} from 'ext.gadget.Util';
 	if (
 		mw.config.get('wgNamespaceNumber') !== 6 ||
 		window.HotCatAutoRemoveCheckCatOptOut ||
-		!document.querySelectorAll('.checkcategories')[0]
+		!document.querySelector('.checkcategories')
 	) {
 		return;
 	}
-	const api = initMwApi('hotCatCheck/2.0');
+	const api = mwApi('hotCatCheck/2.0');
 	const checkCategoriesRegExp = /{{[Cc]heck[ _]categories[^{}]*}}/g;
 	const selfName = '([[MediaWiki:Gadget-HotCat-check.js|Script]]): ';
 	const storageItemName = 'checkCat';
@@ -28,7 +29,7 @@ import {initMwApi} from 'ext.gadget.Util';
 	 * @return {JQuery}
 	 */
 	const createjIcon = (iconClass: string): JQuery => {
-		return $('<span>').attr('class', `ui-icon ${iconClass} catcheck-inline-icon`).text(' ');
+		return $('<span>').attr('class', `ui-icon ${iconClass} ${catcheckInlineIcon}`).text(' ');
 	};
 	const createNotifyArea = (textNode: JQuery<JQuery.Node>, icon: string, state: string): JQuery<HTMLElement> => {
 		return $('<div>')
@@ -96,7 +97,7 @@ import {initMwApi} from 'ext.gadget.Util';
 				title: `User:${mw.config.get('wgUserName')}/common.js`,
 				summary: `${selfName}Saving HotCat configuration.`,
 				appendtext: $el.data('addText') as string,
-			};
+			} as const;
 			const editDone = (editStat?: {error?: {code?: string; info?: string}}) => {
 				if (!editStat) {
 					return;
@@ -243,7 +244,7 @@ import {initMwApi} from 'ext.gadget.Util';
 				summary: `${selfName}Categories are checked and OK. You can help [[Category:Media needing category review|reviewing]]!`,
 				nocreate: true,
 				text,
-			};
+			} as const;
 			const editDone = (editStat?: {error?: {code?: string; info?: string}}) => {
 				if (!editStat) {
 					return;

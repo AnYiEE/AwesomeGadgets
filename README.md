@@ -1,5 +1,5 @@
 [![NPM version](https://img.shields.io/npm/v/awesome-gadgets.svg)](https://www.npmjs.com/package/awesome-gadgets)
-[![Linter](https://github.com/TopRealm/YsArxiv-Gadgets/actions/workflows/lint.yml/badge.svg)](https://github.com/TopRealm/YsArxiv-Gadgets/actions/workflows/lint.yml)
+[![Linter](https://github.com/TopRealm/YsArchives-Gadgets/actions/workflows/lint.yml/badge.svg)](https://github.com/TopRealm/YsArchives-Gadgets/actions/workflows/lint.yml)
 
 # 有兽档案馆代码库
 
@@ -9,7 +9,7 @@
 
 ## 如何贡献 Contributing
 
-请阅读[**文档部分**](https://github.com/TopRealm/YsArxiv-Gadgets/blob/master/docs/how-to-build-or-deploy.md) ，获取技术细节。
+请阅读[**文档部分**](https://github.com/TopRealm/YsArchives-Gadgets/blob/master/docs/how-to-build-or-deploy.md) ，获取技术细节。
 
 > [!IMPORTANT]
 > 开发者注意：

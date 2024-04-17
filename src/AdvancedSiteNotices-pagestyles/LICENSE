@@ -3,7 +3,7 @@
  * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
  *
  * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-AdvancedSiteNotices.css}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/AdvancedSiteNotices-pagestyles}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/AdvancedSiteNotices-pagestyles}
  * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
  */
 
@@ -13,6 +13,6 @@
  * close Icon from OOjs UI
  *
  * @base {@link https://youshou.wiki/wiki/File:OOjs_UI_icon_close.svg}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/AdvancedSiteNotices-pagestyles/images}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/AdvancedSiteNotices-pagestyles/images}
  * @license MIT {@link https://github.com/wikimedia/oojs-ui/blob/master/LICENSE-MIT}
  */

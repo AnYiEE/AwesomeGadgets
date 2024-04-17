@@ -1,8 +1,8 @@
 /**
  * SPDX-License-Identifier: CC-BY-SA-4.0
- * _addText: '{{Gadget Header|https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/Edit0|license=CC-BY-SA-4.0}}'
+ * _addText: '{{Gadget Header|https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/Edit0|license=CC-BY-SA-4.0}}'
  *
  * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-edit0.css}
  * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-edit0.js}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/Edit0}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/Edit0}
  */

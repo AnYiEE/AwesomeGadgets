@@ -4,7 +4,7 @@
  *
  * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect.js}
  * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect.css}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/ToolsRedirect}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/ToolsRedirect}
  */
 
 /**
@@ -13,7 +13,7 @@
  *
  * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect-msg-zh-hans.js}
  * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect-msg-zh-hant.js}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/ToolsRedirect/messages.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/ToolsRedirect/messages.js}
  */
 
 /**
@@ -21,7 +21,7 @@
  * _addText: '{{Gadget Header|title3=ToolsRedirect-bio-latin-names|license3=CC-BY-SA-4.0}}'
  *
  * @base {@link https://zh.wikipedia.org/wiki/Special:Permalink/61193369}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/ToolsRedirect/bio-latin-names.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/ToolsRedirect/bio-latin-names.js}
  */
 
 /**
@@ -29,7 +29,7 @@
  * _addText: '{{Gadget Header|title3=ToolsRedirect-courtesy-and-art-names|license3=CC-BY-SA-4.0}}'
  *
  * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect-courtesy-and-art-names.js}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/ToolsRedirect/courtesy-and-art-names.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/ToolsRedirect/courtesy-and-art-names.js}
  */
 
 /**
@@ -37,5 +37,5 @@
  * _addText: '{{Gadget Header|title3=ToolsRedirect-opt-bolds|license3=CC-BY-SA-4.0}}'
  *
  * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect-opt-bolds.js}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/ToolsRedirect/opt-bolds.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/ToolsRedirect/opt-bolds.js}
  */

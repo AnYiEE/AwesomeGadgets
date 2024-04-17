@@ -3,7 +3,7 @@
  * _addText: '{{Gadget Header|license=MIT}}'
  *
  * @base {@link https://zh.wikipedia.org/wiki/Special:Permalink/67345361}
- * @source {@link https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/PreviewWithVariant}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/PreviewWithVariant}
  */
 /**
  * +------------------------------------------------------------+

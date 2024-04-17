@@ -1,7 +1,8 @@
 import {getMessage} from './i18n';
 
-export const linkSearchEditButton = ($body: JQuery<HTMLBodyElement>): void => {
-	if (mw.config.get('wgCanonicalSpecialPageName') !== 'LinkSearch') {
+const linkSearchEditButton = ($body: JQuery<HTMLBodyElement>): void => {
+	const {wgCanonicalSpecialPageName} = mw.config.get();
+	if (wgCanonicalSpecialPageName !== 'LinkSearch') {
 		return;
 	}
 
@@ -11,3 +12,5 @@ export const linkSearchEditButton = ($body: JQuery<HTMLBodyElement>): void => {
 			.insertAfter(element);
 	}
 };
+
+export {linkSearchEditButton};

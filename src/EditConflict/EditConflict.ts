@@ -1,6 +1,7 @@
-import {IS_WG_EDIT_OR_SUBMIT_ACTION, WG_CUR_REVISION_ID} from './modules/constant';
 import {editConflict} from './modules/core';
 
-if (IS_WG_EDIT_OR_SUBMIT_ACTION && WG_CUR_REVISION_ID) {
+const {wgAction, wgCurRevisionId} = mw.config.get();
+
+if (['edit', 'submit'].includes(wgAction) && wgCurRevisionId) {
 	void editConflict();
 }

@@ -35,6 +35,7 @@ const inferredVariant = computed(() => {
 
 /**
  * Shuffle between all valid variants.
+ *
  * @param last last shuffled variant, used to prevent duplications
  * @returns shuffled variant
  */

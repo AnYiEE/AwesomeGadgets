@@ -1,6 +1,10 @@
-import {getBody} from 'ext.gadget.Util';
-import {whoIsActive} from './modules/core';
+import {whoIsActive, whoIsActiveUserPage} from './modules/core';
 
-if (mw.config.get('wgNamespaceNumber') >= 0) {
-	void getBody().then(whoIsActive);
-}
+(function whoIsActiveLoad() {
+	if (mw.config.get('wgNamespaceNumber') < 0) {
+		return;
+	}
+
+	mw.hook('wikipage.content').add(whoIsActive);
+	void whoIsActiveUserPage();
+})();

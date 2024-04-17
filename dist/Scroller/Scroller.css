@@ -3,7 +3,7 @@
  * _addText: '{{Gadget Header|license=MIT}}'
  *
  * @base <https://github.com/the1812/Bilibili-Evolved/blob/master/src/core/horizontal-scroll.ts>
- * @source <https://github.com/TopRealm/YsArxiv-Gadgets/tree/master/src/Scroller>
+ * @source <https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/Scroller>
  */
 /**
  * +------------------------------------------------------------+

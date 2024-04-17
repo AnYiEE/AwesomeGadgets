@@ -1,9 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import './modules/check';
+import {generateArray} from 'ext.gadget.Util';
 import {getMessage} from './modules/getMessage';
 import {hotCatMessages} from './modules/messages';
-import {initMwApi} from 'ext.gadget.Util';
+import {mwApi} from './modules/api';
 
 /**
  * @description Ajax-based simple Category manager. Allows adding/removing/changing categories on a page view.
@@ -27,7 +28,7 @@ hotCatMessages();
 		return; // Not on edit mode
 	}
 	// Initialize MediaWiki API
-	const api = initMwApi('HotCat/3.0');
+	const api = mwApi('HotCat/3.0');
 	// Configuration stuff.
 	window.HotCat = {
 		// The little modification links displayed after category names. U+2212 is a minus sign; U+2193 and U+2191 are
@@ -351,9 +352,9 @@ hotCatMessages();
 		const result = [];
 		let curr_match = null;
 		while ((curr_match = cat_regex.exec(copiedtext)) !== null) {
-			result.push({
+			result[result.length] = {
 				match: curr_match,
-			});
+			};
 		}
 		result.re = cat_regex;
 		return result; // An array containing all matches, with positions, in result[ i ].match
@@ -463,9 +464,9 @@ hotCatMessages();
 			wikitext = before + after;
 			if (!keyChange) {
 				if (HC.template_categories[toRemove]) {
-					summary.push(getMessage('messages-template_removed', toRemove));
+					summary[summary.length] = getMessage('messages-template_removed', toRemove);
 				} else {
-					summary.push(getMessage('messages-cat_removed', toRemove));
+					summary[summary.length] = getMessage('messages-cat_removed', toRemove);
 				}
 			}
 		}
@@ -508,15 +509,15 @@ hotCatMessages();
 				if (k.length > 0) {
 					k = k.slice(1);
 				}
-				summary.push(getMessage('messages-cat_keychange', toAdd, k));
+				summary[summary.length] = getMessage('messages-cat_keychange', toAdd, k);
 			} else {
-				summary.push(getMessage('messages-cat_added', toAdd));
+				summary[summary.length] = getMessage('messages-cat_added', toAdd);
 			}
 			if (HC.uncat_regexp && !is_hidden) {
 				const txt = wikitext.replace(HC.uncat_regexp, ''); // Remove "uncat" templates
 				if (txt.length !== wikitext.length) {
 					wikitext = txt;
-					summary.push(getMessage('messages-uncat_removed'));
+					summary[summary.length] = getMessage('messages-uncat_removed');
 				}
 			}
 		}
@@ -767,12 +768,12 @@ hotCatMessages();
 				if (!result.error) {
 					changes++;
 					if (!edit.originalCategory || edit.originalCategory.length === 0) {
-						added.push(edit.currentCategory);
+						added[added.length] = edit.currentCategory;
 					} else {
-						changed.push({
+						changed[changed.length] = {
 							from: edit.originalCategory,
 							to: edit.currentCategory,
-						});
+						};
 					}
 				} else if (error === null) {
 					({error} = result);
@@ -781,7 +782,7 @@ hotCatMessages();
 				result = change_category(result.text, edit.originalCategory, null, null, false);
 				if (!result.error) {
 					changes++;
-					deleted.push(edit.originalCategory);
+					deleted[deleted.length] = edit.originalCategory;
 				} else if (error === null) {
 					({error} = result);
 				}
@@ -820,49 +821,48 @@ hotCatMessages();
 				const shortSummary = [];
 				// Deleted
 				for (i = 0; i < deleted.length; i++) {
-					summary.push(`−${getMessage('messages-short_catchange', deleted[i])}`);
+					summary[summary.length] = `−${getMessage('messages-short_catchange', deleted[i])}`;
 				}
 				if (deleted.length === 1) {
-					shortSummary.push(`−${getMessage('messages-short_catchange', deleted[0])}`);
+					shortSummary[shortSummary.length] = `−${getMessage('messages-short_catchange', deleted[0])}`;
 				} else if (deleted.length > 0) {
-					shortSummary.push(`− ${multiChangeMsg(deleted.length)}`);
+					shortSummary[shortSummary.length] = `− ${multiChangeMsg(deleted.length)}`;
 				}
 				// Added
 				for (i = 0; i < added.length; i++) {
-					summary.push(`+${getMessage('messages-short_catchange', added[i])}`);
+					summary[summary.length] = `+${getMessage('messages-short_catchange', added[i])}`;
 				}
 				if (added.length === 1) {
-					shortSummary.push(`+${getMessage('messages-short_catchange', added[0])}`);
+					shortSummary[shortSummary.length] = `+${getMessage('messages-short_catchange', added[0])}`;
 				} else if (added.length > 0) {
-					shortSummary.push(`+ ${multiChangeMsg(added.length)}`);
+					shortSummary[shortSummary.length] = `+ ${multiChangeMsg(added.length)}`;
 				}
 				// Changed
 				const arrow = is_rtl ? '\u2190' : '\u2192'; // left and right arrows. Don't use ← and → in the code.
 				for (i = 0; i < changed.length; i++) {
 					if (changed[i].from === changed[i].to) {
-						summary.push(`±${getMessage('messages-short_catchange', changed[i].from)}`);
+						summary[summary.length] = `±${getMessage('messages-short_catchange', changed[i].from)}`;
 					} else {
-						summary.push(
+						summary[summary.length] =
 							`±${getMessage('messages-short_catchange', changed[i].from)}${arrow}${getMessage(
 								'messages-short_catchange',
 								changed[i].to
-							)}`
-						);
+							)}`;
 					}
 				}
 				if (changed.length === 1) {
 					if (changed[0].from === changed[0].to) {
-						shortSummary.push(`±${getMessage('messages-short_catchange', changed[0].from)}`);
+						shortSummary[shortSummary.length] =
+							`±${getMessage('messages-short_catchange', changed[0].from)}`;
 					} else {
-						shortSummary.push(
+						shortSummary[shortSummary.length] =
 							`±${getMessage('messages-short_catchange', changed[0].from)}${arrow}${getMessage(
 								'messages-short_catchange',
 								changed[0].to
-							)}`
-						);
+							)}`;
 					}
 				} else if (changed.length > 0) {
-					shortSummary.push(`± ${multiChangeMsg(changed.length)}`);
+					shortSummary[shortSummary.length] = `± ${multiChangeMsg(changed.length)}`;
 				}
 				if (summary.length > 0) {
 					summary = summary.join(getMessage('messages-separator'));
@@ -947,7 +947,7 @@ hotCatMessages();
 				match = match.slice(Math.max(0, match.indexOf(':') + 1));
 				// Exclude blacklisted categories.
 				if (!HC.blacklist || !HC.blacklist.test(match)) {
-					titles.push(match);
+					titles[titles.length] = match;
 				}
 			}
 		}
@@ -1002,7 +1002,7 @@ hotCatMessages();
 			let v = toResolve[i].dabInput;
 			v = replaceShortcuts(v, HC.shortcuts);
 			toResolve[i].dabInputCleaned = v;
-			titles.push(`Category:${v}`);
+			titles[titles.length] = `Category:${v}`;
 		}
 		params.titles = titles.join('|');
 		api.get(params)
@@ -1075,7 +1075,7 @@ hotCatMessages();
 		const toResolve = [];
 		for (const editor of editors) {
 			if (editor.state === CHANGE_PENDING || editor.state === OPEN) {
-				toResolve.push(editor);
+				toResolve[toResolve.length] = editor;
 			}
 		}
 		if (toResolve.length === 0) {
@@ -2104,10 +2104,7 @@ hotCatMessages();
 			$.getJSON(url, (json) => {
 				const titles = e.handler(json, z);
 				if (titles && titles.length > 0) {
-					cb.allTitles =
-						cb.allTitles === null
-							? titles
-							: [...cb.allTitles, ...(Array.isArray(titles) ? titles : [titles])];
+					cb.allTitles = cb.allTitles === null ? titles : [...cb.allTitles, ...generateArray(titles)];
 					if (titles.exists) {
 						cb.exists = true;
 					}
@@ -2791,7 +2788,7 @@ hotCatMessages();
 					for (const item of lArr) {
 						const ind = sArr.indexOf(item);
 						if (ind === -1) {
-							result.push(item);
+							result[result.length] = item;
 						} else {
 							sArr.splice(ind, 1); // don't check this item again
 						}
@@ -2985,7 +2982,8 @@ hotCatMessages();
 					closeForm();
 					// Copy the categories
 					const eb =
-						document.querySelector('input[name=wpUploadDescription]') || document.querySelector('#wpDesc');
+						document.querySelector('textarea[name=wpUploadDescription]') ||
+						document.querySelector('#wpDesc');
 					let addedOne = false;
 					for (const editor of editors) {
 						const t = editor.currentCategory;
@@ -3236,11 +3234,11 @@ hotCatMessages();
 				if (before && i + 1 < cats.length) {
 					parent.insertBefore(make(' | ', true), before);
 				}
-				newSpans.push({
+				newSpans[newSpans.length] = {
 					element: span,
 					title: cat,
 					key,
-				});
+				};
 			}
 			// And change the last one...
 			if (before) {
@@ -3320,9 +3318,6 @@ hotCatMessages();
 		// run user-registered code once HotCat is fully set up and ready.
 		mw.hook('hotcat.ready').add(callback);
 	};
-	// Make sure we don't get conflicts with AjaxCategories (core development that should one day
-	// replace HotCat).
-	mw.config.set('disableAJAXCategories', true);
 	// Run as soon as possible. This varies depending on MediaWiki version;
 	// window's 'load' event is always safe, but usually we can do better than that.
 	if (conf.wgCanonicalSpecialPageName !== 'Upload') {
