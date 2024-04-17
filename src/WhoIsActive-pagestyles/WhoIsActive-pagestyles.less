@@ -1,21 +1,19 @@
 @import (reference) '../variables.less';
 
 .gadget-whoisactive {
-	&__span {
-		display: inline-block;
-		padding: 0 0.5em !important;
-		border: 1px solid #ddd;
-		margin: 0 0.25em;
-		white-space: nowrap;
-		border-radius: @border-radius--small;
-		font-size: 0.7em;
+	display: inline-block;
+	margin: 0 0.25em !important;
+	padding: 0 0.5em !important;
+	border: 1px solid @const-color-gray;
+	white-space: nowrap;
+	border-radius: @border-radius--small;
+	font-size: 0.9em;
 
-		.mw-footer & {
-			margin-bottom: 0.25em !important;
+	.mw-footer & {
+		margin-bottom: 0.25em !important;
 
-			.ve-activated & {
-				display: none;
-			}
+		.ve-activated & {
+			display: none;
 		}
 	}
 
@@ -32,6 +30,16 @@
 	&__ThisYear {
 		border-color: @color--warning;
 		color: @color--warning !important;
+	}
+
+	&__ThisSeason {
+		border-color: @color--purple;
+		color: @color--purple !important;
+	}
+
+	&__ThisSemiyear {
+		border-color: @color--orange;
+		color: @color--orange !important;
 	}
 
 	&__OverAYear {
@@ -59,6 +67,14 @@
 
 		&__ThisMonth::before {
 			background-image: data-uri('./images/userContributions-blue.svg');
+		}
+
+		&__ThisSeason::before {
+			background-image: data-uri('./images/userContributions-purple.svg');
+		}
+
+		&__ThisSemiyear::before {
+			background-image: data-uri('./images/userContributions-orange.svg');
 		}
 
 		&__ThisYear::before {
