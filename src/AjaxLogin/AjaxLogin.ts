@@ -1,12 +1,13 @@
 import * as OPTIONS from './options.json';
 import {checkA11yConfirmKey, getBody} from 'ext.gadget.Util';
-import {WG_USER_NAME} from './modules/constant';
 import {addListener} from './modules/addListener';
 import {ajaxLogin} from './modules/core';
 import {windowManager} from './modules/initWindowManager';
 
 void getBody().then(function initAutoLogin($body: JQuery<HTMLBodyElement>): void {
-	if (WG_USER_NAME) {
+	const {wgUserName} = mw.config.get();
+
+	if (wgUserName) {
 		return;
 	}
 

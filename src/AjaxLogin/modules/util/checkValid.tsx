@@ -13,7 +13,7 @@ const checkValid = async (
 	toastifyInstance: ToastifyInstance;
 }> => {
 	let isAgreeTos: boolean = agreeTosCheckbox.isSelected();
-	const isFill: boolean = ![nameInput.getValue(), pwdInput.getValue()].includes('');
+	const isFill: boolean = ![nameInput.getValue().trim(), pwdInput.getValue().trim()].includes('');
 
 	toastifyInstance.hideToast();
 	await windowManager.clearWindows();

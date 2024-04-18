@@ -6,13 +6,12 @@ interface Props {
 }
 
 const AgreeButton = ({onClick}: Props) => (
-	<span
-		className={['mw-ui-button', 'mw-ui-progressive', 'cdx-button', 'cdx-button--action-progressive']}
-		role="button"
+	<button
+		className={['cdx-button', 'cdx-button--action-progressive', 'cdx-button--weight-primary']}
 		onClick={onClick}
 	>
 		{getMessage('Agree')}
-	</span>
+	</button>
 );
 
 export default AgreeButton;

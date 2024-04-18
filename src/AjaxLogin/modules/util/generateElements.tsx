@@ -35,10 +35,7 @@ const generateElements = (isAgreeTos: boolean) => {
 	const label = (
 		<label
 			className={['oo-ui-labelWidget', 'oo-ui-labelElement-label']}
-			style={{
-				fontSize: '90%',
-				textAlign: 'justify',
-			}}
+			style={{fontSize: '90%', textAlign: 'justify'}}
 		/>
 	);
 	const $label = $(label) as JQuery;

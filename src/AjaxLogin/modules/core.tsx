@@ -190,7 +190,7 @@ const ajaxLogin = (toastifyInstance: ToastifyInstance, isAgreeTos: boolean = fal
 						void redirectOriginLoginPage();
 				}
 			}
-		} catch (error: unknown) {
+		} catch (error) {
 			showError(error, toastifyInstance);
 			void redirectOriginLoginPage();
 		}

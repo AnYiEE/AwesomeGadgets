@@ -1,6 +1,6 @@
 import {windowManager} from '../initWindowManager';
 
-const oouiConfirm = async (options: OO.ui.MessageDialog.SetupDataMap) => {
+const oouiConfirm = async (options: OO.ui.MessageDialog.SetupDataMap): Promise<boolean> => {
 	const messageDialog: OO.ui.MessageDialog = new OO.ui.MessageDialog();
 	windowManager.addWindows([messageDialog]);
 
