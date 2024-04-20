@@ -5,7 +5,7 @@
  * @base {@link https://meta.wikimedia.org/wiki/User:Xiplus/js/list-user-last-active.js}
  * @base {@link https://zh.wikipedia.org/w/index.php?title=MediaWiki:Gadget-CommentsinLocalTime.js&oldid=48314651}
  * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/ListUsersLastActive}
- * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
  */
 /**
  * +------------------------------------------------------------+

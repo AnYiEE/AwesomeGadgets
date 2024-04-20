@@ -6,7 +6,7 @@
  *
  * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/Wikiplus/module/core.js}
  * @author Eridanus Sora (妹空酱)
- * @license CC-BY-SA-4.0 {@link https://www.qiuwenbaike.cn/wiki/H:CC-BY-SA-4.0}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
  */
 
 /**
