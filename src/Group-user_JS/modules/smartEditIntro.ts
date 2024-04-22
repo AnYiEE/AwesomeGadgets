@@ -30,7 +30,7 @@ const smartEditIntro = ($body: JQuery<HTMLBodyElement>): void => {
 			}
 			break;
 		case 4:
-			if (wgCategories.includes('求闻百科方针完整列表')) {
+			if (wgCategories.includes('有兽档案馆条例完整列表')) {
 				addEditIntro('Template:Policy_editintro');
 			}
 			break;
