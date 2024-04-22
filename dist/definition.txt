@@ -142,5 +142,7 @@
 * WhoIsActive-pagestyles[ResourceLoader|hidden|requiresES6]|WhoIsActive-pagestyles.css
 
 == usergroup ==
+* Group-importer[ResourceLoader|default|hidden|rights=import|requiresES6]|Group-importer.css
+* Group-importer_JS[ResourceLoader|default|dependencies=oojs-ui-windows|hidden|peers=Group-importer|rights=import|requiresES6]|Group-importer_JS.js
 * Group-steward[ResourceLoader|default|hidden|rights=officialprotected|requiresES6]|Group-steward.css
 * Group-user_JS[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Util,mediawiki.util,user.options|hidden|peers=Group-user|rights=edit|requiresES6]|Group-user_JS.js
