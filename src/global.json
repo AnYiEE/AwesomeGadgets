@@ -34,7 +34,7 @@
 		},
 		"Group-steward.js": {
 			"enable": true,
-			"sourceCode": "mw.loader.using(['ext.gadget.Group-steward]);"
+			"sourceCode": "mw.loader.using(['ext.gadget.Group-steward']);"
 		},
 		"Group-sysop.js": {
 			"enable": true,
