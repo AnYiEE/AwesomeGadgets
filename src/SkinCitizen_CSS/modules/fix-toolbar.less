@@ -1,7 +1,14 @@
 /* 修复 toolbar */
-#contentSub .subpages,
-#contentSub .mw-contributions-user-tools {
+.toolbar-fix() {
 	border-radius: 10px;
 	background: rgba(240, 248, 255, 65%);
 	padding: 5px;
+}
+
+#contentSub {
+	.subpages,
+	.mw-history-subtitle,
+	.mw-contributions-user-tools {
+		.toolbar-fix();
+	}
 }

@@ -1513,6 +1513,7 @@
 		"MediaWiki:Group-importer.js",
 		"MediaWiki:Group-interface-admin.js",
 		"MediaWiki:Group-massmessage-sender.js",
+		"MediaWiki:Group-steward.js",
 		"MediaWiki:Group-sysop.js",
 		"MediaWiki:Group-templateeditor.js",
 		"MediaWiki:Group-user.js",
