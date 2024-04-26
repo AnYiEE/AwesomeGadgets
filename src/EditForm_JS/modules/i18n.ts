@@ -2,12 +2,6 @@ import {localize} from 'ext.gadget.i18n';
 
 const getI18nMessages = () => {
 	return {
-		AiAssisted: localize({
-			en: 'This edited content was assisted by artificial intelligence',
-			ja: 'この編集内容は人工知能による支援を受けています',
-			'zh-hans': '此编辑由人工智能（AI）辅助',
-			'zh-hant': '此編輯由人工智能（AI）輔助',
-		}),
 		Preview: localize({
 			en: 'Please preview the edited text',
 			ja: 'プレビューしてください',

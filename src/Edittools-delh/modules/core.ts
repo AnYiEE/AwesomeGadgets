@@ -1,7 +1,8 @@
+import {customizeToolbar} from 'ext.gadget.Edittools-customizeToolbar';
 import {getList} from './getList';
 
 const edittoolsDelh = (): void => {
-	window.customizeToolbar(function (this: JQuery): void {
+	customizeToolbar(function (this: JQuery): void {
 		const self = this as JQuery & {wikiEditor: (method: string, options: Record<string, unknown>) => void};
 
 		self.wikiEditor('addToToolbar', {

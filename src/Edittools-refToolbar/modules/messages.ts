@@ -1,12 +1,12 @@
-import {WG_USER_LANGUAGE} from './constant';
-
 const refToolbarMesages = (): void => {
-	if (WG_USER_LANGUAGE === 'en') {
+	const {wgUserLanguage} = mw.config.get();
+
+	if (wgUserLanguage === 'en') {
 		return;
 	}
 	// All user-facing messages
 	// TODO: Document usage
-	if (['zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'].includes(WG_USER_LANGUAGE)) {
+	if (['zh-hant', 'zh-hk', 'zh-mo', 'zh-tw'].includes(wgUserLanguage)) {
 		mw.messages.set({
 			'cite-section-label': '引用',
 			'cite-template-list': '模板',
@@ -15,29 +15,17 @@ const refToolbarMesages = (): void => {
 			'cite-named-refs-button': '已命名參考文獻',
 			'cite-named-refs-dropdown': '同名文獻',
 			// Used on the top of the named refs list dropsown
-			'cite-errorcheck-label': '錯誤檢查',
-			'cite-errorcheck-button': '檢查錯誤',
 			'cite-dialog-base': '引用',
 			'cite-form-submit': '插入',
 			'cite-form-showhide': '顯示/隱藏額外區域',
 			'cite-no-namedrefs': '在本頁找不到任何同名文獻',
 			'cite-namedrefs-intro': '從列出的參考文獻目錄中選擇一個名字。點擊「插入」插入一個參考文獻到文本中。',
-			'cite-raw-preview': 'Wikitext:',
-			'cite-parsed-label': '解析後的wikitext:',
+			'cite-raw-preview': '原始碼：',
+			'cite-parsed-label': '解析後的原始碼：',
 			'cite-form-parse': '顯示解析後的預覽',
 			'cite-refpreview': '預覽',
 			'cite-name-label': 'ref名',
 			'cite-group-label': 'ref組',
-			'cite-errorcheck-submit': '檢查',
-			'cite-errorcheck-heading': '檢查下列錯誤：',
-			'cite-error-unclosed': '未關閉<tt>&lt;ref&gt;</tt>標記',
-			'cite-error-samecontent': '有相同內容的參考文獻',
-			'cite-error-templates': `參考文獻未使用<a href="${mw.util.getUrl('Category:引用模板')}">引用模板</a>`,
-			'cite-error-repeated': '多個參考文獻有相同名稱',
-			'cite-error-undef': '有未定義的同名參考文獻在使用',
-			'cite-error-samecontent-msg': '多個文獻含有相同內容: $1',
-			'cite-error-repeated-msg': '給多個參考文獻命名: 「$1」',
-			'cite-error-templates-msg': '沒有使用模板: $1',
 			'cite-form-reset': '重設表單',
 			'cite-loading': '載入數據',
 			// Shown while pagetext is being downloaded from the API
@@ -146,29 +134,17 @@ const refToolbarMesages = (): void => {
 			'cite-named-refs-button': '已命名参考文献',
 			'cite-named-refs-dropdown': '同名文献',
 			// Used on the top of the named refs list dropsown
-			'cite-errorcheck-label': '错误检查',
-			'cite-errorcheck-button': '检查错误',
 			'cite-dialog-base': '引用',
 			'cite-form-submit': '插入',
 			'cite-form-showhide': '显示/隐藏额外区域',
 			'cite-no-namedrefs': '在本页找不到任何同名文献',
 			'cite-namedrefs-intro': '从列出的参考文献目录中选择一个名字。点击“插入”插入一个参考文献到文本中。',
-			'cite-raw-preview': 'Wikitext:',
-			'cite-parsed-label': '解析后的wikitext:',
+			'cite-raw-preview': '源代码：',
+			'cite-parsed-label': '解析后的源代码：',
 			'cite-form-parse': '显示解析后的预览',
 			'cite-refpreview': '预览',
 			'cite-name-label': 'ref名',
 			'cite-group-label': 'ref组',
-			'cite-errorcheck-submit': '检查',
-			'cite-errorcheck-heading': '检查下列错误：',
-			'cite-error-unclosed': '未关闭<tt>&lt;ref&gt;</tt>标记',
-			'cite-error-samecontent': '有相同内容的参考文献',
-			'cite-error-templates': `参考文献未使用<a href="${mw.util.getUrl('Category:引用模板')}">引用模板</a>`,
-			'cite-error-repeated': '多个参考文献有相同名称',
-			'cite-error-undef': '有未定义的同名参考文献在使用',
-			'cite-error-samecontent-msg': '多个文献含有相同内容: $1',
-			'cite-error-repeated-msg': '给多个参考文献命名: “$1”',
-			'cite-error-templates-msg': '没有使用模板: $1',
 			'cite-form-reset': '重设表单',
 			'cite-loading': '载入数据',
 			// Shown while pagetext is being downloaded from the API

@@ -15,7 +15,7 @@ const getOptionData = (): OptionData[] => {
 		},
 		{
 			site: getMessage('Baidu'),
-			url: `https://www.baidu.com/s?wd=site%3A${OPTIONS.siteDomain}%20$1`,
+			url: `https://www.baidu.com/s?wd=site%3A${OPTIONS.siteDomain}+$1`,
 		},
 		{
 			site: getMessage('Bing'),

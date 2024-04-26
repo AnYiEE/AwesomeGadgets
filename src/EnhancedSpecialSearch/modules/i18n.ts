@@ -2,6 +2,11 @@ import {localize} from 'ext.gadget.i18n';
 
 const getI18nMessages = () => {
 	return {
+		'Search engine': localize({
+			en: 'Search engine',
+			ja: '検索エンジン',
+			zh: '搜索引擎',
+		}),
 		Baidu: localize({
 			en: 'Baidu',
 			ja: 'Baidu',

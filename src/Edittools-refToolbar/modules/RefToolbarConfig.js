@@ -31,7 +31,7 @@
  * This may slow loading the named refs and error check dialogs.
  */
 const refToolbarConfig = () => {
-	const {CiteTemplate, CiteErrorCheck} = window;
+	const {CiteTemplate} = window;
 
 	CiteTB.Options = {
 		'date format': '<year>-<zmonth>-<zdate>',
@@ -696,94 +696,6 @@ const refToolbarConfig = () => {
 			},
 		]
 	);
-
-	// Cite error check definitions
-	new CiteErrorCheck({
-		type: 'reflist',
-		testname: 'samecontent',
-		desc: 'cite-samecontent-desc',
-		func: (reflist) => {
-			const errors = [];
-			const refs2 = [];
-			for (const element of reflist) {
-				if (element.shorttag) {
-					continue;
-				}
-				if (refs2.includes(element.content)) {
-					if (errors.includes(element.content)) {
-						continue;
-					}
-					errors.push(element.content);
-				} else {
-					refs2.push(element.content);
-				}
-			}
-			const ret = [];
-			for (const error of errors) {
-				ret.push({
-					msg: 'cite-samecontent-error',
-					err: error,
-				});
-			}
-			return ret;
-		},
-	});
-	new CiteErrorCheck({
-		type: 'reflist',
-		testname: 'repeated',
-		desc: 'cite-repeated-desc',
-		func: (reflist) => {
-			const errors = [];
-			const refs2 = [];
-			for (const element of reflist) {
-				if (element.shorttag || !element.refname) {
-					continue;
-				}
-				if (refs2.includes(element.refname)) {
-					if (errors.includes(element.refname)) {
-						continue;
-					}
-					errors.push(element.refname);
-				} else {
-					refs2.push(element.refname);
-				}
-			}
-			const ret = [];
-			for (const error of errors) {
-				ret.push({
-					msg: 'cite-repeated-error',
-					err: error,
-				});
-			}
-			return ret;
-		},
-	});
-	new CiteErrorCheck({
-		type: 'reflist',
-		testname: 'undefined',
-		desc: 'cite-undefined-desc',
-		func: (reflist) => {
-			const errors = [];
-			const longrefs = [];
-			for (const value of Object.values(reflist)) {
-				const {refname, shorttag} = value;
-				if (!shorttag && refname) {
-					longrefs.push(value.refname);
-				}
-				if (shorttag && errors.includes(refname) === -1 && !longrefs.includes(refname)) {
-					errors.push(refname);
-				}
-			}
-			const ret = [];
-			for (const error of errors) {
-				ret.push({
-					msg: 'cite-undefined-error',
-					err: error,
-				});
-			}
-			return ret;
-		},
-	});
 
 	// execute main function
 	CiteTB.init();

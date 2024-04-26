@@ -1,15 +1,12 @@
 /* global CiteTB */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import {getBody, initMwApi} from 'ext.gadget.Util';
+import {api} from './util/api';
 import {getMessage} from './util/getMessage';
 import {refToolbarConfig} from './RefToolbarConfig';
 
 // TODO: make autodate an option in the CiteTemplate object, not a preference
-const refToolbar2 = async () => {
-	const $body = await getBody();
-	const api = initMwApi('RefToolbar/2.0');
-
+const refToolbar2 = ($body) => {
 	// Default options, these mainly exist so the script won't break if a new option is added
 	CiteTB.DefaultOptions = {
 		'date format': '<year>-<zmonth>-<zdate>',
@@ -37,12 +34,11 @@ const refToolbar2 = async () => {
 		 * - A section for cites
 		 * -- dropdown for the templates (previously defined)
 		 * -- button for named refs with a dialog box
-		 * -- button for errorcheck
 		 * 3. add the whole thing to the main toolbar
 		 */
 
 		$(document).find('head').trigger('reftoolbarbase');
-		const $target = $body.find('input[name=wpTextbox1]');
+		const $target = $body.find('textarea[name=wpTextbox1]');
 		const temlist = {};
 		for (const t in CiteTB.Templates) {
 			if (Object.hasOwn(CiteTB.Templates, t)) {
@@ -55,7 +51,8 @@ const refToolbar2 = async () => {
 				const dialogobj = {};
 				dialogobj[`cite-dialog-${sform}`] = {
 					resizeme: false,
-					titleMsg: `cite-dialog-${sform}`,
+					// eslint-disable-next-line mediawiki/msg-doc
+					title: mw.message(`cite-dialog-${sform}`).parse(),
 					id: `citetoolbar-${sform}`,
 					init: () => {},
 					html: tem.getInitial(),
@@ -114,7 +111,7 @@ const refToolbar2 = async () => {
 					/* TypeError: range is null */
 				}
 				// if (!CiteTB.getOption('modal')) {
-				//     $body.find('#citetoolbar-'+sform).dialog('option', 'modal', false);
+				// 	$body.find(`#citetoolbar-${sform}`).dialog('option', 'modal', false);
 				// }
 				temlist[sform] = {
 					label: tem.templatename,
@@ -127,19 +124,19 @@ const refToolbar2 = async () => {
 			sections: {
 				cites: {
 					type: 'toolbar',
-					label: mw.msg('cite-section-label'),
+					label: getMessage('cite-section-label'),
 					groups: {
 						template: {
 							tools: {
 								template: {
 									type: 'select',
-									label: mw.msg('cite-template-list'),
+									label: getMessage('cite-template-list'),
 									list: temlist,
 								},
 							},
 						},
 						namedrefs: {
-							label: mw.msg('cite-named-refs-label'),
+							label: getMessage('cite-named-refs-label'),
 							tools: {
 								nrefs: {
 									type: 'button',
@@ -147,26 +144,10 @@ const refToolbar2 = async () => {
 										type: 'dialog',
 										module: 'cite-toolbar-namedrefs',
 									},
-									icon: 'https://youshou.wiki/images/thumb/b/be/Nuvola_clipboard_lined.svg/24px-Nuvola_clipboard_lined.svg.png',
+									icon: 'https://youshou.wiki/images/thumb/b/be/Nuvola_clipboard_lined.svg/22px-Nuvola_clipboard_lined.svg.png',
 									section: 'cites',
 									group: 'namedrefs',
-									label: mw.msg('cite-named-refs-button'),
-								},
-							},
-						},
-						errorcheck: {
-							label: mw.msg('cite-errorcheck-label'),
-							tools: {
-								echeck: {
-									type: 'button',
-									action: {
-										type: 'dialog',
-										module: 'cite-toolbar-errorcheck',
-									},
-									icon: 'https://youshou.wiki/images/a/a3/Nuvola_apps_korganizer-NO.png',
-									section: 'cites',
-									group: 'errorcheck',
-									label: mw.msg('cite-errorcheck-button'),
+									label: getMessage('cite-named-refs-button'),
 								},
 							},
 						},
@@ -176,40 +157,11 @@ const refToolbar2 = async () => {
 		};
 
 		const defaultdialogs = {
-			'cite-toolbar-errorcheck': {
-				titleMsg: 'cite-errorcheck-label',
-				id: 'citetoolbar-errorcheck',
-				resizeme: false,
-				init: () => {},
-				html: `<div id="cite-namedref-loading"><img src="https://youshou.wiki/images/d/de/Ajax-loader.gif" />&nbsp;${getMessage(
-					'cite-loading'
-				)}</div>`,
-				dialog: {
-					width: Math.round($(window).width() ?? 0 * 0.8),
-					open() {
-						CiteTB.loadRefs();
-					},
-					buttons: {
-						'cite-errorcheck-submit'() {
-							const errorchecks = $body.find('input[name=cite-err-test]:checked');
-							let errors = [];
-							for (const errorcheck of errorchecks) {
-								errors = [...errors, ...CiteTB.ErrorChecks[$(errorcheck).val()].run()];
-							}
-							CiteTB.displayErrors(errors);
-							$(this).dialog('close');
-						},
-						'wikieditor-toolbar-tool-link-cancel'() {
-							$(this).dialog('close');
-						},
-					},
-				},
-			},
 			'cite-toolbar-namedrefs': {
-				titleMsg: 'cite-named-refs-title',
+				title: mw.message('cite-named-refs-title').parse(),
 				resizeme: false,
 				id: 'citetoolbar-namedrefs',
-				html: `<div id="cite-namedref-loading"> <img src="https://youshou.wiki/images/d/de/Ajax-loader.gif" /> &nbsp;${getMessage(
+				html: `<div id="cite-namedref-loading"> <img src="https://youshou.wiki/images/b/b1/Loading_icon.gif" /> &nbsp;${getMessage(
 					'cite-loading'
 				)}</div>`,
 				init: () => {},
@@ -252,7 +204,6 @@ const refToolbar2 = async () => {
 		$body.find('#citetoolbar-namedrefs').off('dialogopen');
 		if (!CiteTB.getOption('modal')) {
 			// $body.find('#citetoolbar-namedrefs').dialog('option', 'modal', false);
-			// $body.find('#citetoolbar-errorcheck').dialog('option', 'modal', false);
 			mw.util.addCSS('.ui-widget-overlay{display:none !important}');
 		}
 		try {
@@ -407,7 +358,6 @@ const refToolbar2 = async () => {
 			CiteTB.mainRefList.push(refobj);
 		}
 		CiteTB.refsLoaded = true;
-		CiteTB.setupErrorCheck();
 		CiteTB.setupNamedRefs();
 	};
 
@@ -448,16 +398,20 @@ const refToolbar2 = async () => {
 		const section = $body.find('input[name=wpSection]').val();
 		if (section === '') {
 			if (CiteTB.getOption('expandtemplates')) {
-				CiteTB.expandtemplates($body.find('input[name=wpTextbox1]').wikiEditor('getContents').text(), callback);
+				CiteTB.expandtemplates(
+					$body.find('textarea[name=wpTextbox1]').wikiEditor('getContents').text(),
+					callback
+				);
 			} else {
-				callback($body.find('input[name=wpTextbox1]').wikiEditor('getContents').text());
+				callback($body.find('textarea[name=wpTextbox1]').wikiEditor('getContents').text());
 			}
 		} else {
+			const {wgArticleId} = mw.config.get();
 			const postdata = {
 				action: 'query',
 				prop: 'revisions',
 				rvprop: 'content',
-				pageids: mw.config.get('wgArticleId'),
+				pageids: wgArticleId,
 				format: 'json',
 				formatversion: '2',
 			};
@@ -494,7 +448,7 @@ const refToolbar2 = async () => {
 		if (!id) {
 			return false;
 		}
-		let url = '//citoid.qiuwen.net.cn/lookup.php?';
+		let url = 'https://citoid.qiuwen.net.cn/lookup.php?';
 		// Citoid expects minimally encoded input, so do some speculative decoding here to avoid
 		// 404 fetches. https://phabricator.wikimedia.org/T146539
 		id = CiteTB.safeDecodeURIComponent(id);
@@ -789,21 +743,6 @@ const refToolbar2 = async () => {
 		}
 	};
 
-	// Function to get the errorcheck form HTML
-	CiteTB.setupErrorCheck = () => {
-		const form = $('<div>').attr('id', 'cite-errorcheck-heading').html(getMessage('cite-errorcheck-heading'));
-		const ul = $('<ul>').attr('id', 'cite-errcheck-list');
-		let test;
-		for (const t in CiteTB.ErrorChecks) {
-			if (Object.hasOwn(CiteTB.ErrorChecks, t)) {
-				test = CiteTB.ErrorChecks[t];
-				ul.append(test.getRow());
-			}
-		}
-		form.append(ul);
-		$body.find('#citetoolbar-errorcheck').html(form.html());
-	};
-
 	// Callback function for parsed preview
 	CiteTB.fillNrefPreview = (parsed) => {
 		$body.find('#cite-parsed-label').show();
@@ -819,9 +758,9 @@ const refToolbar2 = async () => {
 			return false;
 		}
 		$body.find('#cite-nref-parse').hide();
-		for (let i = 0; i < CiteTB.mainRefList.length; i++) {
-			if (!CiteTB.mainRefList[i].shorttag && CiteTB.mainRefList[i].refname === choice) {
-				CiteTB.parse(CiteTB.mainRefList[i].content, CiteTB.fillNrefPreview);
+		for (const ref of CiteTB.mainRefList) {
+			if (!ref.shorttag && ref.refname === choice) {
+				CiteTB.parse(ref.content, CiteTB.fillNrefPreview);
 				return false;
 			}
 		}
@@ -843,10 +782,10 @@ const refToolbar2 = async () => {
 			$body.find('#cite-nref-parse').hide();
 			return;
 		}
-		for (let i = 0; i < CiteTB.mainRefList.length; i++) {
-			if (!CiteTB.mainRefList[i].shorttag && CiteTB.mainRefList[i].refname === choice) {
+		for (const ref of CiteTB.mainRefList) {
+			if (!ref.shorttag && ref.refname === choice) {
 				$body.find('#cite-nref-preview-label').show();
-				$body.find('#cite-namedref-preview').text(CiteTB.mainRefList[i].content);
+				$body.find('#cite-namedref-preview').text(ref.content);
 				if (CiteTB.getOption('autoparse')) {
 					CiteTB.nrefParseClick();
 				} else {
@@ -956,7 +895,7 @@ const refToolbar2 = async () => {
 		const tr1 = $('<tr>').css('width', '100%');
 		const th1 = $('<th>').css('width', '60%').css('font-size', '110%').html(getMessage('cite-err-report-heading'));
 		const th2 = $('<th>').css('width', '40%').css('text-align', 'right;');
-		const im = $('<img>').attr('src', 'https://youshou.wiki/images/5/55/Gtk-stop.svg');
+		const im = $('<img>').attr('src', 'https://youshou.wiki/images/thumb/5/55/Gtk-stop.svg/20px-Gtk-stop.svg.png');
 		im.attr('alt', getMessage('cite-err-report-close')).attr('title', getMessage('cite-err-report-close'));
 		const ad = $('<a>').attr({
 			id: 'cite-err-check-close',

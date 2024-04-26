@@ -9,7 +9,6 @@ const refToolbarBase = () => {
 		Options: {}, // Global options
 		UserOptions: {}, // User options
 		DefaultOptions: {}, // Script defaults
-		ErrorChecks: {}, // Error check functions
 	};
 
 	// Class for cite templates
@@ -67,7 +66,10 @@ const refToolbarBase = () => {
 				}
 				const autodateFields = CiteTB.getOption('autodate fields');
 				if (autodateFields.includes(field)) {
-					im = $('<img>').attr('src', 'https://youshou.wiki/images/7/7b/Nuvola_apps_date.svg');
+					im = $('<img>').attr(
+						'src',
+						'https://youshou.wiki/images/thumb/7/7b/Nuvola_apps_date.svg/20px-Nuvola_apps_date.svg.png'
+					);
 					im.attr('alt', getMessage('cite-insert-date')).attr('title', getMessage('cite-insert-date'));
 					ad = $('<a>').attr('href', '#');
 					ad.append(im);
@@ -80,7 +82,10 @@ const refToolbarBase = () => {
 				}
 				if (fieldobj.autofillid) {
 					const autotype = fieldobj.autofillid;
-					im = $('<img>').attr('src', 'https://youshou.wiki/images/1/17/System-search.svg');
+					im = $('<img>').attr(
+						'src',
+						'https://youshou.wiki/images/thumb/1/17/System-search.svg/20px-System-search.svg.png'
+					);
 					im.attr('alt', getMessage('cite-autofill-alt')).attr('title', getMessage('cite-autofill-alt'));
 					ad = $('<a>').attr('href', '#');
 					ad.append(im);
@@ -89,7 +94,10 @@ const refToolbarBase = () => {
 				}
 				if (fieldobj.increment_button) {
 					const incrtype = fieldobj.increment_group;
-					im = $('<img>').attr('src', 'https://youshou.wiki/images/b/b9/Nuvola_action_edit_add.svg');
+					im = $('<img>').attr(
+						'src',
+						'https://youshou.wiki/images/thumb/b/b9/Nuvola_action_edit_add.svg/20px-Nuvola_action_edit_add.svg.png'
+					);
 					im.attr('alt', getMessage('cite-increment-alt')).attr('title', getMessage('cite-increment-alt'));
 					ad = $('<a>').attr('href', '#');
 					ad.append(im);
@@ -265,67 +273,6 @@ const refToolbarBase = () => {
 			extras.append(link);
 			main.append(extras);
 			return main;
-		}
-	};
-	/**
-	 * Class for error checks
-	 * FIXME: DOCS OUT OF DATE
-	 * type - type of error check - current options:
-	 * * 'refcheck' - apply a function on each ref individually
-	 * - function should accept a ref object, return a string
-	 * * 'reflist' - apply a function on the entire ref list
-	 * - function should accept an array of ref objects, return an array of strings
-	 * * 'search' - apply a function ro the page text
-	 * - function should accept the page text as a string, return an array of strings
-	 * The strings returned by the function should be valid HTML
-	 * function - The function described above testname - Name of the error check, must not contain spaces
-	 * desc - A short description of the test
-	 *
-	 * @param {unknown} obj
-	 */
-	window.CiteErrorCheck = class CiteErrorCheck {
-		constructor(obj) {
-			this.obj = obj;
-
-			CiteTB.ErrorChecks[this.obj.testname] = this;
-		}
-		run() {
-			let errors = [];
-			switch (this.obj.type) {
-				case 'refcheck':
-					CiteTB.loadRefs();
-					for (let i = 0; i < CiteTB.mainRefList.length; i++) {
-						const e = this.obj.func(CiteTB.mainRefList[i]);
-						if (e) {
-							errors.push(e);
-						}
-					}
-					break;
-				case 'reflist':
-					CiteTB.loadRefs();
-					errors = this.obj.func(CiteTB.mainRefList);
-					break;
-				case 'search': {
-					const {func} = this.obj;
-					CiteTB.getPageText((text) => {
-						errors = func(text);
-					});
-					break;
-				}
-			}
-			return errors;
-		}
-		getRow() {
-			const row = $('<li>');
-			const check = $('<input>').attr({
-				type: 'checkbox',
-				name: 'cite-err-test',
-			});
-			check.attr('value', this.obj.testname);
-			const label = $('<label>').html(getMessage(this.obj.desc));
-			label.attr('for', this.obj.testname);
-			row.append(check).append(' &ndash; ').append(label);
-			return row;
 		}
 	};
 

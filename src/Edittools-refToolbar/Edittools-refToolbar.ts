@@ -1,5 +1,5 @@
 import './Edittools-refToolbar.less';
-import {IS_WG_EDIT_OR_SUBMIT_ACTION, WG_PAGE_CONTENT_MODEL} from './modules/constant';
+import {getBody} from 'ext.gadget.Util';
 import {refToolbar2} from './modules/RefToolbar2.0';
 import {refToolbarBase} from './modules/RefToolbarBase';
 import {refToolbarMesages} from './modules/messages';
@@ -14,15 +14,10 @@ import {refToolbarMesages} from './modules/messages';
  * @author Mr.Z-man, Kaldari
  */
 ((): void => {
-	// Guard against double inclusions
-	if (mw.config.get('wgRefToolbarInstalled')) {
-		return;
-	}
-	// Set guard
-	mw.config.set('wgRefToolbarInstalled', true);
+	const {wgAction, wgPageContentModel} = mw.config.get();
 
 	// Only execute when editing/previewing wikitext pages
-	if (!IS_WG_EDIT_OR_SUBMIT_ACTION || WG_PAGE_CONTENT_MODEL !== 'wikitext') {
+	if (!['edit', 'submit'].includes(wgAction) || wgPageContentModel !== 'wikitext') {
 		return;
 	}
 
@@ -30,7 +25,7 @@ import {refToolbarMesages} from './modules/messages';
 		return;
 	}
 
-	if (document.querySelector('input[name=wpTextbox1][readonly]')) {
+	if (document.querySelector('textarea[name=wpTextbox1][readonly]')) {
 		return;
 	}
 
@@ -38,5 +33,5 @@ import {refToolbarMesages} from './modules/messages';
 	refToolbarMesages();
 	// Load main functions
 	refToolbarBase();
-	void refToolbar2();
+	void getBody().then(refToolbar2);
 })();

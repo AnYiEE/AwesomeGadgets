@@ -15,7 +15,6 @@ declare global {
 			Options: Record<string, string | string[] | boolean>; // Global options
 			UserOptions: Record<string, never>; // User options
 			DefaultOptions: Record<string, string | string[]>; // Script defaults
-			ErrorChecks: Record<string, never>; // Error check functions
 			getOption: (opt: string) => string | string[];
 			fillNrefPreview: (parsed: string) => void;
 			nrefParseClick: () => false | void;

@@ -1,6 +1,7 @@
-import {WG_PAGE_NAME} from './modules/constant';
 import {edittoolsDelh} from './modules/core';
 
-if (/^lib(?:[_ ]talk)?:存废讨论\//i.test(WG_PAGE_NAME)) {
+const {wgPageName} = mw.config.get();
+
+if (/^有兽档案馆(?:[_ ]talk)?:存废讨论\//i.test(wgPageName)) {
 	edittoolsDelh();
 }

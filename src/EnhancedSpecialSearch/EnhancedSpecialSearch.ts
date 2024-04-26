@@ -1,9 +1,9 @@
-import {WG_CANONICAL_SPECIAL_PAGE_NAME} from './modules/constant';
 import {getBody} from 'ext.gadget.Util';
 import {processElement} from './modules/processElement';
 
 void getBody().then(function enhancedSpecialSearch($body: JQuery<HTMLBodyElement>): void {
-	if (WG_CANONICAL_SPECIAL_PAGE_NAME !== 'Search') {
+	const {wgCanonicalSpecialPageName} = mw.config.get();
+	if (wgCanonicalSpecialPageName !== 'Search') {
 		return;
 	}
 

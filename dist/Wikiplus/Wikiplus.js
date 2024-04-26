@@ -18,7 +18,7 @@
  * @base {@link https://github.com/bhsd-harry/Wikiplus-highlight/blob/main/main.js}
  * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/Wikiplus/module/highlight.js}
  * @author Bhsd <https://github.com/bhsd-harry>, 机智的小鱼君 <https://github.com/Dragon-Fish>
- * @license GPL-3.0-or-later {@link https://www.qiuwenbaike.cn/wiki/H:GPL-3.0}
+ * @license GPL-3.0-or-later {@link https://youshou.wiki/wiki/H:GPL-3.0}
  */
 
 /**

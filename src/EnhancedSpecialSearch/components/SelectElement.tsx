@@ -1,27 +1,38 @@
+import * as OPTIONS from '../options.json';
 import React from 'ext.gadget.React';
+import {getMessage} from '../modules/i18n';
 import {getOptionData} from '../modules/getOptionData';
+
+const LabelElement = () => (
+	<label
+		className="oo-ui-labelElement-label"
+		htmlFor="enhancedSpecialSearch"
+		innerText={getMessage('Search engine')}
+	/>
+);
 
 const SelectElement = () => (
 	<select
-		title="Enhanced Special Search"
 		className="oo-ui-dropdownWidget-handle"
 		id="enhancedSpecialSearch"
+		name="enhancedSpecialSearch"
 		style={{
 			width: 'auto',
 		}}
+		title={getMessage('Search engine')}
 	>
-		{getOptionData().reduce((accumulator, {site, url, origin}) => {
+		{getOptionData().map<HTMLOptionElement>(({site, url, origin}) => {
 			const optionElement: HTMLOptionElement = new Option(site, url, origin);
 
 			if (origin) {
 				optionElement.dataset['origin'] = '1';
 			}
 
-			accumulator[accumulator.length] = optionElement;
-
-			return accumulator;
-		}, [] as HTMLOptionElement[])}
+			return optionElement;
+		})}
 	</select>
 );
 
-export {SelectElement};
+const WrapperElement = () => <div style={OPTIONS.flexStyle} />;
+
+export {LabelElement, SelectElement, WrapperElement};

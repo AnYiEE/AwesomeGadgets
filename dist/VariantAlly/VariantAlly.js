@@ -4,7 +4,7 @@
  *
  * @base {@link https://github.com/wikimedia-gadgets/VariantAlly}
  * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/VariantAlly}
- * @license GPL-2.0 {@link https://www.qiuwenbaike.cn/wiki/H:GPLV2}
+ * @license GPL-2.0 {@link https://youshou.wiki/wiki/H:GPLV2}
  */
 /**
  * +------------------------------------------------------------+
