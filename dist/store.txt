@@ -1593,6 +1593,7 @@
 		"MediaWiki:Gadget-Wikicache/zh-tw",
 		"MediaWiki:Gadget-Wikiplus",
 		"MediaWiki:Gadget-Wikiplus-highlight",
+		"MediaWiki:Gadget-Wikiplus-highlight.css",
 		"MediaWiki:Gadget-Wikiplus-highlight.js",
 		"MediaWiki:Gadget-Wikiplus-highlight/zh",
 		"MediaWiki:Gadget-Wikiplus-highlight/zh-cn",
