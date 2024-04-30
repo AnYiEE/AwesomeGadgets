@@ -88,6 +88,7 @@
 		"eslint-plugin-react": "^7.34.1",
 		"eslint-plugin-unicorn": "latest",
 		"eslint-plugin-vue": "^9.25.0",
+		"git-pull-run": "^1.4.0",
 		"glob": "^10.3.12",
 		"happy-dom": "^14.7.1",
 		"husky": "^9.0.11",
