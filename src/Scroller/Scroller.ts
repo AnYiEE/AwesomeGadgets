@@ -15,7 +15,7 @@ const Scroller = function (element: HTMLElement) {
 		element.style.scrollSnapType = '';
 	};
 };
-const scrollerContainers = document.getElementsByClassName('scroller-container') as HTMLCollectionOf<HTMLElement>;
+const scrollerContainers = document.querySelectorAll('.scroller-container') as unknown as HTMLCollectionOf<HTMLElement>;
 for (const element of scrollerContainers) {
 	Scroller(element);
 }
