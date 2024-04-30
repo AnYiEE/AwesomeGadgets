@@ -1,4 +1,4 @@
-// https://www.mediawiki.org/wiki/Manual:Coding_conventions/SVG#Exemplified_safe_configuration
+// @docs https://www.mediawiki.org/wiki/Manual:Coding_conventions/SVG#Exemplified_safe_configuration
 module.exports = {
 	js2svg: {
 		eol: 'lf',
