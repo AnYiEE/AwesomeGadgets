@@ -51,43 +51,38 @@
 
 @emoji-font: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', emoji;
 
-@sans-serif-latin: 'Source Sans Pro', 'Source Sans 3', '-apple-system', 'BlinkMacSystemFont', 'DejaVu Sans',
-	'Liberation Sans', 'Helvetica Neue', 'Helvetica', 'Roboto', 'Inter', 'Arial', 'SFProDisplay-Regular';
-@sans-serif-zh-hans: @sans-serif-latin, 'Source Han Sans SC', 'Source Han Sans', 'Microsoft YaHei',
-	'WenQuanYi Micro Hei', system-ui, ui-sans-serif, sans-serif;
-@sans-serif-zh-hant: @sans-serif-latin, 'Source Han Sans TC', 'Source Han Sans', 'Microsoft JhengHei',
-	'WenQuanYi Micro Hei', system-ui, ui-sans-serif, sans-serif;
-@sans-serif-ja: @sans-serif-latin, 'Source Han Sans JP', 'Source Han Sans', 'Meiryo', system-ui, ui-sans-serif,
-	sans-serif;
+@sans-serif-latin: '-apple-system', 'BlinkMacSystemFont', 'Helvetica Neue', 'Source Sans Pro', 'Source Sans 3',
+	'DejaVu Sans', 'Liberation Sans', 'Helvetica', 'Roboto', 'Inter', 'Arial', 'SFProDisplay-Regular';
+@sans-serif-zh-hans: @sans-serif-latin, 'PingFang SC', 'Source Han Sans SC', 'Noto Sans CJK SC', 'Microsoft YaHei',
+	'WenQuanYi Micro Hei';
+@sans-serif-zh-hant: @sans-serif-latin, 'PingFang TC', 'Source Han Sans TC', 'Noto Sans CJK TC', 'Microsoft JhengHei',
+	'WenQuanYi Micro Hei';
+@sans-serif-ja: @sans-serif-latin, 'Source Han Sans JP', 'Noto Sans CJK JP', 'Meiryo';
 
 @serif-latin: 'Source Serif 4', 'DejaVu Serif', 'Liberation Serif', 'Linux Libertine', 'Georgia', 'Calibri',
 	'Times New Roman';
-@serif-zh-hans: @serif-latin, 'Source Han Serif SC', 'Source Han Serif', 'STSong SC', 'STSong', 'SimSun', ui-serif,
-	serif;
-@serif-zh-hant: @serif-latin, 'Source Han Serif TC', 'Source Han Serif', 'STSong TC', 'STSong', 'MingLiU', ui-serif,
-	serif;
+@serif-zh-hans: @serif-latin, 'Source Han Serif SC', 'Noto Serif CJK SC', 'STSong SC', 'STSong', 'SimSun';
+@serif-zh-hant: @serif-latin, 'Source Han Serif TC', 'Noto Serif CJK TC', 'STSong TC', 'STSong', 'MingLiU';
 
 @monospace-latin: 'Source Code Pro', 'Consolas', 'JetBrains Mono', 'Menlo', 'Roboto Mono', 'Monaco', 'DejaVu Sans Mono',
 	'Liberation Mono', 'Courier New', 'Courier', 'SFMono-Regular';
-@monospace-zh-hans: 'Source Han Mono SC', 'Source Han Mono', @monospace-latin, 'Microsoft YaHei', 'SimSun', ui-monospace,
-	monospace;
-@monospace-zh-hant: 'Source Han Mono TC', 'Source Han Mono', @monospace-latin, 'Microsoft JhengHei', 'MingLiU',
-	ui-monospace, monospace;
+@monospace-zh-hans: 'Source Han Mono SC', 'Source Han Mono', @monospace-latin, 'Microsoft YaHei', 'SimSun';
+@monospace-zh-hant: 'Source Han Mono TC', 'Source Han Mono', @monospace-latin, 'Microsoft JhengHei', 'MingLiU';
 
-@unihan: 'Plangothic P1', 'Plangothic P2', '方正宋体S-超大字符集', '方正宋体S-超大字符集(SIP)', '文泉驿等宽正黑',
-	'BabelStone Han', 'HanaMinB', 'FZSong-Extended', 'Arial Unicode MS', 'Code2002', 'DFSongStd', 'unifont';
+@unihan-sans-serif: 'Arial Unicode MS', 'Plangothic P1', 'Plangothic P2', '文泉驿等宽正黑', 'unifont';
+@unihan-serif: 'HanaMinB', '方正宋体S-超大字符集', '方正宋体S-超大字符集(SIP)', 'FZSong-Extended', 'BabelStone Han',
+	'Code2002', 'DFSongStd', 'unifont';
 
 @cursive-zh-hans: '华文楷体', 'STKaiti', '楷体', 'KaiTi', '楷体_GB2312', 'KaiTi_GB2312', 'HYKaiti', 'FZKai-Z03S',
 	'FZKaiS-Extended', 'FZKaiS-Extended(SIP)', '楷体-简', 'TH-Khaai-TP0', 'TH-Khaai-TP2', 'TH-Feon-A', 'AR PL UKai CN';
 @cursive-zh-hant: '標楷體', 'DFKai-SB', 'BiauKai', 'Kai', '全字庫正楷體', 'TW-Kai', 'FZKaiT-Extended',
 	'FZKaiT-Extended(SIP)', '楷体-繁', 'TH-Khaai-PP0', 'TH-Khaai-PP2', 'AR PL UKai HK', 'AR PL UKai TW', 'EUDCKAI';
 
-@fangsong: 'Adobe Fangsong Std', 'STFangsong', 'FangSong', 'FangSong_GB2312', 'FZFangSong-Z02S', 'DFFangSong', fangsong;
+@fangsong: 'Adobe Fangsong Std', 'STFangsong', 'FangSong', 'FangSong_GB2312', 'FZFangSong-Z02S', 'DFFangSong';
 
 @mncfont: 'Abkai Xanyan', 'Abkai Xanyan LA', 'Abkai Xanyan VT', 'Abkai Xanyan XX', 'Abkai Xanyan SC', 'Abkai Buleku',
-	'Daicing White', 'Mongolian BT', 'Mongolian Universal White', 'Mongolian Baiti', 'Noto Sans Mongolian', ui-serif,
-	serif;
+	'Daicing White', 'Mongolian BT', 'Mongolian Universal White', 'Mongolian Baiti', 'Noto Sans Mongolian';
 @monfont: 'Menk Hawang Tig', 'Menk Qagan Tig', 'Menk Garqag Tig', 'Menk Har_a Tig', 'Menk Scnin Tig',
 	'Oyun Gurban Ulus Tig', 'Oyun Qagan Tig', 'Oyun Garqag Tig', 'Oyun Har_a Tig', 'Oyun Scnin Tig', 'Oyun Agula Tig',
 	'Mongolian BT', 'Mongolian Universal White', 'Mongolian Baiti', 'Noto Sans Mongolian', 'Mongol Usug',
-	'Mongolian White', 'MongolianScript', 'Code2000', 'Menksoft Qagan', ui-serif, serif;
+	'Mongolian White', 'MongolianScript', 'Code2000', 'Menksoft Qagan';

@@ -275,7 +275,6 @@
 		"unicorn/require-post-message-target-origin": "off",
 		"unicorn/string-content": "off",
 		"unicorn/switch-case-braces": ["error", "avoid"],
-		"unicorn/prefer-query-selector": "off",
 
 		"getter-return": [
 			"error",

@@ -5,12 +5,8 @@
 .inline-unihan {
 	border-bottom: 1px dotted;
 	cursor: help;
-	font-family: @sans-serif-zh-hans, @unihan, sans-serif, @emoji-font;
+	font-family: var(--fonts-sans), @unihan-sans-serif, sans-serif;
 	font-variant: normal;
-
-	html:lang(zh-hant) & {
-		font-family: @sans-serif-zh-hant, @unihan, sans-serif, @emoji-font;
-	}
 
 	&-tooltip {
 		padding: 2px;

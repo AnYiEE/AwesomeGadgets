@@ -3,6 +3,6 @@
 	"description": "<sup><abbr title=\"包含外部资源\">E</abbr></sup><span id=\"Gadget-Wikiplus-highlight\"></span> Wikiplus代码高亮 <small>必须启用Wikiplus</small>",
 	"section": "edit",
 	"actions": ["view"],
-	"dependencies": ["ext.gadget.Util", "user.options"],
+	"dependencies": ["ext.gadget.Util", "ext.gadget.Wikiplus", "user.options"],
 	"rights": ["skipcaptcha"]
 }
