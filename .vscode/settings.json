@@ -1,7 +1,7 @@
 {
 	"diffEditor.codeLens": true,
 	"diffEditor.experimental.showMoves": true,
-	"diffEditor.ignoreTrimWhitespace": false,
+	"diffEditor.ignoreTrimWhitespace": true,
 	"diffEditor.maxComputationTime": 0,
 	"editor.bracketPairColorization.independentColorPoolPerBracketType": true,
 	"editor.cursorBlinking": "smooth",

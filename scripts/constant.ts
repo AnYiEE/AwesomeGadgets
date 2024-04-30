@@ -7,6 +7,7 @@ import type {DefaultDefinition, DefaultSectionMap} from './modules/types';
  */
 const BANNER = `<div class="mw-message-box mw-message-box-notice">
 <big>本页面内容由脚本自动生成，维护于Git仓库内。对本页面内容的变更，应通知技术团队，以免在代码部署时被误覆盖。</big>
+* 若需要查看本地小工具说明，请前往[[Special:Gadgets|“小工具”界面]]。
 * 若需要查看本地小工具使用情况，请前往[[Special:GadgetUsage|“小工具使用统计”界面]]。
 * 若需要设置您所需启用或关闭的小工具，请前往[[Special:参数设置#mw-prefsection-gadgets|参数设置]]。
 </div>` satisfies string;
@@ -69,6 +70,7 @@ const DEFINITION_SECTION_MAP = {
 	browser: '浏览类小工具',
 	compatibility: '基础类小工具',
 	edit: '编辑类小工具',
+	skin: '皮肤脚本、样式表',
 	sysop: '管理类小工具',
 } as const satisfies DefaultSectionMap;
 
@@ -77,8 +79,7 @@ const DEFINITION_SECTION_MAP = {
  *
  * The `User-Agent` header used when deploying
  */
-const DEPLOY_USER_AGENT =
-	'AnYiEE/AwesomeGadgets (https://github.com/AnYiEE/AwesomeGadgets; i@anyi.in)' satisfies string;
+const DEPLOY_USER_AGENT = 'YsArchives/Gadgets (https://github.com/TopRealm/YsArchives-Gadgets)' satisfies string;
 
 /**
  * 启用此选项以自动转换`MediaWiki:Gadget-${gadgetName}`和`MediaWiki:Gadget-section-${DEFAULT_DEFINITION.section}`页面的语言变体
@@ -89,7 +90,7 @@ const DEPLOY_USER_AGENT =
  *
  * The target MediaWiki site needs to have the NoteTA template and the IT and MediaWiki public conversion group
  */
-const CONVERT_VARIANT = false satisfies boolean;
+const CONVERT_VARIANT = true satisfies boolean;
 
 /**
  * 启用此选项会为全部小工具设置`requiresES6`标识，禁用 Gadget 扩展的语法检查功能以允许使用 ES6 及以上版本语法（即使经过编译）
@@ -111,14 +112,14 @@ const CONVERT_VARIANT = false satisfies boolean;
  * Note: By default, Gadget extensions do not support gadgets that have both the `default` and `requiresES6` flags. If you need to bypass server-side syntax validation for gadgets with the `default` flag, you should [modify the Gadget extension yourself](https://git.qiuwen.net.cn/Fork/mediawiki-extensions-Gadgets/commit/21e2b34). Otherwise, **DO NOT** set this option to true
  *
  */
-const GLOBAL_REQUIRES_ES6 = false satisfies boolean;
+const GLOBAL_REQUIRES_ES6 = true satisfies boolean;
 
 /**
  * 部署时请求目标 MediaWiki 网站 API 的最大并发数，上限为 256
  *
  * The maximum concurrency number of requests to the API during deployment, the upper limit is 256
  */
-const MAX_CONCURRENCY = 16 satisfies number;
+const MAX_CONCURRENCY = 8 satisfies number;
 
 /**
  * 启用此选项会为全部小工具生成内联源映射

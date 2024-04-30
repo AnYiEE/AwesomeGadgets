@@ -76,6 +76,7 @@
 		"caniuse-api": "^3.0.0",
 		"chalk": "^5.3.0",
 		"core-js": "^3.37.0",
+		"core-js": "^3.37.0",
 		"esbuild": "^0.20.2",
 		"esbuild-css-modules-plugin": "^3.1.2",
 		"esbuild-plugin-less": "^1.3.3",
@@ -160,5 +161,14 @@
 			"eslint-config-wikimedia@0.27.0": "patches/eslint-config-wikimedia@0.27.0.patch",
 			"esbuild-css-modules-plugin@3.1.2": "patches/esbuild-css-modules-plugin@3.1.2.patch"
 		}
+	},
+	"dependencies": {
+		"@types/toastify-js": "^1.12.3",
+		"clipboard": "^2.0.11",
+		"filter-altered-clicks": "^2.0.1",
+		"jsx-dom": "^8.1.4",
+		"select2": "4.1.0-rc.0",
+		"tippy.js": "^6.3.7",
+		"toastify-js": "^1.12.0"
 	}
 }

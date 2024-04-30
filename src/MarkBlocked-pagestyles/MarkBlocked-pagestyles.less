@@ -1,0 +1,24 @@
+.gadget-mark_blocked {
+	&--loading {
+		.gadget-mark_blocked-userlink {
+			opacity: 0.85;
+		}
+	}
+
+	&-userlink {
+		&--indef {
+			text-decoration: line-through;
+			font-style: italic;
+			opacity: 0.4;
+		}
+
+		&--partial {
+			text-decoration: underline dotted;
+		}
+
+		&--temp {
+			text-decoration: line-through;
+			opacity: 0.7;
+		}
+	}
+}

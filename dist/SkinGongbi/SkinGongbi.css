@@ -1,0 +1,90 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/SkinGongbi}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/SkinGongbi/SkinGongbi.less */
+#mw-related-navigation h2,
+#mw-site-navigation h2,
+#mw-site-navigation .sidebar-chunk h3,
+#p-logo-text a,
+#personal h2,
+.mw-logo-wordmark {
+  font-family:
+    "Source Serif 4",
+    "DejaVu Serif",
+    "Liberation Serif",
+    "Linux Libertine",
+    "Georgia",
+    "Calibri",
+    "Times New Roman",
+    "Source Han Serif SC",
+    "Source Han Serif",
+    "STSong SC",
+    "STSong",
+    "SimSun",
+    ui-serif,
+    serif,
+    serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    emoji;
+}
+html:lang(zh-hant) #mw-related-navigation h2,
+html:lang(zh-hant) #mw-site-navigation h2,
+html:lang(zh-hant) #mw-site-navigation .sidebar-chunk h3,
+html:lang(zh-hant) #p-logo-text a,
+html:lang(zh-hant) #personal h2,
+html:lang(zh-hant) .mw-logo-wordmark {
+  font-family:
+    "Source Serif 4",
+    "DejaVu Serif",
+    "Liberation Serif",
+    "Linux Libertine",
+    "Georgia",
+    "Calibri",
+    "Times New Roman",
+    "Source Han Serif TC",
+    "Source Han Serif",
+    "STSong TC",
+    "STSong",
+    "MingLiU",
+    ui-serif,
+    serif,
+    serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    emoji;
+}
+.mw-wiki-logo.fallback {
+  height: 0 !important;
+}
+#p-logo {
+  display: none !important;
+}
+@media (min-width: 1440px) {
+  .ns-0 .mw-body-content .mw-parser-output > .content-table-wrapper {
+    margin-right: 0 !important;
+  }
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1NraW5Hb25nYmkvU2tpbkdvbmdiaS5sZXNzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyIvKiDmraTlpITnmoRDU1Plj6rkvJrlvbHlk43kvb/nlKhHb25nYmnnmq7ogqTnmoTnlKjmiLcgKi9cbi8qIOWtl+S9kyAqL1xuI213LXJlbGF0ZWQtbmF2aWdhdGlvbiBoMixcbiNtdy1zaXRlLW5hdmlnYXRpb24gaDIsXG4jbXctc2l0ZS1uYXZpZ2F0aW9uIC5zaWRlYmFyLWNodW5rIGgzLFxuI3AtbG9nby10ZXh0IGEsXG4jcGVyc29uYWwgaDIsXG4ubXctbG9nby13b3JkbWFyayB7XG4gIGZvbnQtZmFtaWx5OiAnU291cmNlIFNlcmlmIDQnLCAnRGVqYVZ1IFNlcmlmJywgJ0xpYmVyYXRpb24gU2VyaWYnLCAnTGludXggTGliZXJ0aW5lJywgJ0dlb3JnaWEnLCAnQ2FsaWJyaScsICdUaW1lcyBOZXcgUm9tYW4nLCAnU291cmNlIEhhbiBTZXJpZiBTQycsICdTb3VyY2UgSGFuIFNlcmlmJywgJ1NUU29uZyBTQycsICdTVFNvbmcnLCAnU2ltU3VuJywgdWktc2VyaWYsIHNlcmlmLCBzZXJpZiwgJ0FwcGxlIENvbG9yIEVtb2ppJywgJ1NlZ29lIFVJIEVtb2ppJywgJ1NlZ29lIFVJIFN5bWJvbCcsIGVtb2ppO1xufVxuaHRtbDpsYW5nKHpoLWhhbnQpICNtdy1yZWxhdGVkLW5hdmlnYXRpb24gaDIsXG5odG1sOmxhbmcoemgtaGFudCkgI213LXNpdGUtbmF2aWdhdGlvbiBoMixcbmh0bWw6bGFuZyh6aC1oYW50KSAjbXctc2l0ZS1uYXZpZ2F0aW9uIC5zaWRlYmFyLWNodW5rIGgzLFxuaHRtbDpsYW5nKHpoLWhhbnQpICNwLWxvZ28tdGV4dCBhLFxuaHRtbDpsYW5nKHpoLWhhbnQpICNwZXJzb25hbCBoMixcbmh0bWw6bGFuZyh6aC1oYW50KSAubXctbG9nby13b3JkbWFyayB7XG4gIGZvbnQtZmFtaWx5OiAnU291cmNlIFNlcmlmIDQnLCAnRGVqYVZ1IFNlcmlmJywgJ0xpYmVyYXRpb24gU2VyaWYnLCAnTGludXggTGliZXJ0aW5lJywgJ0dlb3JnaWEnLCAnQ2FsaWJyaScsICdUaW1lcyBOZXcgUm9tYW4nLCAnU291cmNlIEhhbiBTZXJpZiBUQycsICdTb3VyY2UgSGFuIFNlcmlmJywgJ1NUU29uZyBUQycsICdTVFNvbmcnLCAnTWluZ0xpVScsIHVpLXNlcmlmLCBzZXJpZiwgc2VyaWYsICdBcHBsZSBDb2xvciBFbW9qaScsICdTZWdvZSBVSSBFbW9qaScsICdTZWdvZSBVSSBTeW1ib2wnLCBlbW9qaTtcbn1cbi8qIOmakOiXj0xvZ28gKi9cbi5tdy13aWtpLWxvZ28uZmFsbGJhY2sge1xuICBoZWlnaHQ6IDAgIWltcG9ydGFudDtcbn1cbiNwLWxvZ28ge1xuICBkaXNwbGF5OiBub25lICFpbXBvcnRhbnQ7XG59XG4vKiDmraPmlofooajmoLwgKi9cbkBtZWRpYSAobWluLXdpZHRoOiAxNDQwcHgpIHtcbiAgLm5zLTAgLm13LWJvZHktY29udGVudCAubXctcGFyc2VyLW91dHB1dCA+IC5jb250ZW50LXRhYmxlLXdyYXBwZXIge1xuICAgIG1hcmdpbi1yaWdodDogMCAhaW1wb3J0YW50O1xuICB9XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFFQSxDQUFDLHNCQUFzQjtBQUN2QixDQUFDLG1CQUFtQjtBQUNwQixDQURDLG1CQUNtQixDQUFDLGNBQWM7QUFDbkMsQ0FBQyxZQUFZO0FBQ2IsQ0FBQyxTQUFTO0FBQ1YsQ0FBQztBQUNDO0FBQUEsSUFBYSxnQkFBZ0I7QUFBQSxJQUFFLGNBQWM7QUFBQSxJQUFFLGtCQUFrQjtBQUFBLElBQUUsaUJBQWlCO0FBQUEsSUFBRSxTQUFTO0FBQUEsSUFBRSxTQUFTO0FBQUEsSUFBRSxpQkFBaUI7QUFBQSxJQUFFLHFCQUFxQjtBQUFBLElBQUUsa0JBQWtCO0FBQUEsSUFBRSxXQUFXO0FBQUEsSUFBRSxRQUFRO0FBQUEsSUFBRSxRQUFRO0FBQUEsSUFBRSxRQUFRO0FBQUEsSUFBRSxLQUFLO0FBQUEsSUFBRSxLQUFLO0FBQUEsSUFBRSxtQkFBbUI7QUFBQSxJQUFFLGdCQUFnQjtBQUFBLElBQUUsaUJBQWlCO0FBQUEsSUFBRTtBQUMvUjtBQUNBLElBQUksTUFBTSxTQUFTLENBUmxCLHNCQVF5QztBQUMxQyxJQUFJLE1BQU0sU0FBUyxDQVJsQixtQkFRc0M7QUFDdkMsSUFBSSxNQUFNLFNBQVMsQ0FUbEIsbUJBU3NDLENBUmxCLGNBUWlDO0FBQ3RELElBQUksTUFBTSxTQUFTLENBUmxCLFlBUStCO0FBQ2hDLElBQUksTUFBTSxTQUFTLENBUmxCLFNBUTRCO0FBQzdCLElBQUksTUFBTSxTQUFTLENBUmxCO0FBU0M7QUFBQSxJQUFhLGdCQUFnQjtBQUFBLElBQUUsY0FBYztBQUFBLElBQUUsa0JBQWtCO0FBQUEsSUFBRSxpQkFBaUI7QUFBQSxJQUFFLFNBQVM7QUFBQSxJQUFFLFNBQVM7QUFBQSxJQUFFLGlCQUFpQjtBQUFBLElBQUUscUJBQXFCO0FBQUEsSUFBRSxrQkFBa0I7QUFBQSxJQUFFLFdBQVc7QUFBQSxJQUFFLFFBQVE7QUFBQSxJQUFFLFNBQVM7QUFBQSxJQUFFLFFBQVE7QUFBQSxJQUFFLEtBQUs7QUFBQSxJQUFFLEtBQUs7QUFBQSxJQUFFLG1CQUFtQjtBQUFBLElBQUUsZ0JBQWdCO0FBQUEsSUFBRSxpQkFBaUI7QUFBQSxJQUFFO0FBQ2hTO0FBRUEsQ0FBQyxZQUFZLENBQUM7QUFDWixVQUFRO0FBQ1Y7QUFDQSxDQUFDO0FBQ0MsV0FBUztBQUNYO0FBRUEsT0FBTyxDQUFDLFNBQVMsRUFBRTtBQUNqQixHQUFDLEtBQUssQ0FBQyxnQkFBZ0IsQ0FBQyxpQkFBaUIsRUFBRSxDQUFDO0FBQzFDLGtCQUFjO0FBQ2hCO0FBQ0Y7IiwKICAibmFtZXMiOiBbXQp9Cg== */

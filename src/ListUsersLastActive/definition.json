@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-ListUsersLastActive\"></span> 在[[Special:Listusers|用户列表中]]，显示用户的最后编辑时间",
+	"section": "sysop",
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.Util", "mediawiki.api"]
+}

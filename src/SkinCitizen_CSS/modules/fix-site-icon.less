@@ -1,0 +1,11 @@
+/* 左上角图标不反色 */
+.client-darkmode .skin-citizen .mw-logo-icon {
+	-webkit-filter: invert(1) hue-rotate(180deg);
+	filter: invert(1) hue-rotate(180deg);
+}
+/* 主页图书图标不反色 */
+.client-darkmode #mw-content-text .client-darkmode img[alt='有兽档案馆绿色图书Logo.svg']:not(.mw-invert) {
+	box-shadow: none;
+	-webkit-filter: none !important;
+	filter: none !important;
+}

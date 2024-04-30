@@ -1,0 +1,7 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-MarkRights-Userpage\"></span> 在用户页下方标示用户权限",
+	"section": "sysop",
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.React", "ext.gadget.Util", "mediawiki.api", "mediawiki.Title"],
+	"peers": ["MarkRights-Userpage-pagestyles"]
+}

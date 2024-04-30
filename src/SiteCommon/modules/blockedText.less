@@ -1,0 +1,80 @@
+@import (reference) '../variables.less';
+
+/**
+ * [[MediaWiki:Blockedtext]]样式
+ *
+ * @author WaitSpring
+ */
+#mw-blockedtext {
+	padding: 2em;
+	background-color: #ffefd5;
+	border: 1px solid #a2a9b1;
+	border-radius: @border-radius--small;
+
+	&-inner {
+		width: 100%;
+		margin: 1.25em 0;
+	}
+
+	&-title {
+		color: @color--error;
+		font-size: 1.5em;
+		text-align: center;
+	}
+
+	&-subtitle {
+		display: block;
+		border-radius: @border-radius--small;
+		margin: auto;
+		text-align: center;
+	}
+
+	&-title,
+	&-subtitle {
+		font-family: @serif-zh-hans, serif, @emoji-font;
+
+		html:lang(zh-hant) & {
+			font-family: @serif-zh-hant, serif, @emoji-font;
+		}
+	}
+
+	&-detail,
+	&-appeal {
+		padding: 0.75em 1em;
+		border: 0;
+		border-radius: @border-radius--small;
+		margin: 1em;
+		background: @const-color-white;
+		color: #2a4b8d;
+
+		&-title {
+			color: #2a4b8d;
+			font-size: 1.25em;
+			font-weight: 600;
+			text-align: center;
+			margin: 1.25em auto 0;
+		}
+	}
+
+	&-reason {
+		margin-bottom: 0.5em;
+	}
+
+	&-reason-text {
+		margin: 0.5em;
+	}
+
+	&-reason-text,
+	&-expire-text,
+	&-userip-text,
+	&-blockid-text {
+		color: @color--error;
+	}
+
+	&-userwarn {
+		margin: 1.25em 0;
+		color: @color--error;
+		font-size: 1.25em;
+		text-align: center;
+	}
+}

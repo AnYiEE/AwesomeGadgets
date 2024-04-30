@@ -1,0 +1,5 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title='默认为所有用户启用'>D</abbr></sup> 显示头像 <small>在用户页标题旁显示用户头像</small>",
+	"default": true
+}

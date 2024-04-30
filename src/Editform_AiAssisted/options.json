@@ -1,0 +1,5 @@
+{
+	"configKey": "gadget-Editform_AiAssisted__Initialized",
+	"inputId": "editform_ai_assisted",
+	"targetClass": "ve-ui-mwSaveDialog-checkboxes"
+}

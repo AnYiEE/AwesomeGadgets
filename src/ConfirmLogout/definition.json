@@ -1,0 +1,16 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-ConfirmLogout\"></span> 确认退出 <small>检测到您单击页面退出链接时，进行确认，以防止误点击</small>",
+	"section": "compatibility",
+	"default": true,
+	"dependencies": [
+		"ext.gadget.FilterAlteredClicks",
+		"ext.gadget.i18n",
+		"ext.gadget.Toastify",
+		"ext.gadget.Util",
+		"mediawiki.api",
+		"mediawiki.util",
+		"oojs-ui-windows"
+	],
+	"rights": ["edit"]
+}

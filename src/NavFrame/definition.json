@@ -1,0 +1,9 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-NavFrame\"></span> 旧版折叠显示支持 <small>不再建议使用</small>",
+	"section": "compatibility",
+	"default": true,
+	"dependencies": ["ext.gadget.i18n"],
+	"hidden": true,
+	"peers": ["NavFrame-pagestyles"]
+}

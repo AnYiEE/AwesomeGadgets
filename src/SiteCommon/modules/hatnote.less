@@ -1,0 +1,23 @@
+@import (reference) '../variables.less';
+
+/* {{Hatnote}}、{{Notice}}等模板 */
+.hatnote,
+.notice,
+#spoiler {
+	padding: 0.2em 0;
+	margin: 1rem 2rem;
+	font-size: 0.9em;
+	text-align: justify;
+
+	& + & {
+		margin-top: -0.5rem;
+	}
+}
+
+.hatnote,
+.dablink,
+.rellink {
+	a:not(.new) {
+		color: #36c;
+	}
+}

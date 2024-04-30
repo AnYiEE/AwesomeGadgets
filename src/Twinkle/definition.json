@@ -1,0 +1,14 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-Twinkle\"></span> [[Help:Twinkle|Twinkle]] <small>自动进行常见维护操作（[[Help:Twinkle/参数设置|参数设置]]）</small>",
+	"section": "sysop",
+	"dependencies": [
+		"ext.gadget.i18n",
+		"ext.gadget.morebits",
+		"ext.gadget.select2",
+		"ext.gadget.Util",
+		"mediawiki.api",
+		"mediawiki.language"
+	],
+	"rights": ["skipcaptcha"]
+}

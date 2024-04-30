@@ -1,0 +1,62 @@
+/* 模板断字 */
+.nowrap {
+	&,
+	a::before,
+	.selflink::before {
+		white-space: nowrap;
+	}
+}
+
+/* 编辑区断字 */
+.CodeMirror-wrap pre.CodeMirror-line {
+	&,
+	&-like {
+		word-break: break-all;
+	}
+}
+
+pre,
+.mw-code,
+.mw-highlight,
+.ve-init-mw-desktopArticleTarget .CodeMirror-code,
+.ve-init-mw-desktopArticleTarget .CodeMirror-code *,
+.ve-init-mw-desktopArticleTarget .ve-ui-mwWikitextSurface .ve-ce-paragraphNode {
+	line-break: anywhere !important;
+	white-space: pre-wrap !important;
+	word-break: break-all !important;
+	word-wrap: break-word !important;
+}
+
+/**
+ * Prevent line breaks in silly places:
+ * 1. Where desired
+ * 2. Links when we don't want them to
+ * 3. Bold "links" to the page itself
+ * 4. HTML formulae
+ * 5. Ref tags with group names <ref group="Note"> → "[Note 1]"
+ */
+span.texhtml,
+sup.reference a,
+.nowrap,
+.nowraplinks a {
+	white-space: nowrap;
+}
+
+/**
+ * In the case where non-CJK links are joined with CJK punctuations
+ * (thus no space after punctuations), browsers tend to disallow link wrap
+ * around those punctuations (see diff=37708459). Insert an empty pseudo-
+ * element with standard wrapping to work around this.
+ */
+.nowraplinks a::before,
+.nowraplinks .selflink::before {
+	content: ' ';
+	font-size: 0;
+	white-space: normal;
+}
+
+/* However if there is a manual nowrap, do not ignore it. */
+.nowraplinks .nowrap a::before,
+.nowraplinks .nowrap .selflink::before {
+	white-space: nowrap;
+}

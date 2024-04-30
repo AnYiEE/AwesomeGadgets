@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-Group-importer\"></span> 导入者样式表",
+	"section": "usergroup",
+	"default": true,
+	"hidden": true,
+	"rights": ["import"]
+}

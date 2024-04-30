@@ -1,0 +1,68 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * _addText: '{{Gadget Header|license=GPL-3.0-or-later}}'
+ *
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/ShortURL-pagestyles}
+ * @author 安忆 <i@anyi.in>; WaitSpring <me@waitspring.com>
+ * @license GPL-3.0-or-later {@link https://youshou.wiki/wiki/H:GPLV3}
+ */
+
+/**
+ * SPDX-License-Identifier: MIT
+ *
+ * link Icon from OOjs UI
+ *
+ * @base {@link https://github.com/wikimedia/oojs-ui/blob/e17952e413cfc00c15cfd861d47463c29062afe7/src/themes/wikimediaui/images/icons/link.svg}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/ShortURL/images}
+ * @license MIT {@link https://github.com/wikimedia/oojs-ui/blob/master/LICENSE-MIT}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/ShortURL-pagestyles/ShortURL-pagestyles.less */
+.gadget-short-link__icon {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0 0.5rem;
+  vertical-align: middle;
+  font-size: 0;
+  text-indent: -9999px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+.skin-gongbi .gadget-short-link__icon {
+  vertical-align: sub;
+}
+.citizen-body-header--sticky .gadget-short-link__icon,
+.ve-init-mw-desktopArticleTarget-originalContent .gadget-short-link__icon {
+  display: none;
+}
+.gadget-short-link__icon::before,
+.mw-ui-icon-wikimedia-shortlink::before {
+  background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%3E%3Cpath%20d%3D%22M4.83%2015h2.91a4.88%204.88%200%200%201-1.55-2H5a3%203%200%201%201%200-6h3a3%203%200%200%201%202.82%204h2.1a4.82%204.82%200%200%200%20.08-.83v-.34A4.83%204.83%200%200%200%208.17%205H4.83A4.83%204.83%200%200%200%200%209.83v.34A4.83%204.83%200%200%200%204.83%2015%22%2F%3E%3Cpath%20d%3D%22M15.17%205h-2.91a4.88%204.88%200%200%201%201.55%202H15a3%203%200%201%201%200%206h-3a3%203%200%200%201-2.82-4h-2.1a4.82%204.82%200%200%200-.08.83v.34A4.83%204.83%200%200%200%2011.83%2015h3.34A4.83%204.83%200%200%200%2020%2010.17v-.34A4.83%204.83%200%200%200%2015.17%205%22%2F%3E%3C%2Fsvg%3E);
+  background-image: linear-gradient(transparent, transparent), url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%3E%3Cpath%20d%3D%22M4.83%2015h2.91a4.88%204.88%200%200%201-1.55-2H5a3%203%200%201%201%200-6h3a3%203%200%200%201%202.82%204h2.1a4.82%204.82%200%200%200%20.08-.83v-.34A4.83%204.83%200%200%200%208.17%205H4.83A4.83%204.83%200%200%200%200%209.83v.34A4.83%204.83%200%200%200%204.83%2015%22%2F%3E%3Cpath%20d%3D%22M15.17%205h-2.91a4.88%204.88%200%200%201%201.55%202H15a3%203%200%201%201%200%206h-3a3%203%200%200%201-2.82-4h-2.1a4.82%204.82%200%200%200-.08.83v.34A4.83%204.83%200%200%200%2011.83%2015h3.34A4.83%204.83%200%200%200%2020%2010.17v-.34A4.83%204.83%200%200%200%2015.17%205%22%2F%3E%3C%2Fsvg%3E);
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: "";
+  opacity: 0.6;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1Nob3J0VVJMLXBhZ2VzdHlsZXMvU2hvcnRVUkwtcGFnZXN0eWxlcy5sZXNzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyIuZ2FkZ2V0LXNob3J0LWxpbmtfX2ljb24ge1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIHdpZHRoOiAxLjI1cmVtO1xuICBoZWlnaHQ6IDEuMjVyZW07XG4gIG1hcmdpbjogMCAwLjVyZW07XG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG4gIGZvbnQtc2l6ZTogMDtcbiAgdGV4dC1pbmRlbnQ6IC05OTk5cHg7XG4gIC13ZWJraXQtdXNlci1zZWxlY3Q6IG5vbmU7XG4gICAgIC1tb3otdXNlci1zZWxlY3Q6IG5vbmU7XG4gICAgICAgICAgdXNlci1zZWxlY3Q6IG5vbmU7XG59XG4uc2tpbi1nb25nYmkgLmdhZGdldC1zaG9ydC1saW5rX19pY29uIHtcbiAgdmVydGljYWwtYWxpZ246IHN1Yjtcbn1cbi5jaXRpemVuLWJvZHktaGVhZGVyLS1zdGlja3kgLmdhZGdldC1zaG9ydC1saW5rX19pY29uLFxuLnZlLWluaXQtbXctZGVza3RvcEFydGljbGVUYXJnZXQtb3JpZ2luYWxDb250ZW50IC5nYWRnZXQtc2hvcnQtbGlua19faWNvbiB7XG4gIGRpc3BsYXk6IG5vbmU7XG59XG4uZ2FkZ2V0LXNob3J0LWxpbmtfX2ljb246OmJlZm9yZSxcbi5tdy11aS1pY29uLXdpa2ltZWRpYS1zaG9ydGxpbms6OmJlZm9yZSB7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybChcImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmclMjB4bWxucyUzRCUyMmh0dHAlM0ElMkYlMkZ3d3cudzMub3JnJTJGMjAwMCUyRnN2ZyUyMiUyMHdpZHRoJTNEJTIyMjAlMjIlMjBoZWlnaHQlM0QlMjIyMCUyMiUzRSUzQ3BhdGglMjBkJTNEJTIyTTQuODMlMjAxNWgyLjkxYTQuODglMjA0Ljg4JTIwMCUyMDAlMjAxLTEuNTUtMkg1YTMlMjAzJTIwMCUyMDElMjAxJTIwMC02aDNhMyUyMDMlMjAwJTIwMCUyMDElMjAyLjgyJTIwNGgyLjFhNC44MiUyMDQuODIlMjAwJTIwMCUyMDAlMjAuMDgtLjgzdi0uMzRBNC44MyUyMDQuODMlMjAwJTIwMCUyMDAlMjA4LjE3JTIwNUg0LjgzQTQuODMlMjA0LjgzJTIwMCUyMDAlMjAwJTIwMCUyMDkuODN2LjM0QTQuODMlMjA0LjgzJTIwMCUyMDAlMjAwJTIwNC44MyUyMDE1JTIyJTJGJTNFJTNDcGF0aCUyMGQlM0QlMjJNMTUuMTclMjA1aC0yLjkxYTQuODglMjA0Ljg4JTIwMCUyMDAlMjAxJTIwMS41NSUyMDJIMTVhMyUyMDMlMjAwJTIwMSUyMDElMjAwJTIwNmgtM2EzJTIwMyUyMDAlMjAwJTIwMS0yLjgyLTRoLTIuMWE0LjgyJTIwNC44MiUyMDAlMjAwJTIwMC0uMDguODN2LjM0QTQuODMlMjA0LjgzJTIwMCUyMDAlMjAwJTIwMTEuODMlMjAxNWgzLjM0QTQuODMlMjA0LjgzJTIwMCUyMDAlMjAwJTIwMjAlMjAxMC4xN3YtLjM0QTQuODMlMjA0LjgzJTIwMCUyMDAlMjAwJTIwMTUuMTclMjA1JTIyJTJGJTNFJTNDJTJGc3ZnJTNFXCIpO1xuICBiYWNrZ3JvdW5kLWltYWdlOiBsaW5lYXItZ3JhZGllbnQodHJhbnNwYXJlbnQsIHRyYW5zcGFyZW50KSwgdXJsKFwiZGF0YTppbWFnZS9zdmcreG1sLCUzQ3N2ZyUyMHhtbG5zJTNEJTIyaHR0cCUzQSUyRiUyRnd3dy53My5vcmclMkYyMDAwJTJGc3ZnJTIyJTIwd2lkdGglM0QlMjIyMCUyMiUyMGhlaWdodCUzRCUyMjIwJTIyJTNFJTNDcGF0aCUyMGQlM0QlMjJNNC44MyUyMDE1aDIuOTFhNC44OCUyMDQuODglMjAwJTIwMCUyMDEtMS41NS0ySDVhMyUyMDMlMjAwJTIwMSUyMDElMjAwLTZoM2EzJTIwMyUyMDAlMjAwJTIwMSUyMDIuODIlMjA0aDIuMWE0LjgyJTIwNC44MiUyMDAlMjAwJTIwMCUyMC4wOC0uODN2LS4zNEE0LjgzJTIwNC44MyUyMDAlMjAwJTIwMCUyMDguMTclMjA1SDQuODNBNC44MyUyMDQuODMlMjAwJTIwMCUyMDAlMjAwJTIwOS44M3YuMzRBNC44MyUyMDQuODMlMjAwJTIwMCUyMDAlMjA0LjgzJTIwMTUlMjIlMkYlM0UlM0NwYXRoJTIwZCUzRCUyMk0xNS4xNyUyMDVoLTIuOTFhNC44OCUyMDQuODglMjAwJTIwMCUyMDElMjAxLjU1JTIwMkgxNWEzJTIwMyUyMDAlMjAxJTIwMSUyMDAlMjA2aC0zYTMlMjAzJTIwMCUyMDAlMjAxLTIuODItNGgtMi4xYTQuODIlMjA0LjgyJTIwMCUyMDAlMjAwLS4wOC44M3YuMzRBNC44MyUyMDQuODMlMjAwJTIwMCUyMDAlMjAxMS44MyUyMDE1aDMuMzRBNC44MyUyMDQuODMlMjAwJTIwMCUyMDAlMjAyMCUyMDEwLjE3di0uMzRBNC44MyUyMDQuODMlMjAwJTIwMCUyMDAlMjAxNS4xNyUyMDUlMjIlMkYlM0UlM0MlMkZzdmclM0VcIik7XG4gIGRpc3BsYXk6IGJsb2NrO1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xuICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBjZW50ZXI7XG4gIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQ7XG4gIGJhY2tncm91bmQtc2l6ZTogY29udGFpbjtcbiAgY29udGVudDogJyc7XG4gIG9wYWNpdHk6IDAuNjtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsQ0FBQztBQUNDLFdBQVM7QUFDVCxTQUFPO0FBQ1AsVUFBUTtBQUNSLFVBQVEsRUFBRTtBQUNWLGtCQUFnQjtBQUNoQixhQUFXO0FBQ1gsZUFBYTtBQUNiLHVCQUFxQjtBQUNsQixvQkFBa0I7QUFDYixlQUFhO0FBQ3ZCO0FBQ0EsQ0FBQyxZQUFZLENBWlo7QUFhQyxrQkFBZ0I7QUFDbEI7QUFDQSxDQUFDLDRCQUE0QixDQWY1QjtBQWdCRCxDQUFDLGdEQUFnRCxDQWhCaEQ7QUFpQkMsV0FBUztBQUNYO0FBQ0EsQ0FuQkMsdUJBbUJ1QjtBQUN4QixDQUFDLDhCQUE4QjtBQUM3QixvQkFBa0I7QUFDbEIsb0JBQWtCLGdCQUFnQixXQUFXLEVBQUUsWUFBWSxFQUFFO0FBQzdELFdBQVM7QUFDVCxTQUFPO0FBQ1AsVUFBUTtBQUNSLHVCQUFxQjtBQUNyQixxQkFBbUI7QUFDbkIsbUJBQWlCO0FBQ2pCLFdBQVM7QUFDVCxXQUFTO0FBQ1g7IiwKICAibmFtZXMiOiBbXQp9Cg== */

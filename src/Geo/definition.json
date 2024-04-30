@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"excludeSites": ["testwiki"],
+	"description": "<span id=\"Gadget-Geo\"></span> 为其他小工具提供用户地理位置信息",
+	"section": "compatibility",
+	"dependencies": ["mediawiki.storage"],
+	"hidden": true
+}

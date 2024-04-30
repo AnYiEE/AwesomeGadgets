@@ -1,0 +1,22 @@
+a.mw-disambig::after,
+a.mw-redirect::after {
+	font-weight: normal;
+	line-height: 0;
+	text-indent: 0.1em;
+	vertical-align: super;
+}
+
+a.mw-disambig::after {
+	content: '⇄';
+	font-size: 0.75em;
+}
+
+a.mw-redirect::after {
+	content: '↳';
+	font-size: 0.9em;
+}
+
+a.mw-disambig.mw-redirect::after {
+	content: '⇄↳';
+	font-size: 0.75em;
+}

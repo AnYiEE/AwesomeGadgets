@@ -1,0 +1,207 @@
+@import (reference) '../../variables.less';
+
+// Variables
+@white: #ffffff;
+@darkgray: #aaaaaa;
+@black: #000000;
+@cyan: #edf9f7;
+@blue: #66ccff;
+@mediumgray: #dedede;
+@lightgray: #e8e8e8;
+@lightgreen: #8dda93;
+@darkgreen: #008a00;
+@yellow: #ffdf00;
+@orange: #f4bd00;
+@red: #e71717;
+@brown: #b00e06;
+
+/*! Wikiplus - 4.0.11 | Eridanus Sora (妹空酱) | CC-BY-SA-4.0 <https://qwbk.cc/H:CC-BY-SA-4.0> */
+
+.mw-editsection-divider {
+	display: inline;
+}
+
+#Wikiplus-Quickedit {
+	width: 100%;
+	min-height: 500px;
+	word-break: break-all;
+
+	&-Summary-Input {
+		width: 50%;
+
+		.skin-vector & {
+			margin-top: 5px;
+		}
+	}
+
+	&-Preview-Submit,
+	&-Submit {
+		margin-top: 5px;
+		padding: revert;
+	}
+
+	&-Preview-Output {
+		clear: both;
+		margin: 5px 0;
+	}
+}
+
+.Wikiplus {
+	&-Btn {
+		position: relative;
+		float: left;
+		margin: 3px 5px;
+		padding: 3px 1em;
+		width: auto;
+		background-color: @white;
+		box-shadow: 0 1px 2px @darkgray;
+		text-align: center;
+		cursor: pointer;
+
+		a {
+			position: relative;
+			display: block;
+			margin: 0;
+			color: @black;
+			text-decoration: none;
+		}
+	}
+
+	&-InterBox {
+		position: absolute;
+		top: 20%;
+		z-index: 200;
+		padding: 1.5rem 10px;
+		width: 600px;
+		min-height: 100px;
+		border: 1px solid rgba(161, 154, 220, 0.41);
+		background-color: @cyan;
+		user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+
+		&-Header {
+			position: relative;
+			top: 0;
+			top: -8px;
+			margin: 0;
+			width: 100%;
+			border-bottom: 1px solid @blue;
+			text-align: left;
+			font-size: 1.1rem;
+			line-height: 2rem;
+			cursor: move;
+		}
+
+		&-Input {
+			margin: 1.5rem;
+			width: 60%;
+		}
+
+		&-Btn {
+			position: relative;
+			float: right;
+			margin: auto 3px;
+			padding: 6px 12px;
+			border: 1px solid @mediumgray;
+			background-color: @white;
+			vertical-align: middle;
+			text-align: center;
+			cursor: pointer;
+			&:hover {
+				background-color: @lightgray;
+			}
+		}
+
+		&-Close {
+			position: absolute;
+			top: 0;
+			right: 0;
+			margin: 3px 7px;
+			font-size: 1.5rem;
+			cursor: pointer;
+		}
+
+		label {
+			font-size: 0.95rem;
+		}
+
+		table.diff {
+			table-layout: auto;
+
+			.diff-addedline,
+			.diff-deletedline,
+			.diff-lineno {
+				width: 50%;
+			}
+
+			.diff-marker {
+				text-align: left;
+			}
+		}
+	}
+
+	&-Banner {
+		margin: 0;
+		padding: 10px 5px;
+		min-height: 50px;
+		background: rgba(193, 222, 214, 0.51);
+		text-align: center;
+		font-size: 2rem;
+		font-family: @sans-serif-zh-hans, @sans-serif-zh-hant, @unihan, sans-serif, @emoji-font;
+	}
+}
+
+.MoeNotification-notice {
+	position: relative;
+	display: none;
+	overflow: hidden;
+	margin: 3px 5px;
+	padding: 0 5px;
+	width: auto;
+	box-shadow: 0 3px 3px @darkgray;
+	font-size: 1rem;
+
+	span {
+		position: relative;
+		margin: 3px auto 3px 3px;
+		color: @white;
+		text-align: left;
+		font-size: 1rem;
+		font-family: @sans-serif-zh-hans, @sans-serif-zh-hant, @unihan, sans-serif, @emoji-font;
+		line-height: 1.5;
+	}
+
+	&-success {
+		border-left: 5px solid @lightgreen;
+		border-bottom-left-radius: 3px;
+		border-top-left-radius: 3px;
+		background-color: @darkgreen;
+	}
+
+	&-warning {
+		border-left: 5px solid @yellow;
+		border-bottom-left-radius: 3px;
+		border-top-left-radius: 3px;
+		background-color: @orange;
+		span {
+			color: @black;
+		}
+	}
+
+	&-error {
+		border-left: 5px solid @red;
+		border-bottom-left-radius: 3px;
+		border-top-left-radius: 3px;
+		background-color: @brown;
+	}
+}
+
+#MoeNotification {
+	position: fixed;
+	bottom: 2rem;
+	left: 0;
+	z-index: 713;
+	min-width: 20%;
+}

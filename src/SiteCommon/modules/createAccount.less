@@ -1,0 +1,29 @@
+/* [[Special:CreateAccount]]页面样式 */
+.mw-special-CreateAccount {
+	.mw-ui-container {
+		flex-flow: row wrap;
+		place-content: flex-start space-between;
+		align-items: flex-start;
+		margin-right: 0 !important;
+		float: none !important;
+
+		#signupstart {
+			flex: 1 1 100%;
+		}
+
+		#userloginForm {
+			display: flex;
+			flex: 1 1 100px;
+			margin: 2em;
+
+			@media screen and (max-width: 768px) {
+				flex: 1 1 100%;
+			}
+		}
+	}
+
+	.mw-createacct-benefits-container {
+		flex: 1 1 100px;
+		margin: 2em;
+	}
+}

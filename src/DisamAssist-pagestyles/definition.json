@@ -1,0 +1,7 @@
+{
+	"enable": true,
+	"excludeSites": ["licencewiki"],
+	"description": "<span id=\"Gadget-DisamAssist\"></span> DisamAssist配套样式表",
+	"section": "edit",
+	"hidden": true
+}

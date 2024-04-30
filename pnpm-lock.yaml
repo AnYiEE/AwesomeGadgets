@@ -7392,6 +7392,7 @@ snapshots:
       ci-info: 4.0.0
       clean-regexp: 1.0.0
       core-js-compat: 3.37.0
+      core-js-compat: 3.37.0
       eslint: 8.57.0
       esquery: 1.5.0
       indent-string: 4.0.0
