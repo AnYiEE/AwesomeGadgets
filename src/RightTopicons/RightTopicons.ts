@@ -1,4 +1,4 @@
-import {LIBdictionary} from "./PermissionData.ts";
+import {LIBdictionary} from './PermissionData.ts';
 $(function(){
 		let WikiURLName = window.location.pathname;
 		let matchResult = /^\/wiki\/User:[^\/]*$/.test(WikiURLName);
@@ -37,7 +37,7 @@ $(function(){
         }
         function createRealNode(virtualNode: VirtualDOMNode): JQuery<HTMLElement> {
 			const { tag, props, children } = virtualNode;
-			const realNode = $("<" + tag + ">");
+			const realNode = $('<' + tag + '>');
 			Object.keys(props).forEach(propName => {
 				realNode.attr(propName, String(props[propName]));
 			});
@@ -69,50 +69,50 @@ $(function(){
     function fetchUserData(): Promise<UserData> {
         return new Promise((resolve, reject) => {
 			if (!UserMessage) {
-				return reject(new Error("UserMessage is not defined"));
+				return reject(new Error('UserMessage is not defined'));
 			}
             $.get(UserMessage, function(data) {
                 const userData: UserData = data.query.users[0].groups ;
                 resolve(userData);
-            }, "json").fail(reject);
+            }, 'json').fail(reject);
         });
     }
 
 
-let retryCount = 0;
+    let retryCount = 0;
 
-function fetchUserDataWithRetry(): Promise<UserData> {
-    return fetchUserData().catch(error => {
-        retryCount++;
-        if (retryCount <= 3) {
-            console.warn(`请求失败，正在进行第${retryCount}次重试...`);
-            return fetchUserDataWithRetry();
-        } else {
-            console.error("请求失败，已达到最大重试次数:", error);
-            throw error;
-        }
-    });
-}
-
-fetchUserDataWithRetry().then((UserData: UserData) => {
-    if (!UserData || !Array.isArray(UserData)) {
-        console.error("谢特", UserData);
-        return;
+    function fetchUserDataWithRetry(): Promise<UserData> {
+        return fetchUserData().catch(error => {
+            retryCount++;
+            if (retryCount <= 3) {
+                console.warn(`请求失败，正在进行第${retryCount}次重试...`);
+                return fetchUserDataWithRetry();
+            } else {
+                console.error('请求失败，已达到最大重试次数:', error);
+                throw error;
+            }
+        });
     }
 
-    let matchedGroups = UserData
-        .filter(group => LIBdictionary.hasOwnProperty(group))
-        .map(group => LIBdictionary[group]);
-    let firstThreeItems = ArrayDataSort(matchedGroups as unknown as {
-        src: any;
-        aimgsrc: any;
-        id: number
-    }[]);
-    const virtualDOM = firstThreeItems.map((imgData) =>
-        (imgData?.src && imgData?.aimgsrc ? createVirtualLinkImg(imgData.src, imgData.aimgsrc) : null) as VirtualDOMNode);
-    let dommountpoint = $("#content header.mw-body-header .page-heading .mw-indicators");
-    renderVirtualDOM(virtualDOM, dommountpoint);
-}).catch(error => {
-    console.error("最终请求失败，不再重试:", error);
-});
+    fetchUserDataWithRetry().then((UserData: UserData) => {
+        if (!UserData || !Array.isArray(UserData)) {
+            console.error('谢特', UserData);
+            return;
+        }
+
+        let matchedGroups = UserData
+            .filter(group => LIBdictionary.hasOwnProperty(group))
+            .map(group => LIBdictionary[group]);
+        let firstThreeItems = ArrayDataSort(matchedGroups as unknown as {
+            src: any;
+            aimgsrc: any;
+            id: number
+        }[]);
+        const virtualDOM = firstThreeItems.map((imgData) =>
+            (imgData?.src && imgData?.aimgsrc ? createVirtualLinkImg(imgData.src, imgData.aimgsrc) : null) as VirtualDOMNode);
+        let dommountpoint = $('#content header.mw-body-header .page-heading .mw-indicators');
+        renderVirtualDOM(virtualDOM, dommountpoint);
+    }).catch(error => {
+        console.error('最终请求失败，不再重试:', error);
+    });
 })
