@@ -91,32 +91,34 @@ $(() => {
 				},
 				'json'
 			)
-			.then(() => {})
-			.catch(reject);
+				.then(() => {})
+				.catch(reject);
 		});
 	};
 
 	fetchUserData()
 		.then((userData: UserData) => {
 			if (!userData || !Array.isArray(userData.groups)) {
-				console.error(new Error('Invalid userData.groups: expected an array but received none or a non-array.'));
+				console.error(
+					new Error('Invalid userData.groups: expected an array but received none or a non-array.')
+				);
 				return;
 			}
 
 			const matchedGroups = userData.groups
-			.filter((group): group is string => {
-				return typeof group === 'string' && Object.hasOwn(LIBdictionary, group);
-			})
+				.filter((group): group is string => {
+					return typeof group === 'string' && Object.hasOwn(LIBdictionary, group);
+				})
 				.map((group) => {
 					return LIBdictionary[group];
 				});
 
-				interface ImageItem {
-					src: string;
-					aimgsrc: string;
-					id: number;
-				}
-				const firstThreeItems = ArrayDataSort(matchedGroups as unknown as ImageItem[]);
+			interface ImageItem {
+				src: string;
+				aimgsrc: string;
+				id: number;
+			}
+			const firstThreeItems = ArrayDataSort(matchedGroups as unknown as ImageItem[]);
 			const virtualDOM = firstThreeItems.map((imgData) => {
 				return imgData?.src && imgData?.aimgsrc ? createVirtualLinkImg(imgData.src, imgData.aimgsrc) : null;
 			}) as VirtualDOMNode[];

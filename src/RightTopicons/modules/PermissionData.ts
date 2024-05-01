@@ -61,7 +61,7 @@ export const LIBdictionary: Record<string, LIBDictionaryEntry> = {
 		aimgsrc: 'https://youshou.wiki/images/c/cd/大量消息发送者权限标识.svg',
 		src: 'https://youshou.wiki/wiki/有兽档案馆:大量消息发送者',
 	},
-	autoconfirmed: {
+	confirmed: {
 		id: '11',
 		aimgsrc: 'https://youshou.wiki/images/4/49/确认用户权限标识.svg',
 		src: 'https://youshou.wiki/wiki/有兽档案馆:用户权限#自动确认用户',
