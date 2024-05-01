@@ -1,26 +1,30 @@
+import * as OPTIONS from '~/DefaultSummaries/options.json';
 import {generateSummaryDropdown} from './util/generateSummaryDropdown';
 
-const processWikiEditor = ($body: JQuery<HTMLBodyElement>): void => {
+const processWikiEditor = ($editForm: JQuery<HTMLElement>): void => {
 	// Guard against double inclusions
-	if (mw.config.get('wgDefaultSummariesInstalled')) {
+	if (mw.config.get(OPTIONS.configKey)) {
 		return;
 	}
 
 	// Set guard
-	mw.config.set('wgDefaultSummariesInstalled', true);
+	mw.config.set(OPTIONS.configKey, true);
 
-	const $editCheckboxes: JQuery = $body.find('.editCheckboxes');
+	const $editCheckboxes: JQuery = $editForm.find('.editCheckboxes');
 	if (!$editCheckboxes.length) {
 		return;
 	}
 
-	const $dropdowns: JQuery = generateSummaryDropdown($body.find('input[name=wpSummary]'));
+	const $dropdowns: JQuery = generateSummaryDropdown($editForm.find('input[name=wpSummary]'));
 
 	$dropdowns.css({
 		'padding-bottom': '1em',
 		width: '48%',
 	});
-	$editCheckboxes.before($dropdowns);
+
+	if (!$editForm.find(`#${OPTIONS.dropdownId}`).length) {
+		$editCheckboxes.before($dropdowns);
+	}
 };
 
 export {processWikiEditor};

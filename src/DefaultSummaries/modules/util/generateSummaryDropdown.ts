@@ -1,5 +1,5 @@
+import * as OPTIONS from '../../options.json';
 import {ARTICLE_SUMMARIES, COMMON_SUMMARIES, COMMON_SUMMARIES_LABEL, TALKPAGE_SUMMARIES} from '../messages';
-import {WG_NAMESPACE_NUMBER} from '../constant';
 
 const generateMenuOptionWidget = (label: string): OO.ui.MenuOptionWidget => {
 	return new OO.ui.MenuOptionWidget({
@@ -25,20 +25,24 @@ const onSelectCallback = (optionWidget: OO.ui.OptionWidget, $wpSummary: JQuery):
 };
 
 const generateSummaryDropdown = ($wpSummary: JQuery): JQuery => {
+	const {wgNamespaceNumber} = mw.config.get();
+
 	const dropdownWidget: OO.ui.DropdownWidget = new OO.ui.DropdownWidget({
 		label: COMMON_SUMMARIES_LABEL,
 	});
+
+	dropdownWidget.setElementId(`${OPTIONS.dropdownId}`);
 
 	dropdownWidget.getMenu().on('select', (optionWidget: OO.ui.OptionWidget | OO.ui.OptionWidget[] | null): void => {
 		onSelectCallback(optionWidget as OO.ui.OptionWidget, $wpSummary);
 	});
 
 	addOptionsToDropdown(dropdownWidget, COMMON_SUMMARIES);
-	if (WG_NAMESPACE_NUMBER === 0) {
+	if (wgNamespaceNumber === 0) {
 		addOptionsToDropdown(dropdownWidget, ARTICLE_SUMMARIES);
-	} else if (WG_NAMESPACE_NUMBER % 2 !== 0 && WG_NAMESPACE_NUMBER !== 3) {
+	} else if (wgNamespaceNumber % 2 !== 0 && wgNamespaceNumber !== 3) {
 		addOptionsToDropdown(dropdownWidget, TALKPAGE_SUMMARIES);
-	} else if (WG_NAMESPACE_NUMBER === 302) {
+	} else if (wgNamespaceNumber === 118) {
 		addOptionsToDropdown(dropdownWidget, ARTICLE_SUMMARIES);
 	}
 
