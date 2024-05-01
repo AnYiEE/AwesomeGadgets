@@ -111,7 +111,7 @@
 * ToolsRedirect-bio-latin-names[ResourceLoader|actions=view|dependencies=ext.gadget.Util,mediawiki.api,user.options|rights=edit|requiresES6]|ToolsRedirect-bio-latin-names.js
 * ToolsRedirect-courtesy-and-art-names[ResourceLoader|actions=view|dependencies=ext.gadget.Util,mediawiki.api,user.options|rights=edit|requiresES6]|ToolsRedirect-courtesy-and-art-names.js
 * ToolsRedirect-opt-bolds[ResourceLoader|actions=view|dependencies=ext.gadget.Util,mediawiki.api,user.options|rights=edit|requiresES6]|ToolsRedirect-opt-bolds.js
-* Wikicache[ResourceLoader|actions=edit,submit|default|dependencies=ext.gadget.i18n,ext.gadget.Toastify,ext.gadget.Util,jquery.textSelection,mediawiki.storage,oojs-ui-windows|rights=edit|requiresES6]|Wikicache.js
+* Wikicache[ResourceLoader|actions=edit,submit|dependencies=ext.gadget.i18n,ext.gadget.Toastify,ext.gadget.Util,jquery.textSelection,mediawiki.storage,oojs-ui-windows|rights=edit|requiresES6]|Wikicache.js
 * Wikiplus[ResourceLoader|dependencies=user.options|rights=skipcaptcha|requiresES6]|Wikiplus.js|Wikiplus.css
 * Wikiplus-highlight[ResourceLoader|actions=view|dependencies=ext.gadget.Util,ext.gadget.Wikiplus,user.options|rights=skipcaptcha|requiresES6]|Wikiplus-highlight.js|Wikiplus-highlight.css
 

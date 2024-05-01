@@ -32,7 +32,7 @@ const setCache = ({$editForm}: {$editForm: JQuery<HTMLElement>}) => {
 		toastify({
 			text: getMessage('Change saved'),
 			close: true,
-			duration: 10 * 1000,
+			duration: 3 * 1000,
 			gravity: 'top',
 			position: 'right',
 		});
@@ -73,7 +73,7 @@ const getCache = async ({$editForm}: {$editForm: JQuery<HTMLElement>}) => {
 
 const autoSetCache = async ({$editForm}: {$editForm: JQuery<HTMLElement>}) => {
 	while (true) {
-		await delay(30 * 1000);
+		await delay(60 * 1000);
 		setCache({$editForm});
 	}
 };
