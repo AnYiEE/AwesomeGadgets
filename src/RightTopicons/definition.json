@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-NavbarAvatar\"></span> NavbarAvatar <small>在用户也显示用户权限标识。</small>",
+	"section": "browser",
+	"default": true,
+	"hidden": true,
+	"rights": ["edit"]
+}
