@@ -1,7 +1,9 @@
-const introACH = (): void => {
-	const {wgAction, wgArticleId, wgWikiID, wgUserGroups, wgNamespaceNumber} = mw.config.get();
+import {userIsInGroup} from 'ext.gadget.Util';
 
-	// Disabled for wikis other than wiki-ysy
+const introACH = (): void => {
+	const {wgAction, wgArticleId, wgWikiID, wgNamespaceNumber} = mw.config.get();
+
+	// Disabled for wikis other than ysarchives
 	if (wgWikiID !== 'wiki-ysy') {
 		return;
 	}
@@ -16,17 +18,12 @@ const introACH = (): void => {
 		return;
 	}
 
-	// Disabled for confirmed users
-	if (!wgUserGroups || wgUserGroups.includes('confirmed') || wgUserGroups.includes('autoconfirmed')) {
-		return;
-	}
-
 	// Disabled for official users and experienced users
 	if (
-		wgUserGroups.includes('steward') ||
-		wgUserGroups.includes('senioreditor') ||
-		wgUserGroups.includes('bot') ||
-		wgUserGroups.includes('confirmed')
+		userIsInGroup('steward') ||
+		userIsInGroup('bot') ||
+		userIsInGroup('confirmed') ||
+		userIsInGroup('autoconfirmed')
 	) {
 		return;
 	}
@@ -73,7 +70,7 @@ const introACH = (): void => {
 			 * If editing pages under main namespace,
 			 * redirect to [[QW:ACH]]
 			 */
-			location.href = '/wiki/Help:FAQ';
+			location.href = '/wiki/QW:ACH';
 		}
 	}
 };

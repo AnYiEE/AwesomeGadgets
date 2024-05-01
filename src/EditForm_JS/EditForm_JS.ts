@@ -14,6 +14,6 @@ void getBody().then(function editForm($body: JQuery<HTMLBodyElement>): void {
 	// 源代码编辑器加载“编辑请求”补丁
 	preloadRevid($body);
 
-	// 新用户引导至条目创建向导（[[Help:快速上手]]）
+	// 新用户引导至条目创建向导（[[QW:AFC]]）
 	// introACH();
 });
