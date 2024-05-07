@@ -1352,6 +1352,7 @@
 		"MediaWiki:Gadget-SmoothTOC/zh-sg",
 		"MediaWiki:Gadget-SmoothTOC/zh-tw",
 		"MediaWiki:Gadget-SpecialWikitext",
+		"MediaWiki:Gadget-SpecialWikitext.css",
 		"MediaWiki:Gadget-SpecialWikitext.js",
 		"MediaWiki:Gadget-SpecialWikitext/zh",
 		"MediaWiki:Gadget-SpecialWikitext/zh-cn",
