@@ -5,8 +5,7 @@ const checkDependencies = async () => {
 		void api.postWithEditToken({
 			action: 'options',
 			change: 'gadget-Wikiplus=1',
-			format: 'json',
-		} as const satisfies ApiOptionsParams);
+		} as ApiOptionsParams);
 
 		await mw.loader.using('ext.gadget.Wikiplus');
 	}

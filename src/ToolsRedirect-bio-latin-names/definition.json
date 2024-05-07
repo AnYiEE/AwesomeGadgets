@@ -2,6 +2,7 @@
 	"enable": true,
 	"description": "<span id=\"Gadget-ToolsRedirect-bio-latin-names\"></span> ToolsRedirect选项：获取生物学学名为重定向候选 <small>必须启用ToolsRedirect</small>",
 	"section": "edit",
+	"excludeSites": ["licencewiki", "mncqiuwenbaike"],
 	"actions": ["view"],
 	"dependencies": ["ext.gadget.Util", "mediawiki.api", "user.options"],
 	"rights": ["edit"]

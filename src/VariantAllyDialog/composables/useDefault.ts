@@ -19,7 +19,7 @@ function useDefault<T>(defaultValue: WatchSource<T>): Ref<T> {
 
 	return computed({
 		get() {
-			return realRef.value;
+			return realRef.value as T;
 		},
 		set(newValue) {
 			realRef.value = newValue;

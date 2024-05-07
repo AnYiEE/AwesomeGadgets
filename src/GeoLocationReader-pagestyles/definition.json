@@ -2,5 +2,6 @@
 	"enable": true,
 	"description": "<span id=\"Gadget-GeoLocationReader-pagestyles\"></span> “自动读取用户的IP地理位置信息”配套样式表",
 	"section": "compatibility",
+	"excludeSites": ["testwiki"],
 	"hidden": true
 }

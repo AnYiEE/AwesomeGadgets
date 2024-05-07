@@ -2,6 +2,7 @@
 	"enable": true,
 	"description": "<span id=\"Gadget-Geo\"></span> 为其他小工具提供用户地理位置信息",
 	"section": "compatibility",
+	"excludeSites": ["testwiki"],
 	"dependencies": ["mediawiki.storage"],
 	"hidden": true
 }

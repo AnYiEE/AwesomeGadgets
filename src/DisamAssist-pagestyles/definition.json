@@ -2,5 +2,6 @@
 	"enable": true,
 	"description": "<span id=\"Gadget-DisamAssist\"></span> DisamAssist配套样式表",
 	"section": "edit",
+	"excludeSites": ["licencewiki"],
 	"hidden": true
 }
