@@ -1,0 +1,31 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/TOC3-gongbi}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/TOC3-gongbi/TOC3-gongbi.less */
+#site-toc #site-toc-right .toclevel-2 {
+  display: block !important;
+}
+#site-toc #site-toc-right .toclevel-3 {
+  display: none !important;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1RPQzMtZ29uZ2JpL1RPQzMtZ29uZ2JpLmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbIiNzaXRlLXRvYyAjc2l0ZS10b2MtcmlnaHQgLnRvY2xldmVsLTIge1xuICBkaXNwbGF5OiBibG9jayAhaW1wb3J0YW50O1xufVxuI3NpdGUtdG9jICNzaXRlLXRvYy1yaWdodCAudG9jbGV2ZWwtMyB7XG4gIGRpc3BsYXk6IG5vbmUgIWltcG9ydGFudDtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLENBQUMsU0FBUyxDQUFDLGVBQWUsQ0FBQztBQUN6QixXQUFTO0FBQ1g7QUFDQSxDQUhDLFNBR1MsQ0FIQyxlQUdlLENBQUM7QUFDekIsV0FBUztBQUNYOyIsCiAgIm5hbWVzIjogW10KfQo= */

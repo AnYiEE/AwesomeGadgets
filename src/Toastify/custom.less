@@ -1,0 +1,87 @@
+@import (reference) '../variables.less';
+
+.gadget-toastify {
+	background: @const-color-gray;
+	border-radius: @border-radius--medium;
+	box-shadow:
+		0 3px 6px -1px rgba(0 0 0 / 10%),
+		0 10px 36px -4px rgba(0 0 0 / 20%);
+	cursor: auto;
+	color: @const-color-primary;
+	display: flex;
+	align-items: baseline;
+	word-break: break-all;
+	z-index: 9999; // less than .mw-notification-area
+
+	a {
+		&,
+		&:hover,
+		&:visited,
+		&:visited:hover {
+			color: #f4ff7f !important;
+		}
+	}
+
+	&--error,
+	&--info,
+	&--success,
+	&--warning {
+		color: @const-color-white;
+	}
+
+	&--error {
+		background: @color--error;
+	}
+
+	&--info {
+		background: @color--info;
+	}
+
+	&--success {
+		background: @color--success;
+	}
+
+	&--warning {
+		background: @color--warning;
+	}
+
+	.toast-close {
+		color: inherit;
+		font-family: @sans-serif-zh-hans, sans-serif, @emoji-font;
+		font-size: 0.8em;
+		padding: 0 0 0 1em;
+
+		html:lang(zh-hant) & {
+			font-family: @sans-serif-zh-hant, sans-serif, @emoji-font;
+		}
+	}
+
+	&.toastify-left .toast-close {
+		padding: 0 1em 0 0;
+	}
+
+	&.toastify-left,
+	&.toastify-right {
+		max-width: 17.5em;
+	}
+
+	.client-darkmode & {
+		&:not(.gadget-toastify--error, .gadget-toastify--info, .gadget-toastify--success, .gadget-toastify--warning) {
+			box-shadow: none;
+			border: 5px solid #c8ccd1;
+		}
+
+		a {
+			&,
+			&:hover,
+			&:visited,
+			&:visited:hover {
+				color: @const-color-black !important;
+			}
+		}
+
+		.toast-close {
+			color: initial;
+		}
+	}
+}

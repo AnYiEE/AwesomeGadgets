@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-DefaultSummaries\"></span> 在[[Help:编辑摘要|编辑摘要]]框下方添加下拉菜单，供用户选择编辑摘要",
+	"section": "edit",
+	"default": true,
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.Util", "oojs-ui-core"],
+	"rights": ["edit"]
+}

@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-FoldRef\"></span> 折叠超出浏览器窗口90%的参考来源列表",
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.Util"],
+	"peers": ["FoldRef-pagestyles"]
+}

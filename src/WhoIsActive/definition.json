@@ -1,0 +1,14 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-WhoIsActive\"></span> 根据用户贡献记录，查询其是否近期活跃",
+	"section": "sysop",
+	"dependencies": [
+		"ext.gadget.i18n",
+		"ext.gadget.React",
+		"ext.gadget.Util",
+		"mediawiki.api",
+		"mediawiki.Title",
+		"mediawiki.util"
+	],
+	"peers": ["WhoIsActive-pagestyles"]
+}

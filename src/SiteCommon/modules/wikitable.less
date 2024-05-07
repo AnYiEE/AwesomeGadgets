@@ -1,0 +1,18 @@
+/* Lists in wikitable data cells are always left-aligned */
+.wikitable {
+	/* Lists in wikitable data cells are always left-aligned */
+	td {
+		ul,
+		ol,
+		dl {
+			/* @noflip */
+			text-align: left;
+		}
+	}
+
+	/* Normal font styling for wikitable row headers with scope="row" tag */
+	&.plainrowheaders th[scope='row'] {
+		font-weight: normal;
+		text-align: left;
+	}
+}

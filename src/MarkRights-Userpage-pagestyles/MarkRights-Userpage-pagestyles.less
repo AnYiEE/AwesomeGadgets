@@ -1,0 +1,181 @@
+@import (reference) '../variables.less';
+
+.gadget-markrights_userpage {
+	display: inline-block;
+	margin-bottom: 0.25em !important;
+	padding: 0 0.5em !important;
+	border: 1px solid #ddd;
+	white-space: nowrap;
+	border-radius: @border-radius--small;
+	font-size: 0.9em;
+
+	.mw-footer & {
+		margin-bottom: 0.25em !important;
+
+		& + .gadget-markrights_userpage {
+			margin-left: 0.25em !important;
+		}
+
+		.ve-activated & {
+			display: none;
+		}
+	}
+
+	&__text {
+		margin-left: 5px;
+		vertical-align: middle;
+	}
+
+	&__icon {
+		margin: 0;
+
+		&::before {
+			display: inline-block;
+			font-size: 1em;
+			vertical-align: middle;
+		}
+
+		&__responsibleoperator::before {
+			content: '【责】';
+		}
+
+		&__steward::before {
+			content: '【理】';
+		}
+
+		&__sysop::before {
+			content: '【管】';
+		}
+
+		&__interface-admin::before {
+			content: '【界】';
+
+			html:lang(zh-hant) & {
+				content: '【介】';
+			}
+		}
+
+		&__checkuser::before {
+			content: '【查】';
+		}
+
+		&__suppress::before {
+			content: '【监】';
+
+			html:lang(zh-hant) & {
+				content: '【監】';
+			}
+		}
+
+		&__patroller::before {
+			content: '【巡】';
+		}
+
+		&__eventsponsor::before {
+			content: '【活】';
+		}
+
+		&__templateeditor::before {
+			content: '【模】';
+		}
+
+		&__importer::before {
+			content: '【导】';
+
+			html:lang(zh-hant) & {
+				content: '【匯】';
+			}
+		}
+
+		&__massmessage-sender::before {
+			content: '【发】';
+
+			html:lang(zh-hant) & {
+				content: '【發】';
+			}
+		}
+
+		&__bot::before {
+			content: '【机】';
+
+			html:lang(zh-hant) & {
+				content: '【機】';
+			}
+		}
+
+		&__confirmed::before {
+			content: '【确】';
+
+			html:lang(zh-hant) & {
+				content: '【確】';
+			}
+		}
+
+		&__autopatrolled::before {
+			content: '【优】';
+		}
+
+		&__ipblock-exempt::before {
+			content: '【代】';
+		}
+
+		&__rnrsverify-exempt::before {
+			content: '【认】';
+
+			html:lang(zh-hant) & {
+				content: '【認】';
+			}
+		}
+
+		&__flood::before {
+			content: '【机】';
+
+			html:lang(zh-hant) & {
+				content: '【機】';
+			}
+		}
+	}
+
+	/* 裁决委员会：紫黑 */
+	&__responsibleoperator,
+	&__steward {
+		border-color: @color-group--steward;
+		color: @color-group--steward;
+	}
+
+	/* 高级管理人员（管、界、监、查）：紫红 */
+	&__sysop,
+	&__interface-admin,
+	&__suppress,
+	&__checkuser {
+		border-color: @color-group--sysop;
+		color: @color-group--sysop;
+	}
+
+	/* 一般管理人员（巡、活）：棕 */
+	&__patroller,
+	&__eventsponsor {
+		border-color: @color-group--patroller;
+		color: @color-group--patroller;
+	}
+
+	/* 编辑权限（模、资、导/汇、发、机器人）：蓝 */
+	&__templateeditor,
+	&__importer,
+	&__massmessage-sender,
+	&__bot {
+		border-color: @color-group--bot;
+		color: @color-group--bot;
+	}
+
+	/* 特殊权限（确、自、免、代、机器用户）：绿色 */
+	&__confirmed,
+	&__autoconfirmed,
+	&__autopatrolled,
+	&__ipblock-exempt,
+	&__rnrsverify-exempt,
+	&__flood {
+		border-color: @color-group--confirmed;
+		color: @color-group--confirmed;
+	}
+}

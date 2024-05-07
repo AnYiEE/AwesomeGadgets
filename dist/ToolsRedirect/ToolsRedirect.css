@@ -1,0 +1,87 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|title=ToolsRedirect|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect.js}
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect.css}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/ToolsRedirect}
+ */
+
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|title2=ToolsRedirect Messages|license2=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect-msg-zh-hans.js}
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect-msg-zh-hant.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/ToolsRedirect/messages.js}
+ */
+
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|title3=ToolsRedirect-bio-latin-names|license3=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/Special:Permalink/61193369}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/ToolsRedirect/bio-latin-names.js}
+ */
+
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|title3=ToolsRedirect-courtesy-and-art-names|license3=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect-courtesy-and-art-names.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/ToolsRedirect/courtesy-and-art-names.js}
+ */
+
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|title3=ToolsRedirect-opt-bolds|license3=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-ToolsRedirect-opt-bolds.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/ToolsRedirect/opt-bolds.js}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/ToolsRedirect/ToolsRedirect.less */
+div.dialog-redirect .mw-ajax-loader {
+  top: 0;
+}
+div.dialog-redirect a {
+  color: #0645ad;
+}
+div.dialog-redirect a:visited {
+  color: #0b0080;
+}
+div.dialog-redirect a.new {
+  color: #c20;
+}
+div.dialog-redirect a.new:visited {
+  color: #a55858;
+}
+.tools-redirect_methods > a {
+  position: relative;
+  margin: 0 5px;
+}
+.tools-redirect_methods > .tools-redirect_link:first-of-type::before {
+  content: "（";
+}
+.tools-redirect_methods > .tools-redirect_link::before {
+  content: "｜";
+}
+.tools-redirect_methods > .tools-redirect_link:last-of-type::after {
+  content: "）";
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1Rvb2xzUmVkaXJlY3QvVG9vbHNSZWRpcmVjdC5sZXNzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyJkaXYuZGlhbG9nLXJlZGlyZWN0IC5tdy1hamF4LWxvYWRlciB7XG4gIHRvcDogMDtcbn1cbmRpdi5kaWFsb2ctcmVkaXJlY3QgYSB7XG4gIGNvbG9yOiAjMDY0NWFkO1xufVxuZGl2LmRpYWxvZy1yZWRpcmVjdCBhOnZpc2l0ZWQge1xuICBjb2xvcjogIzBiMDA4MDtcbn1cbmRpdi5kaWFsb2ctcmVkaXJlY3QgYS5uZXcge1xuICBjb2xvcjogI2MyMDtcbn1cbmRpdi5kaWFsb2ctcmVkaXJlY3QgYS5uZXc6dmlzaXRlZCB7XG4gIGNvbG9yOiAjYTU1ODU4O1xufVxuLnRvb2xzLXJlZGlyZWN0X21ldGhvZHMgPiBhIHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICBtYXJnaW46IDAgNXB4O1xufVxuLnRvb2xzLXJlZGlyZWN0X21ldGhvZHMgPiAudG9vbHMtcmVkaXJlY3RfbGluazpmaXJzdC1vZi10eXBlOjpiZWZvcmUge1xuICBjb250ZW50OiAn77yIJztcbn1cbi50b29scy1yZWRpcmVjdF9tZXRob2RzID4gLnRvb2xzLXJlZGlyZWN0X2xpbms6OmJlZm9yZSB7XG4gIGNvbnRlbnQ6ICfvvZwnO1xufVxuLnRvb2xzLXJlZGlyZWN0X21ldGhvZHMgPiAudG9vbHMtcmVkaXJlY3RfbGluazpsYXN0LW9mLXR5cGU6OmFmdGVyIHtcbiAgY29udGVudDogJ++8iSc7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsR0FBRyxDQUFDLGdCQUFnQixDQUFDO0FBQ25CLE9BQUs7QUFDUDtBQUNBLEdBQUcsQ0FIQyxnQkFHZ0I7QUFDbEIsU0FBTztBQUNUO0FBQ0EsR0FBRyxDQU5DLGdCQU1nQixDQUFDO0FBQ25CLFNBQU87QUFDVDtBQUNBLEdBQUcsQ0FUQyxnQkFTZ0IsQ0FBQyxDQUFDO0FBQ3BCLFNBQU87QUFDVDtBQUNBLEdBQUcsQ0FaQyxnQkFZZ0IsQ0FBQyxDQUhDLEdBR0c7QUFDdkIsU0FBTztBQUNUO0FBQ0EsQ0FBQyx1QkFBdUIsRUFBRTtBQUN4QixZQUFVO0FBQ1YsVUFBUSxFQUFFO0FBQ1o7QUFDQSxDQUpDLHVCQUl1QixFQUFFLENBQUMsbUJBQW1CLGNBQWM7QUFDMUQsV0FBUztBQUNYO0FBQ0EsQ0FQQyx1QkFPdUIsRUFBRSxDQUhDLG1CQUdtQjtBQUM1QyxXQUFTO0FBQ1g7QUFDQSxDQVZDLHVCQVV1QixFQUFFLENBTkMsbUJBTW1CLGFBQWE7QUFDekQsV0FBUztBQUNYOyIsCiAgIm5hbWVzIjogW10KfQo= */

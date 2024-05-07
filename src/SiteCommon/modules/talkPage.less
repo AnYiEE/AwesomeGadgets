@@ -1,0 +1,45 @@
+/* [[LIB_talk:有兽茶谈]]隐藏项目Tab */
+.rootpage-有兽档案馆_talk_有兽茶谈 #ca-nstab-project {
+	display: none;
+}
+
+/* 用户讨论页 */
+.ext-discussiontools-emptystate-logo {
+	display: none;
+}
+
+/* 修复DiscussionTools以链接开头下划线位置错误 */
+span[data-mw-comment-start] {
+	top: 0 !important;
+}
+
+/* 修复DiscussionTools溢出的问题，让该界面成为浮窗 */
+body .ext-discussiontools-ui-replyWidget {
+	font-size: 1rem !important;
+	border: 1px solid @const-color-gray;
+	border-radius: @border-radius--medium;
+	margin: 0 1em;
+	padding: 1em;
+	z-index: 1;
+	background-color: #fff;
+	position: absolute;
+	left: 0;
+	right: 0;
+	max-height: 75vh;
+	max-width: calc(100vw - 2em);
+	overflow-y: auto;
+
+	@media screen and (min-width: 800px) {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+}
+
+.ext-discussiontools-ui-newTopic .ext-discussiontools-ui-replyWidget {
+	position: relative;
+	border: 0;
+	max-width: 100%;
+	padding: 0;
+	inset: unset;
+	margin: 0;
+}

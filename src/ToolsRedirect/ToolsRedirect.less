@@ -1,0 +1,42 @@
+div.dialog-redirect {
+	.mw-ajax-loader {
+		top: 0;
+	}
+
+	a {
+		color: #0645ad;
+
+		&:visited {
+			color: #0b0080;
+		}
+
+		&.new {
+			color: #c20;
+
+			&:visited {
+				color: #a55858;
+			}
+		}
+	}
+}
+
+.tools-redirect_methods {
+	> a {
+		position: relative;
+		margin: 0 5px;
+	}
+
+	> .tools-redirect_link {
+		&:first-of-type::before {
+			content: '（';
+		}
+
+		&::before {
+			content: '｜';
+		}
+
+		&:last-of-type::after {
+			content: '）';
+		}
+	}
+}

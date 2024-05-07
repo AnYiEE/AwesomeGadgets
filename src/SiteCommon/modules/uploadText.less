@@ -1,0 +1,78 @@
+@import (reference) '../variables.less';
+
+/**
+ * [[MediaWiki:Uploadtext]]样式
+ *
+ * @author WaitSpring
+ */
+.mw-uploadtext {
+	&-core {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: flex-start;
+		padding: 1em 1em 1.5em;
+		border: 1px solid @background-color-primary;
+		border-radius: @border-radius--small;
+		background: @background-color-primary--lightest;
+		box-shadow:
+			0 1px 2px @background-color-primary,
+			0 -1px 2px @background-color-primary;
+		gap: 1em;
+		word-break: break-all;
+
+		.client-darkmode & {
+			background: @background-color-primary--light;
+			box-shadow:
+				0 1px 2px @background-color-primary--darker,
+				0 -1px 2px @background-color-primary--darker;
+		}
+	}
+
+	&-title,
+	&-subtitle {
+		display: block !important;
+		flex: 1 1 100%;
+		margin: 0.5em auto;
+		color: #2a4b8d;
+		text-align: center;
+	}
+
+	&-req,
+	&-summary,
+	&-advice,
+	&-left,
+	&-right {
+		flex: 1 1 30em;
+	}
+
+	&-req,
+	&-summary,
+	&-advice {
+		margin: 0.5em;
+	}
+
+	&-desc {
+		display: flex;
+		flex-flow: row wrap;
+		gap: 1em;
+	}
+
+	&-ownnotice {
+		font-size: 105%;
+		text-align: center;
+	}
+
+	&-infotpl {
+		border: 0;
+		margin: 0;
+		background: transparent;
+	}
+
+	&-warn {
+		padding: 1em;
+		border: 1px solid @color--error;
+		margin-top: 0.25em;
+		background: #fee7e6;
+		text-align: center;
+	}
+}

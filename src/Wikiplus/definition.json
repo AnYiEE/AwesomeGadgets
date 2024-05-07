@@ -1,0 +1,7 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-Wikiplus\"></span> [[Help:Wikiplus|Wikiplus]] <small>面向熟练用户的Wikitext快速编辑工具</small>",
+	"section": "edit",
+	"dependencies": ["user.options"],
+	"rights": ["skipcaptcha"]
+}

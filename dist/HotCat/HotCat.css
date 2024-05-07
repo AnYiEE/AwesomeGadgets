@@ -1,0 +1,40 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|title=HotCat|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://commons.wikimedia.org/wiki/MediaWiki:Gadget-HotCat.js}
+ * @base {@link https://commons.wikimedia.org/wiki/MediaWiki:Gadget-HotCat.js/zh-hans}
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-HotCat.js/local_defaults}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/HotCat}
+ */
+
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|title=CheckCategories HotCat Extension|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://commons.wikimedia.org/wiki/MediaWiki:Gadget-Hotcatcheck.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/HotCat/HotCat-check.js}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* esbuild-css-modules-plugin-ns-css:src/HotCat/modules/check.module.less */
+.check-module__catcheckInlineIcon_mJ5NDq {
+  display: inline-block;
+  position: relative;
+  top: 2px;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiZXNidWlsZC1jc3MtbW9kdWxlcy1wbHVnaW4tbnMtY3NzOnNyYy9Ib3RDYXQvbW9kdWxlcy9jaGVjay5tb2R1bGUubGVzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiLyogPHN0ZGluPiAqL1xuLmNoZWNrLW1vZHVsZV9fY2F0Y2hlY2tJbmxpbmVJY29uX21KNU5EcSB7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB0b3A6IDJweDtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxDQUFDO0FBQ0MsV0FBUztBQUNULFlBQVU7QUFDVixPQUFLO0FBQ1A7IiwKICAibmFtZXMiOiBbXQp9Cg== */

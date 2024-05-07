@@ -1,0 +1,34 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://en.wikipedia.org/wiki/User:Nardog/CopyCodeBlock.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/CopyCodeBlock-pagestyles}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/CopyCodeBlock-pagestyles/CopyCodeBlock-pagestyles.less */
+.gadget-copy_code_block {
+  position: relative;
+}
+.gadget-copy_code_block__copy-button {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0NvcHlDb2RlQmxvY2stcGFnZXN0eWxlcy9Db3B5Q29kZUJsb2NrLXBhZ2VzdHlsZXMubGVzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiLmdhZGdldC1jb3B5X2NvZGVfYmxvY2sge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG59XG4uZ2FkZ2V0LWNvcHlfY29kZV9ibG9ja19fY29weS1idXR0b24ge1xuICBwb3NpdGlvbjogYWJzb2x1dGUgIWltcG9ydGFudDtcbiAgdG9wOiAwO1xuICByaWdodDogMDtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxDQUFDO0FBQ0MsWUFBVTtBQUNaO0FBQ0EsQ0FBQztBQUNDLFlBQVU7QUFDVixPQUFLO0FBQ0wsU0FBTztBQUNUOyIsCiAgIm5hbWVzIjogW10KfQo= */

@@ -1,0 +1,40 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-noteTA.css}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/NoteTA-pagestyles}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/NoteTA-pagestyles/NoteTA-pagestyles.less */
+.skin-vector-2022 #p-noteTA [id^=ca-noteTA-] {
+  max-height: 32px;
+}
+.skin-vector-legacy #p-noteTA.vector-menu-tabs-legacy {
+  padding-left: 0;
+}
+.mw-indicator[id^=mw-indicator-noteTA-] img {
+  cursor: pointer;
+}
+.x-noteTA-viewer-output .error {
+  color: #b32424;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL05vdGVUQS1wYWdlc3R5bGVzL05vdGVUQS1wYWdlc3R5bGVzLmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbIi5za2luLXZlY3Rvci0yMDIyICNwLW5vdGVUQSBbaWRePSdjYS1ub3RlVEEtJ10ge1xuICBtYXgtaGVpZ2h0OiAzMnB4O1xufVxuLnNraW4tdmVjdG9yLWxlZ2FjeSAjcC1ub3RlVEEudmVjdG9yLW1lbnUtdGFicy1sZWdhY3kge1xuICBwYWRkaW5nLWxlZnQ6IDA7XG59XG4ubXctaW5kaWNhdG9yW2lkXj0nbXctaW5kaWNhdG9yLW5vdGVUQS0nXSBpbWcge1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG4ueC1ub3RlVEEtdmlld2VyLW91dHB1dCAuZXJyb3Ige1xuICBjb2xvcjogI2IzMjQyNDtcbiAgZm9udC1zaXplOiAxLjJlbTtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsQ0FBQyxpQkFBaUIsQ0FBQyxTQUFTLENBQUM7QUFDM0IsY0FBWTtBQUNkO0FBQ0EsQ0FBQyxtQkFBbUIsQ0FIRCxRQUdVLENBQUM7QUFDNUIsZ0JBQWM7QUFDaEI7QUFDQSxDQUFDLFlBQVksQ0FBQywwQkFBNEI7QUFDeEMsVUFBUTtBQUNWO0FBQ0EsQ0FBQyx1QkFBdUIsQ0FBQztBQUN2QixTQUFPO0FBQ1AsYUFBVztBQUNYLGVBQWE7QUFDZjsiLAogICJuYW1lcyI6IFtdCn0K */

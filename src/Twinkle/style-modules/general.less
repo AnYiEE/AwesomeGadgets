@@ -1,0 +1,44 @@
+/*! Twinkle.js - twinkle.css */
+
+/* twinkleclose.js */
+a.twinkle-close-button {
+	color: #f00;
+	font-weight: bold;
+
+	&-disabled {
+		color: #808080;
+	}
+}
+
+/* The additional box on user skin.js and twinklepreferences.js pages */
+#twinkle-config {
+	&-headerbox {
+		padding: 0.6em;
+		border: 1px #f60 solid;
+		margin: 0.5em auto;
+		background: #fed;
+		text-align: center;
+
+		/* twinkleoptions.js */
+		&.config-twopt-box {
+			width: 80%;
+			border-width: 2px;
+			font-weight: bold;
+		}
+
+		/* Skin-specific JS */
+		&.config-userskin-box {
+			width: 60%;
+		}
+	}
+
+	/* [[H:TW/PREF]] */
+	&-content input[type='checkbox'] {
+		margin-right: 2px;
+	}
+
+	/* twinkleconfig.js */
+	&-titlebar {
+		background-image: data-uri('../images/titlebar.png');
+	}
+}

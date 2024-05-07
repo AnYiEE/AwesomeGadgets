@@ -1,0 +1,32 @@
+{
+	"rules": {
+		"camelcase": "off",
+		"@typescript-eslint/no-unused-vars": "off",
+		"@typescript-eslint/no-this-alias": [
+			"error",
+			{
+				"allowDestructuring": true,
+				"allowedNames": ["self", "navpopup"]
+			}
+		],
+		"jsdoc/check-param-names": "off",
+		"jsdoc/valid-types": "off",
+		"jsdoc/require-returns": "off",
+		"jsdoc/require-returns-type": "off",
+		"mediawiki/class-doc": "off",
+		"new-cap": "off",
+		"no-extend-native": "off",
+		"no-new": "off",
+		"no-shadow": "off",
+		"no-unused-vars": "off",
+		"no-use-before-define": "off",
+		"unicorn/prefer-add-event-listener": "off",
+		"unicorn/prefer-string-slice": "off"
+	},
+	"globals": {
+		"log": "readonly",
+		"errlog": "readonly",
+		"popupStrings": "readonly",
+		"wgULS": "readonly"
+	}
+}

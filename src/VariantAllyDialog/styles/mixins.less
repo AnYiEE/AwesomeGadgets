@@ -1,0 +1,97 @@
+@import (reference) './tokens.less';
+
+.link-base() {
+	color: @color-progressive;
+	border-radius: @border-radius-base;
+	text-decoration: @text-decoration-none;
+
+	&:visited {
+		color: @color-visited;
+
+		&:hover {
+			color: @color-visited;
+		}
+	}
+
+	&:hover {
+		color: @color-progressive--hover;
+		text-decoration: @text-decoration-underline;
+	}
+
+	&:active {
+		color: @color-progressive--active;
+		text-decoration: @text-decoration-underline;
+	}
+
+	&:focus {
+		outline: @border-style-base @border-width-thick @color-progressive--focus;
+	}
+}
+
+.button-base() {
+	appearance: none;
+	user-select: none;
+	cursor: pointer;
+	font: inherit;
+	text-transform: none;
+	touch-action: manipulation;
+	// Reset tap color on Android Chrome
+	-webkit-tap-highlight-color: transparent;
+	border-width: @border-width-base;
+	border-style: @border-style-base;
+	border-radius: @border-radius-base;
+	padding-right: @spacing-horizontal-button;
+	padding-left: @spacing-horizontal-button;
+	font-weight: bold;
+	transition-property: @transition-property-base;
+	transition-duration: @transition-duration-base;
+	transition-timing-function: @transition-timing-function-user;
+}
+
+.select__handle() {
+	box-sizing: @box-sizing-base;
+	min-height: @spacing-200;
+	border-width: @border-width-base;
+	border-style: @border-style-base;
+	border-radius: @border-radius-base;
+	padding-top: @spacing-25;
+	padding-bottom: @spacing-25;
+	padding-left: @spacing-75;
+	/* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
+	padding-right: calc(@spacing-50 + @spacing-50 + @size-icon-medium);
+	font: inherit;
+	touch-action: manipulation;
+	line-height: @line-height-x-small;
+}
+
+.select__handle--disabled() {
+	background-color: @background-color-disabled-subtle;
+	color: @color-disabled;
+	border-color: @border-color-disabled;
+}
+
+.select__handle--enabled() {
+	background-color: @background-color-interactive-subtle;
+	color: @color-base;
+	border-color: @border-color-base;
+	transition-property: @transition-property-base;
+	transition-duration: @transition-duration-base;
+
+	&:hover {
+		background-color: @background-color-base;
+		color: @color-base--hover;
+		border-color: @border-color-base;
+		cursor: @cursor-base--hover;
+	}
+
+	&:focus {
+		border-color: @border-color-progressive--focus;
+		box-shadow: @box-shadow-inset-small @box-shadow-color-progressive--focus;
+		outline: @outline-base--focus;
+	}
+
+	&:active {
+		color: @color-emphasized;
+		border-color: @border-color-interactive;
+	}
+}

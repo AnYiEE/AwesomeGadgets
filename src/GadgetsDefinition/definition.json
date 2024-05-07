@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-GadgetsDefinition\"></span> [[MediaWiki:Gadgets-definition|小工具定义页面]]配套脚本",
+	"default": true,
+	"dependencies": ["ext.gadget.Util", "mediawiki.util"]
+}

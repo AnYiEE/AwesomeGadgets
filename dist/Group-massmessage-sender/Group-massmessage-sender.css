@@ -1,0 +1,46 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Group-autoconfirmed.css}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/Group-massmessage-sender.less}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/Group-massmessage-sender/Group-massmessage-sender.less */
+div.massmessage-sender-show,
+p.massmessage-sender-show {
+  display: block !important;
+}
+span.massmessage-sender-show,
+small.massmessage-sender-show {
+  display: inline !important;
+}
+table.massmessage-sender-show {
+  display: table !important;
+}
+tr.massmessage-sender-show {
+  display: table-row !important;
+}
+td.massmessage-sender-show {
+  display: table-cell !important;
+}
+li.massmessage-sender-show {
+  display: list-item !important;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0dyb3VwLW1hc3NtZXNzYWdlLXNlbmRlci9Hcm91cC1tYXNzbWVzc2FnZS1zZW5kZXIubGVzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiZGl2Lm1hc3NtZXNzYWdlLXNlbmRlci1zaG93LFxucC5tYXNzbWVzc2FnZS1zZW5kZXItc2hvdyB7XG4gIGRpc3BsYXk6IGJsb2NrICFpbXBvcnRhbnQ7XG59XG5zcGFuLm1hc3NtZXNzYWdlLXNlbmRlci1zaG93LFxuc21hbGwubWFzc21lc3NhZ2Utc2VuZGVyLXNob3cge1xuICBkaXNwbGF5OiBpbmxpbmUgIWltcG9ydGFudDtcbn1cbnRhYmxlLm1hc3NtZXNzYWdlLXNlbmRlci1zaG93IHtcbiAgZGlzcGxheTogdGFibGUgIWltcG9ydGFudDtcbn1cbnRyLm1hc3NtZXNzYWdlLXNlbmRlci1zaG93IHtcbiAgZGlzcGxheTogdGFibGUtcm93ICFpbXBvcnRhbnQ7XG59XG50ZC5tYXNzbWVzc2FnZS1zZW5kZXItc2hvdyB7XG4gIGRpc3BsYXk6IHRhYmxlLWNlbGwgIWltcG9ydGFudDtcbn1cbmxpLm1hc3NtZXNzYWdlLXNlbmRlci1zaG93IHtcbiAgZGlzcGxheTogbGlzdC1pdGVtICFpbXBvcnRhbnQ7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsR0FBRyxDQUFDO0FBQ0osQ0FBQyxDQURHO0FBRUYsV0FBUztBQUNYO0FBQ0EsSUFBSSxDQUpBO0FBS0osS0FBSyxDQUxEO0FBTUYsV0FBUztBQUNYO0FBQ0EsS0FBSyxDQVJEO0FBU0YsV0FBUztBQUNYO0FBQ0EsRUFBRSxDQVhFO0FBWUYsV0FBUztBQUNYO0FBQ0EsRUFBRSxDQWRFO0FBZUYsV0FBUztBQUNYO0FBQ0EsRUFBRSxDQWpCRTtBQWtCRixXQUFTO0FBQ1g7IiwKICAibmFtZXMiOiBbXQp9Cg== */

@@ -1,0 +1,9 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-Edittools-vector\"></span> 编辑工具栏扩展：编辑按钮",
+	"section": "edit",
+	"actions": ["edit", "submit"],
+	"default": true,
+	"dependencies": ["ext.gadget.Edittools-customizeToolbar"],
+	"rights": ["edit"]
+}

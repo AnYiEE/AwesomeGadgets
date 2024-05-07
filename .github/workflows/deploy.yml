@@ -1,0 +1,31 @@
+name: 网站部署
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4.1.1
+
+    - name: 配置 Node.js 环境
+      uses: actions/setup-node@v4.0.2
+      with:
+        node-version: '20'
+
+    - name: 安装 pnpm
+      run: npm install -g pnpm
+
+    - name: pnpm 依赖处理
+      run: pnpm install
+
+    - name: 构建dist
+      run: pnpm run build
+
+    - name: 部署
+      run: pnpm run deploy:directly
+      env:
+        CREDENTIALS_JSON: ${{ secrets.JSON_STRING }}

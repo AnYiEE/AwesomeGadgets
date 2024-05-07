@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-CodeLinks\"></span> CodeLinks <small>将JavaScript、Lua和CSS代码中的[[Help:内部链接|内部链接]]代码、URL以及模板、模块名称转化为可以点击的链接</small>",
+	"section": "browser",
+	"default": true,
+	"dependencies": ["ext.gadget.React", "ext.gadget.Util", "mediawiki.util"],
+	"rights": ["edit"]
+}

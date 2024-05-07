@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-MarkRights-pagestyles\"></span> “在编辑记录中标示用户权限”配套样式表",
+	"section": "sysop",
+	"hidden": true
+}

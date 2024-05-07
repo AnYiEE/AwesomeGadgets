@@ -1,0 +1,33 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://github.com/MoegirlPediaInterfaceAdmins/MoegirlPediaInterfaceCodes/blob/master/src/gadgets/ShowAvatar/MediaWiki%3AGadget-ShowAvatar.css}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/UserLinkAvatar}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/UserLinkAvatar/UserLinkAvatar.less */
+img.userlink-avatar {
+  margin-left: 0.2em;
+  margin-right: 0.2em;
+  width: 1.5em;
+  border-radius: 15%;
+  margin-top: -0.2em;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1VzZXJMaW5rQXZhdGFyL1VzZXJMaW5rQXZhdGFyLmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImltZy51c2VybGluay1hdmF0YXIge1xuICBtYXJnaW4tbGVmdDogMC4yZW07XG4gIG1hcmdpbi1yaWdodDogMC4yZW07XG4gIHdpZHRoOiAxLjVlbTtcbiAgYm9yZGVyLXJhZGl1czogMTUlO1xuICBtYXJnaW4tdG9wOiAtMC4yZW07XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsR0FBRyxDQUFDO0FBQ0YsZUFBYTtBQUNiLGdCQUFjO0FBQ2QsU0FBTztBQUNQLGlCQUFlO0FBQ2YsY0FBWTtBQUNkOyIsCiAgIm5hbWVzIjogW10KfQo= */

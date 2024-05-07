@@ -1,0 +1,17 @@
+/* 未巡查 */
+.not-patrolled {
+	background-color: #ffa !important;
+
+	.client-darkmode & {
+		background-color: @background-color-primary;
+		border: 1px solid #aaf;
+	}
+}
+
+/* 默认隐藏“编辑选定修订版本的标签” */
+.mw-history,
+.mw-log {
+	&-editchangetags-button {
+		display: none;
+	}
+}
