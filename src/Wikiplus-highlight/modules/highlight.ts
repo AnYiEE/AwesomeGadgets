@@ -122,7 +122,9 @@
 		const cm = await (
 			await CodeMirror6
 		).fromTextArea($target[0]!, ...(setting ? (['json'] as [string]) : await getPageMode($target.val()!)));
-		cm.view.dom.id = 'Wikiplus-CodeMirror';
+		if (cm.view) {
+			cm.view.dom.id = 'Wikiplus-CodeMirror';
+		}
 
 		document.querySelector<HTMLAnchorElement>('#Wikiplus-Quickedit-Jump > a')!.href = '#Wikiplus-CodeMirror';
 

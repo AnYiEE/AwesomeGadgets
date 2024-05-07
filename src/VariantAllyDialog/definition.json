@@ -1,7 +1,6 @@
 {
 	"enable": true,
 	"description": "<span id=\"Gadget-VariantAllyDialog\"></span> VariantAlly配套对话框",
-	"excludeSites": ["testwiki"],
 	"dependencies": ["ext.gadget.VariantAlly", "vue"],
 	"hidden": true
 }
