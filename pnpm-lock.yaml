@@ -121,8 +121,8 @@ importers:
         specifier: ^8.56.10
         version: 8.56.10
       '@types/jquery':
-        specifier: ^3.5.29
-        version: 3.5.29
+        specifier: ^3.5.30
+        version: 3.5.30
       '@types/jqueryui':
         specifier: ^1.12.22
         version: 1.12.22
@@ -181,8 +181,8 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2(patch_hash=shxpupndyaiq54c4yivdwvg3ju)(esbuild@0.20.2)
       esbuild-plugin-less:
-        specifier: ^1.3.3
-        version: 1.3.3(esbuild@0.20.2)
+        specifier: ^1.3.4
+        version: 1.3.4(esbuild@0.20.2)
       esbuild-plugin-vue3:
         specifier: 0.4.1
         version: 0.4.1(pug@3.0.2)(sass@1.75.0)
@@ -239,7 +239,7 @@ importers:
         version: 2.30.1
       mwn:
         specifier: ^2.0.2
-        version: 2.0.2(@types/jquery@3.5.29)(@types/oojs-ui@0.49.0)(vue@3.3.9(typescript@5.4.5))
+        version: 2.0.2(@types/jquery@3.5.30)(@types/oojs-ui@0.49.0)(vue@3.3.9(typescript@5.4.5))
       only-allow:
         specifier: ^1.2.1
         version: 1.2.1
@@ -293,7 +293,7 @@ importers:
         version: 4.9.3
       types-mediawiki-renovate:
         specifier: latest
-        version: 2.12.2(@types/jquery@3.5.29)(@types/oojs-ui@0.49.0)
+        version: 2.12.2(@types/jquery@3.5.30)(@types/oojs-ui@0.49.0)
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -1545,8 +1545,8 @@ packages:
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
-  '@types/jquery@3.5.29':
-    resolution: {integrity: sha512-oXQQC9X9MOPRrMhPHHOsXqeQDnWeCDT3PelUIg/Oy8FAbzSZtFHRjc7IpbfFVmpLtJ+UOoywpRsuO5Jxjybyeg==}
+  '@types/jquery@3.5.30':
+    resolution: {integrity: sha512-nbWKkkyb919DOUxjmRVk8vwtDb0/k8FKncmUKFi+NY+QXqWltooxTrswvz4LspQwxvLdvzBN1TImr6cw3aQx2A==}
 
   '@types/jqueryui@1.12.22':
     resolution: {integrity: sha512-4r7ROoUJ5gaIWvQa2qAHyrhskJcUNM62Md8M9+4DtabEiIQ9Y0pVlW88ojyXvn4M1HNUc/47KpFJaXhrk8P/rg==}
@@ -2462,10 +2462,10 @@ packages:
     cpu: [x64]
     os: [openbsd]
 
-  esbuild-plugin-less@1.3.3:
-    resolution: {integrity: sha512-dYXuCtLh0Jm0Uci45w4Hlel4ajkawIQva1MxrLyaarcrEtSxUZWoaZuiLzr/dDzT/p+wRKobbop5Tp8yALSfGw==}
+  esbuild-plugin-less@1.3.4:
+    resolution: {integrity: sha512-9Lo8mN3FcbuPUocRNAWdansAPgpgjMCsTI0MWbMl90DFN/EYGGy9afWcCbyVsAo0xLqHvwAmQjHfC0zEblzhSQ==}
     peerDependencies:
-      esbuild: ^0.14.x || ^0.15.0 || ^0.16.0 || ^0.17.0 || ^0.18.0 || ^0.19.0 || ^0.20.0
+      esbuild: ^0.14.x || ^0.15.0 || ^0.16.0 || ^0.17.0 || ^0.18.0 || ^0.19.0 || ^0.20.0 || ^0.21.0
 
   esbuild-plugin-vue3@0.4.1:
     resolution: {integrity: sha512-BasNZeGtgyka61mF2Qv+72zIge+VLciCh21ibN40YgR7ywJiI13aY4hv8rOkmzCCo0c73p/drG8PBtgYAysyZQ==}
@@ -4580,8 +4580,8 @@ packages:
       '@types/jquery': ^3.0.0
       '@types/oojs-ui': '*'
 
-  types-mediawiki-renovate@2.14.0:
-    resolution: {integrity: sha512-yr9MRZKmb/20PIrpeWIjIlKu0c4bpLt1XkhyQNeErBo4vTxtwIoi+Ent2JFGWBgjdXZaFbr3KVtZsXLjRkTE2A==}
+  types-mediawiki-renovate@2.14.1:
+    resolution: {integrity: sha512-Y5VUrmo9pVKEXoveO98YsXuM8+wIsuUpVj8rSdzu01qDDtjnxVEtFjuWPl8PSmRsDDzUfEe8Jhjhd5UYeDX1FQ==}
     peerDependencies:
       '@types/jquery': ^3.0.0
       '@types/oojs-ui': '*'
@@ -6222,13 +6222,13 @@ snapshots:
 
   '@types/estree@1.0.5': {}
 
-  '@types/jquery@3.5.29':
+  '@types/jquery@3.5.30':
     dependencies:
       '@types/sizzle': 2.3.8
 
   '@types/jqueryui@1.12.22':
     dependencies:
-      '@types/jquery': 3.5.29
+      '@types/jquery': 3.5.30
 
   '@types/json-schema@7.0.15': {}
 
@@ -6248,7 +6248,7 @@ snapshots:
 
   '@types/oojs-ui@0.49.0':
     dependencies:
-      '@types/jquery': 3.5.29
+      '@types/jquery': 3.5.30
       '@types/oojs': 7.0.6
 
   '@types/oojs@7.0.6': {}
@@ -7280,7 +7280,7 @@ snapshots:
   esbuild-openbsd-64@0.14.54:
     optional: true
 
-  esbuild-plugin-less@1.3.3(esbuild@0.20.2):
+  esbuild-plugin-less@1.3.4(esbuild@0.20.2):
     dependencies:
       '@types/less': 3.0.6
       esbuild: 0.20.2
@@ -8439,7 +8439,7 @@ snapshots:
       arrify: 2.0.1
       minimatch: 3.1.2
 
-  mwn@2.0.2(@types/jquery@3.5.29)(@types/oojs-ui@0.49.0)(vue@3.3.9(typescript@5.4.5)):
+  mwn@2.0.2(@types/jquery@3.5.30)(@types/oojs-ui@0.49.0)(vue@3.3.9(typescript@5.4.5)):
     dependencies:
       '@types/node': 14.18.63
       '@types/tough-cookie': 4.0.5
@@ -8449,7 +8449,7 @@ snapshots:
       form-data: 3.0.1
       oauth-1.0a: 2.2.6
       tough-cookie: 4.1.3
-      types-mediawiki: types-mediawiki-renovate@2.14.0(@types/jquery@3.5.29)(@types/oojs-ui@0.49.0)(vue@3.3.9(typescript@5.4.5))
+      types-mediawiki: types-mediawiki-renovate@2.14.1(@types/jquery@3.5.30)(@types/oojs-ui@0.49.0)(vue@3.3.9(typescript@5.4.5))
     transitivePeerDependencies:
       - '@types/jquery'
       - '@types/oojs-ui'
@@ -9683,14 +9683,14 @@ snapshots:
       is-typed-array: 1.1.13
       possible-typed-array-names: 1.0.0
 
-  types-mediawiki-renovate@2.12.2(@types/jquery@3.5.29)(@types/oojs-ui@0.49.0):
+  types-mediawiki-renovate@2.12.2(@types/jquery@3.5.30)(@types/oojs-ui@0.49.0):
     dependencies:
-      '@types/jquery': 3.5.29
+      '@types/jquery': 3.5.30
       '@types/oojs-ui': 0.49.0
 
-  types-mediawiki-renovate@2.14.0(@types/jquery@3.5.29)(@types/oojs-ui@0.49.0)(vue@3.3.9(typescript@5.4.5)):
+  types-mediawiki-renovate@2.14.1(@types/jquery@3.5.30)(@types/oojs-ui@0.49.0)(vue@3.3.9(typescript@5.4.5)):
     dependencies:
-      '@types/jquery': 3.5.29
+      '@types/jquery': 3.5.30
       '@types/oojs-ui': 0.49.0
       vue: 3.3.9(typescript@5.4.5)
 
