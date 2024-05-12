@@ -1,7 +1,7 @@
-const disableTitle = ($body: JQuery<HTMLBodyElement>): void => {
+const disableTitle = ({$body, $editForm}: {$body: JQuery<HTMLBodyElement>; $editForm: JQuery<HTMLElement>}): void => {
 	if ($body.find('#no-new-title').length && $body.find('#editform input[name="wpSection"]').val() === 'new') {
 		// 传统文本编辑器
-		const $wpSummary: JQuery = $body.find('input[name=wpSummary]');
+		const $wpSummary: JQuery = $editForm.find('input[name=wpSummary]');
 		$wpSummary.prop('disabled', true);
 		$wpSummary.val('');
 	}

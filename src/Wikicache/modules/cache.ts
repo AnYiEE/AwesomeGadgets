@@ -1,9 +1,13 @@
 import * as OPTIONS from '../options.json';
-import {getWpSummaryContent, getWpTextbox1Content, setWpSummaryContent, setWpTextbox1Content} from './content';
+import {
+	delay,
+	getWpSummaryContent,
+	getWpTextbox1Content,
+	setWpSummaryContent,
+	setWpTextbox1Content,
+} from 'ext.gadget.Util';
 import {AutoSaveObject} from './types';
-import {delay} from 'ext.gadget.Util';
 import {getMessage} from './i18n';
-import {toastify} from 'ext.gadget.Toastify';
 
 const getCacheKey = () => {
 	const {wgPageName} = mw.config.get();
@@ -29,12 +33,8 @@ const newSaveObject = ({$editForm}: {$editForm: JQuery<HTMLElement>}): AutoSaveO
 const setCache = ({$editForm}: {$editForm: JQuery<HTMLElement>}) => {
 	try {
 		mw.storage.setObject(getCacheKey(), newSaveObject({$editForm}), 60 * 60 * 24 * 30 * 1000);
-		toastify({
-			text: getMessage('Change saved'),
-			close: true,
-			duration: 3 * 1000,
-			gravity: 'top',
-			position: 'right',
+		void mw.notify(getMessage('Change saved'), {
+			tag: 'wikicache',
 		});
 	} catch (error) {
 		console.error(error);
@@ -58,7 +58,11 @@ const getCache = async ({$editForm}: {$editForm: JQuery<HTMLElement>}) => {
 		setWpSummaryContent({$editForm, content: saveObject['wpSummary']});
 	}
 
-	if (saveObject['wpTextbox1'] && !(getWpTextbox1Content({$editForm}) === saveObject['wpTextbox1'])) {
+	if (!saveObject['wpTextbox1']) {
+		return;
+	}
+
+	if (![saveObject['wpTextbox1'], `${saveObject['wpTextbox1']}\n`].includes(getWpTextbox1Content({$editForm}))) {
 		const confirm = await OO.ui.confirm(getMessage('Restore changes?'), {
 			actions: [
 				{label: getMessage('Restore unsaved changes'), action: 'accept', flags: ['progressive']},
@@ -68,6 +72,7 @@ const getCache = async ({$editForm}: {$editForm: JQuery<HTMLElement>}) => {
 		if (confirm) {
 			setWpTextbox1Content({$editForm, content: saveObject['wpTextbox1']});
 		}
+		mw.storage.remove(`${getCacheKey()}##PreviewDiff`);
 	}
 };
 
@@ -79,7 +84,11 @@ const autoSetCache = async ({$editForm}: {$editForm: JQuery<HTMLElement>}) => {
 };
 
 const setCacheBeforeSubmit = ({$editForm}: {$editForm: JQuery<HTMLElement>}) => {
-	$editForm.on('submit', () => {
+	const editForm = document.querySelector<HTMLFormElement>('#editform');
+	editForm?.addEventListener('submit', (event) => {
+		if ([document.querySelector('#wpPreview'), document.querySelector('#wpDiff')].includes(event.submitter)) {
+			mw.storage.setObject(`${getCacheKey()}##PreviewDiff`, '1', 60 * 60 * 24 * 1);
+		}
 		setCache({$editForm});
 	});
 };

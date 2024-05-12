@@ -28,7 +28,7 @@ const addElement = async (): Promise<void> => {
 		} = (await api.get(queryUserGroupsParams)) as never;
 
 		if (groups.includes('bot') || groups.includes('qiuwen')) {
-			//求闻站长预留，故意不改
+			//站长预留，故意不改
 			/* empty */
 			// Already shown in MarkRights-Userpage
 		} else {

@@ -1,8 +1,8 @@
-const {wgUserGroups, wgUserLanguage} = mw.config.get();
+const {wgUserGroups, wgGlobalGroups, wgUserLanguage} = mw.config.get();
 
 // eslint-disable-next-line camelcase
 const in_group = (group: string): boolean => {
-	return !!wgUserGroups?.includes(group);
+	return !!(wgUserGroups?.includes(group) || (wgGlobalGroups as string[])?.includes(group));
 };
 
 // eslint-disable-next-line camelcase

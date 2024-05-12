@@ -5,14 +5,16 @@ import {getBody} from 'ext.gadget.Util';
 import {preloadRevid} from './modules/preloadRevid';
 
 void getBody().then(function editForm($body: JQuery<HTMLBodyElement>): void {
-	// 删除回退时自动生成的编辑摘要
-	clearUndoSummary($body);
+	mw.hook('wikipage.editform').add(($editForm): void => {
+		// 删除回退时自动生成的编辑摘要
+		clearUndoSummary($editForm);
 
-	// 在提交新段落时，让主题栏在特定情况下失效
-	disableTitle($body);
+		// 在提交新段落时，让主题栏在特定情况下失效
+		disableTitle({$body, $editForm});
 
-	// 源代码编辑器加载“编辑请求”补丁
-	preloadRevid($body);
+		// 源代码编辑器加载“编辑请求”补丁
+		preloadRevid($editForm);
+	});
 
 	// 新用户引导至条目创建向导（[[QW:AFC]]）
 	// introACH();

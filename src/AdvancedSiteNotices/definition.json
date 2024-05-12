@@ -8,7 +8,6 @@
 		"ext.gadget.i18n",
 		"ext.gadget.React",
 		"ext.gadget.Tippy",
-		"ext.gadget.Toastify",
 		"ext.gadget.Util",
 		"mediawiki.api",
 		"mediawiki.storage",

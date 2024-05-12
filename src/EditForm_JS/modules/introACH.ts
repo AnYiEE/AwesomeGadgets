@@ -3,7 +3,7 @@ import {userIsInGroup} from 'ext.gadget.Util';
 const introACH = (): void => {
 	const {wgAction, wgArticleId, wgWikiID, wgNamespaceNumber} = mw.config.get();
 
-	// Disabled for wikis other than ysarchives
+	// Disabled for wikis other than wiki-ysy
 	if (wgWikiID !== 'wiki-ysy') {
 		return;
 	}
@@ -42,8 +42,8 @@ const introACH = (): void => {
 	 */
 	if (
 		document.querySelector('#ca-talk') &&
-		document.querySelectorAll('#ca-talk a')[0] &&
-		(document.querySelectorAll('#ca-talk a')[0] as HTMLAnchorElement).href.includes('redlink=1')
+		document.querySelector<HTMLAnchorElement>('#ca-talk a') &&
+		document.querySelector<HTMLAnchorElement>('#ca-talk a')?.href.includes('redlink=1')
 	) {
 		document.querySelector('#ca-talk')?.remove();
 	}
