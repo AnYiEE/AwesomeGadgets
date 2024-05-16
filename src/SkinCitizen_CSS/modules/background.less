@@ -29,9 +29,15 @@ html::before {
 	height: calc(100vh - var(--header-size));
 	margin-top: var(--header-size); // 避免顶栏挡住背景图的顶部
 	background: url('https://youshou.wiki/images/f/ff/%E6%9C%89%E5%85%BD%E7%84%89%E5%8A%A8%E7%94%BB%E6%88%AA%E5%9B%BE.jpg')
-		fixed 100% 0;
+		100% 0;
 	background-size: cover;
 }
 html.client-darkmode::before {
 	filter: invert(1) hue-rotate(180deg); // 抵消 Extension:DarkMode 的反色
+}
+
+// 撤销 Citizen resources/skins.citizen.styles/common/common.less 中的背景色
+html,
+body {
+	background-color: initial !important;
 }
