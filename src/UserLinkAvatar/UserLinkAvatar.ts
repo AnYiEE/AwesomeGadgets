@@ -5,6 +5,6 @@ document.querySelectorAll('.mw-userlink').forEach((item) => {
 	const img = document.createElement('img');
 	img.classList.add('userlink-avatar');
 	img.src = `${mw.config.get('wgScriptPath')}/extensions/Avatar/avatar.php?user=${item.textContent}`;
-	img.alt = `Avatar of ${item.textContent}`; // alt
+	img.alt = ''; // alt="" for decorative images
 	item.prepend(img);
 });
