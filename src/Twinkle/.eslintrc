@@ -1,0 +1,26 @@
+{
+	"rules": {
+		"camelcase": "off",
+		"@typescript-eslint/no-this-alias": [
+			"error",
+			{
+				"allowDestructuring": true,
+				"allowedNames": ["self", "udate", "thisCb", "thisProxy"]
+			}
+		],
+		"jsdoc/require-returns": "off",
+		"jsdoc/valid-types": "off",
+		"jsdoc/require-param-type": "off",
+		"mediawiki/class-doc": "off",
+		"new-cap": "off",
+		"unicorn/prefer-dom-node-append": "off",
+		"unicorn/prefer-dom-node-remove": "off",
+		"unicorn/prefer-modern-dom-apis": "off"
+	},
+	"globals": {
+		"Morebits": "readonly",
+		"Twinkle": "writable",
+		"wgULS": "readonly",
+		"jQuery": "readonly"
+	}
+}

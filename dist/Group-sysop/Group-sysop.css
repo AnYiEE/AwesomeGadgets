@@ -1,0 +1,49 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/GroupSysopCSS}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/Group-sysop/Group-sysop.less */
+div.sysop-show,
+p.sysop-show {
+  display: block !important;
+}
+span.sysop-show,
+small.sysop-show {
+  display: inline !important;
+}
+table.sysop-show {
+  display: table !important;
+}
+tr.sysop-show {
+  display: table-row !important;
+}
+td.sysop-show {
+  display: table-cell !important;
+}
+li.sysop-show {
+  display: list-item !important;
+}
+.mw-history-editchangetags-button,
+.mw-log-editchangetags-button {
+  display: block;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0dyb3VwLXN5c29wL0dyb3VwLXN5c29wLmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImRpdi5zeXNvcC1zaG93LFxucC5zeXNvcC1zaG93IHtcbiAgZGlzcGxheTogYmxvY2sgIWltcG9ydGFudDtcbn1cbnNwYW4uc3lzb3Atc2hvdyxcbnNtYWxsLnN5c29wLXNob3cge1xuICBkaXNwbGF5OiBpbmxpbmUgIWltcG9ydGFudDtcbn1cbnRhYmxlLnN5c29wLXNob3cge1xuICBkaXNwbGF5OiB0YWJsZSAhaW1wb3J0YW50O1xufVxudHIuc3lzb3Atc2hvdyB7XG4gIGRpc3BsYXk6IHRhYmxlLXJvdyAhaW1wb3J0YW50O1xufVxudGQuc3lzb3Atc2hvdyB7XG4gIGRpc3BsYXk6IHRhYmxlLWNlbGwgIWltcG9ydGFudDtcbn1cbmxpLnN5c29wLXNob3cge1xuICBkaXNwbGF5OiBsaXN0LWl0ZW0gIWltcG9ydGFudDtcbn1cbi8qIOaYvuekuuKAnOe8lui+kemAieWumuS/ruiuoueJiOacrOeahOagh+etvuKAnSAqL1xuLm13LWhpc3RvcnktZWRpdGNoYW5nZXRhZ3MtYnV0dG9uLFxuLm13LWxvZy1lZGl0Y2hhbmdldGFncy1idXR0b24ge1xuICBkaXNwbGF5OiBibG9jaztcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLEdBQUcsQ0FBQztBQUNKLENBQUMsQ0FERztBQUVGLFdBQVM7QUFDWDtBQUNBLElBQUksQ0FKQTtBQUtKLEtBQUssQ0FMRDtBQU1GLFdBQVM7QUFDWDtBQUNBLEtBQUssQ0FSRDtBQVNGLFdBQVM7QUFDWDtBQUNBLEVBQUUsQ0FYRTtBQVlGLFdBQVM7QUFDWDtBQUNBLEVBQUUsQ0FkRTtBQWVGLFdBQVM7QUFDWDtBQUNBLEVBQUUsQ0FqQkU7QUFrQkYsV0FBUztBQUNYO0FBRUEsQ0FBQztBQUNELENBQUM7QUFDQyxXQUFTO0FBQ1g7IiwKICAibmFtZXMiOiBbXQp9Cg== */

@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-MarkBlocked-pagestyles\"></span> “用删除线标识被封禁用户的用户页链接”配套样式表",
+	"section": "sysop",
+	"hidden": true
+}

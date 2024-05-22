@@ -1,0 +1,44 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @source <https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/DisambigLinks>
+ * @author Kaldari, Cyberpower678, Alexander Misel, Artoria2e5, WaitSpring <me@waitspring.com>, Qiuwen Baike Contributors and YsArchives Contributors.
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/DisambigLinks/DisambigLinks.css */
+a.mw-disambig::after,
+a.mw-redirect::after {
+  font-weight: normal;
+  line-height: 0;
+  text-indent: 0.1em;
+  vertical-align: super;
+}
+a.mw-disambig::after {
+  content: "⇄";
+  font-size: 0.75em;
+}
+a.mw-redirect::after {
+  content: "↳";
+  font-size: 0.9em;
+}
+a.mw-disambig.mw-redirect::after {
+  content: "⇄↳";
+  font-size: 0.75em;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0Rpc2FtYmlnTGlua3MvRGlzYW1iaWdMaW5rcy5jc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImEubXctZGlzYW1iaWc6OmFmdGVyLFxuYS5tdy1yZWRpcmVjdDo6YWZ0ZXIge1xuXHRmb250LXdlaWdodDogbm9ybWFsO1xuXHRsaW5lLWhlaWdodDogMDtcblx0dGV4dC1pbmRlbnQ6IDAuMWVtO1xuXHR2ZXJ0aWNhbC1hbGlnbjogc3VwZXI7XG59XG5cbmEubXctZGlzYW1iaWc6OmFmdGVyIHtcblx0Y29udGVudDogJ+KHhCc7XG5cdGZvbnQtc2l6ZTogMC43NWVtO1xufVxuXG5hLm13LXJlZGlyZWN0OjphZnRlciB7XG5cdGNvbnRlbnQ6ICfihrMnO1xuXHRmb250LXNpemU6IDAuOWVtO1xufVxuXG5hLm13LWRpc2FtYmlnLm13LXJlZGlyZWN0OjphZnRlciB7XG5cdGNvbnRlbnQ6ICfih4TihrMnO1xuXHRmb250LXNpemU6IDAuNzVlbTtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLENBQUMsQ0FBQyxXQUFXO0FBQ2IsQ0FBQyxDQUFDLFdBQVc7QUFDWixlQUFhO0FBQ2IsZUFBYTtBQUNiLGVBQWE7QUFDYixrQkFBZ0I7QUFDakI7QUFFQSxDQUFDLENBUkMsV0FRVztBQUNaLFdBQVM7QUFDVCxhQUFXO0FBQ1o7QUFFQSxDQUFDLENBWkMsV0FZVztBQUNaLFdBQVM7QUFDVCxhQUFXO0FBQ1o7QUFFQSxDQUFDLENBbEJDLFdBa0JXLENBakJYLFdBaUJ1QjtBQUN4QixXQUFTO0FBQ1QsYUFBVztBQUNaOyIsCiAgIm5hbWVzIjogW10KfQo= */

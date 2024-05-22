@@ -1,0 +1,7 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0
+ * _addText: '{{Gadget Header|license=GPL-3.0}}'
+ *
+ * @base <https://github.com/MoegirlPediaInterfaceAdmins/MoegirlPediaInterfaceCodes/blob/f1341d831b3aab2501f7744581149ec201707bdb/src/gadgets/ShowAvatar/MediaWiki%3AGadget-ShowAvatar.css>
+ * @source <https://github.com/TopRealm/InterfaceCodes/tree/master/src/Gadgets/Appearance/ShowAvatar.css>
+ */

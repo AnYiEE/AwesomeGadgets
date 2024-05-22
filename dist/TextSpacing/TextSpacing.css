@@ -1,0 +1,31 @@
+/**
+ * SPDX-License-Identifier: BSD-3-Clause
+ * _addText: '{{Gadget Header|license=BSD}}'
+ *
+ * @base {@link https://github.com/diskdance/gadget-text-spacing}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/TextSpacing}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/TextSpacing/TextSpacing.less */
+.gadget-text_spacing {
+  display: inline !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  letter-spacing: 0.125em !important;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1RleHRTcGFjaW5nL1RleHRTcGFjaW5nLmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbIi5nYWRnZXQtdGV4dF9zcGFjaW5nIHtcbiAgZGlzcGxheTogaW5saW5lICFpbXBvcnRhbnQ7XG4gIG1hcmdpbjogMCAhaW1wb3J0YW50O1xuICBwYWRkaW5nOiAwICFpbXBvcnRhbnQ7XG4gIGxldHRlci1zcGFjaW5nOiAwLjEyNWVtICFpbXBvcnRhbnQ7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxDQUFDO0FBQ0MsV0FBUztBQUNULFVBQVE7QUFDUixXQUFTO0FBQ1Qsa0JBQWdCO0FBQ2xCOyIsCiAgIm5hbWVzIjogW10KfQo= */

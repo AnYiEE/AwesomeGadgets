@@ -1,0 +1,45 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://en.wikipedia.org/wiki/MediaWiki:Gadget-markblocked.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/MarkBlocked-pagestyles}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/MarkBlocked-pagestyles/MarkBlocked-pagestyles.less */
+.gadget-mark_blocked--loading .gadget-mark_blocked-userlink {
+  opacity: 0.85;
+}
+.gadget-mark_blocked-userlink--indef {
+  -webkit-text-decoration: line-through;
+  text-decoration: line-through;
+  font-style: italic;
+  opacity: 0.4;
+}
+.gadget-mark_blocked-userlink--partial {
+  text-decoration: underline;
+  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
+}
+.gadget-mark_blocked-userlink--temp {
+  -webkit-text-decoration: line-through;
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL01hcmtCbG9ja2VkLXBhZ2VzdHlsZXMvTWFya0Jsb2NrZWQtcGFnZXN0eWxlcy5sZXNzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyIuZ2FkZ2V0LW1hcmtfYmxvY2tlZC0tbG9hZGluZyAuZ2FkZ2V0LW1hcmtfYmxvY2tlZC11c2VybGluayB7XG4gIG9wYWNpdHk6IDAuODU7XG59XG4uZ2FkZ2V0LW1hcmtfYmxvY2tlZC11c2VybGluay0taW5kZWYge1xuICAtd2Via2l0LXRleHQtZGVjb3JhdGlvbjogbGluZS10aHJvdWdoO1xuICB0ZXh0LWRlY29yYXRpb246IGxpbmUtdGhyb3VnaDtcbiAgZm9udC1zdHlsZTogaXRhbGljO1xuICBvcGFjaXR5OiAwLjQ7XG59XG4uZ2FkZ2V0LW1hcmtfYmxvY2tlZC11c2VybGluay0tcGFydGlhbCB7XG4gIHRleHQtZGVjb3JhdGlvbjogdW5kZXJsaW5lO1xuICAtd2Via2l0LXRleHQtZGVjb3JhdGlvbjogdW5kZXJsaW5lIGRvdHRlZDtcbiAgICAgICAgICB0ZXh0LWRlY29yYXRpb246IHVuZGVybGluZSBkb3R0ZWQ7XG59XG4uZ2FkZ2V0LW1hcmtfYmxvY2tlZC11c2VybGluay0tdGVtcCB7XG4gIC13ZWJraXQtdGV4dC1kZWNvcmF0aW9uOiBsaW5lLXRocm91Z2g7XG4gIHRleHQtZGVjb3JhdGlvbjogbGluZS10aHJvdWdoO1xuICBvcGFjaXR5OiAwLjc7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsQ0FBQyw2QkFBNkIsQ0FBQztBQUM3QixXQUFTO0FBQ1g7QUFDQSxDQUFDO0FBQ0MsMkJBQXlCO0FBQ3pCLG1CQUFpQjtBQUNqQixjQUFZO0FBQ1osV0FBUztBQUNYO0FBQ0EsQ0FBQztBQUNDLG1CQUFpQjtBQUNqQiwyQkFBeUIsVUFBVTtBQUMzQixtQkFBaUIsVUFBVTtBQUNyQztBQUNBLENBQUM7QUFDQywyQkFBeUI7QUFDekIsbUJBQWlCO0FBQ2pCLFdBQVM7QUFDWDsiLAogICJuYW1lcyI6IFtdCn0K */

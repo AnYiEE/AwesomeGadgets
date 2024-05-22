@@ -1,0 +1,11 @@
+{
+	"rules": {
+		"jsdoc/implements-on-classes": "off",
+		"jsdoc/require-param-name": "off",
+		"jsdoc/require-returns": "off",
+		"jsdoc/valid-types": "off",
+		"mediawiki/msg-doc": "off",
+		"no-use-before-define": "off"
+	},
+	"ignorePatterns": ["modules/core.js"]
+}

@@ -1,0 +1,67 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Common.css}
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Group-user.css}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/Group-user}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/Group-user/Group-user.less */
+div.user-show,
+p.user-show {
+  display: block !important;
+}
+span.user-show,
+small.user-show {
+  display: inline !important;
+}
+table.user-show {
+  display: table !important;
+}
+tr.user-show {
+  display: table-row !important;
+}
+td.user-show {
+  display: table-cell !important;
+}
+li.user-show {
+  display: list-item !important;
+}
+.anonymous-show,
+.user-hide {
+  display: none !important;
+}
+li#t-specialpages {
+  display: list-item !important;
+}
+.mw-noarticletext-module.user-show {
+  display: flex !important;
+  flex: 1 1 20em;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+}
+body:not(.page-有兽档案馆_首页) #catlinks:not(.catlinks-allhidden) {
+  display: block !important;
+}
+.skin-citizen body:not(.page-有兽档案馆_首页) #catlinks:not(.catlinks-allhidden) {
+  display: flex !important;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0dyb3VwLXVzZXIvR3JvdXAtdXNlci5sZXNzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyJkaXYudXNlci1zaG93LFxucC51c2VyLXNob3cge1xuICBkaXNwbGF5OiBibG9jayAhaW1wb3J0YW50O1xufVxuc3Bhbi51c2VyLXNob3csXG5zbWFsbC51c2VyLXNob3cge1xuICBkaXNwbGF5OiBpbmxpbmUgIWltcG9ydGFudDtcbn1cbnRhYmxlLnVzZXItc2hvdyB7XG4gIGRpc3BsYXk6IHRhYmxlICFpbXBvcnRhbnQ7XG59XG50ci51c2VyLXNob3cge1xuICBkaXNwbGF5OiB0YWJsZS1yb3cgIWltcG9ydGFudDtcbn1cbnRkLnVzZXItc2hvdyB7XG4gIGRpc3BsYXk6IHRhYmxlLWNlbGwgIWltcG9ydGFudDtcbn1cbmxpLnVzZXItc2hvdyB7XG4gIGRpc3BsYXk6IGxpc3QtaXRlbSAhaW1wb3J0YW50O1xufVxuLmFub255bW91cy1zaG93LFxuLnVzZXItaGlkZSB7XG4gIGRpc3BsYXk6IG5vbmUgIWltcG9ydGFudDtcbn1cbi8qIOS7heeZu+W9leeUqOaIt+WPr+ingeKAnOeJueauiumhtemdouKAneiPnOWNlSAqL1xubGkjdC1zcGVjaWFscGFnZXMge1xuICBkaXNwbGF5OiBsaXN0LWl0ZW0gIWltcG9ydGFudDtcbn1cbi5tdy1ub2FydGljbGV0ZXh0LW1vZHVsZS51c2VyLXNob3cge1xuICBkaXNwbGF5OiBmbGV4ICFpbXBvcnRhbnQ7XG4gIGZsZXg6IDEgMSAyMGVtO1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBwYWRkaW5nOiAxZW07XG59XG5ib2R5Om5vdCgucGFnZS3mnInlhb3moaPmoYjppoZf6aaW6aG1KSAjY2F0bGlua3M6bm90KC5jYXRsaW5rcy1hbGxoaWRkZW4pIHtcbiAgZGlzcGxheTogYmxvY2sgIWltcG9ydGFudDtcbn1cbi5za2luLWNpdGl6ZW4gYm9keTpub3QoLnBhZ2Ut5pyJ5YW95qGj5qGI6aaGX+mmlumhtSkgI2NhdGxpbmtzOm5vdCguY2F0bGlua3MtYWxsaGlkZGVuKSB7XG4gIGRpc3BsYXk6IGZsZXggIWltcG9ydGFudDtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsR0FBRyxDQUFDO0FBQ0osQ0FBQyxDQURHO0FBRUYsV0FBUztBQUNYO0FBQ0EsSUFBSSxDQUpBO0FBS0osS0FBSyxDQUxEO0FBTUYsV0FBUztBQUNYO0FBQ0EsS0FBSyxDQVJEO0FBU0YsV0FBUztBQUNYO0FBQ0EsRUFBRSxDQVhFO0FBWUYsV0FBUztBQUNYO0FBQ0EsRUFBRSxDQWRFO0FBZUYsV0FBUztBQUNYO0FBQ0EsRUFBRSxDQWpCRTtBQWtCRixXQUFTO0FBQ1g7QUFDQSxDQUFDO0FBQ0QsQ0FBQztBQUNDLFdBQVM7QUFDWDtBQUVBLEVBQUUsQ0FBQztBQUNELFdBQVM7QUFDWDtBQUNBLENBQUMsdUJBQXVCLENBNUJwQjtBQTZCRixXQUFTO0FBQ1QsUUFBTSxFQUFFLEVBQUU7QUFDVixrQkFBZ0I7QUFDaEIsZUFBYTtBQUNiLFdBQVM7QUFDWDtBQUNBLElBQUksS0FBSyxDQUFDLGVBQWUsQ0FBQyxRQUFRLEtBQUssQ0FBQztBQUN0QyxXQUFTO0FBQ1g7QUFDQSxDQUFDLGFBQWEsSUFBSSxLQUFLLENBSGIsZUFHNkIsQ0FIYixRQUdzQixLQUFLLENBSGI7QUFJdEMsV0FBUztBQUNYOyIsCiAgIm5hbWVzIjogW10KfQo= */

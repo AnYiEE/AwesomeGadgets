@@ -1,0 +1,32 @@
+{
+	"variants": {
+		"zh-cn": "中国大陆简体",
+		"zh-sg": "新加坡简体",
+		"zh-my": "马来西亚简体",
+		"zh-hk": "中國香港繁體",
+		"zh-mo": "中國澳門繁體",
+		"zh-tw": "中國臺灣繁體"
+	},
+	"hans": {
+		"space": "",
+		"close": "关闭",
+		"vp.header": "我们支持",
+		"vp.header.alt": "记住此变体？",
+		"vp.main": "选取内容的语言变体",
+		"vp.main.alt": "以后都使用此变体呈现内容",
+		"vp.main.ext": "保存您偏好的中文语言变体，以避免显示简繁混杂的内容，提供最佳的阅读体验。",
+		"vp.button.ok": "确定",
+		"vp.button.other": "其他"
+	},
+	"hant": {
+		"space": "",
+		"close": "關閉",
+		"vp.header": "我們支援",
+		"vp.header.alt": "記住此變體？",
+		"vp.main": "選取內容的語言變體",
+		"vp.main.alt": "以後都使用此變體呈現內容",
+		"vp.main.ext": "儲存您偏好的中文語言變體，以避免顯示簡繁混雜的內容，提供最佳的閱讀體驗。",
+		"vp.button.ok": "確定",
+		"vp.button.other": "其他"
+	}
+}

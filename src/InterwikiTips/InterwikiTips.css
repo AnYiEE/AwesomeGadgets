@@ -1,0 +1,31 @@
+.mw-parser-output a.extiw:is([href*='.qiuwenbaike.cn'])::before,
+.mw-parser-output a.extiw:is([href*='.moegirl.org.cn'])::before {
+	font-weight: normal;
+	line-height: 0;
+	text-indent: 0.1em;
+	vertical-align: super;
+}
+
+.mw-parser-output a.extiw:is([href*='.qiuwenbaike.cn'])::before {
+	display: inline-block;
+	font-size: 1em;
+	width: 1em;
+	height: 1em;
+	margin-right: 0;
+	content: '';
+	background: url('https://youshou.wiki/images/4/41/“求”网站图标（透明背景；2023版）.svg') no-repeat 0 0;
+	background-size: 100%;
+}
+
+.mw-parser-output a.extiw:is([href*='.moegirl.org.cn'])::before {
+	display: inline-block;
+	font-size: 1em;
+	width: 1em;
+	height: 1em;
+	margin-right: 0;
+	content: '';
+	background: url('https://youshou.wiki/images/8/88/萌娘百科网站图标.svg') no-repeat 0 0;
+	background-size: 100%;
+}
+
+/* </nowiki> */

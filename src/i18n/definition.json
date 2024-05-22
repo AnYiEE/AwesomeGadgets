@@ -1,0 +1,7 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-i18n\"></span> i18n 为其他小工具提供多语言消息支持",
+	"section": "compatibility",
+	"dependencies": ["ext.gadget.Util"],
+	"hidden": true
+}

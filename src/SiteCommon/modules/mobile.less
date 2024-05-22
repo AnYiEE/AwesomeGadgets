@@ -1,0 +1,77 @@
+/* 移动端优化 */
+@media only screen and (max-width: 768px) {
+	/* !important to ignore inline styles */
+
+	/* .mw-body-content to increase specificity */
+	.mw-body-content {
+		word-wrap: break-word;
+
+		table {
+			max-width: 92.5% !important;
+			margin-right: auto !important;
+			margin-left: auto !important;
+			float: none !important;
+			overflow: auto hidden;
+		}
+
+		.thumb {
+			margin: 0.5em auto;
+			clear: none;
+			float: none;
+		}
+
+		.thumbinner {
+			max-width: 92.5%;
+			box-sizing: border-box;
+			border: 0;
+			margin: 0 auto;
+			background-color: transparent;
+
+			.thumbimage {
+				max-width: 92.5%;
+				height: auto;
+			}
+		}
+
+		.thumbcaption {
+			text-align: center;
+
+			> .magnify {
+				display: none;
+			}
+		}
+
+		.image > img {
+			min-width: 20px;
+			max-width: 92.5%;
+			height: auto;
+		}
+
+		figure {
+			max-width: 92.5%;
+			box-sizing: border-box;
+			border: 0;
+			margin: 0 auto;
+			background-color: transparent;
+
+			img {
+				max-width: 92.5%;
+				height: auto;
+			}
+
+			&[typeof~='mw:File/Thumb'] > a.mw-file-description::after {
+				display: none;
+			}
+		}
+
+		figcaption {
+			text-align: center;
+		}
+	}
+
+	#firstHeading .mw-editsection,
+	#coordinates,
+	#pt-talk-alert {
+		display: none;
+	}
+}

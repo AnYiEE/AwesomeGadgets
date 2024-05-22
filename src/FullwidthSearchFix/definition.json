@@ -1,0 +1,7 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-FullwidthSearchFix\"></span> 搜索框全角冒号搜索纠正",
+	"section": "browser",
+	"default": true,
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.Toastify", "mediawiki.Uri", "mediawiki.util"]
+}

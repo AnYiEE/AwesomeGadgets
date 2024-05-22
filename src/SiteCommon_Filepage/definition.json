@@ -1,0 +1,7 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-SiteCommon_Filepage\"></span> 文件页面样式",
+	"section": "compatibility",
+	"default": true,
+	"hidden": true
+}

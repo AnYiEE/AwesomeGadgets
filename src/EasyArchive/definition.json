@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-EasyArchive\"></span> [[Help:Easy Archive|快速存档]] <small>一键存档讨论页</small>",
+	"section": "edit",
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.React", "ext.gadget.Toastify", "ext.gadget.Util"],
+	"peers": ["EasyArchive-pagestyles"],
+	"rights": ["skipcaptcha"]
+}

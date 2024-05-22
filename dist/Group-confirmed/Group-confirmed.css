@@ -1,0 +1,46 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Group-autoconfirmed.css}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/Group-confirmed}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/Group-confirmed/Group-confirmed.less */
+div.confirmed-show,
+p.confirmed-show {
+  display: block !important;
+}
+span.confirmed-show,
+small.confirmed-show {
+  display: inline !important;
+}
+table.confirmed-show {
+  display: table !important;
+}
+tr.confirmed-show {
+  display: table-row !important;
+}
+td.confirmed-show {
+  display: table-cell !important;
+}
+li.confirmed-show {
+  display: list-item !important;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0dyb3VwLWNvbmZpcm1lZC9Hcm91cC1jb25maXJtZWQubGVzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiZGl2LmNvbmZpcm1lZC1zaG93LFxucC5jb25maXJtZWQtc2hvdyB7XG4gIGRpc3BsYXk6IGJsb2NrICFpbXBvcnRhbnQ7XG59XG5zcGFuLmNvbmZpcm1lZC1zaG93LFxuc21hbGwuY29uZmlybWVkLXNob3cge1xuICBkaXNwbGF5OiBpbmxpbmUgIWltcG9ydGFudDtcbn1cbnRhYmxlLmNvbmZpcm1lZC1zaG93IHtcbiAgZGlzcGxheTogdGFibGUgIWltcG9ydGFudDtcbn1cbnRyLmNvbmZpcm1lZC1zaG93IHtcbiAgZGlzcGxheTogdGFibGUtcm93ICFpbXBvcnRhbnQ7XG59XG50ZC5jb25maXJtZWQtc2hvdyB7XG4gIGRpc3BsYXk6IHRhYmxlLWNlbGwgIWltcG9ydGFudDtcbn1cbmxpLmNvbmZpcm1lZC1zaG93IHtcbiAgZGlzcGxheTogbGlzdC1pdGVtICFpbXBvcnRhbnQ7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsR0FBRyxDQUFDO0FBQ0osQ0FBQyxDQURHO0FBRUYsV0FBUztBQUNYO0FBQ0EsSUFBSSxDQUpBO0FBS0osS0FBSyxDQUxEO0FBTUYsV0FBUztBQUNYO0FBQ0EsS0FBSyxDQVJEO0FBU0YsV0FBUztBQUNYO0FBQ0EsRUFBRSxDQVhFO0FBWUYsV0FBUztBQUNYO0FBQ0EsRUFBRSxDQWRFO0FBZUYsV0FBUztBQUNYO0FBQ0EsRUFBRSxDQWpCRTtBQWtCRixXQUFTO0FBQ1g7IiwKICAibmFtZXMiOiBbXQp9Cg== */

@@ -1,0 +1,96 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/Edit0|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-edit0.css}
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-edit0.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/Edit0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/Edit0/Edit0.less */
+body.ltr h1.firstHeading .mw-editsection-bracket:first-of-type,
+body.rtl h1.firstHeading .mw-editsection-bracket:not(:first-of-type) {
+  margin-right: 0.25em;
+  color: #4d4d4d;
+}
+body .page-heading .mw-editsection a {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+body:not(.skin-citizen) .page-heading .mw-editsection a {
+  display: inline-block;
+  font-size: 1em;
+  vertical-align: middle;
+}
+body.skin-citizen .page-heading .mw-editsection a {
+  font-size: 1rem;
+}
+body.skin-citizen .mw-indicators .mw-editsection {
+  margin-right: 10px;
+  margin-left: 0;
+}
+body.skin-citizen .mw-indicators .mw-editsection::before {
+  content: "首段：";
+  font-family:
+    "Source Serif 4",
+    "DejaVu Serif",
+    "Liberation Serif",
+    "Linux Libertine",
+    "Georgia",
+    "Calibri",
+    "Times New Roman",
+    "Source Han Serif SC",
+    "Noto Serif CJK SC",
+    "STSong SC",
+    "STSong",
+    "SimSun",
+    serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    emoji;
+  font-size: 0.75rem;
+}
+html:lang(zh-hant) body.skin-citizen .mw-indicators .mw-editsection::before {
+  font-family:
+    "Source Serif 4",
+    "DejaVu Serif",
+    "Liberation Serif",
+    "Linux Libertine",
+    "Georgia",
+    "Calibri",
+    "Times New Roman",
+    "Source Han Serif TC",
+    "Noto Serif CJK TC",
+    "STSong TC",
+    "STSong",
+    "MingLiU",
+    serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    emoji;
+}
+body #firstHeading span.mw-editsection a::after {
+  content: " (首段)";
+}
+html:lang(en) body #firstHeading span.mw-editsection a::after {
+  content: " (lead section)";
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0VkaXQwL0VkaXQwLmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImJvZHkubHRyIGgxLmZpcnN0SGVhZGluZyAubXctZWRpdHNlY3Rpb24tYnJhY2tldDpmaXJzdC1vZi10eXBlLFxuYm9keS5ydGwgaDEuZmlyc3RIZWFkaW5nIC5tdy1lZGl0c2VjdGlvbi1icmFja2V0Om5vdCg6Zmlyc3Qtb2YtdHlwZSkge1xuICBtYXJnaW4tcmlnaHQ6IDAuMjVlbTtcbiAgY29sb3I6ICM0ZDRkNGQ7XG59XG5ib2R5IC5wYWdlLWhlYWRpbmcgLm13LWVkaXRzZWN0aW9uIGEge1xuICAtd2Via2l0LXVzZXItc2VsZWN0OiBub25lO1xuICAtbW96LXVzZXItc2VsZWN0OiBub25lO1xuICAgICAgIHVzZXItc2VsZWN0OiBub25lO1xufVxuYm9keTpub3QoLnNraW4tY2l0aXplbikgLnBhZ2UtaGVhZGluZyAubXctZWRpdHNlY3Rpb24gYSB7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgZm9udC1zaXplOiAxZW07XG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG59XG5ib2R5LnNraW4tY2l0aXplbiAucGFnZS1oZWFkaW5nIC5tdy1lZGl0c2VjdGlvbiBhIHtcbiAgZm9udC1zaXplOiAxcmVtO1xufVxuYm9keS5za2luLWNpdGl6ZW4gLm13LWluZGljYXRvcnMgLm13LWVkaXRzZWN0aW9uIHtcbiAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xuICBtYXJnaW4tbGVmdDogMDtcbn1cbmJvZHkuc2tpbi1jaXRpemVuIC5tdy1pbmRpY2F0b3JzIC5tdy1lZGl0c2VjdGlvbjo6YmVmb3JlIHtcbiAgY29udGVudDogJ+mmluaute+8mic7XG4gIGZvbnQtZmFtaWx5OiAnU291cmNlIFNlcmlmIDQnLCAnRGVqYVZ1IFNlcmlmJywgJ0xpYmVyYXRpb24gU2VyaWYnLCAnTGludXggTGliZXJ0aW5lJywgJ0dlb3JnaWEnLCAnQ2FsaWJyaScsICdUaW1lcyBOZXcgUm9tYW4nLCAnU291cmNlIEhhbiBTZXJpZiBTQycsICdOb3RvIFNlcmlmIENKSyBTQycsICdTVFNvbmcgU0MnLCAnU1RTb25nJywgJ1NpbVN1bicsIHNlcmlmLCAnQXBwbGUgQ29sb3IgRW1vamknLCAnU2Vnb2UgVUkgRW1vamknLCAnU2Vnb2UgVUkgU3ltYm9sJywgZW1vamk7XG4gIGZvbnQtc2l6ZTogMC43NXJlbTtcbn1cbmh0bWw6bGFuZyh6aC1oYW50KSBib2R5LnNraW4tY2l0aXplbiAubXctaW5kaWNhdG9ycyAubXctZWRpdHNlY3Rpb246OmJlZm9yZSB7XG4gIGZvbnQtZmFtaWx5OiAnU291cmNlIFNlcmlmIDQnLCAnRGVqYVZ1IFNlcmlmJywgJ0xpYmVyYXRpb24gU2VyaWYnLCAnTGludXggTGliZXJ0aW5lJywgJ0dlb3JnaWEnLCAnQ2FsaWJyaScsICdUaW1lcyBOZXcgUm9tYW4nLCAnU291cmNlIEhhbiBTZXJpZiBUQycsICdOb3RvIFNlcmlmIENKSyBUQycsICdTVFNvbmcgVEMnLCAnU1RTb25nJywgJ01pbmdMaVUnLCBzZXJpZiwgJ0FwcGxlIENvbG9yIEVtb2ppJywgJ1NlZ29lIFVJIEVtb2ppJywgJ1NlZ29lIFVJIFN5bWJvbCcsIGVtb2ppO1xufVxuYm9keSAjZmlyc3RIZWFkaW5nIHNwYW4ubXctZWRpdHNlY3Rpb24gYTo6YWZ0ZXIge1xuICBjb250ZW50OiAnICjpppbmrrUpJztcbn1cbmh0bWw6bGFuZyhlbikgYm9keSAjZmlyc3RIZWFkaW5nIHNwYW4ubXctZWRpdHNlY3Rpb24gYTo6YWZ0ZXIge1xuICBjb250ZW50OiAnIChsZWFkIHNlY3Rpb24pJztcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxJQUFJLENBQUMsSUFBSSxFQUFFLENBQUMsYUFBYSxDQUFDLHNCQUFzQjtBQUNoRCxJQUFJLENBQUMsSUFBSSxFQUFFLENBREMsYUFDYSxDQURDLHNCQUNzQixLQUFLO0FBQ25ELGdCQUFjO0FBQ2QsU0FBTztBQUNUO0FBQ0EsS0FBSyxDQUFDLGFBQWEsQ0FBQyxlQUFlO0FBQ2pDLHVCQUFxQjtBQUNyQixvQkFBa0I7QUFDYixlQUFhO0FBQ3BCO0FBQ0EsSUFBSSxLQUFLLENBQUMsY0FBYyxDQUxsQixhQUtnQyxDQUxsQixlQUtrQztBQUNwRCxXQUFTO0FBQ1QsYUFBVztBQUNYLGtCQUFnQjtBQUNsQjtBQUNBLElBQUksQ0FMTSxhQUtRLENBVlosYUFVMEIsQ0FWWixlQVU0QjtBQUM5QyxhQUFXO0FBQ2I7QUFDQSxJQUFJLENBUk0sYUFRUSxDQUFDLGNBQWMsQ0FiYjtBQWNsQixnQkFBYztBQUNkLGVBQWE7QUFDZjtBQUNBLElBQUksQ0FaTSxhQVlRLENBSkMsY0FJYyxDQWpCYixjQWlCNEI7QUFDOUMsV0FBUztBQUNUO0FBQUEsSUFBYSxnQkFBZ0I7QUFBQSxJQUFFLGNBQWM7QUFBQSxJQUFFLGtCQUFrQjtBQUFBLElBQUUsaUJBQWlCO0FBQUEsSUFBRSxTQUFTO0FBQUEsSUFBRSxTQUFTO0FBQUEsSUFBRSxpQkFBaUI7QUFBQSxJQUFFLHFCQUFxQjtBQUFBLElBQUUsbUJBQW1CO0FBQUEsSUFBRSxXQUFXO0FBQUEsSUFBRSxRQUFRO0FBQUEsSUFBRSxRQUFRO0FBQUEsSUFBRSxLQUFLO0FBQUEsSUFBRSxtQkFBbUI7QUFBQSxJQUFFLGdCQUFnQjtBQUFBLElBQUUsaUJBQWlCO0FBQUEsSUFBRTtBQUM3USxhQUFXO0FBQ2I7QUFDQSxJQUFJLE1BQU0sU0FBUyxJQUFJLENBakJiLGFBaUIyQixDQVRsQixjQVNpQyxDQXRCaEMsY0FzQitDO0FBQ2pFO0FBQUEsSUFBYSxnQkFBZ0I7QUFBQSxJQUFFLGNBQWM7QUFBQSxJQUFFLGtCQUFrQjtBQUFBLElBQUUsaUJBQWlCO0FBQUEsSUFBRSxTQUFTO0FBQUEsSUFBRSxTQUFTO0FBQUEsSUFBRSxpQkFBaUI7QUFBQSxJQUFFLHFCQUFxQjtBQUFBLElBQUUsbUJBQW1CO0FBQUEsSUFBRSxXQUFXO0FBQUEsSUFBRSxRQUFRO0FBQUEsSUFBRSxTQUFTO0FBQUEsSUFBRSxLQUFLO0FBQUEsSUFBRSxtQkFBbUI7QUFBQSxJQUFFLGdCQUFnQjtBQUFBLElBQUUsaUJBQWlCO0FBQUEsSUFBRTtBQUNoUjtBQUNBLEtBQUssQ0E5Qk8sYUE4Qk8sSUFBSSxDQXpCSCxlQXlCbUIsQ0FBQztBQUN0QyxXQUFTO0FBQ1g7QUFDQSxJQUFJLE1BQU0sSUFBSSxLQUFLLENBakNQLGFBaUNxQixJQUFJLENBNUJqQixlQTRCaUMsQ0FBQztBQUNwRCxXQUFTO0FBQ1g7IiwKICAibmFtZXMiOiBbXQp9Cg== */

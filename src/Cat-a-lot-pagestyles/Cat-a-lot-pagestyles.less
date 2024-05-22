@@ -1,0 +1,114 @@
+@import (reference) '../variables.less';
+
+.background() {
+	backdrop-filter: saturate(50%) blur(16px);
+	background: @background-color-light;
+	border: 2px solid @color--primary;
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.gadget-cat_a_lot {
+	&-container {
+		border-radius: @border-radius--medium;
+		.background;
+		display: block;
+		position: fixed !important;
+		bottom: 0;
+		right: 0;
+		margin: 0.2em;
+		padding: 0.2em;
+		z-index: 200;
+
+		a {
+			cursor: pointer;
+		}
+
+		&__data {
+			display: none;
+
+			ul {
+				list-style-image: none;
+				list-style-type: none;
+				margin: 0 0 0 0.5em;
+			}
+
+			&__category-list {
+				overflow: auto;
+
+				table {
+					border-collapse: collapse;
+				}
+
+				tr {
+					td {
+						padding: 0 0.5em 0.25em;
+					}
+
+					&:hover {
+						background-color: @background-color-primary;
+						border: 1px solid @color--primary;
+					}
+				}
+
+				&__action,
+				&--no-found {
+					font-weight: bold;
+				}
+			}
+
+			&__mark-counter {
+				display: none;
+				margin: 0.5em 0;
+			}
+
+			&__search-input-container {
+				&__input {
+					display: block;
+					font-size: 1em;
+					margin: 0.5em auto;
+					width: 95%;
+				}
+			}
+
+			&__selections {
+				margin: 0.5em 0;
+			}
+		}
+
+		.skin-vector & {
+			font-size: 0.75em;
+		}
+	}
+
+	&-feedback {
+		.background;
+		border: 0;
+		padding: 0.5em 2.5em;
+
+		+ .ui-widget-overlay {
+			background: none;
+		}
+
+		&--done {
+			background-image: data-uri('./images/check-constructive.svg');
+			background-size: 2em;
+			background-position: 1em 50%;
+			background-repeat: no-repeat;
+		}
+	}
+
+	&-label {
+		&--last-selected {
+			font-weight: bold;
+			outline: dotted 2px @color--primary;
+		}
+
+		&--selected {
+			background-color: @background-color-primary;
+		}
+
+		&--done {
+			background-color: @const-color-gray;
+		}
+	}
+}

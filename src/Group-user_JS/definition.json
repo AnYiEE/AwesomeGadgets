@@ -1,0 +1,10 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-Group-user_JS\"></span> 注册用户脚本",
+	"section": "usergroup",
+	"default": true,
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.Util", "mediawiki.util", "user.options"],
+	"hidden": true,
+	"peers": ["Group-user"],
+	"rights": ["edit"]
+}

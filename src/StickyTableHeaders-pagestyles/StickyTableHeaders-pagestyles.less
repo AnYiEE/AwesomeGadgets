@@ -1,0 +1,18 @@
+.mw-sticky-header .thead {
+	position: sticky;
+	top: -1px;
+
+	.skin-gongbi & {
+		top: calc(3.125rem + 6px);
+
+		@media screen and (min-width: 1440px) and (max-width: 1524px), screen and (max-width: 950px) {
+			top: -1px;
+		}
+	}
+
+	.skin-vector-2022.vector-sticky-header-visible & {
+		@media screen and (min-width: 1000px) {
+			top: calc(3.125rem - 1px);
+		}
+	}
+}

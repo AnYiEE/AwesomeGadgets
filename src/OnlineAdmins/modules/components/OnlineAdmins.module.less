@@ -1,0 +1,23 @@
+.section {
+	word-break: break-all;
+}
+
+.talkPageLink {
+	font-size: 90%;
+}
+
+.sectionList {
+	&,
+	& li {
+		margin: 0;
+		display: inline;
+
+		&::after {
+			content: '、';
+		}
+
+		&:last-child::after {
+			content: none;
+		}
+	}
+}

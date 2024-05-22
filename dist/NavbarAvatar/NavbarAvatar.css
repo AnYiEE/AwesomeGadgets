@@ -1,0 +1,35 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0|import=no}}'
+ * @author 顶呱呱的阿杰 
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/NavbarAvatar/NavbarAvatar.less */
+#citizen-userMenu__buttonCheckbox .mw-ui-icon-wikimedia-userAvatar::before {
+  background-image: none;
+}
+#citizen-userMenu__buttonCheckbox .mw-ui-icon-wikimedia-userAvatar {
+  width: 75%;
+  height: 75%;
+  border-radius: 5px;
+  background-size: cover;
+}
+.client-darkmode #citizen-userMenu__buttonCheckbox > .mw-ui-icon-wikimedia-userAvatar {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL05hdmJhckF2YXRhci9OYXZiYXJBdmF0YXIubGVzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiLyog6ZqQ6JeP5Y6f5pyJ5Zu+5qCHICovXG4jY2l0aXplbi11c2VyTWVudV9fYnV0dG9uQ2hlY2tib3ggLm13LXVpLWljb24td2lraW1lZGlhLXVzZXJBdmF0YXI6OmJlZm9yZSB7XG4gIGJhY2tncm91bmQtaW1hZ2U6IG5vbmU7XG59XG4vKiDlj7PkuIrop5LlpLTlg48gKi9cbiNjaXRpemVuLXVzZXJNZW51X19idXR0b25DaGVja2JveCAubXctdWktaWNvbi13aWtpbWVkaWEtdXNlckF2YXRhciB7XG4gIHdpZHRoOiA3NSU7XG4gIGhlaWdodDogNzUlO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIGJhY2tncm91bmQtc2l6ZTogY292ZXI7XG59XG4vKiDmt7HoibLmqKHlvI/pgILphY0gKi9cbi5jbGllbnQtZGFya21vZGUgI2NpdGl6ZW4tdXNlck1lbnVfX2J1dHRvbkNoZWNrYm94ID4gLm13LXVpLWljb24td2lraW1lZGlhLXVzZXJBdmF0YXIge1xuICBmaWx0ZXI6IGludmVydCgxKSBodWUtcm90YXRlKDE4MGRlZyk7XG59XG4vKiA8L25vd2lraT4gKi9cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxDQUFDLGlDQUFpQyxDQUFDLCtCQUErQjtBQUNoRSxvQkFBa0I7QUFDcEI7QUFFQSxDQUpDLGlDQUlpQyxDQUpDO0FBS2pDLFNBQU87QUFDUCxVQUFRO0FBQ1IsaUJBQWU7QUFDZixtQkFBaUI7QUFDbkI7QUFFQSxDQUFDLGdCQUFnQixDQVhoQixpQ0FXa0QsRUFBRSxDQVhsQjtBQVlqQyxVQUFRLE9BQU8sR0FBRyxXQUFXO0FBQy9COyIsCiAgIm5hbWVzIjogW10KfQo= */

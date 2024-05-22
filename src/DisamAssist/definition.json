@@ -1,0 +1,9 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-DisamAssist\"></span> DisamAssist <small>消歧义修复辅助工具</small>",
+	"section": "edit",
+	"excludeSites": ["licencewiki"],
+	"dependencies": ["ext.gadget.Util", "mediawiki.api", "mediawiki.Title"],
+	"peers": ["DisamAssist-pagestyles"],
+	"rights": ["skipcaptcha"]
+}

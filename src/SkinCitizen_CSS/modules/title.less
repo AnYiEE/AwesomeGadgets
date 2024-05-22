@@ -1,0 +1,16 @@
+/* 定制化标题样式 */
+header.mw-body-header {
+	border-style: solid;
+	border-width: 2px;
+	border-color: rgba(240, 255, 255, 0.8);
+	border-radius: 10px;
+	background: rgba(240, 255, 240, 0.7);
+	padding: 20px;
+	width: auto;
+	height: auto;
+}
+
+/* 隐藏标题原背景 */
+.mw-body-header::before {
+	display: none;
+}

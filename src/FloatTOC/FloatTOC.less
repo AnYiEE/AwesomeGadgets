@@ -1,0 +1,129 @@
+@import (reference) '../variables.less';
+
+@shadow-color: rgba(0, 0, 0, 0.1);
+
+#floatTOC {
+	padding: 0.5rem;
+	cursor: auto;
+
+	.toc {
+		max-height: 80vh;
+		padding-top: 0;
+		margin: 0 auto;
+
+		.skin-vector-legacy & {
+			display: block;
+			max-height: 90vh;
+			padding-top: 1em;
+			font-size: 1em;
+			word-break: normal;
+		}
+
+		> ul {
+			overflow: auto;
+			max-height: 70vh;
+			border-bottom: 1px solid @const-color-gray;
+		}
+	}
+
+	ul {
+		padding-right: 1rem;
+	}
+
+	#close {
+		position: relative;
+		top: 1em;
+		width: 1rem;
+		height: 1rem;
+		cursor: pointer;
+		float: right;
+
+		&:hover {
+			filter: drop-shadow(0 0 1px @const-color-black);
+		}
+
+		.skin-vector-legacy & {
+			top: 0;
+		}
+	}
+
+	.mw-mmv-lightbox-open &,
+	.ve-activated & {
+		display: none !important;
+	}
+}
+
+#floatToc-opener {
+	position: fixed;
+	z-index: 13;
+	top: 10.5%;
+	right: 2rem;
+	display: flex;
+	width: 2rem;
+	height: 2rem;
+	flex-wrap: wrap;
+	place-content: center center;
+	align-items: center;
+	padding: 0.5rem;
+	border-radius: 25px;
+	backdrop-filter: saturate(50%) blur(16px);
+	background: @background-color-light;
+	box-shadow: 0 0 2px 2px @shadow-color;
+	cursor: pointer;
+	font-size: 0.5rem;
+
+	.citizen-body-header--sticky & {
+		@media screen and (max-width: 720px), screen and (max-height: 800px) {
+			top: 21%;
+			right: 1rem;
+		}
+	}
+
+	&:active {
+		box-shadow: inset 0 0 2px 2px @shadow-color;
+	}
+
+	&:hover {
+		box-shadow: 0 0 4px 4px @shadow-color;
+	}
+
+	span {
+		display: block;
+		margin: auto;
+		opacity: 0.6;
+		text-align: center;
+
+		&:first-child {
+			position: relative;
+			width: 2.5em;
+			height: 2.5em;
+		}
+
+		&:last-child {
+			color: @const-color-black;
+		}
+	}
+
+	.ve-activated & {
+		display: none !important;
+	}
+}
+
+.skin-citizen #toc .toctitle {
+	display: flex;
+	align-items: baseline;
+	cursor: pointer;
+
+	h2 {
+		flex: 1;
+	}
+
+	.oo-ui-indicatorElement-indicator {
+		position: relative;
+		margin-left: -1.125rem;
+	}
+
+	.oo-ui-indicatorElement-indicator.collapse {
+		transform: rotate(180deg);
+	}
+}

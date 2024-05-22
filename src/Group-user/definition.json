@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-Group-user\"></span> 注册用户样式表",
+	"section": "usergroup",
+	"default": true,
+	"hidden": true,
+	"rights": ["edit"]
+}

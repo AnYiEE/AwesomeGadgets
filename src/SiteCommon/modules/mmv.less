@@ -1,0 +1,26 @@
+/**
+ * 多媒体查看器样式
+ *
+ * @author WaitSpring
+ */
+/* 隐藏#ca-view-foreign */
+#ca-view-foreign {
+	a[href*='wikimedia.org'],
+	a[href*='wikipedia.org'] {
+		display: none;
+	}
+}
+
+/* 多媒体查看器（Multimedia Viewer） */
+.mw-mmv {
+	&-repo-button-commons {
+		display: none !important;
+	}
+
+	&-description-page-button {
+		&[href*='wikipedia'],
+		&[href*='wikimedia'] {
+			display: none !important;
+		}
+	}
+}

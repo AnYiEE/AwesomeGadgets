@@ -1,0 +1,18 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-FloatTOC\"></span> 浮动目录",
+	"section": "browser",
+	"actions": ["view"],
+	"default": true,
+	"dependencies": [
+		"ext.gadget.FilterAlteredClicks",
+		"ext.gadget.i18n",
+		"ext.gadget.Util",
+		"mediawiki.notification",
+		"mediawiki.storage",
+		"oojs-ui.styles.icons-editing-citation",
+		"oojs-ui.styles.icons-interactions",
+		"oojs-ui.styles.icons-movement"
+	],
+	"skins": ["citizen", "vector"]
+}

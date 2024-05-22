@@ -1,0 +1,150 @@
+@import (reference) '../variables.less';
+
+/* 在最近修改、监视列表、条目历史记录等位置以特殊格式显示有特殊权限的用户 */
+
+.gadgets-markrights {
+	display: inline-block;
+
+	&__responsibleoperator::after {
+		content: '责';
+	}
+
+	&__steward::after {
+		content: '理';
+	}
+
+	&__sysop::after {
+		content: '管';
+	}
+
+	&__interface-admin::after {
+		content: '界';
+
+		html:lang(zh-hant) & {
+			content: '介';
+		}
+	}
+
+	&__checkuser::after {
+		content: '查';
+	}
+
+	&__suppress::after {
+		content: '监';
+
+		html:lang(zh-hant) & {
+			content: '監';
+		}
+	}
+
+	&__patroller::after {
+		content: '巡';
+	}
+
+	&__eventsponsor::after {
+		content: '活';
+	}
+
+	&__templateeditor::after {
+		content: '模';
+	}
+
+	&__importer::after {
+		content: '导';
+
+		html:lang(zh-hant) & {
+			content: '匯';
+		}
+	}
+
+	&__massmessage-sender::after {
+		content: '发';
+
+		html:lang(zh-hant) & {
+			content: '發';
+		}
+	}
+
+	&__bot::after {
+		content: '机';
+
+		html:lang(zh-hant) & {
+			content: '機';
+		}
+	}
+
+	&__confirmed::after {
+		content: '确';
+
+		html:lang(zh-hant) & {
+			content: '確';
+		}
+	}
+
+	&__autopatrolled::after {
+		content: '优';
+	}
+
+	&__ipblock-exempt::after {
+		content: '代';
+	}
+
+	&__rnrsverify-exempt::after {
+		content: '认';
+
+		html:lang(zh-hant) & {
+			content: '認';
+		}
+	}
+
+	&__flood::after {
+		content: '机';
+
+		html:lang(zh-hant) & {
+			content: '機';
+		}
+	}
+
+	/* 档案理事员：紫黑 */
+	&__responsibleoperator,
+	&__steward {
+		border-color: @color-group--steward;
+		color: @color-group--steward;
+	}
+
+	/* 高级管理人员（管、界、监、查）：紫红 */
+	&__sysop,
+	&__interface-admin,
+	&__suppress,
+	&__checkuser {
+		border-color: @color-group--sysop;
+		color: @color-group--sysop;
+	}
+
+	/* 一般管理人员（巡、活）：棕 */
+	&__patroller,
+	&__eventsponsor {
+		border-color: @color-group--patroller;
+		color: @color-group--patroller;
+	}
+
+	/* 编辑权限（模、导/汇、发、机器人）：蓝 */
+	&__templateeditor,
+	&__importer,
+	&__massmessage-sender,
+	&__bot {
+		border-color: @color-group--bot;
+		color: @color-group--bot;
+	}
+
+	/* 特殊权限（确、自、免、代、机器用户）：绿色 */
+	&__confirmed,
+	&__autoconfirmed,
+	&__autopatrolled,
+	&__ipblock-exempt,
+	&__rnrsverify-exempt,
+	&__flood {
+		border-color: @color-group--confirmed;
+		color: @color-group--confirmed;
+	}
+}

@@ -1,0 +1,9 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://meta.wikimedia.org/wiki/MediaWiki:Gadget-autolink.js}
+ * @base {@link https://en.wikipedia.org/wiki/Wikipedia:WikiProject_User_scripts/Scripts/Autolink}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/AutoLink}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
