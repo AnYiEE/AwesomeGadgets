@@ -9,9 +9,9 @@ type CodeMirrorOrPromise = CodeMirror | Promise<CodeMirror>;
 
 declare global {
 	namespace mw {
-		const libs: {
-			wphl?: {version?: string; cmVersion: string};
-		};
+		namespace libs {
+			let wphl: {version?: string; cmVersion: string} | undefined;
+		}
 	}
 
 	interface Window {

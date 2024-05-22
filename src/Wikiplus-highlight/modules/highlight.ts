@@ -4,6 +4,8 @@
  * @license GPL-3.0
  */
 
+import {uniqueArray} from 'ext.gadget.Util';
+
 ((): void => {
 	const {libs} = mw,
 		{wphl} = libs;
@@ -67,7 +69,8 @@
 			) {
 				await mw.loader.using('mediawiki.Title');
 			}
-			const modes = new Set(
+			const modes = uniqueArray(
+				// Replace `new Set()` to avoid polyfilling core-js
 				pages.map(({title}) => {
 					if (title.endsWith('/doc')) {
 						return 'template';
@@ -84,16 +87,16 @@
 					return namespace === 10 || namespace === 2 ? 'template' : 'mediawiki';
 				})
 			);
-			if (modes.size === 1) {
+			if (modes.length === 1) {
 				const [mode] = modes;
 				if (mode === 'gadget') {
 					return ['javascript', 8];
 				}
 				return mode === 'template' ? ['mediawiki', 10] : [mode!];
-			} else if (modes.size === 2) {
-				if (modes.has('javascript') && modes.has('gadget')) {
+			} else if (modes.length === 2) {
+				if (modes.includes('javascript') && modes.includes('gadget')) {
 					return ['javascript'];
-				} else if (modes.has('mediawiki') && modes.has('template')) {
+				} else if (modes.includes('mediawiki') && modes.includes('template')) {
 					return ['mediawiki'];
 				}
 			}
@@ -122,7 +125,9 @@
 		const cm = await (
 			await CodeMirror6
 		).fromTextArea($target[0]!, ...(setting ? (['json'] as [string]) : await getPageMode($target.val()!)));
-		cm.view.dom.id = 'Wikiplus-CodeMirror';
+		if (cm.view) {
+			cm.view.dom.id = 'Wikiplus-CodeMirror';
+		}
 
 		document.querySelector<HTMLAnchorElement>('#Wikiplus-Quickedit-Jump > a')!.href = '#Wikiplus-CodeMirror';
 
