@@ -7,7 +7,7 @@ import type {
 	DeploymentTargets,
 	GlobalSourceFiles,
 } from '../types';
-import {CONVERT_VARIANT, DEFINITION_SECTION_MAP} from '../../constant';
+import {CONVERT_VARIANT, DEFINITION_SECTION_MAP, VARIANTS} from '../../constant';
 import {type Path, globSync} from 'glob';
 import {
 	__rootDir,
@@ -513,15 +513,14 @@ const convertVariant = (pageTitle: string, content: string, api: Api, editSummar
 		return !!nochange;
 	};
 
-	const taskQueue: (() => Promise<boolean>)[] = [];
-	for (const variant of ['zh', 'zh-hans', 'zh-cn', 'zh-my', 'zh-sg', 'zh-hant', 'zh-hk', 'zh-mo', 'zh-tw']) {
-		taskQueue.push(async (): Promise<boolean> => {
-			return await convert(variant);
-		});
-	}
-
 	apiQueue
-		.addAll(taskQueue)
+		.addAll(
+			VARIANTS.map((variant) => {
+				return async (): Promise<boolean> => {
+					return await convert(variant);
+				};
+			})
+		)
 		.then((nochanges): void => {
 			const isNoChange: boolean = nochanges.every(Boolean);
 			if (isNoChange) {
@@ -839,11 +838,13 @@ const deleteUnusedPages = async (api: Api, editSummary: string, isSkipAsk?: bool
 		}
 	};
 
-	for (const page of needToDeletePages) {
-		void apiQueue.add(async (): Promise<void> => {
-			await deletePage(page);
-		});
-	}
+	void apiQueue.addAll(
+		needToDeletePages.map((page) => {
+			return async (): Promise<void> => {
+				await deletePage(page);
+			};
+		})
+	);
 };
 
 export {

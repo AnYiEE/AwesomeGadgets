@@ -4,11 +4,12 @@ import {__rootDir, exec, readFileContent, sortObject, writeFileContent} from './
 import {globSync} from 'glob';
 import path from 'node:path';
 
-type Files = {
+interface File {
 	isGlob?: boolean;
 	name: string;
 	fullpath(): string;
-}[];
+}
+type Files = File[];
 
 const checkTargetDir = (fileName: string, filePath: string): boolean => {
 	const relativePath: string = path.relative(__rootDir, filePath);
@@ -31,32 +32,33 @@ const checkTargetDir = (fileName: string, filePath: string): boolean => {
 	return false;
 };
 
-const formatJSON = async (paths: string[]): Promise<void> => {
-	let files: Files = [];
-
+const generateTargetFiles = (paths: string[]): Files => {
 	if (paths.length) {
-		for (const currentPath of paths) {
-			files.push({
+		return paths.map<File>((currentPath) => {
+			return {
 				isGlob: false,
 				name: path.basename(currentPath),
-				fullpath(): string {
+				fullpath() {
 					return currentPath;
 				},
-			});
-		}
-	} else {
-		files = [
-			...globSync('credentials.json', {
-				cwd: path.join(__rootDir, 'scripts'),
-				withFileTypes: true,
-			}),
-			...globSync(['*/definition.json', 'global.json'], {
-				cwd: path.join(__rootDir, 'src'),
-				withFileTypes: true,
-			}),
-		];
+			};
+		});
 	}
 
+	return [
+		...globSync('credentials.json', {
+			cwd: path.join(__rootDir, 'scripts'),
+			withFileTypes: true,
+		}),
+		...globSync(['*/definition.json', 'global.json'], {
+			cwd: path.join(__rootDir, 'src'),
+			withFileTypes: true,
+		}),
+	];
+};
+
+const formatJSON = async (paths: string[] = []): Promise<void> => {
+	const files: Files = generateTargetFiles(paths);
 	if (!files.length) {
 		return;
 	}

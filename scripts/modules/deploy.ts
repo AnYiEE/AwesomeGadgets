@@ -47,9 +47,8 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 		isCheckApiUrlOnly: true,
 	});
 
-	const uncheckedApis: Api[] = [];
-	for (const [site, credentials] of Object.entries(config)) {
-		uncheckedApis.push({
+	const uncheckedApis = Object.entries(config).map<Api>(([site, credentials]) => {
+		return {
 			site,
 			apiInstance: isTest
 				? (new FakeApi(credentials) as Mwn)
@@ -58,33 +57,29 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 						maxRetries: 10,
 						userAgent: DEPLOY_USER_AGENT,
 					}),
-		});
-	}
+		};
+	});
 
 	const sites: Api['site'][] =
 		uncheckedApis.length > 1
 			? isSkipAsk
-				? uncheckedApis.reduce<typeof sites>((accumulator, {site}) => {
-						accumulator.push(site);
-						return accumulator;
-					}, [])
+				? uncheckedApis.map<Api['site']>(({site}) => {
+						return site;
+					})
 				: await prompt({
 						type: 'multiselect',
 						message: 'Select sites to deploy',
-						choices: uncheckedApis.reduce<
-							{
-								title: string;
-								value: string;
-								selected: boolean;
-							}[]
-						>((accumulator, {site}) => {
-							accumulator.push({
+						choices: uncheckedApis.map<{
+							title: string;
+							value: string;
+							selected: boolean;
+						}>(({site}) => {
+							return {
 								title: site,
 								value: site,
 								selected: true,
-							});
-							return accumulator;
-						}, []),
+							};
+						}),
 						max: Number.POSITIVE_INFINITY,
 						min: 0,
 					})

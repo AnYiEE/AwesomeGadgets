@@ -5,10 +5,12 @@ interface Api {
 	site: string;
 }
 
-type BuiltFiles = {
+interface BuiltFile {
 	path: string;
 	text: string;
-}[];
+}
+
+type BuiltFiles = BuiltFile[];
 
 interface CredentialsOnlyOAuth {
 	apiUrl: string;
@@ -89,6 +91,7 @@ interface SourceFiles {
 
 export type {
 	Api,
+	BuiltFile,
 	BuiltFiles,
 	Credentials,
 	CredentialsOnlyPassword,

@@ -15,10 +15,18 @@ const fakeCredentials: Credentials = {
 
 const fakeConfig = Array.from({
 	length: Math.floor(Math.random() * 3),
-}).reduce<Config>((config) => {
-	config[`test${Object.keys(config).length + 1}`] = fakeCredentials;
-	return config;
-}, {}) satisfies Config;
+})
+	.map<Config>((_, index) => {
+		return {
+			[`test${index + 1}`]: fakeCredentials,
+		};
+	})
+	.reduce<Config>((config, current) => {
+		return {
+			...config,
+			...current,
+		};
+	}, {}) satisfies Config;
 
 class FakeApi implements Partial<Mwn> {
 	options: MwnOptions;

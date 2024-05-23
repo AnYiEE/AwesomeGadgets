@@ -92,6 +92,23 @@ const DEPLOY_USER_AGENT =
 const CONVERT_VARIANT = false satisfies boolean;
 
 /**
+ * 语言变体列表
+ *
+ * Language variant list
+ */
+const VARIANTS = [
+	'zh',
+	'zh-hans',
+	'zh-cn',
+	'zh-my',
+	'zh-sg',
+	'zh-hant',
+	'zh-hk',
+	'zh-mo',
+	'zh-tw',
+] as const satisfies string[];
+
+/**
  * 启用此选项会为全部小工具设置`requiresES6`标识，禁用 Gadget 扩展的语法检查功能以允许使用 ES6 及以上版本语法（即使经过编译）
  *
  * 需要 Gadget 扩展所对应的分支版本大于 1.40.0-wmf.7，或[自行从主线合并相关代码](https://git.qiuwen.net.cn/Fork/mediawiki-extensions-Gadgets/commit/bbf7ba5)
@@ -138,6 +155,7 @@ export {
 	DEFINITION_SECTION_MAP,
 	DEPLOY_USER_AGENT,
 	CONVERT_VARIANT,
+	VARIANTS,
 	GLOBAL_REQUIRES_ES6,
 	MAX_CONCURRENCY,
 	SOURCE_MAP,

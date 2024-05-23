@@ -2,7 +2,7 @@ import * as PACKAGE from '../../../package.json';
 import {BANNER, GLOBAL_REQUIRES_ES6, SOURCE_MAP} from '../../constant';
 import {type BabelFileResult, type TransformOptions, transformAsync} from '@babel/core';
 import {type BuildResult, type OutputFile, build as esbuild} from 'esbuild';
-import type {BuiltFiles, DefaultDefinition, SourceFiles} from '../types';
+import type {BuiltFile, BuiltFiles, DefaultDefinition, SourceFiles} from '../types';
 import {type Path, globSync} from 'glob';
 import {
 	__rootDir,
@@ -58,8 +58,6 @@ const build = async (
 		licenseText: string | undefined;
 	}
 ): Promise<BuiltFiles> => {
-	const builtFiles: BuiltFiles = [];
-
 	const buildResult: BuildResult = await esbuild({
 		...esbuildOptions,
 		...generateBannerAndFooter({
@@ -76,17 +74,13 @@ const build = async (
 		return [];
 	}
 
-	for (const outputFile of outputFiles) {
-		const {path: outputPath, text} = outputFile;
-
-		builtFiles.push({
+	return outputFiles.map<BuiltFile>(({path: outputPath, text}) => {
+		return {
 			path: outputPath,
 			// See `generateBannerAndFooter()` comment for more details
 			text: text.replace(/^\/\*\*\n\s\*\n\s\*\/\n/, ''),
-		});
-	}
-
-	return builtFiles;
+		};
+	});
 };
 
 /**
@@ -261,9 +255,7 @@ const buildScript = async (
 		externalPackages,
 		licenseText,
 	});
-	for (const builtFile of builtFiles) {
-		const {path: outputPath, text} = builtFile;
-
+	for (const {path: outputPath, text} of builtFiles) {
 		const fileName: string = path.basename(outputPath);
 		outputFileNames.push(fileName);
 
