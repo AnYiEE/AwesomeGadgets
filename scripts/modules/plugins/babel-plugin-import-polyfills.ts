@@ -35,17 +35,14 @@ type Features =
 const getTargets = (feature: Exclude<Features, 'normalize'>): Record<string, string> => {
 	const browserSupport: BrowserSupport = getSupport(feature.toLowerCase());
 
-	const result: Record<string, string> = {};
-	for (const [browser, versions] of Object.entries(browserSupport)) {
-		const target: string | undefined = versions.y?.toString();
-		if (!target) {
-			continue;
+	return Object.entries(browserSupport).reduce<Record<string, string>>((accumulator, [browser, versions]) => {
+		const target = versions.y?.toString();
+		if (target) {
+			accumulator[browser] = target;
 		}
 
-		result[browser] = target;
-	}
-
-	return result;
+		return accumulator;
+	}, {});
 };
 
 /**
