@@ -1,0 +1,39 @@
+@group: sysop;
+
+div,
+p {
+	&.@{group}-show {
+		display: block !important;
+	}
+}
+
+span,
+small {
+	&.@{group}-show {
+		display: inline !important;
+	}
+}
+
+table.@{group}-show {
+	display: table !important;
+}
+
+tr.@{group}-show {
+	display: table-row !important;
+}
+
+td.@{group}-show {
+	display: table-cell !important;
+}
+
+li.@{group}-show {
+	display: list-item !important;
+}
+
+/* 显示“编辑选定修订版本的标签” */
+.mw-history,
+.mw-log {
+	&-editchangetags-button {
+		display: block;
+	}
+}

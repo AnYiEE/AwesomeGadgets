@@ -1,0 +1,43 @@
+/* 基础样式 */
+/* 原背景图 https://youshou.wiki/images/f/ff/%E6%9C%89%E5%85%BD%E7%84%89%E5%8A%A8%E7%94%BB%E6%88%AA%E5%9B%BE.jpg */
+/* 原背景图反相 https://youshou.wiki/images/3/3a/%E6%9C%89%E5%85%BD%E7%84%89%E5%8A%A8%E7%94%BB%E6%88%AA%E5%9B%BE-%E5%8F%8D%E7%9B%B8.jpg */
+/*
+body {
+	background: url('https://youshou.wiki/images/f/ff/%E6%9C%89%E5%85%BD%E7%84%89%E5%8A%A8%E7%94%BB%E6%88%AA%E5%9B%BE.jpg')
+		fixed 100% 0;
+	background-size: cover;
+}
+.client-darkmode body {
+	background-image: url('https://youshou.wiki/images/3/3a/%E6%9C%89%E5%85%BD%E7%84%89%E5%8A%A8%E7%94%BB%E6%88%AA%E5%9B%BE-%E5%8F%8D%E7%9B%B8.jpg');
+}
+*/
+
+/*
+手机浏览器(Chrome, Safari)的viewport尺寸会因地址栏收起而改变，直接使用background-size: cover
+会造成背景跳动。创建一个恒定大小的背景元素可以规避此问题，同时提供了只对背景图应用filter的机会。
+
+background-size: cover 或 object-fit: cover 的图片尺寸计算不便用其他CSS实现，参见
+https://stackoverflow.com/questions/11670874/is-there-an-equivalent-to-background-size-cover-and-contain-for-image-elements#28771894
+仅使用 background-size: auto 100vh 会令横版背景图不足以填满宽屏。
+*/
+html::before {
+	content: '';
+	position: fixed;
+	z-index: -5;
+	display: block;
+	width: 100%;
+	height: calc(100vh - var(--header-size));
+	margin-top: var(--header-size); // 避免顶栏挡住背景图的顶部
+	background: url('https://youshou.wiki/images/f/ff/%E6%9C%89%E5%85%BD%E7%84%89%E5%8A%A8%E7%94%BB%E6%88%AA%E5%9B%BE.jpg')
+		100% 0;
+	background-size: cover;
+}
+html.client-darkmode::before {
+	filter: invert(1) hue-rotate(180deg); // 抵消 Extension:DarkMode 的反色
+}
+
+// 撤销 Citizen resources/skins.citizen.styles/common/common.less 中的背景色
+html,
+body {
+	background-color: initial !important;
+}

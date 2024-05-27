@@ -1,0 +1,25 @@
+.mw-parser-output {
+	.columns {
+		/* Reset top margin for lists embedded in columns */
+		margin-top: 0.3em;
+	}
+
+	div.columns {
+		dl,
+		ol,
+		ul {
+			margin-top: 0;
+		}
+
+		/* 避免列表项在不同列间断开 */
+		dd dd,
+		li {
+			break-inside: avoid-column;
+			page-break-inside: avoid;
+		}
+	}
+
+	.mw-prefixindex-list {
+		margin-top: 0;
+	}
+}

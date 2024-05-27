@@ -1,0 +1,13 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-NavFrame.css}
+ * @base {@link https://www.mediawiki.org/wiki/MediaWiki:Gadget-NavFrame.css}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/NavFrame-pagestyles}
+ */
+
+/**
+ * Warning: NavFrame is retained for compatibility. Use .mw-collapsible instead.
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */

@@ -1,0 +1,9 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-Editform_Patch2017\"></span> 修正2017版源代码编辑器界面错误",
+	"section": "edit",
+	"default": true,
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.Util", "mediawiki.jqueryMsg"],
+	"hidden": true,
+	"rights": ["edit"]
+}

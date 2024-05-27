@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-FilterAlteredClicks\"></span> [https://github.com/fregante/filter-altered-clicks filter-altered-clicks.js]，为非左键点击设置新的动作",
+	"section": "compatibility",
+	"hidden": true
+}

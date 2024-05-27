@@ -91,7 +91,7 @@
 	"explorer.fileNesting.enabled": true,
 	"explorer.fileNesting.expand": false,
 	"explorer.fileNesting.patterns": {
-		"package.json": ".*cache, .*ignore, .*rc, .editorConfig, .git*, pnpm-lock.yaml, tsconfig.json, LICENSE",
+		"package.json": ".*cache, .*ignore, .*rc, .editorConfig, .git*, .mailmap, pnpm-lock.yaml, svgo.config.cjs, tsconfig.json, LICENSE",
 		"readme*": "*.md"
 	},
 	"json.schemas": [

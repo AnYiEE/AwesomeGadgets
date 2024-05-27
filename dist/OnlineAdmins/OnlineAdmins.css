@@ -1,0 +1,52 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/User:Vanished_user_1929210/js/OnlineAdmins.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/OnlineAdmins}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* esbuild-css-modules-plugin-ns-css:src/OnlineAdmins/modules/components/OnlineAdmins.module.less */
+.OnlineAdmins-module__section_WS9IGa {
+  word-break: break-all;
+}
+.OnlineAdmins-module__talkPageLink_WS9IGa {
+  font-size: 90%;
+}
+.OnlineAdmins-module__sectionList_WS9IGa {
+  margin: 0;
+  display: inline;
+}
+.OnlineAdmins-module__sectionList_WS9IGa:after {
+  content: "、";
+}
+.OnlineAdmins-module__sectionList_WS9IGa:last-child:after {
+  content: none;
+}
+.OnlineAdmins-module__sectionList_WS9IGa li {
+  margin: 0;
+  display: inline;
+}
+.OnlineAdmins-module__sectionList_WS9IGa li:after {
+  content: "、";
+}
+.OnlineAdmins-module__sectionList_WS9IGa li:last-child:after {
+  content: none;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiZXNidWlsZC1jc3MtbW9kdWxlcy1wbHVnaW4tbnMtY3NzOnNyYy9PbmxpbmVBZG1pbnMvbW9kdWxlcy9jb21wb25lbnRzL09ubGluZUFkbWlucy5tb2R1bGUubGVzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiLyogPHN0ZGluPiAqL1xuLk9ubGluZUFkbWlucy1tb2R1bGVfX3NlY3Rpb25fV1M5SUdhIHtcbiAgd29yZC1icmVhazogYnJlYWstYWxsO1xufVxuLk9ubGluZUFkbWlucy1tb2R1bGVfX3RhbGtQYWdlTGlua19XUzlJR2Ege1xuICBmb250LXNpemU6IDkwJTtcbn1cbi5PbmxpbmVBZG1pbnMtbW9kdWxlX19zZWN0aW9uTGlzdF9XUzlJR2Ege1xuICBtYXJnaW46IDA7XG4gIGRpc3BsYXk6IGlubGluZTtcbn1cbi5PbmxpbmVBZG1pbnMtbW9kdWxlX19zZWN0aW9uTGlzdF9XUzlJR2E6YWZ0ZXIge1xuICBjb250ZW50OiBcIlxcMzAwMVwiO1xufVxuLk9ubGluZUFkbWlucy1tb2R1bGVfX3NlY3Rpb25MaXN0X1dTOUlHYTpsYXN0LWNoaWxkOmFmdGVyIHtcbiAgY29udGVudDogbm9uZTtcbn1cbi5PbmxpbmVBZG1pbnMtbW9kdWxlX19zZWN0aW9uTGlzdF9XUzlJR2EgbGkge1xuICBtYXJnaW46IDA7XG4gIGRpc3BsYXk6IGlubGluZTtcbn1cbi5PbmxpbmVBZG1pbnMtbW9kdWxlX19zZWN0aW9uTGlzdF9XUzlJR2EgbGk6YWZ0ZXIge1xuICBjb250ZW50OiBcIlxcMzAwMVwiO1xufVxuLk9ubGluZUFkbWlucy1tb2R1bGVfX3NlY3Rpb25MaXN0X1dTOUlHYSBsaTpsYXN0LWNoaWxkOmFmdGVyIHtcbiAgY29udGVudDogbm9uZTtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxDQUFDO0FBQ0MsY0FBWTtBQUNkO0FBQ0EsQ0FBQztBQUNDLGFBQVc7QUFDYjtBQUNBLENBQUM7QUFDQyxVQUFRO0FBQ1IsV0FBUztBQUNYO0FBQ0EsQ0FKQyx1Q0FJdUM7QUFDdEMsV0FBUztBQUNYO0FBQ0EsQ0FQQyx1Q0FPdUMsV0FBVztBQUNqRCxXQUFTO0FBQ1g7QUFDQSxDQVZDLHdDQVV3QztBQUN2QyxVQUFRO0FBQ1IsV0FBUztBQUNYO0FBQ0EsQ0FkQyx3Q0Fjd0MsRUFBRTtBQUN6QyxXQUFTO0FBQ1g7QUFDQSxDQWpCQyx3Q0FpQndDLEVBQUUsV0FBVztBQUNwRCxXQUFTO0FBQ1g7IiwKICAibmFtZXMiOiBbXQp9Cg== */

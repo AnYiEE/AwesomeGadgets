@@ -1,0 +1,9 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-Wikicache\"></span> 源代码编辑器中，保留上次未保存的编辑结果",
+	"section": "edit",
+	"actions": ["edit", "submit"],
+	"default": true,
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.Util", "mediawiki.storage", "oojs-ui-windows"],
+	"rights": ["edit"]
+}

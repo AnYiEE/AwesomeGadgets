@@ -1,0 +1,52 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0
+ * _addText: '{{Gadget Header|license=GPL-3.0}}'
+ *
+ * @base <https://github.com/MoegirlPediaInterfaceAdmins/MoegirlPediaInterfaceCodes/blob/f1341d831b3aab2501f7744581149ec201707bdb/src/gadgets/ShowAvatar/MediaWiki%3AGadget-ShowAvatar.css>
+ * @source <https://github.com/TopRealm/InterfaceCodes/tree/master/src/Gadgets/Appearance/ShowAvatar.css>
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/ShowAvatar/ShowAvatar.less */
+#pt-userpage {
+  background: none !important;
+  padding-left: 0 !important;
+}
+#pt-avatar {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+#pt-avatar img {
+  width: 2.5em;
+  border-radius: 50%;
+}
+.skin-citizen #user-rootpage-avatar {
+  border-radius: 5px;
+  top: 8px;
+}
+.skin-gongbi #user-rootpage-avatar {
+  border-radius: 10px;
+  padding: 4px;
+}
+#p-personal #pt-notifications-alert,
+#p-personal #pt-notifications-notice {
+  margin-top: 0.8em;
+}
+a[title=查看头像] {
+  vertical-align: bottom;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1Nob3dBdmF0YXIvU2hvd0F2YXRhci5sZXNzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyIjcHQtdXNlcnBhZ2Uge1xuICBiYWNrZ3JvdW5kOiBub25lICFpbXBvcnRhbnQ7XG4gIHBhZGRpbmctbGVmdDogMCAhaW1wb3J0YW50O1xufVxuI3B0LWF2YXRhciB7XG4gIG1hcmdpbi10b3A6IDAgIWltcG9ydGFudDtcbiAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xufVxuI3B0LWF2YXRhciBpbWcge1xuICB3aWR0aDogMi41ZW07XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbn1cbi5za2luLWNpdGl6ZW4gI3VzZXItcm9vdHBhZ2UtYXZhdGFyIHtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICB0b3A6IDhweDtcbn1cbi5za2luLWdvbmdiaSAjdXNlci1yb290cGFnZS1hdmF0YXIge1xuICBib3JkZXItcmFkaXVzOiAxMHB4O1xuICBwYWRkaW5nOiA0cHg7XG59XG4vKiAxLjI4KyBFY2hvIGZpeCAqL1xuI3AtcGVyc29uYWwgI3B0LW5vdGlmaWNhdGlvbnMtYWxlcnQsXG4jcC1wZXJzb25hbCAjcHQtbm90aWZpY2F0aW9ucy1ub3RpY2Uge1xuICBtYXJnaW4tdG9wOiAwLjhlbTtcbn1cbi8qIGZpeDrlpLTlg4/kvY3nva4gKi9cbmFbdGl0bGU9J+afpeeci+WktOWDjyddIHtcbiAgdmVydGljYWwtYWxpZ246IGJvdHRvbTtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLENBQUM7QUFDQyxjQUFZO0FBQ1osZ0JBQWM7QUFDaEI7QUFDQSxDQUFDO0FBQ0MsY0FBWTtBQUNaLGlCQUFlO0FBQ2pCO0FBQ0EsQ0FKQyxVQUlVO0FBQ1QsU0FBTztBQUNQLGlCQUFlO0FBQ2pCO0FBQ0EsQ0FBQyxhQUFhLENBQUM7QUFDYixpQkFBZTtBQUNmLE9BQUs7QUFDUDtBQUNBLENBQUMsWUFBWSxDQUpFO0FBS2IsaUJBQWU7QUFDZixXQUFTO0FBQ1g7QUFFQSxDQUFDLFdBQVcsQ0FBQztBQUNiLENBREMsV0FDVyxDQUFDO0FBQ1gsY0FBWTtBQUNkO0FBRUEsQ0FBQyxDQUFDO0FBQ0Esa0JBQWdCO0FBQ2xCOyIsCiAgIm5hbWVzIjogW10KfQo= */

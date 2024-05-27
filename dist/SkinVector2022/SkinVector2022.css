@@ -1,0 +1,49 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://en.wikipedia.org/wiki/MediaWiki:Vector-2022.css}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/SkinVector2022}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/SkinVector2022/SkinVector2022.less */
+header.mw-header {
+  flex-wrap: wrap !important;
+}
+#siteNotice {
+  margin-bottom: 0.5rem;
+}
+.mw-indicators {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0 0;
+  gap: 0.25rem;
+}
+#coordinates {
+  top: 2em;
+}
+.sidebar-toc-list-item {
+  padding-left: 1rem !important;
+}
+.skin--responsive #mw-panel {
+  border-right: 1px solid #c8ccd1;
+  background-color: transparent;
+  background-image: none !important;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1NraW5WZWN0b3IyMDIyL1NraW5WZWN0b3IyMDIyLmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbIi8qIOatpOWkhOeahENTU+WPquS8muW9seWTjeS9v+eUqFZlY3RvcuearuiCpO+8iDIwMjLniYjmlrDmoLflvI/vvInnmoTnlKjmiLcgKi9cbi8qIOmhtemhtiAqL1xuaGVhZGVyLm13LWhlYWRlciB7XG4gIGZsZXgtd3JhcDogd3JhcCAhaW1wb3J0YW50O1xufVxuLyog5YWo56uZ6YCa5ZGKICovXG4jc2l0ZU5vdGljZSB7XG4gIG1hcmdpbi1ib3R0b206IDAuNXJlbTtcbn1cbi8qIOagh+mimOaMh+ekuuespuWPtyAqL1xuLm13LWluZGljYXRvcnMge1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBwYWRkaW5nOiAwLjI1cmVtIDAgMDtcbiAgZ2FwOiAwLjI1cmVtO1xufVxuI2Nvb3JkaW5hdGVzIHtcbiAgdG9wOiAyZW07XG59XG4vKiDovrnmoI8gKi9cbi5zaWRlYmFyLXRvYy1saXN0LWl0ZW0ge1xuICBwYWRkaW5nLWxlZnQ6IDFyZW0gIWltcG9ydGFudDtcbn1cbi5za2luLS1yZXNwb25zaXZlICNtdy1wYW5lbCB7XG4gIGJvcmRlci1yaWdodDogMXB4IHNvbGlkICNjOGNjZDE7XG4gIGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xuICBiYWNrZ3JvdW5kLWltYWdlOiBub25lICFpbXBvcnRhbnQ7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBRUEsTUFBTSxDQUFDO0FBQ0wsYUFBVztBQUNiO0FBRUEsQ0FBQztBQUNDLGlCQUFlO0FBQ2pCO0FBRUEsQ0FBQztBQUNDLFdBQVM7QUFDVCxlQUFhO0FBQ2IsV0FBUyxRQUFRLEVBQUU7QUFDbkIsT0FBSztBQUNQO0FBQ0EsQ0FBQztBQUNDLE9BQUs7QUFDUDtBQUVBLENBQUM7QUFDQyxnQkFBYztBQUNoQjtBQUNBLENBQUMsaUJBQWlCLENBQUM7QUFDakIsZ0JBQWMsSUFBSSxNQUFNO0FBQ3hCLG9CQUFrQjtBQUNsQixvQkFBa0I7QUFDcEI7IiwKICAibmFtZXMiOiBbXQp9Cg== */

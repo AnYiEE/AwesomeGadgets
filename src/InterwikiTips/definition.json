@@ -1,0 +1,5 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title='默认为所有用户启用'>D</abbr></sup><span id='Gadget-InterwikiTips'></span> InterwikiTips <small>为少部分外链提供图片提示</small>",
+	"default": true
+}

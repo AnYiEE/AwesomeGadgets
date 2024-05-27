@@ -1,0 +1,57 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0|import=no}}'
+ *
+ * @source <https://github.com/TopRealm/InterfaceCodes/blob/master/src/Gadgets/Appearance/InterwikiTips>
+ * @author Zorua-Fox and other Youshou Archives Contributors.
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/InterwikiTips/InterwikiTips.css */
+.mw-parser-output a.extiw[href*=".qiuwenbaike.cn"]::before {
+  font-weight: normal;
+  line-height: 0;
+  text-indent: 0.1em;
+  vertical-align: super;
+}
+.mw-parser-output a.extiw[href*=".moegirl.org.cn"]::before {
+  font-weight: normal;
+  line-height: 0;
+  text-indent: 0.1em;
+  vertical-align: super;
+}
+.mw-parser-output a.extiw[href*=".qiuwenbaike.cn"]::before {
+  display: inline-block;
+  font-size: 1em;
+  width: 1em;
+  height: 1em;
+  margin-right: 0;
+  content: "";
+  background: url(https://youshou.wiki/images/4/41/“求”网站图标（透明背景；2023版）.svg) no-repeat 0 0;
+  background-size: 100%;
+}
+.mw-parser-output a.extiw[href*=".moegirl.org.cn"]::before {
+  display: inline-block;
+  font-size: 1em;
+  width: 1em;
+  height: 1em;
+  margin-right: 0;
+  content: "";
+  background: url(https://youshou.wiki/images/8/88/萌娘百科网站图标.svg) no-repeat 0 0;
+  background-size: 100%;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0ludGVyd2lraVRpcHMvSW50ZXJ3aWtpVGlwcy5jc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbIi5tdy1wYXJzZXItb3V0cHV0IGEuZXh0aXdbaHJlZio9Jy5xaXV3ZW5iYWlrZS5jbiddOjpiZWZvcmUge1xuXHRmb250LXdlaWdodDogbm9ybWFsO1xuXHRsaW5lLWhlaWdodDogMDtcblx0dGV4dC1pbmRlbnQ6IDAuMWVtO1xuXHR2ZXJ0aWNhbC1hbGlnbjogc3VwZXI7XG59XG5cbi5tdy1wYXJzZXItb3V0cHV0IGEuZXh0aXdbaHJlZio9Jy5tb2VnaXJsLm9yZy5jbiddOjpiZWZvcmUge1xuXHRmb250LXdlaWdodDogbm9ybWFsO1xuXHRsaW5lLWhlaWdodDogMDtcblx0dGV4dC1pbmRlbnQ6IDAuMWVtO1xuXHR2ZXJ0aWNhbC1hbGlnbjogc3VwZXI7XG59XG5cbi5tdy1wYXJzZXItb3V0cHV0IGEuZXh0aXdbaHJlZio9Jy5xaXV3ZW5iYWlrZS5jbiddOjpiZWZvcmUge1xuXHRkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG5cdGZvbnQtc2l6ZTogMWVtO1xuXHR3aWR0aDogMWVtO1xuXHRoZWlnaHQ6IDFlbTtcblx0bWFyZ2luLXJpZ2h0OiAwO1xuXHRjb250ZW50OiAnJztcblx0YmFja2dyb3VuZDogdXJsKCdodHRwczovL3lvdXNob3Uud2lraS9pbWFnZXMvNC80MS/igJzmsYLigJ3nvZHnq5nlm77moIfvvIjpgI/mmI7og4zmma/vvJsyMDIz54mI77yJLnN2ZycpIG5vLXJlcGVhdCAwIDA7XG5cdGJhY2tncm91bmQtc2l6ZTogMTAwJTtcbn1cblxuLm13LXBhcnNlci1vdXRwdXQgYS5leHRpd1tocmVmKj0nLm1vZWdpcmwub3JnLmNuJ106OmJlZm9yZSB7XG5cdGRpc3BsYXk6IGlubGluZS1ibG9jaztcblx0Zm9udC1zaXplOiAxZW07XG5cdHdpZHRoOiAxZW07XG5cdGhlaWdodDogMWVtO1xuXHRtYXJnaW4tcmlnaHQ6IDA7XG5cdGNvbnRlbnQ6ICcnO1xuXHRiYWNrZ3JvdW5kOiB1cmwoJ2h0dHBzOi8veW91c2hvdS53aWtpL2ltYWdlcy84Lzg4L+iQjOWomOeZvuenkee9keermeWbvuaghy5zdmcnKSBuby1yZXBlYXQgMCAwO1xuXHRiYWNrZ3JvdW5kLXNpemU6IDEwMCU7XG59XG5cbi8qIDwvbm93aWtpPiAqL1xuIl0sCiAgIm1hcHBpbmdzIjogIjs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsQ0FBQyxpQkFBaUIsQ0FBQyxDQUFDLEtBQUssQ0FBQyx3QkFBd0I7QUFDakQsZUFBYTtBQUNiLGVBQWE7QUFDYixlQUFhO0FBQ2Isa0JBQWdCO0FBQ2pCO0FBRUEsQ0FQQyxpQkFPaUIsQ0FBQyxDQVBDLEtBT0ssQ0FBQyx3QkFBd0I7QUFDakQsZUFBYTtBQUNiLGVBQWE7QUFDYixlQUFhO0FBQ2Isa0JBQWdCO0FBQ2pCO0FBRUEsQ0FkQyxpQkFjaUIsQ0FBQyxDQWRDLEtBY0ssQ0FBQyx3QkFBd0I7QUFDakQsV0FBUztBQUNULGFBQVc7QUFDWCxTQUFPO0FBQ1AsVUFBUTtBQUNSLGdCQUFjO0FBQ2QsV0FBUztBQUNULGNBQVksOERBQWdFLFVBQVUsRUFBRTtBQUN4RixtQkFBaUI7QUFDbEI7QUFFQSxDQXpCQyxpQkF5QmlCLENBQUMsQ0F6QkMsS0F5QkssQ0FBQyx3QkFBd0I7QUFDakQsV0FBUztBQUNULGFBQVc7QUFDWCxTQUFPO0FBQ1AsVUFBUTtBQUNSLGdCQUFjO0FBQ2QsV0FBUztBQUNULGNBQVksbURBQXFELFVBQVUsRUFBRTtBQUM3RSxtQkFBaUI7QUFDbEI7IiwKICAibmFtZXMiOiBbXQp9Cg== */

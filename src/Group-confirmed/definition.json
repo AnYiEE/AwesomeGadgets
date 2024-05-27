@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-Group-confirmed\"></span> 确认用户样式表",
+	"section": "usergroup",
+	"default": true,
+	"hidden": true,
+	"rights": ["skipcaptcha"]
+}

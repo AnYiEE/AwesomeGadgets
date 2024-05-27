@@ -1,0 +1,9 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-Edittools-vplus\"></span> 编辑工具栏扩展：常用基本模板和繁简转换标记",
+	"section": "edit",
+	"actions": ["edit", "submit"],
+	"default": true,
+	"dependencies": ["ext.gadget.Edittools-customizeToolbar", "ext.gadget.i18n"],
+	"rights": ["edit"]
+}

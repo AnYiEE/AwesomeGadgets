@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-CopyCodeBlock-pagestyles\"></span> “提供便于复制代码块内容的按钮”配套样式表",
+	"section": "browser",
+	"hidden": true
+}

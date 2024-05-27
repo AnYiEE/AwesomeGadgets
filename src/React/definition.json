@@ -1,3 +1,6 @@
 {
-	"enable": false
+	"enable": true,
+	"description": "<span id=\"Gadget-React\"></span> [https://github.com/alex-kinokon/jsx-dom jsx-dom] 提供JSX-DOM支持",
+	"section": "compatibility",
+	"hidden": true
 }

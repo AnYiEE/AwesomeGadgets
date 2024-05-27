@@ -1,0 +1,33 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/Wikiplus-highlight}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/Wikiplus-highlight/Wikiplus-highlight.less */
+/*! Wikiplus-highlight | Bhsd, 机智的小鱼君 | GPL-3.0 <https://qwbk.cc/H:GPL-3.0> */
+#Wikiplus-CodeMirror {
+  border: 1px solid #c8ccd1;
+  clear: both;
+}
+div.Wikiplus-InterBox {
+  z-index: 100;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1dpa2lwbHVzLWhpZ2hsaWdodC9XaWtpcGx1cy1oaWdobGlnaHQubGVzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiLyohIFdpa2lwbHVzLWhpZ2hsaWdodCB8IEJoc2QsIOacuuaZuueahOWwj+mxvOWQmyB8IEdQTC0zLjAgPGh0dHBzOi8vcXdiay5jYy9IOkdQTC0zLjA+ICovXG4jV2lraXBsdXMtQ29kZU1pcnJvciB7XG4gIGJvcmRlcjogMXB4IHNvbGlkICNjOGNjZDE7XG4gIGNsZWFyOiBib3RoO1xufVxuZGl2Lldpa2lwbHVzLUludGVyQm94IHtcbiAgei1pbmRleDogMTAwO1xufVxuIl0sCiAgIm1hcHBpbmdzIjogIjs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUE7QUFDQSxDQUFDO0FBQ0MsVUFBUSxJQUFJLE1BQU07QUFDbEIsU0FBTztBQUNUO0FBQ0EsR0FBRyxDQUFDO0FBQ0YsV0FBUztBQUNYOyIsCiAgIm5hbWVzIjogW10KfQo= */

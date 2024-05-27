@@ -1,0 +1,30 @@
+/**
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * _addText: '{{Gadget Header|license=GPL-3.0-or-later}}'
+ *
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/AddSectionPlus}
+ * @author 安忆 <i@anyi.in>
+ * @license GPL-3.0-or-later {@link https://youshou.wiki/wiki/H:GPLV3}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/AddSectionPlus/AddSectionPlus.less */
+.skin-citizen #ca-addsection a {
+  font-size: 0;
+  gap: 0;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0FkZFNlY3Rpb25QbHVzL0FkZFNlY3Rpb25QbHVzLmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbIi5za2luLWNpdGl6ZW4gI2NhLWFkZHNlY3Rpb24gYSB7XG4gIGZvbnQtc2l6ZTogMDtcbiAgZ2FwOiAwO1xufVxuIl0sCiAgIm1hcHBpbmdzIjogIjs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLENBQUMsYUFBYSxDQUFDLGNBQWM7QUFDM0IsYUFBVztBQUNYLE9BQUs7QUFDUDsiLAogICJuYW1lcyI6IFtdCn0K */

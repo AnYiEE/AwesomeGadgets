@@ -1,0 +1,36 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/User:Xiplus/js/TranslateVariants}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/TranslateVariants}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* esbuild-css-modules-plugin-ns-css:src/TranslateVariants/TranslateVariants.module.less */
+.TranslateVariants-module__submitAll_Yvm-lW {
+  text-align: right;
+}
+.TranslateVariants-module__noChanges_Yvm-lW,
+.TranslateVariants-module__publishChanges_Yvm-lW {
+  float: right;
+}
+.TranslateVariants-module__warning_Yvm-lW {
+  color: red;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiZXNidWlsZC1jc3MtbW9kdWxlcy1wbHVnaW4tbnMtY3NzOnNyYy9UcmFuc2xhdGVWYXJpYW50cy9UcmFuc2xhdGVWYXJpYW50cy5tb2R1bGUubGVzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiLyogPHN0ZGluPiAqL1xuLlRyYW5zbGF0ZVZhcmlhbnRzLW1vZHVsZV9fc3VibWl0QWxsX1l2bS1sVyB7XG4gIHRleHQtYWxpZ246IHJpZ2h0O1xufVxuLlRyYW5zbGF0ZVZhcmlhbnRzLW1vZHVsZV9fbm9DaGFuZ2VzX1l2bS1sVyxcbi5UcmFuc2xhdGVWYXJpYW50cy1tb2R1bGVfX3B1Ymxpc2hDaGFuZ2VzX1l2bS1sVyB7XG4gIGZsb2F0OiByaWdodDtcbn1cbi5UcmFuc2xhdGVWYXJpYW50cy1tb2R1bGVfX3dhcm5pbmdfWXZtLWxXIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxDQUFDO0FBQ0MsY0FBWTtBQUNkO0FBQ0EsQ0FBQztBQUNELENBQUM7QUFDQyxTQUFPO0FBQ1Q7QUFDQSxDQUFDO0FBQ0MsU0FBTztBQUNUOyIsCiAgIm5hbWVzIjogW10KfQo= */

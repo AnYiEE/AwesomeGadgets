@@ -1,0 +1,60 @@
+@import (reference) '../variables.less';
+
+/*! Twinkle.js - twinkle.css */
+
+#p-twinkle {
+	/**
+	 * Explicitly set width of TW menu so that we can use a hidden peer gadget
+	 * to add space where the TW menu would go before it loads.
+	 * See twinkle-pagestyles.css
+	 */
+	.skin-vector .vector-menu-dropdown & {
+		width: 3.24em;
+	}
+
+	.skin-citizen & {
+		h3 {
+			display: block;
+			padding: 0.75em 1.25em;
+			margin: 0;
+			color: #54595d;
+			font-family: @sans-serif-zh-hans, sans-serif, @emoji-font;
+			font-size: 0.8em;
+			font-weight: normal;
+			letter-spacing: 0.05em;
+
+			html:lang(zh-hant) & {
+				font-family: @sans-serif-zh-hant, sans-serif, @emoji-font;
+			}
+		}
+	}
+
+	/**
+	 * In skin vector-2022, open the TW menu when mouse hovers over it.
+	 * Credit to Nardog for this fix.
+	 */
+	&:hover > .vector-menu-content {
+		height: auto;
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+/*! Twinkle.js - twinkle-pagestyles.css */
+
+/**
+ * This is loaded as a hidden peer gadget of Twinkle.
+ * Before core Twinkle has loaded, it adds space where the TW would go in the
+ * Vector skin, so that the top bar does not "jump".
+ */
+.client-js > body.skin-vector {
+	&:not(.ns-special),
+	&.mw-special-Block,
+	&.mw-special-Contributions,
+	&.mw-special-DeletedContributions,
+	&.mw-special-Prefixindex {
+		#p-cactions {
+			margin-right: 3.24em;
+		}
+	}
+}

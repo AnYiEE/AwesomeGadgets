@@ -1,0 +1,9 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Vector.css}
+ * @base {@link https://en.wikipedia.org/wiki/MediaWiki:Gadget-responsiveContentBase.css}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/SkinVector}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */

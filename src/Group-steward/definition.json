@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-Group-steward\"></span> 档案理事员样式表",
+	"section": "usergroup",
+	"default": true,
+	"hidden": true,
+	"rights": ["officialprotected"]
+}
