@@ -1,0 +1,10 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-Group-importer_JS\"></span> 导入者用户脚本",
+	"section": "usergroup",
+	"default": true,
+	"dependencies": ["oojs-ui-windows"],
+	"hidden": true,
+	"peers": ["Group-importer"],
+	"rights": ["import"]
+}

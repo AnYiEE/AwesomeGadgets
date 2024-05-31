@@ -1,0 +1,103 @@
+@import (reference) '../../variables.less';
+
+/* 重置<html>默认样式 */
+html {
+	tab-size: 4;
+}
+
+/* 覆盖站点原有b标签样式 */
+b {
+	font-weight: bold;
+}
+
+/* 重置<cite>默认样式 */
+cite {
+	/* 解决<cite>定位内文字显示为斜体的问题 */
+	font-style: normal;
+}
+
+/* 重置<dfn>默认样式 */
+dfn {
+	font-style: inherit;
+}
+
+/* 重置<q>默认样式 */
+q {
+	/* 双引号：“”；单引号：‘’ */
+	quotes: '“' '”' '‘' '’';
+
+	html:lang(zh-hant) & {
+		/* 外引号：「」；内引号：『』 */
+		quotes: '「' '」' '『' '』';
+	}
+
+	html:lang(en) & {
+		/* 外引号：""；内引号：'' */
+		quotes: '"' '"' "'" "'";
+	}
+}
+
+/* 重置<big><small>字号 */
+big {
+	font-size: 1.2em;
+}
+
+small {
+	font-size: 0.9em;
+}
+
+/* 重置Ruby相关标签字号 */
+rt big {
+	font-size: 0.9em;
+}
+
+/* 重置<hr>的边界 */
+hr {
+	margin: 0.5em 0;
+}
+
+/* 字体 */
+body,
+input {
+	font-family: @sans-serif-zh-hans, sans-serif, @emoji-font;
+
+	html:lang(zh-hant) & {
+		font-family: @sans-serif-zh-hant, sans-serif, @emoji-font;
+	}
+}
+
+.mw-body {
+	dt,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: @serif-zh-hans, serif, @emoji-font;
+
+		html:lang(zh-hant) & {
+			font-family: @serif-zh-hant, serif, @emoji-font;
+		}
+	}
+}
+
+.content code,
+.content kbd,
+.content pre,
+.content samp,
+.screenplay,
+.ve-ui-mwWikitextSurface .ve-ce-attachedRootNode,
+div.CodeMirror,
+.mw-editfont-monospace,
+code,
+kbd,
+pre,
+samp,
+tt {
+	font-family: @monospace-zh-hans, monospace, @emoji-font;
+
+	html:lang(zh-hant) & {
+		font-family: @monospace-zh-hant, monospace, @emoji-font;
+	}
+}

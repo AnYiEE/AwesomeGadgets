@@ -1,0 +1,9 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-Edittools-refToolbar\"></span> 编辑工具栏扩展：参考文献引用",
+	"section": "edit",
+	"actions": ["edit", "submit"],
+	"default": true,
+	"dependencies": ["ext.gadget.Util", "ext.wikiEditor", "mediawiki.jqueryMsg", "mediawiki.util", "user.options"],
+	"rights": ["edit"]
+}

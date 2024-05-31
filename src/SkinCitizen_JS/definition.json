@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-SkinCitizen_JS\"></span> 为Citizen增加加载脚本",
+	"section": "skin",
+	"default": true,
+	"hidden": true,
+	"skins": ["citizen"]
+}

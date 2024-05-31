@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-Group-massmessage-sender.less\"></span> 大量消息发送者样式表",
+	"section": "usergroup",
+	"default": true,
+	"hidden": true,
+	"rights": ["massmessage"]
+}

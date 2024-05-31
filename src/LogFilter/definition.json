@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-LogFilter\"></span> 基于正则表达式的[[Special:日志|日志]]过滤",
+	"section": "sysop",
+	"dependencies": ["ext.gadget.Util", "mediawiki.util"]
+}

@@ -1,0 +1,174 @@
+@import (reference) '../../variables.less';
+
+/* 此处的CSS只会在媒体查询为print时生效 */
+@media print {
+	:root {
+		font-family: @serif-zh-hans, serif, @emoji-font;
+
+		&:lang(zh-hant) {
+			font-family: @serif-zh-hant, serif, @emoji-font;
+		}
+	}
+
+	.printfooter {
+		clear: both;
+	}
+
+	/**
+	 * Do not print:
+	 * 1. When in mainspace: Article message boxes,
+	 *    navboxes, sister project boxes, disambig links,
+	 *    and items marked as metadata.
+	 * 2. Privacy, about, disclaimer, redirect and section edit links.
+	 * 3. Show/hide toggles for collapsible items.
+	 * 4. Items marked as noprint.
+	 */
+	a.NavToggle,
+	span.collapseButton,
+	span.mw-collapsible-toggle,
+	span.toctoggle,
+	span#coordinates,
+	th .sortkey,
+	.noprint,
+	.editlink,
+	.mw-indicators,
+	.navbar,
+	#about,
+	#catlinks,
+	#disclaimer,
+	#filetoc,
+	#footer-places,
+	#privacy {
+		display: none !important;
+	}
+
+	.ns--1,
+	.ns-0 {
+		.dablink,
+		.hatnote,
+		.infobox.sisterproject,
+		.metadata,
+		.mbox,
+		.mbox-small,
+		.mw-cite-backlink,
+		.navbox,
+		.stub,
+		.vertical-navbox {
+			display: none !important;
+		}
+	}
+
+	/**
+	 * Add formatting to make sure that "external references" from templates
+	 * like {{ref}} do not get URL expansion, not even when printed.
+	 * The anchor itself has crlass "external autonumber" and the url expansion
+	 * is inserted when printing using the ":after" pseudo-element of CSS.
+	 * Also hide in <cite> elements.
+	 */
+	.nourlexpansion,
+	#content cite {
+		a.external {
+			&.text,
+			&.autonumber {
+				&::after {
+					display: none !important;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Uncollapse collapsible tables/divs.
+	 * The proper way to do this for tables is to use display:table-row,
+	 * but this is not supported by all browsers, so use display:block as fallback.
+	 */
+	div.NavPic,
+	div.NavContent,
+	table.collapsible tr {
+		display: block !important;
+	}
+
+	table.collapsible tr {
+		display: table-row !important;
+	}
+
+	/* Restoring font size */
+	body.skin-vector #bodyContent {
+		font-size: 0.8em !important;
+	}
+
+	/* Hide [show]/[hide] links */
+	.NavToggle {
+		display: none !important;
+	}
+
+	/* On websites with siteSub visible, the margin on the firstHeading is not needed. */
+	#firstHeading {
+		margin: 0;
+	}
+
+	/* We don't want very long URLs (that are added to the content in print) to widen the canvas */
+	#content {
+		a.external {
+			&.text,
+			&.autonumber {
+				&::after {
+					display: none !important;
+				}
+			}
+		}
+	}
+
+	/* 避免分页断行 */
+	blockquote,
+	table,
+	pre,
+	.toc {
+		page-break-inside: avoid;
+	}
+
+	.toc {
+		box-decoration-break: clone;
+	}
+
+	/**
+	 * Basic infobox styling
+	 * Remove background colors, they are hard to print
+	 */
+	.infobox {
+		width: 180pt !important;
+		border: solid 1px #aaa;
+		background-color: @const-color-white;
+		border-collapse: collapse;
+		border-spacing: 0;
+
+		& > * > tr {
+			& > td,
+			& > th {
+				padding: 2px 5px;
+				border-bottom: 1px solid #eaecf0;
+			}
+		}
+
+		/* Reduce noise for print medium - labels may be links */
+		& a {
+			border: 0;
+		}
+
+		& > * > tr:last-child {
+			& > td,
+			& > th {
+				border: 0;
+			}
+		}
+	}
+
+	/* References */
+	.refbegin,
+	.references,
+	.reference {
+		a {
+			color: @const-color-black !important;
+		}
+	}
+}

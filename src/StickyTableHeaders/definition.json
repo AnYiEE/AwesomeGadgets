@@ -1,0 +1,7 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-StickyTableHeaders\"></span> 将表头固定显示",
+	"section": "appear",
+	"peers": ["StickyTableHeaders-pagestyles"],
+	"skins": ["gongbi", "vector", "vector-2022"]
+}

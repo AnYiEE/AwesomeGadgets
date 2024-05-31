@@ -1,0 +1,42 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/User:Vanished_user_1929210/js/OnlineAdmins.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/OnlineAdmins-pagestyles}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/OnlineAdmins-pagestyles/OnlineAdmins-pagestyles.less */
+.onlineadmin-section {
+  word-break: break-all;
+}
+.onlineadmin-list,
+.onlineadmin-list li {
+  margin: 0;
+  display: inline;
+}
+.onlineadmin-list::after,
+.onlineadmin-list li::after {
+  content: "、";
+}
+.onlineadmin-list:last-child::after,
+.onlineadmin-list li:last-child::after {
+  content: none;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL09ubGluZUFkbWlucy1wYWdlc3R5bGVzL09ubGluZUFkbWlucy1wYWdlc3R5bGVzLmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbIi5vbmxpbmVhZG1pbi1zZWN0aW9uIHtcbiAgd29yZC1icmVhazogYnJlYWstYWxsO1xufVxuLm9ubGluZWFkbWluLWxpc3QsXG4ub25saW5lYWRtaW4tbGlzdCBsaSB7XG4gIG1hcmdpbjogMDtcbiAgZGlzcGxheTogaW5saW5lO1xufVxuLm9ubGluZWFkbWluLWxpc3Q6OmFmdGVyLFxuLm9ubGluZWFkbWluLWxpc3QgbGk6OmFmdGVyIHtcbiAgY29udGVudDogJ+OAgSc7XG59XG4ub25saW5lYWRtaW4tbGlzdDpsYXN0LWNoaWxkOjphZnRlcixcbi5vbmxpbmVhZG1pbi1saXN0IGxpOmxhc3QtY2hpbGQ6OmFmdGVyIHtcbiAgY29udGVudDogbm9uZTtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxDQUFDO0FBQ0MsY0FBWTtBQUNkO0FBQ0EsQ0FBQztBQUNELENBREMsaUJBQ2lCO0FBQ2hCLFVBQVE7QUFDUixXQUFTO0FBQ1g7QUFDQSxDQUxDLGdCQUtnQjtBQUNqQixDQU5DLGlCQU1pQixFQUFFO0FBQ2xCLFdBQVM7QUFDWDtBQUNBLENBVEMsZ0JBU2dCLFdBQVc7QUFDNUIsQ0FWQyxpQkFVaUIsRUFBRSxXQUFXO0FBQzdCLFdBQVM7QUFDWDsiLAogICJuYW1lcyI6IFtdCn0K */

@@ -1,0 +1,10 @@
+{
+	"rules": {
+		"func-style": "off",
+		"sort-imports": "off",
+
+		"jsdoc/require-param": "off",
+		"jsdoc/require-param-type": "off",
+		"jsdoc/require-returns": "off"
+	}
+}

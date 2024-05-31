@@ -1,0 +1,17 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-NoteTA\"></span> {{tl|noteTA}}查看器",
+	"section": "compatibility",
+	"default": true,
+	"dependencies": [
+		"ext.gadget.i18n",
+		"ext.gadget.React",
+		"ext.gadget.Util",
+		"jquery.makeCollapsible",
+		"mediawiki.api",
+		"oojs-ui-core",
+		"oojs-ui-windows"
+	],
+	"hidden": true,
+	"peers": ["NoteTA-pagestyles"]
+}

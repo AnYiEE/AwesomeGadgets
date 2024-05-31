@@ -1,0 +1,21 @@
+.onlineadmin {
+	&-section {
+		word-break: break-all;
+	}
+
+	&-list {
+		&,
+		& li {
+			margin: 0;
+			display: inline;
+
+			&::after {
+				content: '、';
+			}
+
+			&:last-child::after {
+				content: none;
+			}
+		}
+	}
+}

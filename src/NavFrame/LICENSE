@@ -1,0 +1,23 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-NavFrame.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/NavFrame}
+ */
+
+/**
+ * Dynamic Navigation Bars.
+ *
+ * Based on script from en.wikipedia.org, 2008-09-15.
+ *
+ * @base {@link https://www.mediawiki.org/wiki/MediaWiki:Gadget-NavFrame.js}
+ * @maintainer Helder.wiki, 2012–2013
+ * @maintainer Krinkle, 2013
+ * @maintainer Fantasticfears, 2013-2014
+ */
+
+/**
+ * Warning: NavFrame is retained for compatibility. Use .mw-collapsible instead.
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */

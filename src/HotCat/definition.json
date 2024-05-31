@@ -1,0 +1,16 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-HotCat\"></span> [[Help:HotCat|HotCat]] <small>帮助用户增加、移除及修改分类</small>",
+	"section": "edit",
+	"default": true,
+	"dependencies": [
+		"ext.gadget.i18n",
+		"ext.gadget.Util",
+		"jquery.ui",
+		"mediawiki.jqueryMsg",
+		"mediawiki.storage",
+		"mediawiki.user",
+		"mediawiki.util"
+	],
+	"rights": ["skipcaptcha"]
+}

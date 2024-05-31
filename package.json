@@ -2,6 +2,7 @@
 	"name": "awesome-gadgets",
 	"version": "4.6.5",
 	"description": "Storage, management, compilation, and automatic deployment of MediaWiki gadgets.",
+	"private": true,
 	"type": "module",
 	"scripts": {
 		"build": "pnpm format && pnpm build:only",
@@ -12,13 +13,14 @@
 		"deploy:test": "tsx --no-deprecation scripts/run.ts --deploy --test",
 		"deploy:test:directly": "tsx --no-deprecation scripts/run.ts --deploy --test --skip-ask",
 		"sort": "tsx --no-deprecation scripts/run.ts --format-json",
-		"format": "prettier --cache --write . && pnpm lint:fix && vue-tsc",
+		"format": "prettier --cache --write . && pnpm lint:fix && vue-tsc && pnpm minify-svg",
 		"eslint": "eslint --cache .",
 		"eslint:fix": "eslint --cache --fix .",
 		"stylelint": "stylelint --allow-empty-input --cache src/**/*.{css,less}",
 		"stylelint:fix": "stylelint --allow-empty-input --cache --fix src/**/*.{css,less}",
 		"lint": "pnpm eslint && pnpm stylelint",
 		"lint:fix": "pnpm eslint:fix && pnpm stylelint:fix",
+		"minify-svg": "svgo --config=svgo.config.cjs --quiet --recursive --folder src",
 		"preinstall": "npx only-allow pnpm",
 		"prepare": "husky"
 	},
@@ -43,6 +45,17 @@
 		"MediaWiki",
 		"MediaWiki Gadget"
 	],
+	"dependencies": {
+		"@bhsd/codemirror-mediawiki": "^2.13.0",
+		"@types/toastify-js": "^1.12.3",
+		"clipboard": "^2.0.11",
+		"filter-altered-clicks": "^2.0.1",
+		"jsx-dom": "^8.1.4",
+		"select2": "^4.0.13",
+		"svgo": "^3.3.2",
+		"tippy.js": "^6.3.7",
+		"toastify-js": "^1.12.0"
+	},
 	"devDependencies": {
 		"@babel/core": "^7.24.6",
 		"@babel/helper-compilation-targets": "^7.24.6",

@@ -1,0 +1,5 @@
+{
+	"configKey": "gadget-Wikicache__Initialized",
+	"cacheKeyPrefix": "wikicache-autosave-",
+	"version": "3.0"
+}

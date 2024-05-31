@@ -1,0 +1,206 @@
+/**
+ * Style for horizontal lists (separator following item)
+ *
+ * @author SolidBlock
+ */
+
+/* Variables */
+:root {
+	--hlist-colon: '：';
+	--hlist-separator: ' · ';
+	--hlist-par-left: '（';
+	--hlist-par-right: '）';
+}
+
+.hlist {
+	margin-left: 0;
+
+	dl,
+	ol,
+	ul,
+	dl&,
+	ol&,
+	ul& {
+		padding-left: 0;
+		margin: 0 !important;
+
+		&::after {
+			white-space: normal;
+		}
+	}
+
+	dl&,
+	ol&,
+	ul& {
+		&::after {
+			white-space: normal;
+		}
+
+		&:last-child::after {
+			content: none;
+		}
+	}
+
+	/* Display nested lists inline */
+	dl,
+	ol,
+	ul {
+		dl,
+		ol,
+		ul {
+			display: inline;
+
+			/* Add parens around nested lists */
+			&::before {
+				content: '（';
+				content: var(--hlist-par-left, '（');
+			}
+
+			&::after {
+				content: '）';
+				content: var(--hlist-par-right, '）');
+			}
+		}
+	}
+
+	&.inline {
+		&,
+		dl,
+		ol,
+		ul {
+			display: inline;
+		}
+	}
+
+	/* Hide empty list items */
+	.mw-empty-elt,
+	.mw-empty-li {
+		display: none;
+	}
+
+	/* Generate interpuncts */
+	dd,
+	dt,
+	li {
+		display: inline;
+		margin: 0 !important;
+	}
+
+	dd,
+	li {
+		&::after {
+			content: ' · ';
+			content: var(--hlist-separator, ' · ');
+			font-weight: bold;
+		}
+
+		&:last-child::after {
+			content: none;
+		}
+	}
+
+	dt {
+		&::after {
+			content: '：';
+			content: var(--hlist-colon, '：');
+		}
+
+		&:last-child::after {
+			content: none;
+		}
+	}
+
+	&-pipe {
+		dd::after,
+		li::after {
+			content: ' | ';
+			font-weight: normal;
+		}
+	}
+
+	&-hyphen {
+		dd::after,
+		li::after {
+			content: ' - ';
+			font-weight: normal;
+		}
+	}
+
+	&-comma {
+		dd::after,
+		li::after {
+			content: '、';
+			font-weight: normal;
+		}
+	}
+
+	/* Put numbers in ordered lists */
+	&.hnum {
+		ol {
+			li {
+				counter-increment: level1;
+
+				&::before {
+					content: counter(level1) ' ';
+				}
+			}
+
+			ol li {
+				counter-increment: level2;
+
+				&::before {
+					content: counter(level2) ' ';
+				}
+			}
+		}
+	}
+}
+
+/* Unbulleted lists */
+
+.plainlist {
+	ul,
+	ol,
+	ul&,
+	ol& {
+		margin-left: 0 !important;
+		list-style: none none !important;
+	}
+
+	li {
+		margin-bottom: 0;
+	}
+}
+
+/* Deprecated: {{cslist}} */
+.cslist,
+.sslist {
+	ul&,
+	ol& {
+		display: inline-block;
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+
+	li {
+		display: inline-block;
+		margin: 0;
+	}
+}
+
+.cslist li::after {
+	content: '，';
+
+	&:last-child::after {
+		content: none;
+	}
+}
+
+.sslist li::after {
+	content: '；';
+
+	&:last-child::after {
+		content: none;
+	}
+}

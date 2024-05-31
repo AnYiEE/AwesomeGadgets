@@ -1,0 +1,49 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/Group-steward}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/Group-steward/Group-steward.less */
+div.steward-show,
+p.steward-show {
+  display: block !important;
+}
+span.steward-show,
+small.steward-show {
+  display: inline !important;
+}
+table.steward-show {
+  display: table !important;
+}
+tr.steward-show {
+  display: table-row !important;
+}
+td.steward-show {
+  display: table-cell !important;
+}
+li.steward-show {
+  display: list-item !important;
+}
+.mw-history-editchangetags-button,
+.mw-log-editchangetags-button {
+  display: block;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0dyb3VwLXN0ZXdhcmQvR3JvdXAtc3Rld2FyZC5sZXNzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyJkaXYuc3Rld2FyZC1zaG93LFxucC5zdGV3YXJkLXNob3cge1xuICBkaXNwbGF5OiBibG9jayAhaW1wb3J0YW50O1xufVxuc3Bhbi5zdGV3YXJkLXNob3csXG5zbWFsbC5zdGV3YXJkLXNob3cge1xuICBkaXNwbGF5OiBpbmxpbmUgIWltcG9ydGFudDtcbn1cbnRhYmxlLnN0ZXdhcmQtc2hvdyB7XG4gIGRpc3BsYXk6IHRhYmxlICFpbXBvcnRhbnQ7XG59XG50ci5zdGV3YXJkLXNob3cge1xuICBkaXNwbGF5OiB0YWJsZS1yb3cgIWltcG9ydGFudDtcbn1cbnRkLnN0ZXdhcmQtc2hvdyB7XG4gIGRpc3BsYXk6IHRhYmxlLWNlbGwgIWltcG9ydGFudDtcbn1cbmxpLnN0ZXdhcmQtc2hvdyB7XG4gIGRpc3BsYXk6IGxpc3QtaXRlbSAhaW1wb3J0YW50O1xufVxuLyog5pi+56S64oCc57yW6L6R6YCJ5a6a5L+u6K6i54mI5pys55qE5qCH562+4oCdICovXG4ubXctaGlzdG9yeS1lZGl0Y2hhbmdldGFncy1idXR0b24sXG4ubXctbG9nLWVkaXRjaGFuZ2V0YWdzLWJ1dHRvbiB7XG4gIGRpc3BsYXk6IGJsb2NrO1xufVxuIl0sCiAgIm1hcHBpbmdzIjogIjs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsR0FBRyxDQUFDO0FBQ0osQ0FBQyxDQURHO0FBRUYsV0FBUztBQUNYO0FBQ0EsSUFBSSxDQUpBO0FBS0osS0FBSyxDQUxEO0FBTUYsV0FBUztBQUNYO0FBQ0EsS0FBSyxDQVJEO0FBU0YsV0FBUztBQUNYO0FBQ0EsRUFBRSxDQVhFO0FBWUYsV0FBUztBQUNYO0FBQ0EsRUFBRSxDQWRFO0FBZUYsV0FBUztBQUNYO0FBQ0EsRUFBRSxDQWpCRTtBQWtCRixXQUFTO0FBQ1g7QUFFQSxDQUFDO0FBQ0QsQ0FBQztBQUNDLFdBQVM7QUFDWDsiLAogICJuYW1lcyI6IFtdCn0K */

@@ -1,0 +1,9 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-SiteCommon_JS\"></span> 全站脚本",
+	"section": "compatibility",
+	"default": true,
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.React", "ext.gadget.Tippy", "mediawiki.Title", "mediawiki.util"],
+	"hidden": true,
+	"peers": ["SiteCommon"]
+}
