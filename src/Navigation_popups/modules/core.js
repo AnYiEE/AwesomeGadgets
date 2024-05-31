@@ -485,8 +485,8 @@ export const popups = () => {
 				// FIXME compare/consolidate with diff escaping code for wikitext
 				const h = `<hr><span style="font-family: monospace;">${download.data
 					.entify()
-					.split('\\n')
-					.join('<br>\\n')}</span>`;
+					.split(String.raw`\n`)
+					.join(String.raw`<br>\n`)}</span>`;
 				setPopupHTML(h, 'popupPreview', navpop.idNumber);
 			} else {
 				const p = prepPreviewmaker(download.data, art, navpop);
@@ -1033,7 +1033,13 @@ export const popups = () => {
 	// FIXME: Only used once here, confusing with native (and more widely-used) unescape, should probably be replaced
 	// Then again, unescape is semi-soft-deprecated, so we should look into replacing that too
 	const unEscape = (str, sep) => {
-		return str.split('\\\\').join('\\').split(`\\${sep}`).join(sep).split('\\n').join('\n');
+		return str
+			.split('\\\\')
+			.join('\\')
+			.split(`\\${sep}`)
+			.join(sep)
+			.split(String.raw`\n`)
+			.join('\n');
 	};
 	const parseSubstitute = (str) => {
 		// takes a string like s/a/b/flags;othercmds and parses it
@@ -6025,11 +6031,8 @@ export const popups = () => {
 		//					  (^|\[\[)image: *([^|\]]*[^|\] ])([^0-9\]]*([0-9]+) *px)?
 		//														$4 = 120 as in 120px
 		pg.re.image = new RegExp(
-			`(^|\\[\\[)${im}: *([^|\\]]*[^|\\] ])` +
-				'([^0-9\\]]*([0-9]+) *px)?|(?:\\n *[|]?|[|]) *' +
-				`(${getValueOf('popupImageVarsRegexp')})` +
-				` *= *(?:\\[\\[ *)?(?:${im}:)?` +
-				'([^|]*?)(?:\\]\\])? *[|]? *\\n',
+			`(^|\\[\\[)${im}: *([^|\\]]*[^|\\] ])${String.raw`([^0-9\]]*([0-9]+) *px)?|(?:\n *[|]?|[|]) *`}(${getValueOf('popupImageVarsRegexp')})` +
+				` *= *(?:\\[\\[ *)?(?:${im}:)?${String.raw`([^|]*?)(?:\]\])? *[|]? *\n`}`,
 			'img'
 		);
 		pg.re.imageBracketCount = 6;
@@ -7255,7 +7258,12 @@ export const popups = () => {
 	const magicWatchLink = function magicWatchLink(l) {
 		// Yuck!! Would require a thorough redesign to add this as a click event though ...
 		l.onclick = simplePrintf("pg.fn.modifyWatchlist('%s','%s');return false;", [
-			l.article.toString(true).split('\\').join('\\\\').split("'").join("\\'"),
+			l.article
+				.toString(true)
+				.split('\\')
+				.join('\\\\')
+				.split("'")
+				.join(String.raw`\'`),
 			this.id,
 		]);
 		return wikiLink(l);
@@ -7293,14 +7301,24 @@ export const popups = () => {
 		switch (l.id) {
 			case 'lastContrib':
 				onClick = simplePrintf("pg.fn.getLastContrib('%s',%s)", [
-					l.article.toString(true).split('\\').join('\\\\').split("'").join("\\'"),
+					l.article
+						.toString(true)
+						.split('\\')
+						.join('\\\\')
+						.split("'")
+						.join(String.raw`\'`),
 					l.newWin,
 				]);
 				title = popupString('lastContribHint');
 				break;
 			case 'sinceMe':
 				onClick = simplePrintf("pg.fn.getDiffSinceMyEdit('%s',%s)", [
-					l.article.toString(true).split('\\').join('\\\\').split("'").join("\\'"),
+					l.article
+						.toString(true)
+						.split('\\')
+						.join('\\\\')
+						.split("'")
+						.join(String.raw`\'`),
 					l.newWin,
 				]);
 				title = popupString('sinceMeHint');
@@ -7450,10 +7468,10 @@ export const popups = () => {
 		currentArticleRegexBit = currentArticleRegexBit
 			.split(/[ _]+|%20/g)
 			.join('(?:[_ ]+|%20)')
-			.split('\\(')
-			.join('(?:%28|\\()')
-			.split('\\)')
-			.join('(?:%29|\\))'); // why does this need to match encoded strings ? links in the document ?
+			.split(String.raw`\(`)
+			.join(String.raw`(?:%28|\()`)
+			.split(String.raw`\)`)
+			.join(String.raw`(?:%29|\))`); // why does this need to match encoded strings ? links in the document ?
 
 		// leading and trailing space should be ignored, and anchor bits optional:
 		currentArticleRegexBit = `\\s*(${currentArticleRegexBit}(?:#[^\\[\\|]*)?)\\s*`;
@@ -7848,7 +7866,7 @@ export const popups = () => {
 		// regexps
 		newOption(
 			'popupDabRegexp',
-			'\\{\\{\\s*(d(ab|isamb(ig(uation)?)?)|(((geo|hn|road?|school|number)dis)|[234][lc][acw]|(road|ship)index))\\s*(\\|[^}]*)?\\}\\}|is a .*disambiguation.*page'
+			String.raw`\{\{\s*(d(ab|isamb(ig(uation)?)?)|(((geo|hn|road?|school|number)dis)|[234][lc][acw]|(road|ship)index))\s*(\|[^}]*)?\}\}|is a .*disambiguation.*page`
 		);
 		newOption('popupAnchorRegexp', 'anchors?'); // how to identify an anchors template
 		newOption('popupStubRegexp', '(sect)?stub[}][}]|This .*-related article is a .*stub');

@@ -2,18 +2,19 @@
 	"enable": true,
 	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-ShortURL\"></span> 提供当前界面的短链接，便于聊天群共享（站外共享，建议使用完整地址）",
 	"section": "browser",
-	"excludeSites": ["licencewiki", "testwiki"],
+	"excludeSites": ["testwiki"],
 	"default": true,
 	"dependencies": [
 		"ext.gadget.Clipboard",
 		"ext.gadget.i18n",
+		"ext.gadget.React",
 		"ext.gadget.Tippy",
+		"ext.gadget.Toastify",
 		"ext.gadget.Util",
 		"mediawiki.api",
 		"mediawiki.util",
 		"mediawiki.widgets",
 		"oojs-ui-windows"
 	],
-	"peers": ["ShortURL-pagestyles"],
-	"rights": ["edit"]
+	"peers": ["ShortURL-pagestyles"]
 }

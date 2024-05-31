@@ -154,7 +154,7 @@ hotCatMessages();
 	let noSuggestions = false;
 	// No further changes should be necessary here.
 	// The following regular expression strings are used when searching for categories in wikitext.
-	const wikiTextBlank = '[\\t _\\xA0\\u1680\\u180E\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000]+';
+	const wikiTextBlank = String.raw`[\t _\xA0\u1680\u180E\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]+`;
 	const wikiTextBlankRE = new RegExp(wikiTextBlank, 'g');
 	// Regexp for handling blanks inside a category title or namespace name.
 	// See {@link http://svn.wikimedia.org/viewvc/mediawiki/trunk/phase3/includes/Title.php?revision=104051&view=markup#l2722}
@@ -164,7 +164,7 @@ hotCatMessages();
 	// Therefore, when looking for page titles in wikitext, we must handle all these cases.
 	//   Note: we _do_ include the horizontal tab in the above list, even though the MediaWiki software for some reason
 	// appears to not handle it. The zero-width space \u200B is _not_ handled as a space inside titles by MW.
-	const wikiTextBlankOrBidi = '[\\t _\\xA0\\u1680\\u180E\\u2000-\\u200B\\u200E\\u200F\\u2028-\\u202F\\u205F\\u3000]*';
+	const wikiTextBlankOrBidi = String.raw`[\t _\xA0\u1680\u180E\u2000-\u200B\u200E\u200F\u2028-\u202F\u205F\u3000]*`;
 	// Whitespace regexp for handling whitespace between link components. Including the horizontal tab, but not \n\r\f\v:
 	// a link must be on one single line.
 	//   MediaWiki also removes Unicode bidi override characters in page titles (and namespace names) completely.
@@ -187,7 +187,7 @@ hotCatMessages();
 				const ul = initial.toUpperCase();
 				regex_name += ll === ul ? initial : `[${ll}${ul}]`;
 			}
-			return regex_name.replace(/([$()*+.?\\^])/g, '\\$1').replace(wikiTextBlankRE, wikiTextBlank);
+			return regex_name.replace(/([$()*+.?\\^])/g, String.raw`\$1`).replace(wikiTextBlankRE, wikiTextBlank);
 		};
 		fallback = fallback.toLowerCase();
 		const canonical = formattedNamespaces[String(namespaceNumber)].toLowerCase();
@@ -272,7 +272,7 @@ hotCatMessages();
 		return conf.wgArticlePath.replace('$1', encodeURIComponent(pageName).replace(/%3A/g, ':').replace(/%2F/g, '/'));
 	};
 	const escapeRE = (str) => {
-		return str.replace(/([$()*+.?[\\\]^])/g, '\\$1');
+		return str.replace(/([$()*+.?[\\\]^])/g, String.raw`\$1`);
 	};
 	const substituteFactory = (options) => {
 		options ||= {};
@@ -347,7 +347,7 @@ hotCatMessages();
 		if (once) {
 			return cat_regex.exec(wikitext);
 		}
-		const nowikiRegex = new RegExp('<no'.concat('wiki>', '(\\s|\\S)*?</no', 'wiki', '>'), 'g');
+		const nowikiRegex = new RegExp('<no'.concat('wiki>', String.raw`(\s|\S)*?</no`, 'wiki', '>'), 'g');
 		const copiedtext = wikitext.replace(/<!--(\s|\S)*?-->/g, replaceByBlanks).replace(nowikiRegex, replaceByBlanks);
 		const result = [];
 		let curr_match = null;
@@ -362,7 +362,7 @@ hotCatMessages();
 	let interlanguageRE = null;
 	const change_category = (wikitext, toRemove, toAdd, key, is_hidden) => {
 		const find_insertionpoint = (_wikitext) => {
-			const nowikiRegex = new RegExp('<no'.concat('wiki>', '(\\s|\\S)*?</no', 'wiki', '>'), 'g');
+			const nowikiRegex = new RegExp('<no'.concat('wiki>', String.raw`(\s|\S)*?</no`, 'wiki', '>'), 'g');
 			const copiedtext = _wikitext
 				.replace(/<!--(\s|\S)*?-->/g, replaceByBlanks)
 				.replace(nowikiRegex, replaceByBlanks);
@@ -610,7 +610,8 @@ hotCatMessages();
 						// We have interlanguage links, and we got them all.
 						let re = '';
 						for (let i = 0; i < page.langlinks.length; i++) {
-							re += (i > 0 ? '|' : '') + page.langlinks[i].lang.replace(/([$()*+.?\\^])/g, '\\$1');
+							re +=
+								(i > 0 ? '|' : '') + page.langlinks[i].lang.replace(/([$()*+.?\\^])/g, String.raw`\$1`);
 						}
 						if (re.length > 0) {
 							interlanguageRE = new RegExp(`((^|\\n\\r?)(\\[\\[\\s*(${re})\\s*:[^\\]]+\\]\\]\\s*))+$`);
@@ -2993,7 +2994,10 @@ hotCatMessages();
 						const key = editor.currentKey;
 						const new_cat = `[[${HC.category_canonical}:${t}${key ? `|${key}` : ''}]]`;
 						// Only add if not already present
-						const nowikiRegex = new RegExp('<no'.concat('wiki>', '(\\s|\\S)*?</no', 'wiki', '>'), 'g');
+						const nowikiRegex = new RegExp(
+							'<no'.concat('wiki>', String.raw`(\s|\S)*?</no`, 'wiki', '>'),
+							'g'
+						);
 						const _cleanedText = eb.value.replace(/<!--(\s|\S)*?-->/g, '').replace(nowikiRegex);
 						if (!find_category(_cleanedText, t, true)) {
 							eb.value += `\n${new_cat}`;
@@ -3031,7 +3035,7 @@ hotCatMessages();
 			return result;
 		}
 		if (cleanedText === null) {
-			const nowikiRegex = new RegExp('<no'.concat('wiki>', '(\\s|\\S)*?</no', 'wiki', '>'), 'g');
+			const nowikiRegex = new RegExp('<no'.concat('wiki>', String.raw`(\s|\S)*?</no`, 'wiki', '>'), 'g');
 			cleanedText = pageText.replace(/<!--(\s|\S)*?-->/g, '').replace(nowikiRegex, '');
 		}
 		result.match = find_category(cleanedText, catTitle, true);

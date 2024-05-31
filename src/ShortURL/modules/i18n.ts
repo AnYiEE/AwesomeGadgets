@@ -2,6 +2,12 @@ import {localize} from 'ext.gadget.i18n';
 
 const getI18nMessages = () => {
 	return {
+		'Network error': localize({
+			en: 'Network error',
+			ja: 'ネットワークエラー',
+			'zh-hans': '网络异常',
+			'zh-hant': '網路異常',
+		}),
 		'Short URL': localize({
 			en: 'Short URL',
 			'zh-hans': '短链接',
