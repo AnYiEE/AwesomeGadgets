@@ -23,82 +23,71 @@
 "use strict";
 
 // dist/Geo/Geo.js
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+function asyncGeneratorStep(n, t, e, r, o, a, c) {
   try {
-    var info = gen[key](arg);
-    var value = info.value;
-  } catch (error) {
-    reject(error);
-    return;
+    var i = n[a](c), u = i.value;
+  } catch (n2) {
+    return void e(n2);
   }
-  if (info.done) {
-    resolve(value);
-  } else {
-    Promise.resolve(value).then(_next, _throw);
-  }
+  i.done ? t(u) : Promise.resolve(u).then(r, o);
 }
-function _asyncToGenerator(fn) {
+function _asyncToGenerator(n) {
   return function() {
-    var self = this, args = arguments;
-    return new Promise(function(resolve, reject) {
-      var gen = fn.apply(self, args);
-      function _next(value) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+    var t = this, e = arguments;
+    return new Promise(function(r, o) {
+      var a = n.apply(t, e);
+      function _next(n2) {
+        asyncGeneratorStep(a, r, o, _next, _throw, "next", n2);
       }
-      function _throw(err) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      function _throw(n2) {
+        asyncGeneratorStep(a, r, o, _next, _throw, "throw", n2);
       }
       _next(void 0);
     });
   };
 }
-function _createForOfIteratorHelper(o, allowArrayLike) {
-  var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
-  if (!it) {
-    if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
-      if (it) o = it;
-      var i = 0;
-      var F = function() {
+function _createForOfIteratorHelper(r, e) {
+  var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (!t) {
+    if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) {
+      t && (r = t);
+      var n = 0, F = function() {
       };
       return { s: F, n: function() {
-        if (i >= o.length) return { done: true };
-        return { done: false, value: o[i++] };
-      }, e: function(e) {
-        throw e;
+        return n >= r.length ? { done: true } : { done: false, value: r[n++] };
+      }, e: function(r2) {
+        throw r2;
       }, f: F };
     }
     throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
   }
-  var normalCompletion = true, didErr = false, err;
+  var o, a = true, u = false;
   return { s: function() {
-    it = it.call(o);
+    t = t.call(r);
   }, n: function() {
-    var step = it.next();
-    normalCompletion = step.done;
-    return step;
-  }, e: function(e) {
-    didErr = true;
-    err = e;
+    var r2 = t.next();
+    return a = r2.done, r2;
+  }, e: function(r2) {
+    u = true, o = r2;
   }, f: function() {
     try {
-      if (!normalCompletion && it.return != null) it.return();
+      a || null == t.return || t.return();
     } finally {
-      if (didErr) throw err;
+      if (u) throw o;
     }
   } };
 }
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+  }
 }
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-  return arr2;
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
 }
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -176,4 +165,4 @@ var getGeoInfo = /* @__PURE__ */ function() {
 
 /* </nowiki> */
 
-//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsic3JjL0dlby9HZW8udHMiLCAic3JjL0dlby9vcHRpb25zLmpzb24iLCAic3JjL0dlby9tb2R1bGVzL2NvbnN0YW50LnRzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyJpbXBvcnQgKiBhcyBPUFRJT05TIGZyb20gJy4vb3B0aW9ucy5qc29uJztcbmltcG9ydCB0eXBlIHtHZW9JbmZvfSBmcm9tICcuL21vZHVsZXMvdHlwZXMnO1xuaW1wb3J0IHtTVE9SQUdFX0tFWX0gZnJvbSAnLi9tb2R1bGVzL2NvbnN0YW50JztcblxuY29uc3QgZ2V0R2VvSW5mbyA9IGFzeW5jICgpOiBQcm9taXNlPEdlb0luZm8+ID0+IHtcblx0Y29uc3Qgc3RvcmVHZW9JbmZvID0gbXcuc3RvcmFnZS5nZXRPYmplY3QoU1RPUkFHRV9LRVkpIGFzIEdlb0luZm8gfCBudWxsO1xuXHRpZiAoc3RvcmVHZW9JbmZvKSB7XG5cdFx0cmV0dXJuIHN0b3JlR2VvSW5mbztcblx0fVxuXG5cdHRyeSB7XG5cdFx0Y29uc3QgcmVzcG9uc2UgPSAoYXdhaXQgJC5nZXRKU09OKCdodHRwczovL2dlby5xaXV3ZW4ubmV0LmNuJykpIGFzIFBhcnRpYWw8R2VvSW5mbz4gJiB7XG5cdFx0XHRjb3VudHJ5Pzogc3RyaW5nO1xuXHRcdH07XG5cdFx0Y29uc3QgZ2VvSW5mbzogR2VvSW5mbyA9IHtcblx0XHRcdGNvdW50cnlPckFyZWE6IHJlc3BvbnNlLmNvdW50cnkgPz8gcmVzcG9uc2UuY291bnRyeU9yQXJlYSA/PyAnJyxcblx0XHRcdHJlZ2lvbjogcmVzcG9uc2UucmVnaW9uID8/ICcnLFxuXHRcdFx0Y2l0eTogcmVzcG9uc2UuY2l0eSA/PyAnJyxcblx0XHR9O1xuXG5cdFx0bXcuc3RvcmFnZS5zZXRPYmplY3QoU1RPUkFHRV9LRVksIGdlb0luZm8sIDYwICogNjAgKiAxMDAwKTtcblxuXHRcdHJldHVybiBnZW9JbmZvO1xuXHR9IGNhdGNoIHtcblx0XHRyZXR1cm4gT1BUSU9OUy5kZWZhdWx0R2VvSW5mbztcblx0fVxufTtcblxuZXhwb3J0IHtnZXRHZW9JbmZvfTtcbiIsICJ7XG5cdFwiZGVmYXVsdEdlb0luZm9cIjoge1xuXHRcdFwiY291bnRyeU9yQXJlYVwiOiBcIlwiLFxuXHRcdFwicmVnaW9uXCI6IFwiXCIsXG5cdFx0XCJjaXR5XCI6IFwiXCJcblx0fVxufVxuIiwgImNvbnN0IFNUT1JBR0VfS0VZOiBzdHJpbmcgPSAnR2VvSVAnO1xuXG5leHBvcnQge1NUT1JBR0VfS0VZfTtcbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLElBQUFBLGNBQUEsQ0FBQTtBQUFBQyxTQUFBRCxhQUFBO0VBQUFFLFlBQUFBLE1BQUFBO0FBQUEsQ0FBQTtBQUFBQyxPQUFBQyxVQUFBQyxhQUFBTCxXQUFBOztBQ0NDLElBQUFNLGlCQUFrQjtFQUNqQkMsZUFBaUI7RUFDakJDLFFBQVU7RUFDVkMsTUFBUTtBQUNUOztBQ0xELElBQU1DLGNBQXNCOztBRkk1QixJQUFNUixhQUFBLDJCQUFBO0FBQUEsTUFBQVMsT0FBQUMsa0JBQWEsYUFBOEI7QUFDaEQsVUFBTUMsZUFBZUMsR0FBR0MsUUFBUUMsVUFBVU4sV0FBVztBQUNyRCxRQUFJRyxjQUFjO0FBQ2pCLGFBQU9BO0lBQ1I7QUFFQSxRQUFJO0FBQUEsVUFBQUksT0FBQUMsbUJBQUFDLGtCQUFBQztBQUNILFlBQU1DLFdBQUEsTUFBa0JDLEVBQUVDLFFBQVEsMkJBQTJCO0FBRzdELFlBQU1DLFVBQW1CO1FBQ3hCakIsZ0JBQUFVLFNBQUFDLG9CQUFlRyxTQUFTSSxhQUFBLFFBQUFQLHNCQUFBLFNBQUFBLG9CQUFXRyxTQUFTZCxtQkFBQSxRQUFBVSxVQUFBLFNBQUFBLFFBQWlCO1FBQzdEVCxTQUFBVyxtQkFBUUUsU0FBU2IsWUFBQSxRQUFBVyxxQkFBQSxTQUFBQSxtQkFBVTtRQUMzQlYsT0FBQVcsaUJBQU1DLFNBQVNaLFVBQUEsUUFBQVcsbUJBQUEsU0FBQUEsaUJBQVE7TUFDeEI7QUFFQU4sU0FBR0MsUUFBUVcsVUFBVWhCLGFBQWFjLFNBQVMsS0FBSyxLQUFLLEdBQUk7QUFFekQsYUFBT0E7SUFDUixRQUFRO0FBQ1AsYUFBZWxCO0lBQ2hCO0VBQ0QsQ0FBQTtBQUFBLFNBQUEsU0F0Qk1KLGNBQUE7QUFBQSxXQUFBUyxLQUFBZ0IsTUFBQSxNQUFBQyxTQUFBO0VBQUE7QUFBQSxFQUFBOyIsCiAgIm5hbWVzIjogWyJHZW9fZXhwb3J0cyIsICJfX2V4cG9ydCIsICJnZXRHZW9JbmZvIiwgIm1vZHVsZSIsICJleHBvcnRzIiwgIl9fdG9Db21tb25KUyIsICJkZWZhdWx0R2VvSW5mbyIsICJjb3VudHJ5T3JBcmVhIiwgInJlZ2lvbiIsICJjaXR5IiwgIlNUT1JBR0VfS0VZIiwgIl9yZWYiLCAiX2FzeW5jVG9HZW5lcmF0b3IiLCAic3RvcmVHZW9JbmZvIiwgIm13IiwgInN0b3JhZ2UiLCAiZ2V0T2JqZWN0IiwgIl9yZWYyIiwgIl9yZXNwb25zZSRjb3VudHJ5IiwgIl9yZXNwb25zZSRyZWdpb24iLCAiX3Jlc3BvbnNlJGNpdHkiLCAicmVzcG9uc2UiLCAiJCIsICJnZXRKU09OIiwgImdlb0luZm8iLCAiY291bnRyeSIsICJzZXRPYmplY3QiLCAiYXBwbHkiLCAiYXJndW1lbnRzIl0KfQo=
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsic3JjL0dlby9HZW8udHMiLCAic3JjL0dlby9vcHRpb25zLmpzb24iLCAic3JjL0dlby9tb2R1bGVzL2NvbnN0YW50LnRzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyJpbXBvcnQgKiBhcyBPUFRJT05TIGZyb20gJy4vb3B0aW9ucy5qc29uJztcbmltcG9ydCB0eXBlIHtHZW9JbmZvfSBmcm9tICcuL21vZHVsZXMvdHlwZXMnO1xuaW1wb3J0IHtTVE9SQUdFX0tFWX0gZnJvbSAnLi9tb2R1bGVzL2NvbnN0YW50JztcblxuY29uc3QgZ2V0R2VvSW5mbyA9IGFzeW5jICgpOiBQcm9taXNlPEdlb0luZm8+ID0+IHtcblx0Y29uc3Qgc3RvcmVHZW9JbmZvID0gbXcuc3RvcmFnZS5nZXRPYmplY3QoU1RPUkFHRV9LRVkpIGFzIEdlb0luZm8gfCBudWxsO1xuXHRpZiAoc3RvcmVHZW9JbmZvKSB7XG5cdFx0cmV0dXJuIHN0b3JlR2VvSW5mbztcblx0fVxuXG5cdHRyeSB7XG5cdFx0Y29uc3QgcmVzcG9uc2UgPSAoYXdhaXQgJC5nZXRKU09OKCdodHRwczovL2dlby5xaXV3ZW4ubmV0LmNuJykpIGFzIFBhcnRpYWw8R2VvSW5mbz4gJiB7XG5cdFx0XHRjb3VudHJ5Pzogc3RyaW5nO1xuXHRcdH07XG5cdFx0Y29uc3QgZ2VvSW5mbzogR2VvSW5mbyA9IHtcblx0XHRcdGNvdW50cnlPckFyZWE6IHJlc3BvbnNlLmNvdW50cnkgPz8gcmVzcG9uc2UuY291bnRyeU9yQXJlYSA/PyAnJyxcblx0XHRcdHJlZ2lvbjogcmVzcG9uc2UucmVnaW9uID8/ICcnLFxuXHRcdFx0Y2l0eTogcmVzcG9uc2UuY2l0eSA/PyAnJyxcblx0XHR9O1xuXG5cdFx0bXcuc3RvcmFnZS5zZXRPYmplY3QoU1RPUkFHRV9LRVksIGdlb0luZm8sIDYwICogNjAgKiAxMDAwKTtcblxuXHRcdHJldHVybiBnZW9JbmZvO1xuXHR9IGNhdGNoIHtcblx0XHRyZXR1cm4gT1BUSU9OUy5kZWZhdWx0R2VvSW5mbztcblx0fVxufTtcblxuZXhwb3J0IHtnZXRHZW9JbmZvfTtcbiIsICJ7XG5cdFwiZGVmYXVsdEdlb0luZm9cIjoge1xuXHRcdFwiY291bnRyeU9yQXJlYVwiOiBcIlwiLFxuXHRcdFwicmVnaW9uXCI6IFwiXCIsXG5cdFx0XCJjaXR5XCI6IFwiXCJcblx0fVxufVxuIiwgImNvbnN0IFNUT1JBR0VfS0VZOiBzdHJpbmcgPSAnR2VvSVAnO1xuXG5leHBvcnQge1NUT1JBR0VfS0VZfTtcbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxJQUFBQSxjQUFBLENBQUE7QUFBQUMsU0FBQUQsYUFBQTtFQUFBRSxZQUFBQSxNQUFBQTtBQUFBLENBQUE7QUFBQUMsT0FBQUMsVUFBQUMsYUFBQUwsV0FBQTs7QUNDQyxJQUFBTSxpQkFBa0I7RUFDakJDLGVBQWlCO0VBQ2pCQyxRQUFVO0VBQ1ZDLE1BQVE7QUFDVDs7QUNMRCxJQUFNQyxjQUFzQjs7QUZJNUIsSUFBTVIsYUFBQSwyQkFBQTtBQUFBLE1BQUFTLE9BQUFDLGtCQUFhLGFBQThCO0FBQ2hELFVBQU1DLGVBQWVDLEdBQUdDLFFBQVFDLFVBQVVOLFdBQVc7QUFDckQsUUFBSUcsY0FBYztBQUNqQixhQUFPQTtJQUNSO0FBRUEsUUFBSTtBQUFBLFVBQUFJLE9BQUFDLG1CQUFBQyxrQkFBQUM7QUFDSCxZQUFNQyxXQUFBLE1BQWtCQyxFQUFFQyxRQUFRLDJCQUEyQjtBQUc3RCxZQUFNQyxVQUFtQjtRQUN4QmpCLGdCQUFBVSxTQUFBQyxvQkFBZUcsU0FBU0ksYUFBQSxRQUFBUCxzQkFBQSxTQUFBQSxvQkFBV0csU0FBU2QsbUJBQUEsUUFBQVUsVUFBQSxTQUFBQSxRQUFpQjtRQUM3RFQsU0FBQVcsbUJBQVFFLFNBQVNiLFlBQUEsUUFBQVcscUJBQUEsU0FBQUEsbUJBQVU7UUFDM0JWLE9BQUFXLGlCQUFNQyxTQUFTWixVQUFBLFFBQUFXLG1CQUFBLFNBQUFBLGlCQUFRO01BQ3hCO0FBRUFOLFNBQUdDLFFBQVFXLFVBQVVoQixhQUFhYyxTQUFTLEtBQUssS0FBSyxHQUFJO0FBRXpELGFBQU9BO0lBQ1IsUUFBUTtBQUNQLGFBQWVsQjtJQUNoQjtFQUNELENBQUE7QUFBQSxTQUFBLFNBdEJNSixjQUFBO0FBQUEsV0FBQVMsS0FBQWdCLE1BQUEsTUFBQUMsU0FBQTtFQUFBO0FBQUEsRUFBQTsiLAogICJuYW1lcyI6IFsiR2VvX2V4cG9ydHMiLCAiX19leHBvcnQiLCAiZ2V0R2VvSW5mbyIsICJtb2R1bGUiLCAiZXhwb3J0cyIsICJfX3RvQ29tbW9uSlMiLCAiZGVmYXVsdEdlb0luZm8iLCAiY291bnRyeU9yQXJlYSIsICJyZWdpb24iLCAiY2l0eSIsICJTVE9SQUdFX0tFWSIsICJfcmVmIiwgIl9hc3luY1RvR2VuZXJhdG9yIiwgInN0b3JlR2VvSW5mbyIsICJtdyIsICJzdG9yYWdlIiwgImdldE9iamVjdCIsICJfcmVmMiIsICJfcmVzcG9uc2UkY291bnRyeSIsICJfcmVzcG9uc2UkcmVnaW9uIiwgIl9yZXNwb25zZSRjaXR5IiwgInJlc3BvbnNlIiwgIiQiLCAiZ2V0SlNPTiIsICJnZW9JbmZvIiwgImNvdW50cnkiLCAic2V0T2JqZWN0IiwgImFwcGx5IiwgImFyZ3VtZW50cyJdCn0K

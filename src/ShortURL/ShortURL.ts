@@ -1,29 +1,30 @@
-import {init} from './modules/core';
+import {checkRevisionPage} from './modules/util/checkRevisionPage';
+import {getDomains} from './modules/util/getDomains';
+import {processId} from './modules/processId';
 
-if (
-	mw.config.get('wgNamespaceNumber') >= 0 ||
-	!document.querySelectorAll('.noarticletext').length ||
-	mw.config.get('wgAction') === 'view'
-) {
-	// Load main function
-	mw.hook('wikipage.content').add(($content): void => {
-		// Guard against double inclusions
-		if (mw.config.get('wgShortURLInstalled')) {
-			return;
-		}
+(function shortURL() {
+	const {wgAction, wgArticleId, wgNamespaceNumber} = mw.config.get();
 
-		if ($content.attr('id') !== 'mw-content-text') {
-			return;
-		}
+	const domains = getDomains();
 
-		void init({
-			diffId: mw.config.get('wgDiffNewId'),
-			oldId: mw.config.get('wgDiffOldId'),
-			articleId: mw.config.get('wgArticleId'),
-			revisionId: mw.config.get('wgRevisionId'),
+	if (!domains.length || wgNamespaceNumber < 0) {
+		return;
+	}
+
+	if (wgAction === 'view' && wgArticleId) {
+		mw.hook('wikipage.content').add(($content): void => {
+			if ($content.attr('id') !== 'mw-content-text') {
+				return;
+			}
+
+			const isRevisionPage: boolean = checkRevisionPage($content);
+
+			processId(isRevisionPage, {
+				articleId: mw.config.get('wgArticleId'),
+				diffId: mw.config.get('wgDiffNewId'),
+				oldId: mw.config.get('wgDiffOldId'),
+				revisionId: mw.config.get('wgRevisionId'),
+			});
 		});
-
-		// Set guard
-		mw.config.set('wgShortURLInstalled', true);
-	});
-}
+	}
+})();
