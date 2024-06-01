@@ -3,7 +3,7 @@ const getDomains = (): string[] => {
 	let domains: string[] = [];
 
 	switch (wgWikiID) {
-		case 'zhqiuwenbaike':
+		case 'wiki-ysy':
 			domains = ['youshou.wiki', 'ysymh.cc'];
 			break;
 	}
