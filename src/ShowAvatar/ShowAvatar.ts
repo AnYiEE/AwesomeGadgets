@@ -1,7 +1,7 @@
 import './ShowAvatar.less';
 /* eslint-disable no-jquery/no-parse-html-literal */
 
-const avatarUrl = new mw.Uri(mw.config.get('wgServer'));
+const avatarUrl = new mw.Uri('https://youshou.wiki/');
 avatarUrl.query['user'] = mw.config.get('wgPageName').replace(/^user:/i, '');
 avatarUrl.path = '/extensions/Avatar/avatar.php';
 const imgUrl = new mw.Uri(avatarUrl);
@@ -10,9 +10,7 @@ const img = $('<img>').attr({
 	src: imgUrl,
 	title: '上传头像',
 });
-const link = $('<a>')
-	.attr('href', `${mw.config.get('wgServer')}/wiki/Special:UploadAvatar`)
-	.append(img);
+const link = $('<a>').attr('href', 'https://youshou.wiki/wiki/Special:UploadAvatar').append(img);
 const $body: JQuery<HTMLBodyElement> = $('body');
 $body.find('#pt-userpage').before($('<li id="pt-avatar"></li>').append(link));
 if (mw.config.get('wgNamespaceNumber') === 2 && !mw.config.get('wgPageName').includes('/')) {

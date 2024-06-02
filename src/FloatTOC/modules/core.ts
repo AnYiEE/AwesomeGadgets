@@ -1,5 +1,5 @@
+import * as OPTIONS from '../options.json';
 import type {Config, State} from './types';
-import {ID, WG_SKIN} from './constant';
 import {checkA11yConfirmKey, scrollTop} from 'ext.gadget.Util';
 import {filterAlteredClicks} from 'ext.gadget.FilterAlteredClicks';
 import {generateElements} from './util/generateElements';
@@ -9,19 +9,20 @@ import {getMessage} from './i18n';
 import {setMwNotifyStyle} from './setMwNotifyStyle';
 
 const floatTOC = ($originToc: JQuery): void => {
+	const {skin} = mw.config.get();
 	const originToc: HTMLElement = $originToc.get(0) as HTMLElement;
 	const $body: JQuery<HTMLBodyElement> = $originToc.parents('body');
 
 	const {$floatToc, $floatTocOpener} = generateElements(originToc);
 	$floatTocOpener.hide().appendTo($body);
 
-	const config: Config = getConfig(ID);
+	const config: Config = getConfig(OPTIONS.elementId);
 	const mwNotifyStyle: HTMLStyleElement = setMwNotifyStyle();
 
 	let isShow: boolean = false;
 	const storeState = (target: keyof Config, state: State): void => {
 		config[target] = state;
-		mw.storage.setObject(ID, config);
+		mw.storage.setObject(OPTIONS.elementId, config);
 	};
 
 	let disableMwNotifyStyleTimer: ReturnType<typeof setTimeout>;
@@ -45,7 +46,7 @@ const floatTOC = ($originToc: JQuery): void => {
 	};
 
 	const smoothScroll = (event: JQuery.ClickEvent | JQuery.KeyDownEvent): void => {
-		if (WG_SKIN === 'citizen') {
+		if (skin === 'citizen') {
 			return;
 		}
 
@@ -96,7 +97,7 @@ const floatTOC = ($originToc: JQuery): void => {
 		} else {
 			preNotification = mw.notification.notify($floatToc, {
 				classes: 'noprint',
-				id: ID,
+				id: OPTIONS.elementId,
 				autoHide: false,
 			});
 			const notificationListener = (event: JQuery.ClickEvent | JQuery.KeyDownEvent): void => {
@@ -145,7 +146,7 @@ const floatTOC = ($originToc: JQuery): void => {
 	$floatTocOpener.on('keydown', openerListener);
 
 	const collapseOriginToc = (): void => {
-		if (WG_SKIN !== 'citizen') {
+		if (skin !== 'citizen') {
 			return;
 		}
 
