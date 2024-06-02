@@ -12,7 +12,6 @@ void getBody().then(function purgePageCache($body: JQuery<HTMLBodyElement>): voi
 	const portletId: 'p-cactions' | 'p-tb' = $body.find('#p-cactions').length ? 'p-cactions' : 'p-tb';
 	const portletElement: HTMLLIElement | null = mw.util.addPortletLink(
 		portletId,
-		'#',
 		getMessage('Purge'),
 		getMessage('PurgeFromServer')
 	);
