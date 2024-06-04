@@ -22,7 +22,7 @@ const updateLinks = ($content: JQuery): void => {
 			} else {
 				const username: string | null = mw.util.getParamValue('from', href);
 				if (username) {
-					summary = getMessage('Rollback edits by').replace('$1', username) + summary;
+					summary = getMessage('Rollback edits by').replaceAll('$1', username) + summary;
 				} else {
 					summary = getMessage('Rollback edits by a hidden user') + summary;
 				}
