@@ -1,0 +1,6 @@
+{
+	"rules": {
+		"camelcase": "off",
+		"mediawiki/class-doc": "off"
+	}
+}

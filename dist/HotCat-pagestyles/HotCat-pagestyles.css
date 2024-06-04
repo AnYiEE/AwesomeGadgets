@@ -1,0 +1,30 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|title=HotCat|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://commons.wikimedia.org/wiki/MediaWiki:Gadget-HotCat.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/HotCat-pagestyles}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/HotCat-pagestyles/HotCat-pagestyles.less */
+.catcheck-inline-icon {
+  display: inline-block;
+  position: relative;
+  top: 2px;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL0hvdENhdC1wYWdlc3R5bGVzL0hvdENhdC1wYWdlc3R5bGVzLmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbIi5jYXRjaGVjay1pbmxpbmUtaWNvbiB7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB0b3A6IDJweDtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLENBQUM7QUFDQyxXQUFTO0FBQ1QsWUFBVTtBQUNWLE9BQUs7QUFDUDsiLAogICJuYW1lcyI6IFtdCn0K */

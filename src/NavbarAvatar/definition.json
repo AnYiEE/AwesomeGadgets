@@ -1,0 +1,9 @@
+{
+	"enable": true,
+	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-NavbarAvatar\"></span> NavbarAvatar <small>在导航栏显示用户头像。</small>",
+	"section": "browser",
+	"dependencies": ["mediawiki.user"],
+	"default": true,
+	"hidden": true,
+	"rights": ["edit"]
+}

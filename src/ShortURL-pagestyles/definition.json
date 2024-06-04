@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-ShortURL-pagestyles\"></span> “提供当前界面的短链接”配套样式表",
+	"section": "browser",
+	"hidden": true
+}

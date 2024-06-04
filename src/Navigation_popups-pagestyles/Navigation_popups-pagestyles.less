@@ -1,0 +1,174 @@
+@import (reference) '../variables.less';
+
+.popupMoreLink {
+	display: block;
+	cursor: pointer;
+	text-align: right;
+}
+
+.popupDiff {
+	ins& {
+		background: #afe;
+	}
+
+	del& {
+		background: #ffe6e6;
+	}
+}
+
+#selectionPreview {
+	padding: 6px;
+	border: 2px solid #ddd;
+	background-color: #eef;
+}
+
+.navpopup {
+	padding: 10px;
+	padding-bottom: 5px;
+	border: 1px solid #bbb;
+	background-color: @const-color-white;
+	box-shadow: 0 3px 8px rgba(50, 50, 50, 0.35);
+	font-size: 0.785em;
+	word-wrap: break-word;
+
+	hr {
+		background-color: #aaa !important;
+		color: #aaa !important;
+	}
+}
+
+.popupDrag {
+	height: 5px;
+	margin-top: -5px;
+	margin-bottom: 5px;
+	background-color: #ffbe20;
+
+	&Handle {
+		position: relative;
+		cursor: move;
+	}
+}
+
+.popup_menu {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	display: none;
+	width: 10em;
+	padding: 0 !important;
+	border: 1px solid #888;
+	border-width: 1px 1px 1px 6px;
+	margin: 0;
+	margin-top: 1.4em;
+	margin-left: -6px;
+	background: @const-color-white;
+	line-height: 1.25em;
+
+	li {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+
+	a {
+		display: block;
+		padding: 3px;
+		color: #555;
+
+		&:hover {
+			background: #888;
+			color: @const-color-white;
+			text-decoration: none;
+		}
+	}
+
+	&_row {
+		color: #aaa;
+
+		a {
+			display: inline-block;
+		}
+	}
+}
+
+.popup_drop {
+	position: relative;
+	display: inline;
+
+	a,
+	a:visited {
+		padding: 3px;
+		margin: 0;
+		color: #0645ad;
+		font-weight: bold;
+	}
+
+	&:hover .popup_menu,
+	.popup_menu:hover {
+		display: inline;
+		padding: 2px;
+		background: @const-color-white;
+		color: #555;
+	}
+
+	&:hover {
+		background: #ccf;
+		color: #44f;
+	}
+}
+
+.popup_mainlink {
+	font-size: 140%;
+	font-weight: bold;
+
+	a {
+		color: @const-color-black;
+	}
+}
+
+a.popup_change_title_link {
+	color: #152;
+}
+
+.popup_diff_dates {
+	background: none;
+	font-style: italic;
+}
+
+.popup_menu_item a {
+	display: block;
+}
+
+.popup_history {
+	&_row_even {
+		background: #eee;
+	}
+
+	&_date {
+		font-size: 120%;
+		font-weight: bold;
+	}
+}
+
+.popupPreview {
+	a {
+		&.extiw {
+			&,
+			&:active {
+				padding: 0;
+				background: none;
+				color: #36b;
+			}
+		}
+
+		.external {
+			color: #36b;
+		}
+	}
+
+	.plainlinks a {
+		padding: 0 !important;
+		background: none !important;
+	}
+}

@@ -1,0 +1,5 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-OneSideMenu\"></span> 将Gongbi皮肤下侧边栏全部移动到左侧",
+	"skins": ["gongbi"]
+}

@@ -1,0 +1,7 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-MarkBlocked\"></span> 用删除线标识被封禁用户的用户页链接（含用户讨论页、贡献页）",
+	"section": "sysop",
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.Util", "mediawiki.api", "mediawiki.Uri", "mediawiki.util"],
+	"peers": ["MarkBlocked-pagestyles"]
+}

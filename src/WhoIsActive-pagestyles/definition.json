@@ -1,0 +1,6 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-WhoIsActive-pagestyles\"></span> “根据用户贡献记录，查询其是否近期活跃”配套样式表",
+	"section": "sysop",
+	"hidden": true
+}

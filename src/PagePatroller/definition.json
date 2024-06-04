@@ -1,0 +1,8 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-PagePatroller\"></span> 查看页面的[[Project:巡查员|巡查者]]",
+	"section": "sysop",
+	"default": true,
+	"dependencies": ["ext.gadget.i18n", "ext.gadget.React", "ext.gadget.Util", "mediawiki.api", "mediawiki.util"],
+	"rights": ["autopatrol", "patrol"]
+}

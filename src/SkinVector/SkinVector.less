@@ -1,0 +1,70 @@
+/* 此处的CSS只会影响使用Vector皮肤的用户 */
+
+/* Logo */
+#p-logo {
+	margin-bottom: 0;
+}
+
+.mw-wiki-logo {
+	background-size: 135px;
+}
+
+/* 全站通告 */
+#siteNotice {
+	margin-bottom: 0.5rem;
+}
+
+/* 标题指示符号 */
+.mw-indicators {
+	display: flex;
+	align-items: center;
+	padding: 0.25rem 0 0;
+	gap: 0.25rem;
+}
+
+/* 正文{{Hlist}} */
+.hlist dl {
+	line-height: 1.5em;
+}
+
+/* Enlarge font-size for zh fonts */
+.mw-body-content {
+	font-size: 1rem;
+}
+
+/* stylelint-disable-next-line media-feature-name-no-unknown */
+@media only screen and (max-width: 768px) and (min-device-pixel-ratio: 2),
+	only screen and (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2),
+	only screen and (max-width: 768px) and (min-resolution: 2dppx) {
+	.mw-body-content {
+		/* We reduce the font size a bit, since retina screens rule */
+		font-size: 0.75em;
+	}
+	.mw-body {
+		h1,
+		h2,
+		h3 {
+			font-size: 1em;
+			font-weight: bold;
+		}
+	}
+}
+
+@media (min-width: 1920px) {
+	/* We increase the font size a bit */
+	.mw-body-content {
+		font-size: 1.075rem;
+	}
+}
+
+/* OOUI */
+.oo-ui-textInputWidget input {
+	height: revert;
+}
+
+/* 页脚 */
+#footer-places li {
+	display: inline-block;
+	float: none;
+	line-height: 1;
+}

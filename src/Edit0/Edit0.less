@@ -1,0 +1,51 @@
+@import (reference) '../variables.less';
+
+body {
+	&.ltr h1.firstHeading .mw-editsection-bracket:first-of-type,
+	&.rtl h1.firstHeading .mw-editsection-bracket:not(:first-of-type) {
+		margin-right: 0.25em;
+		color: @const-color-secondary;
+	}
+
+	.page-heading .mw-editsection a {
+		-webkit-user-select: none;
+		user-select: none;
+	}
+
+	&:not(.skin-citizen) {
+		.page-heading .mw-editsection a {
+			display: inline-block;
+			font-size: 1em;
+			vertical-align: middle;
+		}
+	}
+
+	&.skin-citizen {
+		.page-heading .mw-editsection a {
+			font-size: 1rem;
+		}
+
+		.mw-indicators .mw-editsection {
+			margin-right: 10px;
+			margin-left: 0;
+
+			&::before {
+				content: '首段：';
+				font-family: @serif-zh-hans, serif, @emoji-font;
+				font-size: 0.75rem;
+
+				html:lang(zh-hant) & {
+					font-family: @serif-zh-hant, serif, @emoji-font;
+				}
+			}
+		}
+	}
+
+	#firstHeading span.mw-editsection a::after {
+		content: ' (首段)';
+
+		html:lang(en) & {
+			content: ' (lead section)';
+		}
+	}
+}

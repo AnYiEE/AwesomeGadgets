@@ -1,0 +1,7 @@
+{
+	"enable": true,
+	"description": "<span id=\"Gadget-EditForm\"></span> 编辑界面样式表",
+	"section": "edit",
+	"hidden": true,
+	"rights": ["edit"]
+}

@@ -1,0 +1,47 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://www.mediawiki.org/wiki/MediaWiki:Gadget-UTCLiveClock.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/UTCLiveClock}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/UTCLiveClock/UTCLiveClock.less */
+#utcdate a {
+  font-weight: bolder;
+  font-size: 120%;
+}
+.skin-vector #utcdate {
+  width: 6em;
+  margin-left: 0.75em;
+}
+.client-js > body.skin-vector-legacy #p-personal li {
+  font-size: 0.75em;
+}
+.client-js > body.skin-vector-legacy #p-personal ul {
+  margin-right: 5.0625em;
+}
+@media screen and (min-width: 1200px) {
+  body.skin-vector-2022 #p-personal-more #utcdate {
+    position: absolute;
+    top: 60px;
+    right: 0;
+  }
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1VUQ0xpdmVDbG9jay9VVENMaXZlQ2xvY2subGVzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiI3V0Y2RhdGUgYSB7XG4gIGZvbnQtd2VpZ2h0OiBib2xkZXI7XG4gIGZvbnQtc2l6ZTogMTIwJTtcbn1cbi5za2luLXZlY3RvciAjdXRjZGF0ZSB7XG4gIC8qKlxuXHRcdCAqIEV4cGxpY2l0bHkgc2V0IHdpZHRoIG9mIHRoZSBVVEMtY2xvY2sgbGlzdCBlbGVtZW50LCBzbyB0aGF0IHdlIGNhbiB1c2UgYVxuXHRcdCAqIGhpZGRlbiBwZWVyIGdhZGdldCB0byBhZGQgc3BhY2Ugd2hlcmUgdGhlIGNsb2NrIHdvdWxkIGdvIGJlZm9yZSBpdCBsb2Fkcy5cblx0XHQgKi9cbiAgd2lkdGg6IDZlbTtcbiAgLyoqXG5cdFx0ICogVGhlIGRlZmF1bHQgbWFyZ2luLWxlZnQgaXMgMC43NWVtLCBidXQgc2V0IGl0IGFnYWluIGhlcmUgZXhwbGljaXRseSwgc29cblx0XHQgKiB3ZSBjYW4gYmUgc3VyZSBvZiB0aGUgZXhhY3Qgd2lkdGguXG5cdFx0ICovXG4gIG1hcmdpbi1sZWZ0OiAwLjc1ZW07XG59XG4vKipcbiAqIFRoaXMgaXMgbG9hZGVkIGFzIGEgaGlkZGVuIHBlZXIgZ2FkZ2V0IG9mIFVUQ0xpdmVDbG9jay5cbiAqIEJlZm9yZSBVVENMaXZlQ2xvY2sgaGFzIGxvYWRlZCwgaXQgYWRkcyBzcGFjZSB3aGVyZSB0aGUgY2xvY2sgd291bGQgZ28sXG4gKiBzbyB0aGF0IHRoZSBwZXJzb25hbCB0b29sYmFyIGRvZXMgbm90IFwianVtcFwiLlxuICovXG4uY2xpZW50LWpzID4gYm9keS5za2luLXZlY3Rvci1sZWdhY3kgI3AtcGVyc29uYWwgbGkge1xuICAvKipcblx0XHQgKiBJbiBWZWN0b3IsIGJ5IGRlZmF1bHQgdGhlIGxpIGVsZW1lbnRzIGluIHRoZSBwLXBlcnNvbmFsIGJhciBoYXZlIGEgZm9udC1zaXplXG5cdFx0ICogb2YgMC43NWVtLiBEdXBsaWNhdGUgdGhhdCBoZXJlIHNvIHRoYXQgd2UgY2FuIGJlIHN1cmUgb2YgdGhlIHByb3BlciBmYWN0b3IgdG9cblx0XHQgKiBtdWx0aXBseSB0aGUgdWwgZWxlbWVudCdzIG1hcmdpbi1yaWdodCBieS5cblx0XHQgKi9cbiAgZm9udC1zaXplOiAwLjc1ZW07XG59XG4uY2xpZW50LWpzID4gYm9keS5za2luLXZlY3Rvci1sZWdhY3kgI3AtcGVyc29uYWwgdWwge1xuICAvKipcblx0XHQgKiBSZXNlcnZlIHNwYWNlIGZvciB0aGUgY2xvY2sgZ2FkZ2V0IGFmdGVyIHRoZSBlbmQgb2YgdGhlIHAtcGVyc29uYWwgdWxcblx0XHQgKiBlbGVtZW50LlxuXHRcdCAqXG5cdFx0ICogVGhlIGNsb2NrIHdpZHRoIHBsdXMgaXRzIGxlZnQgbWFyZ2luLCBtdWx0aXBsaWVkIGJ5IHRoZSByZWxhdGl2ZSBmb250XG5cdFx0ICogc2l6ZTogKDZlbSArIDAuNzVlbSkgKiAwLjc1XG5cdFx0ICovXG4gIG1hcmdpbi1yaWdodDogNS4wNjI1ZW07XG59XG4vKipcbiAqIFZlY3Rvci0yMDIyOlxuICogVGhlIGhlYWRlciBpcyBub3QgZGVzaWduZWQgdG8gaG9sZCB0b28gbWFueSBpdGVtcyAoc2VlIFQzMDE1ODMjNzcxMjQzMCkgc28gcHVzaCBkb3duIHRvIG5ldyBsaW5lLlxuICovXG5AbWVkaWEgc2NyZWVuIGFuZCAobWluLXdpZHRoOiAxMjAwcHgpIHtcbiAgYm9keS5za2luLXZlY3Rvci0yMDIyICNwLXBlcnNvbmFsLW1vcmUgI3V0Y2RhdGUge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IDYwcHg7XG4gICAgcmlnaHQ6IDA7XG4gIH1cbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxDQUFDLFFBQVE7QUFDUCxlQUFhO0FBQ2IsYUFBVztBQUNiO0FBQ0EsQ0FBQyxZQUFZLENBSlo7QUFTQyxTQUFPO0FBS1AsZUFBYTtBQUNmO0FBTUEsQ0FBQyxVQUFVLEVBQUUsSUFBSSxDQUFDLG1CQUFtQixDQUFDLFdBQVc7QUFNL0MsYUFBVztBQUNiO0FBQ0EsQ0FSQyxVQVFVLEVBQUUsSUFBSSxDQVJDLG1CQVFtQixDQVJDLFdBUVc7QUFRL0MsZ0JBQWM7QUFDaEI7QUFLQSxPQUFPLE9BQU8sSUFBSSxDQUFDLFNBQVMsRUFBRTtBQUM1QixNQUFJLENBQUMsaUJBQWlCLENBQUMsZ0JBQWdCLENBNUN4QztBQTZDRyxjQUFVO0FBQ1YsU0FBSztBQUNMLFdBQU87QUFDVDtBQUNGOyIsCiAgIm5hbWVzIjogW10KfQo= */

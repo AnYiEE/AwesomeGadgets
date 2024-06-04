@@ -1,0 +1,40 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Gadget-SpecialWikitext.js}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/SpecialWikitext}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* esbuild-css-modules-plugin-ns-css:src/SpecialWikitext/components/SpecialWikitext.module.less */
+.SpecialWikitext-module__preview-loading__inner_0PrDlG {
+  background: #f9f9f9;
+  border: 1px solid #aaa;
+  width: 50%;
+  margin: auto;
+  padding: .5em;
+  font-size: 88%;
+}
+.SpecialWikitext-module__preview-loading__content_0PrDlG {
+  color: #000;
+  text-align: center;
+  background: #f9f9f9;
+  font-size: larger;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiZXNidWlsZC1jc3MtbW9kdWxlcy1wbHVnaW4tbnMtY3NzOnNyYy9TcGVjaWFsV2lraXRleHQvY29tcG9uZW50cy9TcGVjaWFsV2lraXRleHQubW9kdWxlLmxlc3MiXSwKICAic291cmNlc0NvbnRlbnQiOiBbIi8qIDxzdGRpbj4gKi9cbi5TcGVjaWFsV2lraXRleHQtbW9kdWxlX19wcmV2aWV3LWxvYWRpbmdfX2lubmVyXzBQckRsRyB7XG4gIGJhY2tncm91bmQ6ICNmOWY5Zjk7XG4gIGJvcmRlcjogMXB4IHNvbGlkICNhYWE7XG4gIHdpZHRoOiA1MCU7XG4gIG1hcmdpbjogYXV0bztcbiAgcGFkZGluZzogLjVlbTtcbiAgZm9udC1zaXplOiA4OCU7XG59XG4uU3BlY2lhbFdpa2l0ZXh0LW1vZHVsZV9fcHJldmlldy1sb2FkaW5nX19jb250ZW50XzBQckRsRyB7XG4gIGNvbG9yOiAjMDAwO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGJhY2tncm91bmQ6ICNmOWY5Zjk7XG4gIGZvbnQtc2l6ZTogbGFyZ2VyO1xufVxuIl0sCiAgIm1hcHBpbmdzIjogIjs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLENBQUM7QUFDQyxjQUFZO0FBQ1osVUFBUSxJQUFJLE1BQU07QUFDbEIsU0FBTztBQUNQLFVBQVE7QUFDUixXQUFTO0FBQ1QsYUFBVztBQUNiO0FBQ0EsQ0FBQztBQUNDLFNBQU87QUFDUCxjQUFZO0FBQ1osY0FBWTtBQUNaLGFBQVc7QUFDYjsiLAogICJuYW1lcyI6IFtdCn0K */

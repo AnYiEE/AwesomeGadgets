@@ -1,0 +1,12 @@
+{
+	"rules": {
+		"@typescript-eslint/no-unsafe-call": "off",
+		"@typescript-eslint/no-unsafe-assignment": "off",
+		"unicorn/no-await-expression-member": "off",
+		"jsdoc/require-returns": "off"
+	},
+	"globals": {
+		"CodeMirror": "readonly",
+		"CodeMirror6": "readonly"
+	}
+}

@@ -1,0 +1,72 @@
+/**
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ * _addText: '{{Gadget Header|license=CC-BY-SA-4.0}}'
+ *
+ * @base {@link https://zh.wikipedia.org/wiki/MediaWiki:Vector.css}
+ * @base {@link https://en.wikipedia.org/wiki/MediaWiki:Gadget-responsiveContentBase.css}
+ * @source {@link https://github.com/TopRealm/YsArchives-Gadgets/tree/master/src/SkinVector}
+ * @license CC-BY-SA-4.0 {@link https://youshou.wiki/wiki/H:CC-BY-SA-4.0}
+ */
+/**
+ * +------------------------------------------------------------+
+ * |            === WARNING: GLOBAL GADGET FILE ===             |
+ * +------------------------------------------------------------+
+ * |       All changes should be made in the repository,        |
+ * |                otherwise they will be lost.                |
+ * +------------------------------------------------------------+
+ * |        Changes to this page may affect many users.         |
+ * | Please discuss changes by opening an issue before editing. |
+ * +------------------------------------------------------------+
+ */
+/* <nowiki> */
+
+/* src/SkinVector/SkinVector.less */
+#p-logo {
+  margin-bottom: 0;
+}
+.mw-wiki-logo {
+  background-size: 135px;
+}
+#siteNotice {
+  margin-bottom: 0.5rem;
+}
+.mw-indicators {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0 0;
+  gap: 0.25rem;
+}
+.hlist dl {
+  line-height: 1.5em;
+}
+.mw-body-content {
+  font-size: 1rem;
+}
+@media only screen and (max-width: 768px) and (min-device-pixel-ratio: 2), only screen and (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2), only screen and (max-width: 768px) and (min-resolution: 2dppx) {
+  .mw-body-content {
+    font-size: 0.75em;
+  }
+  .mw-body h1,
+  .mw-body h2,
+  .mw-body h3 {
+    font-size: 1em;
+    font-weight: bold;
+  }
+}
+@media (min-width: 1920px) {
+  .mw-body-content {
+    font-size: 1.075rem;
+  }
+}
+.oo-ui-textInputWidget input {
+  height: revert;
+}
+#footer-places li {
+  display: inline-block;
+  float: none;
+  line-height: 1;
+}
+
+/* </nowiki> */
+
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsiLi4vLi4vc3JjL1NraW5WZWN0b3IvU2tpblZlY3Rvci5sZXNzIl0sCiAgInNvdXJjZXNDb250ZW50IjogWyIvKiDmraTlpITnmoRDU1Plj6rkvJrlvbHlk43kvb/nlKhWZWN0b3Lnmq7ogqTnmoTnlKjmiLcgKi9cbi8qIExvZ28gKi9cbiNwLWxvZ28ge1xuICBtYXJnaW4tYm90dG9tOiAwO1xufVxuLm13LXdpa2ktbG9nbyB7XG4gIGJhY2tncm91bmQtc2l6ZTogMTM1cHg7XG59XG4vKiDlhajnq5npgJrlkYogKi9cbiNzaXRlTm90aWNlIHtcbiAgbWFyZ2luLWJvdHRvbTogMC41cmVtO1xufVxuLyog5qCH6aKY5oyH56S656ym5Y+3ICovXG4ubXctaW5kaWNhdG9ycyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIHBhZGRpbmc6IDAuMjVyZW0gMCAwO1xuICBnYXA6IDAuMjVyZW07XG59XG4vKiDmraPmlod7e0hsaXN0fX0gKi9cbi5obGlzdCBkbCB7XG4gIGxpbmUtaGVpZ2h0OiAxLjVlbTtcbn1cbi8qIEVubGFyZ2UgZm9udC1zaXplIGZvciB6aCBmb250cyAqL1xuLm13LWJvZHktY29udGVudCB7XG4gIGZvbnQtc2l6ZTogMXJlbTtcbn1cbi8qIHN0eWxlbGludC1kaXNhYmxlLW5leHQtbGluZSBtZWRpYS1mZWF0dXJlLW5hbWUtbm8tdW5rbm93biAqL1xuQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiA3NjhweCkgYW5kIChtaW4tZGV2aWNlLXBpeGVsLXJhdGlvOiAyKSwgb25seSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6IDc2OHB4KSBhbmQgKC13ZWJraXQtbWluLWRldmljZS1waXhlbC1yYXRpbzogMiksIG9ubHkgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiA3NjhweCkgYW5kIChtaW4tcmVzb2x1dGlvbjogMmRwcHgpIHtcbiAgLm13LWJvZHktY29udGVudCB7XG4gICAgLyogV2UgcmVkdWNlIHRoZSBmb250IHNpemUgYSBiaXQsIHNpbmNlIHJldGluYSBzY3JlZW5zIHJ1bGUgKi9cbiAgICBmb250LXNpemU6IDAuNzVlbTtcbiAgfVxuICAubXctYm9keSBoMSxcbiAgLm13LWJvZHkgaDIsXG4gIC5tdy1ib2R5IGgzIHtcbiAgICBmb250LXNpemU6IDFlbTtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgfVxufVxuQG1lZGlhIChtaW4td2lkdGg6IDE5MjBweCkge1xuICAvKiBXZSBpbmNyZWFzZSB0aGUgZm9udCBzaXplIGEgYml0ICovXG4gIC5tdy1ib2R5LWNvbnRlbnQge1xuICAgIGZvbnQtc2l6ZTogMS4wNzVyZW07XG4gIH1cbn1cbi8qIE9PVUkgKi9cbi5vby11aS10ZXh0SW5wdXRXaWRnZXQgaW5wdXQge1xuICBoZWlnaHQ6IHJldmVydDtcbn1cbi8qIOmhteiEmiAqL1xuI2Zvb3Rlci1wbGFjZXMgbGkge1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIGZsb2F0OiBub25lO1xuICBsaW5lLWhlaWdodDogMTtcbn1cbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBRUEsQ0FBQztBQUNDLGlCQUFlO0FBQ2pCO0FBQ0EsQ0FBQztBQUNDLG1CQUFpQjtBQUNuQjtBQUVBLENBQUM7QUFDQyxpQkFBZTtBQUNqQjtBQUVBLENBQUM7QUFDQyxXQUFTO0FBQ1QsZUFBYTtBQUNiLFdBQVMsUUFBUSxFQUFFO0FBQ25CLE9BQUs7QUFDUDtBQUVBLENBQUMsTUFBTTtBQUNMLGVBQWE7QUFDZjtBQUVBLENBQUM7QUFDQyxhQUFXO0FBQ2I7QUFFQSxPQUFPLEtBQUssT0FBTyxJQUFJLENBQUMsU0FBUyxFQUFFLE9BQU8sSUFBSSxDQUFDLHNCQUFzQixFQUFFLEVBQUUsRUFBRSxLQUFLLE9BQU8sSUFBSSxDQUFDLFNBQVMsRUFBRSxPQUFPLElBQUksQ0FBQyw4QkFBOEIsRUFBRSxFQUFFLEVBQUUsS0FBSyxPQUFPLElBQUksQ0FBQyxTQUFTLEVBQUUsT0FBTyxJQUFJLENBQUMsY0FBYyxFQUFFO0FBQzdNLEdBTEQ7QUFPRyxlQUFXO0FBQ2I7QUFDQSxHQUFDLFFBQVE7QUFBQSxFQUNULENBREMsUUFDUTtBQUFBLEVBQ1QsQ0FGQyxRQUVRO0FBQ1AsZUFBVztBQUNYLGlCQUFhO0FBQ2Y7QUFDRjtBQUNBLE9BQU8sQ0FBQyxTQUFTLEVBQUU7QUFFakIsR0FsQkQ7QUFtQkcsZUFBVztBQUNiO0FBQ0Y7QUFFQSxDQUFDLHNCQUFzQjtBQUNyQixVQUFRO0FBQ1Y7QUFFQSxDQUFDLGNBQWM7QUFDYixXQUFTO0FBQ1QsU0FBTztBQUNQLGVBQWE7QUFDZjsiLAogICJuYW1lcyI6IFtdCn0K */

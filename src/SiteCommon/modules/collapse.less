@@ -1,0 +1,42 @@
+.client-js {
+	.mw-special-Watchlist #watchlist-message,
+	.collapsible:not(.mw-made-collapsible).collapsed > tbody > tr:not(:first-child) {
+		/* Reduce page jumps by hiding collapsed/dismissed content */
+		display: none;
+	}
+	.outercollapse .innercollapse.mw-collapsible:not(.mw-made-collapsible) {
+		/* Avoid FOUC/reflows on collapsed elements. */
+		/* This copies MediaWiki's solution for T42812 to apply to innercollapse/outercollapse (T325115). */
+		/* TODO: Use :is() selector at some reasonable future when support is good for Most Clients */
+		/* Reference: https://gerrit.wikimedia.org/g/mediawiki/core/+/ecda06cb2aef55b77c4b4d7ecda492d634419ead/resources/src/jquery/jquery.makeCollapsible.styles.less#75 */
+		> p,
+		> table,
+		> thead + tbody,
+		tr:not(:first-child),
+		.mw-collapsible-content {
+			display: none;
+		}
+	}
+}
+
+/* 解决wikitable折叠后<caption>显示问题 */
+.wikitable.mw-collapsed caption {
+	display: block;
+}
+
+/* Styling for jQuery makeCollapsible, matching that of collapseButton */
+.mw-collapsible-toggle,
+.gadget-collapsible-toggler {
+	.mw-parser-output & {
+		&:not(.mw-ui-button, .cdx-button) {
+			padding-right: 0.2em;
+			padding-left: 0.2em;
+			font-weight: normal;
+		}
+	}
+
+	.mw-collapsible-leftside-toggle & {
+		/* @noflip */
+		float: left;
+	}
+}

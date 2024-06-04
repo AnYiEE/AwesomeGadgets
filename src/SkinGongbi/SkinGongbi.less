@@ -1,0 +1,33 @@
+@import (reference) '../variables.less';
+
+/* 此处的CSS只会影响使用Gongbi皮肤的用户 */
+
+/* 字体 */
+#mw-related-navigation h2,
+#mw-site-navigation h2,
+#mw-site-navigation .sidebar-chunk h3,
+#p-logo-text a,
+#personal h2,
+.mw-logo-wordmark {
+	font-family: @serif-zh-hans, serif, @emoji-font;
+
+	html:lang(zh-hant) & {
+		font-family: @serif-zh-hant, serif, @emoji-font;
+	}
+}
+
+/* 隐藏Logo */
+.mw-wiki-logo.fallback {
+	height: 0 !important;
+}
+
+#p-logo {
+	display: none !important;
+}
+
+/* 正文表格 */
+@media (min-width: 1440px) {
+	.ns-0 .mw-body-content .mw-parser-output > .content-table-wrapper {
+		margin-right: 0 !important;
+	}
+}

@@ -1,3 +1,4 @@
 dist/
 *.yml
 *.yaml
+src/select2/select2.js
