@@ -12,15 +12,15 @@
 		"selector-type-no-unknown": null,
 		"plugin/no-unsupported-browser-features": null,
 		"wikimedia/no-at-import-css": null,
-		"stylistic/declaration-colon-newline-after": null,
-		"stylistic/declaration-colon-space-after": "always-single-line",
-		"stylistic/function-parentheses-space-inside": "never",
-		"stylistic/indentation": null,
-		"stylistic/media-feature-parentheses-space-inside": "never",
-		"stylistic/selector-attribute-brackets-space-inside": "never",
-		"stylistic/selector-descendant-combinator-no-non-space": null,
-		"stylistic/selector-pseudo-class-parentheses-space-inside": "never",
-		"stylistic/value-list-comma-newline-after": null
+		"@stylistic/declaration-colon-newline-after": null,
+		"@stylistic/declaration-colon-space-after": "always-single-line",
+		"@stylistic/function-parentheses-space-inside": "never",
+		"@stylistic/indentation": null,
+		"@stylistic/media-feature-parentheses-space-inside": "never",
+		"@stylistic/selector-attribute-brackets-space-inside": "never",
+		"@stylistic/selector-descendant-combinator-no-non-space": null,
+		"@stylistic/selector-pseudo-class-parentheses-space-inside": "never",
+		"@stylistic/value-list-comma-newline-after": null
 	},
 	"overrides": [
 		{
