@@ -217,10 +217,9 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 
 		// 如果分钟数大于 0，显示 "x 分 x 秒"，否则只显示 "x 秒"
 		if (minutes > 0) {
-		    console.log(chalk.blue(`Deployment took ${minutes} minutes and ${seconds} seconds.`)); // 输出耗费时间
-		}
-		else {
-		    console.log(chalk.blue(`Deployment took ${seconds} seconds.`)); // 输出耗费时间
+		    console.log(chalk.blue(`Deployment took ${minutes} minutes and ${Math.floor(seconds)} seconds.`)); // 输出耗费时间
+		} else {
+		    console.log(chalk.blue(`Deployment took ${Math.floor(seconds)} seconds.`)); // 输出耗费时间
 		}
 	}
 };
