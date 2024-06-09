@@ -32,9 +32,9 @@
 * CodeLinks[ResourceLoader|default|dependencies=ext.gadget.React,ext.gadget.Util,mediawiki.util|rights=edit|requiresES6]|CodeLinks.js
 * CopyCodeBlock[ResourceLoader|actions=view|default|dependencies=ext.gadget.Clipboard,ext.gadget.i18n,ext.gadget.Tippy,ext.gadget.Toastify,mediawiki.util,oojs-ui-core,oojs-ui.styles.icons-editing-advanced|peers=CopyCodeBlock-pagestyles|requiresES6]|CopyCodeBlock.js
 * CopyCodeBlock-pagestyles[ResourceLoader|hidden|requiresES6]|CopyCodeBlock-pagestyles.css
-* DiffLink[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util,mediawiki.widgets,oojs-ui-windows|requiresES6]|DiffLink.js
+* DiffLink[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util,mediawiki.widgets,oojs-ui-windows|requiresES6]|DiffLink.js
 * EnhancedSpecialSearch[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util|requiresES6]|EnhancedSpecialSearch.js
-* FloatTOC[ResourceLoader|actions=view|default|dependencies=ext.gadget.FilterAlteredClicks,ext.gadget.i18n,ext.gadget.Util,mediawiki.notification,mediawiki.storage,oojs-ui.styles.icons-editing-citation,oojs-ui.styles.icons-interactions,oojs-ui.styles.icons-movement|skins=citizen,vector|requiresES6]|FloatTOC.js|FloatTOC.css
+* FloatTOC[ResourceLoader|actions=view|dependencies=ext.gadget.FilterAlteredClicks,ext.gadget.i18n,ext.gadget.Util,mediawiki.notification,mediawiki.storage,oojs-ui.styles.icons-editing-citation,oojs-ui.styles.icons-interactions,oojs-ui.styles.icons-movement|skins=citizen,vector|requiresES6]|FloatTOC.js|FloatTOC.css
 * FullwidthSearchFix[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.Toastify,mediawiki.Uri,mediawiki.util|requiresES6]|FullwidthSearchFix.js
 * HideLongSummaries[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.Util|requiresES6]|HideLongSummaries.js
 * NavbarAvatar[ResourceLoader|default|dependencies=mediawiki.user|hidden|rights=edit|requiresES6]|NavbarAvatar.js|NavbarAvatar.css
@@ -50,18 +50,18 @@
 * WordCount[ResourceLoader|actions=view|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util|requiresES6]|WordCount.js|WordCount.css
 
 == compatibility ==
-* AccessKeyCheatsheet[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,oojs-ui-windows|requiresES6]|AccessKeyCheatsheet.js
+* AccessKeyCheatsheet[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,oojs-ui-windows|requiresES6]|AccessKeyCheatsheet.js
 * AdvancedSiteNotices[ResourceLoader|actions=view|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Tippy,ext.gadget.Util,mediawiki.api,mediawiki.storage,mediawiki.Uri|peers=AdvancedSiteNotices-pagestyles|requiresES6]|AdvancedSiteNotices.js
 * AdvancedSiteNotices-pagestyles[ResourceLoader|hidden|requiresES6]|AdvancedSiteNotices-pagestyles.css
 * Clipboard[ResourceLoader|hidden|requiresES6]|Clipboard.js
 * Collapsible[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util|hidden|peers=Collapsible-pagestyles|requiresES6]|Collapsible.js
 * Collapsible-pagestyles[ResourceLoader|hidden|requiresES6]|Collapsible-pagestyles.css
 * ConfirmLogout[ResourceLoader|default|dependencies=ext.gadget.FilterAlteredClicks,ext.gadget.i18n,ext.gadget.Toastify,ext.gadget.Util,mediawiki.api,mediawiki.util,oojs-ui-windows|rights=edit|requiresES6]|ConfirmLogout.js
-* CookieWarning[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.storage,mediawiki.util|hidden|requiresES6]|CookieWarning.js|CookieWarning.css
+* CookieWarning[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.storage,mediawiki.util|requiresES6]|CookieWarning.js|CookieWarning.css
 * FilterAlteredClicks[ResourceLoader|hidden|requiresES6]|FilterAlteredClicks.js
 * Geo[ResourceLoader|dependencies=mediawiki.storage|hidden|requiresES6]|Geo.js
 * GeoLocation[ResourceLoader|dependencies=ext.gadget.Geo,ext.gadget.i18n,ext.gadget.Util,mediawiki.api,mediawiki.Uri|requiresES6]|GeoLocation.js
-* GeoLocationReader[ResourceLoader|default|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.api,mediawiki.Title,mediawiki.Uri|hidden|namespaces=2|peers=GeoLocationReader-pagestyles|rights=edit|requiresES6]|GeoLocationReader.js
+* GeoLocationReader[ResourceLoader|dependencies=ext.gadget.i18n,ext.gadget.React,ext.gadget.Util,mediawiki.api,mediawiki.Title,mediawiki.Uri|namespaces=2|peers=GeoLocationReader-pagestyles|rights=edit|requiresES6]|GeoLocationReader.js
 * GeoLocationReader-pagestyles[ResourceLoader|hidden|requiresES6]|GeoLocationReader-pagestyles.css
 * i18n[ResourceLoader|dependencies=ext.gadget.Util|hidden|requiresES6]|i18n.js
 * morebits[ResourceLoader|dependencies=ext.gadget.select2,jquery.ui,mediawiki.Title,mediawiki.user,mediawiki.util|hidden|requiresES6]|morebits.js|morebits.css

@@ -10,7 +10,6 @@
 		"mediawiki.Title",
 		"mediawiki.Uri"
 	],
-	"hidden": true,
 	"namespaces": [2],
 	"peers": ["GeoLocationReader-pagestyles"],
 	"rights": ["edit"]
