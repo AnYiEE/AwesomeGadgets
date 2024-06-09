@@ -137,6 +137,7 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 	for (const api of apis) {
 		const {site} = api;
 		const enabledGadgets: string[] = [];
+		const startTime = Date.now(); // 记录开始时间
 
 		console.log(chalk.yellow(`--- [${chalk.bold(site)}] starting deployment ---`));
 
@@ -199,6 +200,10 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 		await apiQueue.onIdle();
 
 		console.log(chalk.yellow(`--- [${chalk.bold(site)}] end of delete unused pages ---`));
+
+		const endTime = Date.now(); // 记录结束时间
+		const duration = (endTime - startTime) / 1000; // 计算耗费时间，转换为秒
+		console.log(`Deployment took ${duration} seconds.`); // 输出耗费时间
 	}
 };
 
