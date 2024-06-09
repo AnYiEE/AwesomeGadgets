@@ -1,9 +1,8 @@
 {
 	"enable": true,
-	"description": "<sup><abbr title=\"默认为所有用户启用\">D</abbr></sup><span id=\"Gadget-FloatTOC\"></span> 浮动目录",
+	"description": "<span id=\"Gadget-FloatTOC\"></span> 浮动目录",
 	"section": "browser",
 	"actions": ["view"],
-	"default": true,
 	"dependencies": [
 		"ext.gadget.FilterAlteredClicks",
 		"ext.gadget.i18n",

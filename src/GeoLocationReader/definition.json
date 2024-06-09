@@ -1,8 +1,7 @@
 {
 	"enable": true,
-	"description": "<sup><abbr title=\"默认为所有注册用户启用\">U</abbr></sup><span id=\"Gadget-GeoLocationReader\"></span> 自动读取用户的IP地理位置信息",
+	"description": "<span id=\"Gadget-GeoLocationReader\"></span> 自动读取用户的IP地理位置信息",
 	"section": "compatibility",
-	"default": true,
 	"dependencies": [
 		"ext.gadget.i18n",
 		"ext.gadget.React",
