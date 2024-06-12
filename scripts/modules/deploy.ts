@@ -138,11 +138,14 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 	for (const api of apis) {
 		const {site} = api;
 		const enabledGadgets: string[] = [];
-		const format = 'YYYY-MM-DD HH:mm:ss';
-		const startTime = moment();
-		const startTimeFormatted = startTime.format(format);
 
-		console.log(chalk.blue(`--- [${chalk.bold(site)}] starting deployment at ${startTimeFormatted} ---`));
+		const timeFormat: string = 'YYYY-MM-DD HH:mm:ss';
+
+		const startTime = moment();
+		const startTimeFormatted: string = startTime.format(timeFormat);
+		console.log(chalk.blue(`--- [${chalk.bold(site)}] all starting at ${startTimeFormatted} ---`));
+
+		console.log(chalk.yellow(`--- [${chalk.bold(site)}] starting deployment ---`));
 
 		for (const [gadgetName, {description, excludeSites, files}] of Object.entries(targets)) {
 			if (excludeSites.includes(site)) {
@@ -205,23 +208,17 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 		console.log(chalk.yellow(`--- [${chalk.bold(site)}] end of delete unused pages ---`));
 
 		const endTime = moment();
-		const totalSeconds = endTime.diff(startTime, 'seconds');
+		const endTimeFormatted: string = endTime.format(timeFormat);
+		const totalSeconds: number = endTime.diff(startTime, 'seconds');
+		const calcMinutes: number = Math.floor(totalSeconds / 60);
+		const calcSeconds: number = totalSeconds % 60;
+		console.log(chalk.blue(`--- [${chalk.bold(site)}] all succeeded at ${endTimeFormatted} ---`));
 
-		// 计算分钟和秒
-		const minutes = Math.floor(totalSeconds / 60);
-		const seconds = totalSeconds % 60;
-
-		// 获取并格式化结束时间
-		const endTimeFormatted = endTime.format(format);
-
-		console.log(chalk.blue(`Deployment succeeded at ${endTimeFormatted}`)); // 输出结束时间
-
-		// 如果分钟数大于 0，显示 "x 分 x 秒"，否则只显示 "x 秒"
-		const timeTaken = minutes > 0
-		 ? `${minutes} minutes and ${Math.floor(seconds)} seconds`
-		 : `${Math.floor(seconds)} seconds`;
-
-		console.log(chalk.blue(`Deployment took ${timeTaken}.`));
+		const timeTaken: string =
+			calcMinutes > 0
+				? `${calcMinutes} minutes and ${Math.floor(calcSeconds)} seconds`
+				: `${Math.floor(calcSeconds)} seconds`;
+		console.log(chalk.blue(`--- [${chalk.bold(site)}] took ${timeTaken} ---`));
 	}
 };
 
