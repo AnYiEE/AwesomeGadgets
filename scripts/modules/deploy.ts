@@ -20,6 +20,7 @@ import {Mwn} from 'mwn';
 import PQueue from 'p-queue';
 import chalk from 'chalk';
 import {exit} from 'node:process';
+import moment from 'moment';
 import path from 'node:path';
 
 /**
@@ -138,6 +139,12 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 		const {site} = api;
 		const enabledGadgets: string[] = [];
 
+		const timeFormat: string = 'YYYY-MM-DD HH:mm:ss';
+
+		const startTime = moment();
+		const startTimeFormatted: string = startTime.format(timeFormat);
+		console.log(chalk.blue(`--- [${chalk.bold(site)}] all starting at ${startTimeFormatted} ---`));
+
 		console.log(chalk.yellow(`--- [${chalk.bold(site)}] starting deployment ---`));
 
 		for (const [gadgetName, {description, excludeSites, files}] of Object.entries(targets)) {
@@ -199,6 +206,19 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 		await apiQueue.onIdle();
 
 		console.log(chalk.yellow(`--- [${chalk.bold(site)}] end of delete unused pages ---`));
+
+		const endTime = moment();
+		const endTimeFormatted: string = endTime.format(timeFormat);
+		const totalSeconds: number = endTime.diff(startTime, 'seconds');
+		const calcMinutes: number = Math.floor(totalSeconds / 60);
+		const calcSeconds: number = totalSeconds % 60;
+		console.log(chalk.blue(`--- [${chalk.bold(site)}] all succeeded at ${endTimeFormatted} ---`));
+
+		const timeTaken: string =
+			calcMinutes > 0
+				? `${calcMinutes} minutes and ${Math.floor(calcSeconds)} seconds`
+				: `${Math.floor(calcSeconds)} seconds`;
+		console.log(chalk.blue(`--- [${chalk.bold(site)}] took ${timeTaken} ---`));
 	}
 };
 
