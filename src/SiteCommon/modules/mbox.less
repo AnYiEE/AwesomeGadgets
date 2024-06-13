@@ -3,7 +3,6 @@
 /* Styles for all mboxes */
 
 .mbox {
-	/* Common styles for all mboxes */
 	display: flex;
 	max-width: 95%;
 	flex-direction: column;
@@ -12,372 +11,317 @@
 	border-width: 1.25px;
 	border-left-width: 0.375em;
 	border-style: solid;
-	border-radius: @border-radius--small;
-	border-color: @color--primary;
+	border-radius: 0.25em;
+	border-color: #36c;
 	padding: 0.5em 0.5em 0.5em 0;
 	margin: 0.25em auto;
 	background: #def;
 	border-collapse: inherit;
-
-	&-body {
-		display: flex;
-		width: 100%;
-		flex-flow: row nowrap;
-		place-content: center space-between;
-		align-items: center;
-	}
-
-	&-above,
-	&-below {
-		margin: auto;
-	}
-
-	/* Cell sizes for tmbox/fmbox message boxes */
-	&-text {
-		width: 95%; /* Make all mboxes the same width regardless of text length */
-		flex: 1 1 95%;
-		padding: 0.5em; /* 0.5em left/right */
-
-		/* The message body cell(s) */
-		border: 0;
-	}
-
-	&-image,
-	&-imageright {
-		border: 0;
-		flex: 1 0;
-		margin: auto;
-		padding: 1px 0.75em;
-		text-align: center;
-
-		img {
-			max-width: 45px;
-			height: auto;
-			text-align: center;
-		}
-	}
-
-	&-empty-cell {
-		width: 1px;
-		padding: 0;
-
-		/* An empty narrow cell */
-		border: 0;
-	}
-
-	/* Styles per type */
-	&-notice {
-		border-color: @color--primary;
-		background: #def;
-	}
-
-	&-speedy,
-	&.alert,
-	&.red {
-		border-color: #b22; /* Red */
-		background: #fee; /* Pink */
-	}
-
-	&-delete,
-	&.tawny {
-		border-color: #a97; /* tawny */
-		background: #f0f0d8; /* light tawny */
-	}
-
-	&-content,
-	&.orange {
-		border-color: #f28500; /* Orange */
-		background: #fed; /* Light Orange */
-	}
-
-	&-style,
-	&-rule,
-	&.rule,
-	&.yellow {
-		border-color: #fb3; /* Yellow */
-		background: #ffc; /* Light yellow */
-	}
-
-	&-move,
-	&.violet,
-	&.purple {
-		border-color: #93c; /* Purple */
-		background: #fef; /* Light purple */
-	}
-
-	&-protection,
-	&-draft,
-	&.gray,
-	&.grey {
-		border-color: #606060; /* Dark gray */
-		background: #eee; /* Light gray */
-	}
-
-	&-featured,
-	&.brown {
-		border-color: #cba135; /* Brown-gold */
-		background: #fec; /* light brown */
-	}
-
-	&-policy,
-	&.green {
-		border-color: #181; /* Green */
-		background: #cfc; /* Light green */
-	}
-
-	&-guideline,
-	&.blue {
-		border-color: #36c;
-		background: #def;
-	}
-
-	&-license {
-		border-width: 2px;
-		border-color: #999;
-	}
-
-	&-license,
-	&.license-pd {
-		background: #f7f8ff; /* Very light gray with blue */
-
-		.client-darkmode & {
-			background: #d9ddff; /* light blue */
-		}
-	}
-
-	&.license-cc {
-		background: #f9f9f9; /* Very light gray */
-
-		.client-darkmode & {
-			background: #d9d9d9; /* light gray */
-		}
-	}
-
-	&.license-other {
-		background: #ffe; /* Very light gray with yellow */
-
-		.client-darkmode & {
-			background: #ff0; /* Yellow */
-		}
-	}
-
-	&.license-free {
-		background: #f3ffee; /* Very light green */
-
-		.client-darkmode & {
-			background: #b8ff99; /* Light green */
-		}
-	}
-
-	&.license-nonfree {
-		background: #fff9f9; /* Very light red */
-
-		.client-darkmode & {
-			background: #fcc; /* Light red */
-		}
-	}
-
-	&.license-self {
-		background: #f8f9fa; /* Very light gray */
-	}
-
-	/* Disambig and set index box styles */
-	&-disambig,
-	&-setindex {
-		border-color: #999;
-		background: #fefefe;
-	}
-
-	.mbox .mbox-text & {
-		/* For mboxes inside mbox-text cells. */
-		border-radius: 0;
-	}
-
-	.mbox.license-self .mbox-text & {
-		/* For mboxes inside mbox-text cells of mbox.license-self. */
-		border-width: 1px;
-	}
-
-	.mbox-inside & {
-		/* For mboxes inside other templates. */
-		margin: 0.25em;
-	}
 }
 
-/* Code for compact mbox */
-.compact-mbox {
-	.mbox {
-		/* Remove borders, backgrounds, padding, etc. */
-		display: block;
-		width: auto;
-		padding: 0 !important;
-		border-radius: @border-radius--small;
-		margin: 0 0 0 1.6em !important;
-		background: transparent;
-		border-collapse: collapse;
-	}
-
-	.mw-collapsible-content .mbox {
-		display: list-item;
-		border: 0;
-		margin-left: 1em !important;
-		line-height: 1.5em;
-		list-style-type: disc;
-	}
-
-	body.mediawiki & {
-		.mbox-small-left {
-			width: auto;
-			margin: 0;
-			clear: both;
-			font-size: 100%;
-		}
-	}
-
-	div .mbox-text {
-		/* Style the text cell as a list item and remove its margin */
-		margin: 0 !important;
-	}
-
-	.mbox-text {
-		.mbox-image,
-		.mbox-imageright,
-		.mbox-empty-cell {
-			/* Hide the images and empty cells */
-			display: none;
-		}
-	}
+.mbox-body {
+	display: flex;
+	width: 100%;
+	flex-flow: row nowrap;
+	place-content: center space-between;
+	align-items: center;
 }
 
-/* Talk page message box styles */
+.mbox-above,
+.mbox-below {
+	margin: auto;
+}
+
+.mbox-above {
+	padding: 0.5em 0.5em 0;
+}
+
+.mbox-below {
+	padding: 0 0.5em 0.5em;
+}
+
+.mbox-text {
+	width: 95%;
+	flex: 1 1 95%;
+	padding: 0.5em;
+	border: 0;
+}
+
+.mbox-image,
+.mbox-imageright {
+	border: 0;
+	flex: 1 0;
+	margin: auto;
+	padding: 1px 0.75em;
+	text-align: center;
+}
+
+.mbox-image img,
+.mbox-imageright img {
+	max-width: 45px;
+	height: auto;
+	text-align: center;
+}
+
+.mbox-empty-cell {
+	width: 1px;
+	padding: 0;
+	border: 0;
+}
+
+.mbox-notice {
+	border-color: #36c;
+	background: #def;
+}
+
+.mbox-speedy,
+.mbox.alert,
+.mbox.red {
+	border-color: #b22;
+	background: #fee;
+}
+
+.mbox-delete,
+.mbox.tawny {
+	border-color: #a97;
+	background: #f0f0d8;
+}
+
+.mbox-content,
+.mbox.orange {
+	border-color: #f28500;
+	background: #fed;
+}
+
+.mbox-style,
+.mbox-rule,
+.mbox.rule,
+.mbox.yellow {
+	border-color: #fc3;
+	background: #ffc;
+}
+
+.mbox-move,
+.mbox.violet,
+.mbox.purple {
+	border-color: #93c;
+	background: #fef;
+}
+
+.mbox-protection,
+.mbox-draft,
+.mbox.gray,
+.mbox.grey {
+	border-color: #606060;
+	background: #eee;
+}
+
+.mbox-featured,
+.mbox.brown {
+	border-color: #cba135;
+	background: #fec;
+}
+
+.mbox-policy,
+.mbox.green {
+	border-color: #181;
+	background: #cfc;
+}
+
+.mbox-guideline,
+.mbox.blue {
+	border-color: #36c;
+	background: #def;
+}
+
+.mbox-license {
+	border-width: 2px;
+	border-color: #999;
+}
+
+.mbox-license,
+.mbox.license-pd {
+	background: #f7f8ff;
+}
+
+.mbox.license-cc {
+	background: #f9f9f9;
+}
+
+.mbox.license-other {
+	background: #ffe;
+}
+
+.mbox.license-free {
+	background: #f3ffee;
+}
+
+.mbox.license-nonfree {
+	background: #fff9f9;
+}
+
+.mbox.license-self {
+	background: #f8f9fa;
+}
+
+.mbox-disambig,
+.mbox-setindex {
+	border-color: #999;
+	background: #fefefe;
+}
+
+.mbox .mbox-text .mbox {
+	border-radius: 0;
+}
+
+.mbox.license-self .mbox-text .mbox {
+	border-width: 1px;
+}
+
+.mbox-inside .mbox {
+	margin: 0.25em;
+}
+
+.compact-mbox .mbox {
+	display: block;
+	width: auto;
+	padding: 0 !important;
+	border-radius: 0.25em;
+	margin: 0 0 0 1.6em !important;
+	background: transparent;
+	border-collapse: collapse;
+}
+
+.compact-mbox .mw-collapsible-content .mbox {
+	display: list-item;
+	border: 0;
+	margin-left: 1em !important;
+	line-height: 1.5em;
+	list-style-type: disc;
+}
+
+body.mediawiki .compact-mbox .mbox-small-left {
+	width: auto;
+	margin: 0;
+	clear: both;
+	font-size: 100%;
+}
+
+.compact-mbox div .mbox-text {
+	margin: 0 !important;
+}
+
+.compact-mbox .mbox-text .mbox-image,
+.compact-mbox .mbox-text .mbox-imageright,
+.compact-mbox .mbox-text .mbox-empty-cell {
+	display: none;
+}
+
 .tmbox {
 	background: #f8eaba;
-
-	.mbox-inside & {
-		&.mbox-small {
-			/* set in "mbox-small" above. */
-			font-size: 100%;
-			/* "small" tmboxes should not be small when */
-			line-height: 1.5em; /* also "nested", so reset styles that are */
-		}
-	}
-
-	.mediawiki .mbox-inside & {
-		width: 100%; /* For Safari and Opera */
-
-		/* For tmboxes inside other templates. The "mediawiki" */
-		margin: 2px 0; /* class ensures that this declaration overrides other */
-	}
 }
 
-/* Footer and header message box styles */
+.mbox-inside .tmbox.mbox-small {
+	font-size: 100%;
+	line-height: 1.5em;
+}
+
+.mediawiki .mbox-inside .tmbox {
+	width: 100%;
+	margin: 2px 0;
+}
+
 .fmbox {
 	border-width: 1.25px;
 	border-style: solid;
 	border-color: #a2a9b1;
+	border-radius: 1em;
 	margin: 0.25em 0;
-	background: #f8f9fa; /* Default "system" gray */
+	background: #f8f9fa;
 	clear: both;
-
-	&-warning {
-		border-color: #bb7070; /* Dark pink */
-		background: #ffdbdb; /* Pink */
-	}
-
-	&-editnotice {
-		background: transparent;
-	}
-
-	/* Div based "system" style fmbox messages. */
-	&-system {
-		padding: 0.25em 0;
-		border-color: #a2a9b1;
-		margin: 0.2em 0;
-		background: #f8f9fa;
-		clear: both;
-	}
 }
 
-/* Div based "warning" style fmbox messages. */
+.fmbox-warning {
+	border-color: #bb7070;
+	background: #ffdbdb;
+}
+
+.fmbox-editnotice {
+	background: fade(#fff, 70%);
+}
+
 .mw-warning-with-logexcerpt,
 .mw-lag-warn-high,
 .mw-cascadeprotectedwarning,
 #mw-protect-cascadeon {
 	padding: 0.5em;
 	border: 1px solid #bb7070;
-	background: #ffdbdb;
 	margin: 0.2em 0;
+	background: #ffdbdb;
+	clear: both;
+}
+
+.fmbox-system {
+	padding: 0.25em 0;
+	border-color: #a2a9b1;
+	margin: 0.2em 0;
+	background: #f8f9fa;
 	clear: both;
 }
 
 /* These mbox-small classes must be placed after all other
-   tmbox etc classes. "body.mediawiki" is so. */
+	 tmbox etc classes. "body.mediawiki" is so. */
 body.mediawiki .mbox-small {
 	max-width: 320px;
-	margin: 0.25em 0 0.25em 0.5em !important;
-	padding: 0.25em;
+	margin: 4px 0 4px 1em !important;
 
 	/* For the "small=yes" option. */
 	clear: both;
 	float: right;
-	font-size: 92.5%;
+	font-size: 88%;
 	line-height: 1.25em;
-
-	&-left {
-		width: 240px;
-
-		/* For the "small=left" option. */
-		margin: 0.25em 0.5em 0.25em 0 !important;
-		border-collapse: collapse;
-		font-size: 92.5%;
-		line-height: 1.25em;
-	}
-
-	&-image,
-	&-imageright {
-		padding: 1px 0.5em;
-	}
 }
 
-/* Style for mboxes on small-screen pages */
+body.mediawiki .mbox-small-left {
+	width: 240px;
+
+	/* For the "small=left" option. */
+	margin: 4px 1em 4px 0 !important;
+	border-collapse: collapse;
+	font-size: 88%;
+	line-height: 1.25em;
+}
+
 @media screen and (max-width: 768px) {
-	.mbox {
-		&,
-		&-small {
-			width: 95%;
-			width: calc(100% - 1em);
-			max-width: 95%;
-			max-width: calc(100% - 1em);
-		}
+	.mbox,
+	.mbox-small {
+		width: 95%;
+		width: calc(100% - 1em);
+		max-width: 95%;
+		max-width: calc(100% - 1em);
+	}
 
-		&-image,
-		&-imageright {
-			img {
-				max-width: 2em;
-			}
-		}
+	.mbox-image img,
+	.mbox-imageright img {
+		max-width: 6vw;
+	}
 
-		&-image {
-			/* The left image cell */
-			padding: 2px 0 2px 0.5em; /* 0.5em left, 0px right */
-		}
+	.mbox-image {
+		padding: 2px 0 2px 2vw;
+	}
 
-		&-imageright {
-			/* The right image cell */
-			padding: 2px 0.5em 2px 0; /* 0px left, 0.5em right */
-		}
+	.mbox-imageright {
+		padding: 2px 2vw 2px 0;
+	}
 
-		&.licensetpl {
-			.mbox-image,
-			.mbox-imageright {
-				display: none;
-			}
-		}
+	.mbox.licensetpl .mbox-image,
+	.mbox.licensetpl .mbox-imageright {
+		display: none;
+	}
 
-		&-text {
-			flex: 1 1 92.5%;
-			padding: 0.375em 0.5em;
-		}
+	.mbox-text {
+		flex: 1 1 90vw;
+		padding: 1vh 2vw;
 	}
 }
 
@@ -389,11 +333,10 @@ body.mediawiki .mbox-small {
 	}
 }
 
-/* For permissionerror area */
 .permissions-errors {
 	border: 1px solid #a2a9b1;
+}
 
-	.fmbox {
-		border: 0;
-	}
+.permissions-errors .fmbox {
+	border: 0;
 }
