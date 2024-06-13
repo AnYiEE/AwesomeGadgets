@@ -40,7 +40,7 @@ const matchCriteria = ($notice: JQuery): boolean => {
 		let criteria: boolean | undefined;
 
 		if ($notice.hasClass('only_sysop')) {
-			criteria ||= in_group('sysop') || in_group('steward') || in_group('qiuwen');
+			criteria ||= in_group('sysop') || in_group('steward');
 		}
 		if ($notice.hasClass('only_logged')) {
 			criteria ||= in_group('user');
