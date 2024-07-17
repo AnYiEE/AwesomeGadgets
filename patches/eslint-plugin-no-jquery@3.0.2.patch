@@ -1,8 +1,5 @@
-diff --git a/Changelog.md b/Changelog.md
-deleted file mode 100644
-index 9d60c13ed44da15dcace8cdcc3f1b4f94e67bfa5..0000000000000000000000000000000000000000
 diff --git a/src/rules/no-global-selector.js b/src/rules/no-global-selector.js
-index 17ed2bf68eb2b3e73dfc8a5c7ab77afc6abe8a2a..0a56a78f26489d4a6983a1e1cdea8655ce952998 100644
+index f11432e6682a6dab37b7bcffe617f3090dc20c48..66724916b56356294125b43b98c7b2d313dac485 100644
 --- a/src/rules/no-global-selector.js
 +++ b/src/rules/no-global-selector.js
 @@ -13,12 +13,17 @@ module.exports = {
@@ -24,31 +21,32 @@ index 17ed2bf68eb2b3e73dfc8a5c7ab77afc6abe8a2a..0a56a78f26489d4a6983a1e1cdea8655
  					allowIds: {
  						type: 'boolean'
  					}
-@@ -39,13 +44,15 @@ module.exports = {
- 				) {
- 					return;
- 				}
--				const value = node.arguments[ 0 ].value;
--				const allowIds = context.options[ 0 ] && context.options[ 0 ].allowIds;
-+				const { value } = node.arguments[ 0 ];
-+				const options = context.options[ 0 ] ?? {};
-+				const { allowBody, allowIds } = options;
- 				if (
- 					typeof value !== 'string' ||
+@@ -38,13 +43,15 @@ module.exports = {
+ 			) {
+ 				return;
+ 			}
+-			const value = node.arguments[ 0 ].value;
+-			const allowIds = context.options[ 0 ] && context.options[ 0 ].allowIds;
++			const { value } = node.arguments[ 0 ];
++			const options = context.options[ 0 ] ?? {};
++			const { allowBody, allowIds } = options;
+ 			if (
+ 				typeof value !== 'string' ||
  					!value ||
  					value === '#' ||
 -					( allowIds && idPattern.test( value.trim() ) )
 +					( allowBody && /^body$/i.test( value.trim() ) ) ||
 +					( !allowBody && allowIds && idPattern.test( value.trim() ) )
- 				) {
- 					return;
- 				}
-@@ -80,7 +87,18 @@ module.exports = {
+ 			) {
+ 				return;
+ 			}
+@@ -79,8 +86,19 @@ module.exports = {
  
- 				context.report( {
- 					node: node,
--					message: 'Avoid queries which search the entire DOM. Keep DOM nodes in memory where possible.'
-+					message: `Avoid queries which search the entire DOM. Keep DOM nodes in memory where possible.${allowBody ? `
+ 			context.report( {
+ 				node,
+-				message: 'Avoid queries which search the entire DOM. Keep DOM nodes in memory where possible.'
+-			} );
++				message: `Avoid queries which search the entire DOM. Keep DOM nodes in memory where possible.${allowBody ? `
 +First, get a "body" reference. Then, use that reference to search.
 +  const $body: JQuery<HTMLBodyElement> = $( 'body' );
 +By a class name:
@@ -60,6 +58,7 @@ index 17ed2bf68eb2b3e73dfc8a5c7ab77afc6abe8a2a..0a56a78f26489d4a6983a1e1cdea8655
 +  const $classes: JQuery = $body.find( '.class' );
 +Search an ID:
 +  const $ids: JQuery = ${allowIds ? "$( '#id' )" : "$body.find( '#id' )"};`}`
- 				} );
- 			}
- 		};
++ 			} );
+ 		}
+ 	} )
+ };
