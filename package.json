@@ -1,6 +1,6 @@
 {
 	"name": "awesome-gadgets",
-	"version": "4.6.6",
+	"version": "4.7.0",
 	"description": "Storage, management, compilation, and automatic deployment of MediaWiki gadgets.",
 	"type": "module",
 	"scripts": {
@@ -24,7 +24,8 @@
 	},
 	"author": {
 		"name": "AnYiEE",
-		"email": "i@anyi.in"
+		"email": "i@anyi.in",
+		"url": "https://github.com/AnYiEE"
 	},
 	"contributors": [
 		"Other contributors <https://github.com/AnYiEE/AwesomeGadgets/graphs/contributors>"
