@@ -144,7 +144,7 @@ const formatJSON = async (paths: string[] = []): Promise<void> => {
 						};
 
 						if (licenseText !== undefined) {
-							valueSorted[innerKey]!.licenseText = licenseText;
+							valueSorted[innerKey].licenseText = licenseText;
 						}
 					}
 

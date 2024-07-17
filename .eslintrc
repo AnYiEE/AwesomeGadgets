@@ -80,10 +80,14 @@
 		"no-await-in-loop": "off",
 		"no-duplicate-imports": "error",
 		"no-new-native-nonconstructor": "error",
+		"no-self-compare": "error",
 		"no-template-curly-in-string": "error",
+		"no-unmodified-loop-condition": "error",
+		"no-unreachable-loop": "error",
 		"no-unused-private-class-members": "error",
 		"no-use-before-define": "off",
 		"require-atomic-updates": "off",
+
 		"accessor-pairs": "error",
 		"arrow-body-style": ["error", "always"],
 		"capitalized-comments": "off",
@@ -94,6 +98,7 @@
 		"default-case": "off",
 		"default-case-last": "error",
 		"dot-notation": "off",
+		"eqeqeq": "error",
 		"func-name-matching": "error",
 		"func-names": "off",
 		"func-style": "error",
@@ -105,7 +110,13 @@
 		"implicit-arrow-linebreak": "off",
 		"init-declarations": "off",
 		"lines-between-class-members": "off",
-		"logical-assignment-operators": "error",
+		"logical-assignment-operators": [
+			"error",
+			"always",
+			{
+				"enforceForIfStatements": true
+			}
+		],
 		"max-classes-per-file": "off",
 		"max-depth": "off",
 		"max-lines": "off",
@@ -168,7 +179,6 @@
 				"allowNamedFunctions": true
 			}
 		],
-		"prefer-destructuring": "error",
 		"prefer-exponentiation-operator": "error",
 		"prefer-named-capture-group": "off",
 		"prefer-object-has-own": "error",
@@ -216,6 +226,20 @@
 			"warn",
 			{
 				"varsIgnorePattern": "^_"
+			}
+		],
+		"@typescript-eslint/no-use-before-define": "off",
+		"@typescript-eslint/prefer-destructuring": [
+			"error",
+			{
+				"VariableDeclarator": {
+					"array": true,
+					"object": true
+				},
+				"AssignmentExpression": {
+					"array": false,
+					"object": false
+				}
 			}
 		],
 

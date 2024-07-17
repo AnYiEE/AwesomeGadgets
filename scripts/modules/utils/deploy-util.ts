@@ -89,8 +89,6 @@ const generateTargets = (): DeploymentTargets => {
 		return regExpMatchArray[1];
 	});
 
-	type Target = DeploymentTargets[keyof DeploymentTargets];
-
 	for (const gadgetName of gadgetNames.toSorted(
 		alphaSort({
 			caseInsensitive: true,
@@ -122,7 +120,7 @@ const generateTargets = (): DeploymentTargets => {
 			const fileExt: string = path.extname(fileName);
 			const fileBaseName: string = path.basename(fileName, fileExt);
 
-			(targets[gadgetName] as Target).files.push([
+			targets[gadgetName].files.push([
 				fileName,
 				fileBaseName === gadgetName ? fileName : `${gadgetName}-${fileName}`,
 			]);
@@ -305,12 +303,8 @@ async function checkConfig(
 				continue;
 			}
 			const _credentials = credentials as Partial<CredentialsOnlyPassword>;
-			if (!_credentials.username) {
-				_credentials.username = await prompt(`> [${site}] Enter username}`);
-			}
-			if (!_credentials.password) {
-				_credentials.password = await prompt(`> [${site}] Enter bot password`, 'password');
-			}
+			_credentials.username ||= await prompt(`> [${site}] Enter username}`);
+			_credentials.password ||= await prompt(`> [${site}] Enter bot password`, 'password');
 		}
 	}
 }
@@ -506,7 +500,7 @@ const convertVariant = (pageTitle: string, content: string, api: Api, editSummar
 		const convertPageTitle: string = `${pageTitle}/${variant}`;
 
 		deployPages[site] ??= [];
-		deployPages[site]!.push(convertPageTitle);
+		deployPages[site].push(convertPageTitle);
 
 		const {nochange} = await apiInstance.save(convertPageTitle, convertedDescription, editSummary);
 
@@ -549,7 +543,7 @@ const saveDefinition = (definitionText: string, enabledGadgets: string[], api: A
 	const pageTitle: string = 'MediaWiki:Gadgets-definition';
 
 	deployPages[site] ??= [];
-	deployPages[site]!.push(pageTitle);
+	deployPages[site].push(pageTitle);
 
 	definitionText = definitionText
 		.split('\n')
@@ -633,7 +627,7 @@ const saveDefinitionSectionPage = (definitionText: string, api: Api, editSummary
 		const pageTitle: string = pageTitles[index] as string;
 
 		deployPages[site] ??= [];
-		deployPages[site]!.push(pageTitle);
+		deployPages[site].push(pageTitle);
 
 		void apiQueue.add(async (): Promise<void> => {
 			try {
@@ -668,7 +662,7 @@ const saveDescription = (gadgetName: string, description: string, api: Api, edit
 	const pageTitle: string = `MediaWiki:Gadget-${gadgetName}`;
 
 	deployPages[site] ??= [];
-	deployPages[site]!.push(pageTitle);
+	deployPages[site].push(pageTitle);
 
 	void apiQueue.add(async (): Promise<void> => {
 		try {
@@ -703,7 +697,7 @@ const saveFiles = (gadgetName: string, fileName: string, fileContent: string, ap
 	const pageTitle: string = `MediaWiki:Gadget-${fileName}`;
 
 	deployPages[site] ??= [];
-	deployPages[site]!.push(pageTitle);
+	deployPages[site].push(pageTitle);
 
 	void apiQueue.add(async (): Promise<void> => {
 		try {
@@ -736,7 +730,7 @@ const savePages = (pageTitle: string, pageContent: string, api: Api, editSummary
 	const {apiInstance, site} = api;
 
 	deployPages[site] ??= [];
-	deployPages[site]!.push(pageTitle);
+	deployPages[site].push(pageTitle);
 
 	void apiQueue.add(async (): Promise<void> => {
 		try {

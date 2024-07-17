@@ -473,7 +473,7 @@ const findSourceFile = (): SourceFiles => {
 		}
 
 		sourceFiles[gadgetName] ??= {} as Gadget;
-		const targetGadget = sourceFiles[gadgetName] as Gadget;
+		const targetGadget = sourceFiles[gadgetName];
 
 		const fileExt: string = path.extname(fileName);
 		const isScriptFile: boolean = ['.js', '.jsx', '.ts', '.tsx', '.vue'].includes(fileExt);
@@ -745,7 +745,7 @@ const saveDefinition = (definitions: string[]): void => {
 	for (const definition of definitions) {
 		const [, section] = definition.match(/.*?☀(\S+)$/) as [string, string];
 		definitionObject[section] ??= [];
-		(definitionObject[section] as Gadgets).push(definition.replace(/☀.*/, ''));
+		definitionObject[section].push(definition.replace(/☀.*/, ''));
 	}
 
 	const definitionObjectSorted: typeof definitionObject = sortObject(definitionObject);
