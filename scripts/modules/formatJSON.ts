@@ -12,8 +12,8 @@ interface File {
 type Files = File[];
 
 const checkTargetDir = (fileName: string, filePath: string): boolean => {
-	const relativePath: string = path.relative(__rootDir, filePath);
-	const parts: string[] = relativePath.split(path.sep);
+	const relativePath = path.relative(__rootDir, filePath);
+	const parts = relativePath.split(path.sep);
 
 	switch (fileName) {
 		case 'credentials.json':
@@ -58,7 +58,7 @@ const generateTargetFiles = (paths: string[]): Files => {
 };
 
 const formatJSON = async (paths: string[] = []): Promise<void> => {
-	const files: Files = generateTargetFiles(paths);
+	const files = generateTargetFiles(paths);
 	if (!files.length) {
 		return;
 	}
@@ -68,9 +68,9 @@ const formatJSON = async (paths: string[] = []): Promise<void> => {
 
 	for (const file of files) {
 		const {isGlob, name: fileName} = file;
-		const filePath: string = file.fullpath();
+		const filePath = file.fullpath();
 
-		const fileContent: string = readFileContent(filePath);
+		const fileContent = readFileContent(filePath);
 		if (!fileContent) {
 			continue;
 		}
@@ -82,7 +82,7 @@ const formatJSON = async (paths: string[] = []): Promise<void> => {
 			continue;
 		}
 
-		let isExceptFile: boolean = true;
+		let isExceptFile = true;
 		switch (file.name) {
 			case 'credentials.json':
 				if (!isGlob && !checkTargetDir(fileName, filePath)) {

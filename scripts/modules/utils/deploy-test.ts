@@ -1,6 +1,6 @@
 import type {ApiDeleteParams, ApiEditPageParams, ApiParseParams} from 'mwn/build/api_params';
-import type {ApiDeleteResponse, ApiEditResponse} from 'mwn/build/api_response_types';
 import {type Mwn, type MwnOptions} from 'mwn';
+import type {ApiEditResponse} from 'mwn/build/api_response_types';
 import {type loadConfig} from './deploy-util';
 
 type Config = ReturnType<typeof loadConfig>;
@@ -34,7 +34,7 @@ class FakeApi implements Partial<Mwn> {
 		this.options = credentials;
 	}
 	// eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
-	public delete(title: string | number, summary: string, _options?: ApiDeleteParams): Promise<ApiDeleteResponse> {
+	public delete(title: string | number, summary: string, _options?: ApiDeleteParams) {
 		console.log('Delete:', {
 			title,
 			summary,
@@ -42,13 +42,13 @@ class FakeApi implements Partial<Mwn> {
 		return Promise.resolve({});
 	}
 	// eslint-disable-next-line class-methods-use-this
-	public getTokensAndSiteInfo(): Promise<void> {
+	public getTokensAndSiteInfo() {
 		return Promise.resolve();
 	}
 	// eslint-disable-next-line class-methods-use-this, no-empty-function, @typescript-eslint/no-empty-function
-	public initOAuth(): void {}
+	public initOAuth() {}
 	// eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
-	public parseWikitext(content: string, _additionalParams?: ApiParseParams): Promise<string> {
+	public parseWikitext(content: string, _additionalParams?: ApiParseParams) {
 		return Promise.resolve(content);
 	}
 	// eslint-disable-next-line class-methods-use-this
@@ -58,12 +58,12 @@ class FakeApi implements Partial<Mwn> {
 		summary?: string,
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		_options?: ApiEditPageParams
-	): Promise<ApiEditResponse> {
+	) {
 		console.log('Save:', {
 			title,
 			summary,
 		});
-		return Promise.resolve({
+		return Promise.resolve<ApiEditResponse>({
 			result: content + summary,
 			pageid: 0,
 			title: title.toString(),

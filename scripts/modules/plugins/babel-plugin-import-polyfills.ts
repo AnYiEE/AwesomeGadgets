@@ -6,8 +6,7 @@
  * @see ../../patches/@mrhenry__babel-plugin-core-web.patch
  */
 import {type BabelAPI, declare} from '@babel/helper-plugin-utils';
-import {type BrowserSupport, getSupport} from 'caniuse-api';
-import type {CallExpression, ImportDeclaration, NewExpression, Program, StringLiteral} from '@babel/types';
+import type {CallExpression, NewExpression, Program} from '@babel/types';
 import type {NodePath} from 'babel__traverse';
 import {__rootDir} from '../utils/general-util';
 /**
@@ -15,6 +14,7 @@ import {__rootDir} from '../utils/general-util';
  */
 // @ts-expect-error TS7016
 import {filterItems} from '@babel/helper-compilation-targets';
+import {getSupport} from 'caniuse-api';
 import path from 'node:path';
 
 /**
@@ -32,8 +32,8 @@ type Features =
  * @param {Exclude<Features, 'normalize'>} feature
  * @return {Record<string, string>}
  */
-const getTargets = (feature: Exclude<Features, 'normalize'>): Record<string, string> => {
-	const browserSupport: BrowserSupport = getSupport(feature.toLowerCase());
+const getTargets = (feature: Exclude<Features, 'normalize'>) => {
+	const browserSupport = getSupport(feature.toLowerCase());
 
 	return Object.entries(browserSupport).reduce<Record<string, string>>((accumulator, [browser, versions]) => {
 		const target = versions.y?.toString();
@@ -120,9 +120,9 @@ const addImport = (
 	nodePath: NodePath<CallExpression | NewExpression>,
 	types: BabelAPI['types'],
 	packageName: (typeof polyfills)[Features]['package']
-): void => {
-	const stringLiteral: StringLiteral = types.stringLiteral(packageName);
-	const importDeclaration: ImportDeclaration = types.importDeclaration([], stringLiteral);
+) => {
+	const stringLiteral = types.stringLiteral(packageName);
+	const importDeclaration = types.importDeclaration([], stringLiteral);
 
 	(
 		nodePath.findParent((parent) => {
@@ -148,7 +148,7 @@ const plugin = declare((api) => {
 
 	return {
 		visitor: {
-			CallExpression(nodePath): void {
+			CallExpression(nodePath) {
 				const {
 					node: {callee, arguments: args},
 				} = nodePath;

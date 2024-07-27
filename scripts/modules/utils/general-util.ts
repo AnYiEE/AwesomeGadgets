@@ -1,15 +1,7 @@
 import {DEFAULT_DEFINITION, GLOBAL_REQUIRES_ES6, HEADER} from 'scripts/constant';
 import type {DefaultDefinition, GlobalSourceFiles, SourceFiles} from '../types';
-import {
-	type PathOrFileDescriptor,
-	closeSync,
-	existsSync,
-	fdatasyncSync,
-	openSync,
-	readFileSync,
-	writeFileSync,
-} from 'node:fs';
-import prompts, {type Answers, type PromptObject, type PromptType} from 'prompts';
+import {closeSync, existsSync, fdatasyncSync, openSync, readFileSync, writeFileSync} from 'node:fs';
+import prompts, {type PromptObject, type PromptType} from 'prompts';
 import {exec as _exec} from 'node:child_process';
 import alphaSort from 'alpha-sort';
 import chalk from 'chalk';
@@ -21,8 +13,8 @@ import {promisify} from 'node:util';
  * @private
  * @return {string}
  */
-const getRootDir = (): string => {
-	const rootDir: string = path.resolve();
+const getRootDir = () => {
+	const rootDir = path.resolve();
 
 	return rootDir;
 };
@@ -30,7 +22,7 @@ const getRootDir = (): string => {
 /**
  * The root directory of the project
  */
-const __rootDir: string = getRootDir();
+const __rootDir = getRootDir();
 
 /**
  * Execute a command
@@ -46,8 +38,8 @@ const exec = promisify(_exec);
  * @return {string} The file content
  * @throws If the file is not found
  */
-const readFileContent = (filePath: string): string => {
-	const fileBuffer: Buffer = readFileSync(filePath);
+const readFileContent = (filePath: string) => {
+	const fileBuffer = readFileSync(filePath);
 
 	return fileBuffer.toString();
 };
@@ -59,8 +51,8 @@ const readFileContent = (filePath: string): string => {
  * @param {string} fileContent The file content
  * @throws If the file is not found
  */
-const writeFileContent = (filePath: number | string, fileContent: string): void => {
-	const fileDescriptor: PathOrFileDescriptor = typeof filePath === 'number' ? filePath : openSync(filePath, 'w');
+const writeFileContent = (filePath: number | string, fileContent: string) => {
+	const fileDescriptor = typeof filePath === 'number' ? filePath : openSync(filePath, 'w');
 	writeFileSync(fileDescriptor, fileContent);
 	fdatasyncSync(fileDescriptor);
 	closeSync(fileDescriptor);
@@ -98,8 +90,8 @@ function generateArray<T>(...args: (T | T[])[]): T[] {
  * @param {boolean} isSortArray Sort the array values of this object or not
  * @return {Object} The sorted object
  */
-const sortObject = <T extends object>(object: T, isSortArray?: boolean): T => {
-	const objectSorted: T = {} as T;
+const sortObject = <T extends object>(object: T, isSortArray?: boolean) => {
+	const objectSorted = {} as T;
 
 	for (const _key of Object.keys(object).sort(
 		alphaSort({
@@ -111,7 +103,7 @@ const sortObject = <T extends object>(object: T, isSortArray?: boolean): T => {
 		type Value = T[Key];
 
 		const key = _key as Key;
-		const value: Value = object[key];
+		const value = object[key];
 
 		objectSorted[key] =
 			isSortArray && Array.isArray(value)
@@ -143,12 +135,12 @@ const trim = (
 		addNewline?: boolean;
 		stripControlCharacters?: boolean;
 	} = {}
-): string => {
+) => {
 	if (string === undefined) {
 		return '';
 	}
 
-	let stringTrimmed: string = string.trim();
+	let stringTrimmed = string.trim();
 	if (!stringTrimmed) {
 		return addNewline ? '\n' : '';
 	}
@@ -187,8 +179,8 @@ async function prompt(
 	type: PromptType = 'text',
 	initial: boolean | string = ''
 ): Promise<boolean | string> {
-	const name: string = Math.random().toString();
-	const answers: Answers<string> =
+	const name = Math.random().toString();
+	const answers =
 		typeof message === 'string'
 			? await prompts({
 					initial,
@@ -232,10 +224,10 @@ const generateBannerAndFooter = ({
 }: Omit<GlobalSourceFiles[keyof GlobalSourceFiles], 'enable' | 'sourceCode'> & {
 	isDirectly?: boolean;
 	isProcessJs?: boolean;
-}): typeof code => {
+}) => {
 	licenseText = licenseText ? trim(licenseText) : '';
 
-	const prefix = (isDirectly ? '' : '/**\n *\n */\n') satisfies string;
+	const prefix = isDirectly ? '' : '/**\n *\n */\n';
 	const code: {
 		banner: {
 			css: string;
@@ -276,8 +268,8 @@ const generateBannerAndFooter = ({
  * @param {boolean} [isShowLog=true] Show log or not
  * @return {Object} The definition object
  */
-const generateDefinition = (gadgetName: string, isShowLog: boolean = true): typeof definition => {
-	const logError = (reason: string): void => {
+const generateDefinition = (gadgetName: string, isShowLog: boolean = true) => {
+	const logError = (reason: string) => {
 		if (isShowLog) {
 			console.log(
 				chalk.yellow(
@@ -289,15 +281,15 @@ const generateDefinition = (gadgetName: string, isShowLog: boolean = true): type
 		}
 	};
 
-	let isMissing: boolean = false;
+	let isMissing = false;
 
-	const definitionFilePath: string = path.join(__rootDir, `src/${gadgetName}/definition.json`);
+	const definitionFilePath = path.join(__rootDir, `src/${gadgetName}/definition.json`);
 	if (!existsSync(definitionFilePath)) {
 		isMissing = true;
 		logError('missing');
 	}
 
-	let definitionJsonText: string = '{}';
+	let definitionJsonText = '{}';
 	if (!isMissing) {
 		definitionJsonText = readFileContent(definitionFilePath);
 	}

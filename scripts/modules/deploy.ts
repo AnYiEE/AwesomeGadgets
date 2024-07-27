@@ -1,4 +1,3 @@
-import type {Api, DeploymentDirectTargets, DeploymentTargets} from './types';
 import {DEPLOY_USER_AGENT, MAX_CONCURRENCY} from '../constant';
 import {FakeApi, fakeConfig} from './utils/deploy-test';
 import {__rootDir, prompt, readFileContent} from './utils/general-util';
@@ -16,6 +15,7 @@ import {
 	saveFiles,
 	savePages,
 } from './utils/deploy-util';
+import type {Api} from './types';
 import {Mwn} from 'mwn';
 import PQueue from 'p-queue';
 import chalk from 'chalk';
@@ -26,9 +26,9 @@ import path from 'node:path';
 /**
  * @private
  */
-const concurrency: number = MAX_CONCURRENCY > 256 ? 256 : MAX_CONCURRENCY;
+const concurrency = MAX_CONCURRENCY > 256 ? 256 : MAX_CONCURRENCY;
 
-const apiQueue: PQueue = new PQueue({
+const apiQueue = new PQueue({
 	concurrency,
 });
 
@@ -38,9 +38,9 @@ const apiQueue: PQueue = new PQueue({
  * @param {boolean} [isSkipAsk=false] Run the deploy process directly or not
  * @param {boolean} [isTest=false] Run the deploy process in test mode or not
  */
-const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Promise<void> => {
+const deploy = async (isSkipAsk = false, isTest = false) => {
 	// Note: The program may terminate due to an expected exception
-	const definitionText: string = readDefinition();
+	const definitionText = readDefinition();
 
 	const config: ReturnType<typeof loadConfig> = isTest ? fakeConfig : loadConfig();
 	await checkConfig(config, {
@@ -92,7 +92,7 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 			continue;
 		}
 
-		let isUseOAuth: boolean = false;
+		let isUseOAuth = false;
 		try {
 			apiInstance.initOAuth();
 			isUseOAuth = true;
@@ -132,17 +132,17 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 		await prompt('> Confirm start deployment?', 'confirm', true);
 	}
 
-	const targets: DeploymentTargets = generateTargets();
-	const fallbackEditSummary: string = await makeEditSummary(isSkipAsk);
+	const targets = generateTargets();
+	const fallbackEditSummary = await makeEditSummary(isSkipAsk);
 
 	for (const api of apis) {
 		const {site} = api;
 		const enabledGadgets: string[] = [];
 
-		const timeFormat: string = 'YYYY-MM-DD HH:mm:ss';
+		const timeFormat = 'YYYY-MM-DD HH:mm:ss';
 
 		const startTime = moment();
-		const startTimeFormatted: string = startTime.format(timeFormat);
+		const startTimeFormatted = startTime.format(timeFormat);
 		console.log(chalk.blue(`--- [${chalk.bold(site)}] all starting at ${startTimeFormatted} ---`));
 
 		console.log(chalk.yellow(`--- [${chalk.bold(site)}] starting deployment ---`));
@@ -154,17 +154,17 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 
 			enabledGadgets.push(gadgetName);
 
-			const originDefinitionFilePath: string = path.join(__rootDir, `src/${gadgetName}/definition.json`);
-			const originDefinitionEditSummary: string = await makeEditSummary(isSkipAsk, {
+			const originDefinitionFilePath = path.join(__rootDir, `src/${gadgetName}/definition.json`);
+			const originDefinitionEditSummary = await makeEditSummary(isSkipAsk, {
 				fallbackEditSummary,
 				filePath: originDefinitionFilePath,
 			});
 			saveDescription(gadgetName, description, api, originDefinitionEditSummary);
 
 			for (const [originFileName, fileName] of files) {
-				const filePath: string = path.join(__rootDir, `dist/${gadgetName}/${originFileName}`);
-				const fileContent: string = readFileContent(filePath);
-				const fileEditSummary: string = await makeEditSummary(isSkipAsk, {
+				const filePath = path.join(__rootDir, `dist/${gadgetName}/${originFileName}`);
+				const fileContent = readFileContent(filePath);
+				const fileEditSummary = await makeEditSummary(isSkipAsk, {
 					fallbackEditSummary,
 					filePath,
 				});
@@ -172,22 +172,17 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 			}
 		}
 
-		const definitionFilePath: string = path.join(__rootDir, 'dist/definition.txt');
-		const definitionEditSummary: string = await makeEditSummary(isSkipAsk, {
+		const definitionFilePath = path.join(__rootDir, 'dist/definition.txt');
+		const definitionEditSummary = await makeEditSummary(isSkipAsk, {
 			fallbackEditSummary,
 			filePath: definitionFilePath,
 		});
-		const currentSiteDefinitionText: string = saveDefinition(
-			definitionText,
-			enabledGadgets,
-			api,
-			definitionEditSummary
-		);
+		const currentSiteDefinitionText = saveDefinition(definitionText, enabledGadgets, api, definitionEditSummary);
 		saveDefinitionSectionPage(currentSiteDefinitionText, api, definitionEditSummary);
 
-		const globalTargets: DeploymentDirectTargets = await generateDirectTargets(site);
-		const globalTargetsFilePath: string = path.join(__rootDir, 'src/global.json');
-		const globalTargetsEditSummary: string = await makeEditSummary(isSkipAsk, {
+		const globalTargets = await generateDirectTargets(site);
+		const globalTargetsFilePath = path.join(__rootDir, 'src/global.json');
+		const globalTargetsEditSummary = await makeEditSummary(isSkipAsk, {
 			fallbackEditSummary,
 			filePath: globalTargetsFilePath,
 		});
@@ -208,13 +203,13 @@ const deploy = async (isSkipAsk: boolean = false, isTest: boolean = false): Prom
 		console.log(chalk.yellow(`--- [${chalk.bold(site)}] end of delete unused pages ---`));
 
 		const endTime = moment();
-		const endTimeFormatted: string = endTime.format(timeFormat);
-		const totalSeconds: number = endTime.diff(startTime, 'seconds');
-		const calcMinutes: number = Math.floor(totalSeconds / 60);
-		const calcSeconds: number = totalSeconds % 60;
+		const endTimeFormatted = endTime.format(timeFormat);
+		const totalSeconds = endTime.diff(startTime, 'seconds');
+		const calcMinutes = Math.floor(totalSeconds / 60);
+		const calcSeconds = totalSeconds % 60;
 		console.log(chalk.blue(`--- [${chalk.bold(site)}] all succeeded at ${endTimeFormatted} ---`));
 
-		const timeTaken: string =
+		const timeTaken =
 			calcMinutes > 0
 				? `${calcMinutes} minutes and ${Math.floor(calcSeconds)} seconds`
 				: `${Math.floor(calcSeconds)} seconds`;

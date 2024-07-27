@@ -2,13 +2,11 @@ import type {
 	Api,
 	Credentials,
 	CredentialsOnlyPassword,
-	DefaultDefinition,
 	DeploymentDirectTargets,
 	DeploymentTargets,
 	GlobalSourceFiles,
 } from '../types';
 import {CONVERT_VARIANT, DEFINITION_SECTION_MAP, VARIANTS} from '../../constant';
-import {type Path, globSync} from 'glob';
 import {
 	__rootDir,
 	exec,
@@ -28,6 +26,7 @@ import {Window} from 'happy-dom';
 import alphaSort from 'alpha-sort';
 import {apiQueue} from '../deploy';
 import chalk from 'chalk';
+import {globSync} from 'glob';
 import path from 'node:path';
 import {setTimeout} from 'node:timers/promises';
 
@@ -39,7 +38,7 @@ const deployPages: Record<string, string[]> = {};
 /**
  * @private
  */
-const eslintOnlyAllowES5: ESLint = new ESLint({
+const eslintOnlyAllowES5 = new ESLint({
 	overrideConfig: {
 		plugins: ['eslint-plugin-es5'],
 		extends: ['plugin:es5/no-es2015', 'plugin:es5/no-es2016'],
@@ -59,14 +58,14 @@ const eslintOnlyAllowES5: ESLint = new ESLint({
  * @return {string|undefined} Gadget definitions (in the format of MediaWiki:Gadgets-definition item)
  * @throws If `dist/definition.txt` is not found
  */
-const readDefinition = (): string => {
-	const definitionPath: string = path.join(__rootDir, 'dist/definition.txt');
+const readDefinition = () => {
+	const definitionPath = path.join(__rootDir, 'dist/definition.txt');
 	if (!existsSync(definitionPath)) {
 		console.log(chalk.red(`Failed to read ${chalk.italic('definition.txt')}, please try build again.`));
 		exit(1);
 	}
 
-	const fileContent: string = readFileContent(definitionPath);
+	const fileContent = readFileContent(definitionPath);
 
 	return fileContent;
 };
@@ -76,15 +75,15 @@ const readDefinition = (): string => {
  *
  * @return {DeploymentTargets} Deployment targets
  */
-const generateTargets = (): DeploymentTargets => {
+const generateTargets = () => {
 	const targets: DeploymentTargets = {};
 
-	const definitionText: string = readDefinition();
-	const definitions: string[] = definitionText.split('\n').filter((lineContent) => {
+	const definitionText = readDefinition();
+	const definitions = definitionText.split('\n').filter((lineContent) => {
 		return /^\*\s\S+?\[ResourceLoader[|\]]/.test(lineContent);
 	});
 
-	const gadgetNames: string[] = definitions.map<string>((definition) => {
+	const gadgetNames = definitions.map<string>((definition) => {
 		const regExpMatchArray = definition.match(/^\*\s(\S+?)\[/) as [string, string];
 		return regExpMatchArray[1];
 	});
@@ -95,7 +94,7 @@ const generateTargets = (): DeploymentTargets => {
 			natural: true,
 		})
 	)) {
-		const definition: DefaultDefinition = generateDefinition(gadgetName, false);
+		const definition = generateDefinition(gadgetName, false);
 		const {description, enable, excludeSites} = definition;
 
 		if (enable === false) {
@@ -111,7 +110,7 @@ const generateTargets = (): DeploymentTargets => {
 			files: [],
 		};
 
-		const distFiles: Path[] = globSync([`${gadgetName}/*.{css,js}`], {
+		const distFiles = globSync([`${gadgetName}/*.{css,js}`], {
 			cwd: path.join(__rootDir, 'dist'),
 			withFileTypes: true,
 		});
@@ -147,7 +146,7 @@ const generateTargets = (): DeploymentTargets => {
  * @param {Api['site']} site The target site name
  * @return {Promise<DeploymentDirectTargets>} Direct deployment targets
  */
-const generateDirectTargets = async (site: Api['site']): Promise<DeploymentDirectTargets> => {
+const generateDirectTargets = async (site: Api['site']) => {
 	const targets: DeploymentDirectTargets = [];
 
 	interface GlobalJsonObject {
@@ -156,13 +155,13 @@ const generateDirectTargets = async (site: Api['site']): Promise<DeploymentDirec
 		};
 	}
 
-	const globalJsonFilePath: string = path.join(__rootDir, 'src/global.json');
+	const globalJsonFilePath = path.join(__rootDir, 'src/global.json');
 	if (!existsSync(globalJsonFilePath)) {
 		console.log(chalk.white(`━ No ${chalk.bold('global.json')} found`));
 		return [];
 	}
 
-	const globalJsonText: string = readFileContent(globalJsonFilePath);
+	const globalJsonText = readFileContent(globalJsonFilePath);
 
 	let globalJsonObject: GlobalJsonObject = {};
 	try {
@@ -172,7 +171,7 @@ const generateDirectTargets = async (site: Api['site']): Promise<DeploymentDirec
 		return [];
 	}
 
-	const currentSiteGlobalTargets: GlobalJsonObject[keyof GlobalJsonObject] | undefined = globalJsonObject[site];
+	const currentSiteGlobalTargets = globalJsonObject[site];
 	if (!currentSiteGlobalTargets) {
 		return [];
 	}
@@ -182,7 +181,7 @@ const generateDirectTargets = async (site: Api['site']): Promise<DeploymentDirec
 			continue;
 		}
 
-		const contentType: GlobalSourceFiles[keyof GlobalSourceFiles]['contentType'] = file.endsWith('.css')
+		const contentType = file.endsWith('.css')
 			? 'text/css'
 			: file.endsWith('.js')
 				? 'application/javascript'
@@ -203,9 +202,9 @@ const generateDirectTargets = async (site: Api['site']): Promise<DeploymentDirec
 		});
 		switch (contentType) {
 			case 'application/javascript': {
-				const lintResult: ESLint.LintResult[] = await eslintOnlyAllowES5.lintText(sourceCode);
-				const formatter: ESLint.Formatter = await eslintOnlyAllowES5.loadFormatter('stylish');
-				const resultText: string = await formatter.format(lintResult);
+				const lintResult = await eslintOnlyAllowES5.lintText(sourceCode);
+				const formatter = await eslintOnlyAllowES5.loadFormatter('stylish');
+				const resultText = await formatter.format(lintResult);
 				if (resultText) {
 					console.log(resultText);
 					console.log(chalk.red(`✘ Failed to lint ${chalk.bold(file)}, skip it`));
@@ -314,23 +313,23 @@ async function checkConfig(
  *
  * @return {Object} The result of parsing the credentials.json file
  */
-const loadConfig = (): typeof credentials => {
-	const logError = (reason: string): void => {
+const loadConfig = () => {
+	const logError = (reason: string) => {
 		console.log(
 			chalk.yellow(`${chalk.italic('credentials.json')} is ${reason}, credentials must be provided manually.`)
 		);
 	};
 
-	let isMissing: boolean = false;
+	let isMissing = false;
 	const {CREDENTIALS_JSON} = env;
 
-	const credentialsFilePath: string = path.join(__rootDir, 'scripts/credentials.json');
+	const credentialsFilePath = path.join(__rootDir, 'scripts/credentials.json');
 	if (!CREDENTIALS_JSON && !existsSync(credentialsFilePath)) {
 		isMissing = true;
 		logError('missing');
 	}
 
-	let credentialsJsonText: string = CREDENTIALS_JSON || '{}';
+	let credentialsJsonText = CREDENTIALS_JSON || '{}';
 	if (!CREDENTIALS_JSON && !isMissing) {
 		credentialsJsonText = readFileContent(credentialsFilePath);
 	}
@@ -344,7 +343,7 @@ const loadConfig = (): typeof credentials => {
 		logError('broken');
 	}
 
-	const sites: string[] = Object.keys(credentials);
+	const sites = Object.keys(credentials);
 	if (!isMissing && (!sites.length || !Object.keys(credentials[sites[0] as string] as Partial<Credentials>).length)) {
 		logError('empty');
 	}
@@ -381,21 +380,21 @@ async function makeEditSummary(
 		fallbackEditSummary?: string;
 	} = {}
 ): Promise<string> {
-	const execLog = async (currentPath: string): Promise<string> => {
+	const execLog = async (currentPath: string) => {
 		try {
 			const {stdout: _log} = await exec(`git log --pretty=format:"%H %s" -1 -- ${currentPath}`);
-			const log: string = _log.trim();
+			const log = _log.trim();
 			if (!log) {
 				return '';
 			}
-			const logSplit: string[] = log.split(' ');
+			const logSplit = log.split(' ');
 			const {stdout: _sha} = await exec(`git rev-parse --short ${logSplit.shift()}`);
 			return `Git commit ${_sha.trim()}: ${logSplit.join(' ')}`;
 		} catch {
 			return '';
 		}
 	};
-	const getLog = async (currentPath: string): Promise<string> => {
+	const getLog = async (currentPath: string) => {
 		if (!existsSync(currentPath)) {
 			return '';
 		}
@@ -419,8 +418,8 @@ async function makeEditSummary(
 		return log;
 	}
 
-	let sha: string = '';
-	let summary: string = '';
+	let sha = '';
+	let summary = '';
 	try {
 		const {stdout: _sha} = await exec('git rev-parse --short HEAD');
 		sha = _sha.trim();
@@ -428,12 +427,12 @@ async function makeEditSummary(
 		summary = _summary.trim();
 	} catch {}
 
-	const customSummary: string = isSkipAsk ? '' : await prompt('> Custom editing summary message (optional):');
-	const customSummaryTrimmed: string = trim(customSummary, {
+	const customSummary = isSkipAsk ? '' : await prompt('> Custom editing summary message (optional):');
+	const customSummaryTrimmed = trim(customSummary, {
 		addNewline: false,
 	});
 	// If trimmed input is an empty string, use the message from the last git commit
-	const editSummary: string = customSummaryTrimmed || `${sha ? `Git commit ${sha}: ` : ''}${summary}`;
+	const editSummary = customSummaryTrimmed || `${sha ? `Git commit ${sha}: ` : ''}${summary}`;
 	console.log(
 		chalk.white(`${customSummaryTrimmed ? 'Editing' : 'Fallback editing'} summary is: ${chalk.bold(editSummary)}`)
 	);
@@ -456,7 +455,7 @@ async function makeEditSummary(
  * @param {Api} api The api instance and the site name
  * @param {string} editSummary The editing summary used by the api instance
  */
-const convertVariant = (pageTitle: string, content: string, api: Api, editSummary: string): void => {
+const convertVariant = (pageTitle: string, content: string, api: Api, editSummary: string) => {
 	const {apiInstance, site} = api;
 
 	/**
@@ -479,8 +478,8 @@ const convertVariant = (pageTitle: string, content: string, api: Api, editSummar
 				.replace(/&#62;/g, '>');
 		});
 
-	const convert = async (variant: string): Promise<boolean> => {
-		const parsedHtml: string = await apiInstance.parseWikitext(
+	const convert = async (variant: string) => {
+		const parsedHtml = await apiInstance.parseWikitext(
 			`{{NoteTA|G1=IT|G2=MediaWiki}}<div class="convertVariant">${content}</div>`,
 			{
 				action: 'parse',
@@ -493,37 +492,35 @@ const convertVariant = (pageTitle: string, content: string, api: Api, editSummar
 			url: apiInstance.options.apiUrl as string,
 		});
 		document.body.innerHTML = `<div>${parsedHtml}</div>`;
-		const convertedDescription: string = document
-			.querySelector('.convertVariant')!
-			.textContent.replace(/-{}-/g, '');
+		const convertedDescription = document.querySelector('.convertVariant')!.textContent.replace(/-{}-/g, '');
 
-		const convertPageTitle: string = `${pageTitle}/${variant}`;
+		const convertPageTitle = `${pageTitle}/${variant}`;
 
 		deployPages[site] ??= [];
 		deployPages[site].push(convertPageTitle);
 
 		const {nochange} = await apiInstance.save(convertPageTitle, convertedDescription, editSummary);
 
-		return !!nochange;
+		return Boolean(nochange);
 	};
 
 	apiQueue
 		.addAll(
 			VARIANTS.map((variant) => {
-				return async (): Promise<boolean> => {
+				return async () => {
 					return await convert(variant);
 				};
 			})
 		)
-		.then((nochanges): void => {
-			const isNoChange: boolean = nochanges.every(Boolean);
+		.then((nochanges) => {
+			const isNoChange = nochanges.every(Boolean);
 			if (isNoChange) {
 				console.log(chalk.yellow(`━ No change converting ${chalk.bold(pageTitle)}`));
 			} else {
 				console.log(chalk.green(`✔ Successfully converted ${chalk.bold(pageTitle)}`));
 			}
 		})
-		.catch((error): void => {
+		.catch((error) => {
 			console.log(chalk.red(`✘ Failed to convert ${chalk.bold(pageTitle)}`));
 			console.error(error);
 		});
@@ -538,9 +535,9 @@ const convertVariant = (pageTitle: string, content: string, api: Api, editSummar
  * @param {string} editSummary The editing summary used by this api instance
  * @return {string} The `MediaWiki:Gadgets-definition` content of the current site
  */
-const saveDefinition = (definitionText: string, enabledGadgets: string[], api: Api, editSummary: string): string => {
+const saveDefinition = (definitionText: string, enabledGadgets: string[], api: Api, editSummary: string) => {
 	const {apiInstance, site} = api;
-	const pageTitle: string = 'MediaWiki:Gadgets-definition';
+	const pageTitle = 'MediaWiki:Gadgets-definition';
 
 	deployPages[site] ??= [];
 	deployPages[site].push(pageTitle);
@@ -548,8 +545,8 @@ const saveDefinition = (definitionText: string, enabledGadgets: string[], api: A
 	definitionText = definitionText
 		.split('\n')
 		.filter((lineContent) => {
-			const regex: RegExp = /^\*\s(\S+?)\[ResourceLoader[|\]]/;
-			const regExpMatchArray: RegExpMatchArray | null = lineContent.match(regex);
+			const regex = /^\*\s(\S+?)\[ResourceLoader[|\]]/;
+			const regExpMatchArray = lineContent.match(regex);
 			if (regExpMatchArray && regExpMatchArray[1]) {
 				return enabledGadgets.includes(regExpMatchArray[1]);
 			}
@@ -557,19 +554,19 @@ const saveDefinition = (definitionText: string, enabledGadgets: string[], api: A
 		})
 		.join('\n');
 
-	const removeEmptySection = (string: string): string => {
-		const firstSectionIndex: number = string.search(/[=]=[\S\s]+?==/);
+	const removeEmptySection = (string: string) => {
+		const firstSectionIndex = string.search(/[=]=[\S\s]+?==/);
 		if (firstSectionIndex === -1) {
 			return string;
 		}
 
-		const keepString: string = string.slice(0, Math.max(0, firstSectionIndex));
+		const keepString = string.slice(0, Math.max(0, firstSectionIndex));
 
 		string = string.slice(Math.max(0, firstSectionIndex));
 		string = string.replace(/\n{3,}/g, '\n\n');
 
-		const blocks: string[] = string.split(/([=]=[\S\s]+?==\n)/);
-		const newBlocks: string[] = [];
+		const blocks = string.split(/([=]=[\S\s]+?==\n)/);
+		const newBlocks = [];
 		for (let i = 0; i < blocks.length; i++) {
 			const block = blocks[i] as string;
 			if (block.startsWith('==') && blocks[i + 1] && !(blocks[i + 1] as string).startsWith('*')) {
@@ -585,7 +582,7 @@ const saveDefinition = (definitionText: string, enabledGadgets: string[], api: A
 
 	definitionText = trim(definitionText);
 
-	void apiQueue.add(async (): Promise<void> => {
+	void apiQueue.add(async () => {
 		try {
 			const {nochange} = await apiInstance.save(pageTitle, definitionText, editSummary);
 			if (nochange) {
@@ -609,27 +606,25 @@ const saveDefinition = (definitionText: string, enabledGadgets: string[], api: A
  * @param {Api} api The api instance and the site name
  * @param {string} editSummary The editing summary used by this api instance
  */
-const saveDefinitionSectionPage = (definitionText: string, api: Api, editSummary: string): void => {
+const saveDefinitionSectionPage = (definitionText: string, api: Api, editSummary: string) => {
 	const {apiInstance, site} = api;
 
-	const sections: string[] = (definitionText.match(/^==([\S\s]+?)==$/gm) as RegExpMatchArray).map<string>(
-		(sectionHeader) => {
-			return sectionHeader.replace(/[=]=/g, '').trim();
-		}
-	);
-	const pageTitles: string[] = sections.map<string>((section) => {
+	const sections = (definitionText.match(/^==([\S\s]+?)==$/gm) as RegExpMatchArray).map<string>((sectionHeader) => {
+		return sectionHeader.replace(/[=]=/g, '').trim();
+	});
+	const pageTitles = sections.map<string>((section) => {
 		return `MediaWiki:Gadget-section-${section}`;
 	});
 
 	for (const [index, section] of sections.entries()) {
-		const sectionText: string = DEFINITION_SECTION_MAP[section as keyof typeof DEFINITION_SECTION_MAP] || section;
+		const sectionText = DEFINITION_SECTION_MAP[section as keyof typeof DEFINITION_SECTION_MAP] || section;
 
-		const pageTitle: string = pageTitles[index] as string;
+		const pageTitle = pageTitles[index] as string;
 
 		deployPages[site] ??= [];
 		deployPages[site].push(pageTitle);
 
-		void apiQueue.add(async (): Promise<void> => {
+		void apiQueue.add(async () => {
 			try {
 				const {nochange} = await apiInstance.save(pageTitle, sectionText, editSummary);
 				if (nochange) {
@@ -657,14 +652,14 @@ const saveDefinitionSectionPage = (definitionText: string, api: Api, editSummary
  * @param {Api} api The api instance and the site name
  * @param {string} editSummary The editing summary used by the api instance
  */
-const saveDescription = (gadgetName: string, description: string, api: Api, editSummary: string): void => {
+const saveDescription = (gadgetName: string, description: string, api: Api, editSummary: string) => {
 	const {apiInstance, site} = api;
-	const pageTitle: string = `MediaWiki:Gadget-${gadgetName}`;
+	const pageTitle = `MediaWiki:Gadget-${gadgetName}`;
 
 	deployPages[site] ??= [];
 	deployPages[site].push(pageTitle);
 
-	void apiQueue.add(async (): Promise<void> => {
+	void apiQueue.add(async () => {
 		try {
 			const {nochange} = await apiInstance.save(pageTitle, description, editSummary);
 			if (nochange) {
@@ -692,14 +687,14 @@ const saveDescription = (gadgetName: string, description: string, api: Api, edit
  * @param {Api} api The api instance and the site name
  * @param {string} editSummary The editing summary used by the api instance
  */
-const saveFiles = (gadgetName: string, fileName: string, fileContent: string, api: Api, editSummary: string): void => {
+const saveFiles = (gadgetName: string, fileName: string, fileContent: string, api: Api, editSummary: string) => {
 	const {apiInstance, site} = api;
-	const pageTitle: string = `MediaWiki:Gadget-${fileName}`;
+	const pageTitle = `MediaWiki:Gadget-${fileName}`;
 
 	deployPages[site] ??= [];
 	deployPages[site].push(pageTitle);
 
-	void apiQueue.add(async (): Promise<void> => {
+	void apiQueue.add(async () => {
 		try {
 			const {nochange} = await apiInstance.save(pageTitle, fileContent, editSummary);
 			if (nochange) {
@@ -726,13 +721,13 @@ const saveFiles = (gadgetName: string, fileName: string, fileContent: string, ap
  * @param {Api} api The api instance and the site name
  * @param {string} editSummary The editing summary used by the api instance
  */
-const savePages = (pageTitle: string, pageContent: string, api: Api, editSummary: string): void => {
+const savePages = (pageTitle: string, pageContent: string, api: Api, editSummary: string) => {
 	const {apiInstance, site} = api;
 
 	deployPages[site] ??= [];
 	deployPages[site].push(pageTitle);
 
-	void apiQueue.add(async (): Promise<void> => {
+	void apiQueue.add(async () => {
 		try {
 			const {nochange} = await apiInstance.save(pageTitle, pageContent, editSummary);
 			if (nochange) {
@@ -754,17 +749,17 @@ const savePages = (pageTitle: string, pageContent: string, api: Api, editSummary
  * @param {string} editSummary The editing summary used by this api instance
  * @param {boolean} [isSkipAsk] Run the deploy process directly or not
  */
-const deleteUnusedPages = async (api: Api, editSummary: string, isSkipAsk?: boolean): Promise<void> => {
+const deleteUnusedPages = async (api: Api, editSummary: string, isSkipAsk?: boolean) => {
 	const {apiInstance, site} = api;
-	const storeFilePath: string = path.join(__rootDir, 'dist/store.txt');
+	const storeFilePath = path.join(__rootDir, 'dist/store.txt');
 
 	let lastDeployPages: typeof deployPages = {};
 	try {
-		const fileContent: string = readFileContent(storeFilePath);
+		const fileContent = readFileContent(storeFilePath);
 		lastDeployPages = JSON.parse(fileContent) as typeof deployPages;
 	} catch {}
 
-	const fullDeployPages: typeof deployPages = sortObject(deployPages, true);
+	const fullDeployPages = sortObject(deployPages, true);
 	for (const [siteName, pages] of Object.entries(lastDeployPages)) {
 		if (fullDeployPages[siteName]) {
 			continue;
@@ -777,24 +772,24 @@ const deleteUnusedPages = async (api: Api, editSummary: string, isSkipAsk?: bool
 		);
 	}
 
-	open(storeFilePath, 'w', (err: NodeJS.ErrnoException | null, fd: number): void => {
+	open(storeFilePath, 'w', (err, fd) => {
 		if (err) {
 			console.error(err);
 			return;
 		}
 
-		const fullDeployPagesSorted: typeof deployPages = sortObject(fullDeployPages);
+		const fullDeployPagesSorted = sortObject(fullDeployPages);
 		writeFileContent(fd, `${JSON.stringify(fullDeployPagesSorted, null, '\t')}\n`);
 	});
 
-	const currentSiteLastDeployPages: string[] = lastDeployPages[site] ?? [];
+	const currentSiteLastDeployPages = lastDeployPages[site] ?? [];
 	if (!currentSiteLastDeployPages.length) {
 		console.log(chalk.yellow('━ No deployment log found'));
 		return;
 	}
 
-	const currentSiteDeloyPages: string[] = fullDeployPages[site] ?? [];
-	const needToDeletePages: string[] = currentSiteLastDeployPages
+	const currentSiteDeloyPages = fullDeployPages[site] ?? [];
+	const needToDeletePages = currentSiteLastDeployPages
 		.toSorted(
 			alphaSort({
 				caseInsensitive: true,
@@ -818,7 +813,7 @@ const deleteUnusedPages = async (api: Api, editSummary: string, isSkipAsk?: bool
 	console.log(chalk.yellow(`--- [${chalk.bold(site)}] deleting will continue in three seconds ---`));
 	await setTimeout(3 * 1000);
 
-	const deletePage = async (pageTitle: string): Promise<void> => {
+	const deletePage = async (pageTitle: string) => {
 		try {
 			await apiInstance.delete(pageTitle, editSummary);
 			console.log(chalk.green(`✔ Successfully deleted ${chalk.bold(pageTitle)}`));
