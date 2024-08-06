@@ -16,7 +16,7 @@
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaVersion": "latest",
-		"project": true
+		"projectService": true
 	},
 	"overrides": [
 		{
@@ -130,12 +130,7 @@
 		"no-continue": "off",
 		"no-div-regex": "error",
 		"no-else-return": "error",
-		"no-empty-function": [
-			"error",
-			{
-				"allow": ["arrowFunctions"]
-			}
-		],
+		"no-empty-function": "off",
 		"no-empty-static-block": "error",
 		"no-eq-null": "error",
 		"no-inline-comments": "off",
@@ -203,6 +198,12 @@
 				"allow": ["arrowFunctions"]
 			}
 		],
+		"@typescript-eslint/no-empty-object-type": [
+			"error",
+			{
+				"allowInterfaces": "always"
+			}
+		],
 		"@typescript-eslint/no-explicit-any": "warn",
 		"@typescript-eslint/no-floating-promises": [
 			"warn",
@@ -217,6 +218,7 @@
 				"allowedNames": ["self"]
 			}
 		],
+		"@typescript-eslint/no-unnecessary-template-expression": "error",
 		"@typescript-eslint/no-unsafe-argument": "warn",
 		"@typescript-eslint/no-unsafe-assignment": "warn",
 		"@typescript-eslint/no-unsafe-call": "warn",
@@ -242,6 +244,7 @@
 				}
 			}
 		],
+		"@typescript-eslint/prefer-find": "error",
 
 		"compat/compat": "off",
 
@@ -288,6 +291,7 @@
 		"unicorn/no-unreadable-array-destructuring": "off",
 		"unicorn/no-unsafe-regex": "off",
 		"unicorn/no-unused-properties": "off",
+		"unicorn/prefer-array-find": "off",
 		"unicorn/prefer-regexp-test": "off",
 		"unicorn/prefer-set-has": "off",
 		"unicorn/prefer-string-replace-all": "off",

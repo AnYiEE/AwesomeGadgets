@@ -45,7 +45,7 @@ class FakeApi implements Partial<Mwn> {
 	public getTokensAndSiteInfo() {
 		return Promise.resolve();
 	}
-	// eslint-disable-next-line class-methods-use-this, no-empty-function, @typescript-eslint/no-empty-function
+	// eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-empty-function
 	public initOAuth() {}
 	// eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
 	public parseWikitext(content: string, _additionalParams?: ApiParseParams) {
