@@ -1,3 +1,29 @@
+diff --git a/index.d.ts b/index.d.ts
+index f471fcb1b5446e04e357519a71ea26a356d080a2..7e39c042f7e48aadc3beda470a25c73815037550 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -97,13 +97,13 @@ declare interface BuildOptions
+    * @default "camelCaseOnly"
+    */
+   localsConvention?: 'camelCase' | 'pascalCase' | 'camelCaseOnly' | 'pascalCaseOnly';
+-  /**
++  /**
+    * Features that should always be compiled, even when supported by targets.
+    * @see https://lightningcss.dev/transpilation.html#feature-flags
+    */
+   featuresInclude?: BundleOptions<CustomAtRules>['include'];
+   /**
+-   * Features that should never be compiled, even when unsupported by targets.
++   * Features that should never be compiled, even when unsupported by targets.
+    * @see https://lightningcss.dev/transpilation.html#feature-flags
+    */
+   featuresExclude?: BundleOptions<CustomAtRules>['exclude'];
+@@ -155,4 +155,4 @@ declare namespace CssModulesPlugin {
+   }
+ }
+
+-export = CssModulesPlugin;
++export default CssModulesPlugin;
 diff --git a/lib/css.helper.js b/lib/css.helper.js
 index f527b34d8d8e900633cf0863f29f30d375c70727..5ffbe08e99b42d3d32f74747098719dc832e7615 100644
 --- a/lib/css.helper.js
