@@ -11,7 +11,7 @@ interface File {
 }
 type Files = File[];
 
-const checkTargetDir = (fileName: string, filePath: string): boolean => {
+const checkTargetDir = (fileName: string, filePath: string) => {
 	const relativePath = path.relative(__rootDir, filePath);
 	const parts = relativePath.split(path.sep);
 
@@ -57,7 +57,7 @@ const generateTargetFiles = (paths: string[]): Files => {
 	];
 };
 
-const formatJSON = async (paths: string[] = []): Promise<void> => {
+const formatJSON = async (paths: string[] = []) => {
 	const files = generateTargetFiles(paths);
 	if (!files.length) {
 		return;

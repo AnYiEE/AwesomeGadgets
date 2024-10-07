@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import {type BuildOptions, type Plugin} from 'esbuild';
-import {type Targets, browserslistToTargets} from 'lightningcss';
 // @ts-expect-error TS7016
 import LessPluginNpmImport from 'less-plugin-npm-import';
 // @ts-expect-error TS7016
 import LessPluginPresetEnv from 'less-plugin-preset-env';
 import {SOURCE_MAP} from '../constant';
 import browserslist from 'browserslist';
+import {browserslistToTargets} from 'lightningcss';
 import esbuildPluginCssModules from 'esbuild-css-modules-plugin';
 import {lessLoader as esbuildPluginLess} from 'esbuild-plugin-less';
 import esbuildPluginPostcss from 'esbuild-postcss';
@@ -29,8 +29,8 @@ const loader = {
 const lessOptions: Less.Options = {
 	plugins: [new LessPluginPresetEnv() as unknown as Less.Plugin, new LessPluginNpmImport() as unknown as Less.Plugin],
 };
-const postcssConfig: postcssLoadConfig.Result = await postcssLoadConfig();
-const targets: Targets = browserslistToTargets(browserslist());
+const postcssConfig = await postcssLoadConfig();
+const targets = browserslistToTargets(browserslist());
 
 /**
  * @see {@link https://esbuild.github.io/api/#general-options}
