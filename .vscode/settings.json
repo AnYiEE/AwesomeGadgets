@@ -44,10 +44,10 @@
 	"[jsonc]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"[yml]": {
+	"[yaml]": {
 		"editor.defaultFormatter": "redhat.vscode-yaml"
 	},
-	"[yaml]": {
+	"[yml]": {
 		"editor.defaultFormatter": "redhat.vscode-yaml"
 	},
 	"css.format.spaceAroundSelectorSeparator": true,
@@ -60,8 +60,8 @@
 	"explorer.fileNesting.enabled": true,
 	"explorer.fileNesting.expand": false,
 	"explorer.fileNesting.patterns": {
-		"package.json": ".*cache, .*ignore, .*rc, .editorConfig, .git*, pnpm-lock.yaml, tsconfig.json, LICENSE",
-		"readme*": "*.md"
+		"package.json": ".*cache, .*ignore, .*rc, .editorConfig, .git*, pnpm-lock.yaml, tsconfig.json, tsconfig.tsbuildinfo",
+		"readme*": "*.md, LICENSE"
 	},
 	"json.schemas": [
 		{

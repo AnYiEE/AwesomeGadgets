@@ -72,8 +72,8 @@ console.log({
 
 对于 MediaWiki 内置的一部分包，可以通过以下的方式使用：<br> For some MediaWiki built-in packages, you can use them as follows:
 
--   `jquery.ui`、`mediawiki.util`和`oojs-ui-core`等“第一方”包<br>First-party packages such as `jquery.ui`, `mediawiki.util`, and `oojs-ui-core`
-    -   在小工具对应的`definition.json`中，将对应的包添加为依赖项（`dependencies`）<br>In the corresponding `definition.json` of the gadget, just add the used package as a dependency
+- `jquery.ui`、`mediawiki.util`和`oojs-ui-core`等“第一方”包<br>First-party packages such as `jquery.ui`, `mediawiki.util`, and `oojs-ui-core`
+    - 在小工具对应的`definition.json`中，将对应的包添加为依赖项（`dependencies`）<br>In the corresponding `definition.json` of the gadget, just add the used package as a dependency
 
 ```jsonc
 {
@@ -82,11 +82,11 @@ console.log({
 }
 ```
 
--   `moment`
+- `moment`
 
-    -   目标 MediaWiki 的版本不低于 1.38<br>The target MediaWiki version is at least 1.38
-        -   在小工具对应的`definition.json`中，将`moment`添加为依赖项（`dependencies`）<br>In the corresponding `definition.json` of the gadget, add the `moment` package as a dependency
-        -   使用`import`来导入，如：<br> Use `import`. For example:
+    - 目标 MediaWiki 的版本不低于 1.38<br>The target MediaWiki version is at least 1.38
+        - 在小工具对应的`definition.json`中，将`moment`添加为依赖项（`dependencies`）<br>In the corresponding `definition.json` of the gadget, add the `moment` package as a dependency
+        - 使用`import`来导入，如：<br> Use `import`. For example:
 
 ```jsonc
 {
@@ -101,5 +101,5 @@ import moment from 'moment';
 console.log(moment.utc());
 ```
 
--   `@wikimedia/codex`、`vue`和`pinia`等 Vue 相关的包<br>Vue-related packages such as `@wikimedia/codex`, `vue` and `pinia`
-    -   见[文档](how-to-use-vue.md)<br>See [documentation](how-to-use-vue.md)
+- `@wikimedia/codex`、`vue`和`pinia`等 Vue 相关的包<br>Vue-related packages such as `@wikimedia/codex`, `vue` and `pinia`
+    - 见[文档](how-to-use-vue.md)<br>See [documentation](how-to-use-vue.md)

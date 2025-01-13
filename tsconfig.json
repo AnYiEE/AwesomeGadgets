@@ -20,8 +20,6 @@
 		"module": "ESNext",
 		"moduleResolution": "Node",
 		"paths": {
-			"types-mediawiki": ["node_modules/types-mediawiki-renovate"],
-			"types-mediawiki/*": ["node_modules/types-mediawiki-renovate/*"],
 			"~/*": ["src/*"]
 		},
 		"resolveJsonModule": true,
@@ -51,10 +49,11 @@
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"target": "ESNext",
 
+		"incremental": true,
 		"skipLibCheck": true
 	},
-	"exclude": ["node_modules/types-mediawiki-renovate/scripts"],
-	"include": ["node_modules/types-mediawiki-renovate", "scripts/**/*", "src/**/*", "src/**/*.vue"],
+	"exclude": ["node_modules/types-mediawiki/scripts"],
+	"include": ["node_modules/types-mediawiki", "scripts/**/*", "src/**/*", "src/**/*.vue"],
 
 	"vueCompilerOptions": {
 		"plugins": ["@vue/language-plugin-pug"]

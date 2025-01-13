@@ -26,7 +26,7 @@ import path from 'node:path';
 /**
  * @private
  */
-const concurrency = MAX_CONCURRENCY > 256 ? 256 : MAX_CONCURRENCY;
+const concurrency = Math.min(MAX_CONCURRENCY, 256);
 
 const apiQueue = new PQueue({
 	concurrency,
