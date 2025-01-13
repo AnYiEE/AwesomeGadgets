@@ -292,6 +292,7 @@
 		"unicorn/no-unsafe-regex": "off",
 		"unicorn/no-unused-properties": "off",
 		"unicorn/prefer-array-find": "off",
+		"unicorn/prefer-global-this": "off",
 		"unicorn/prefer-regexp-test": "off",
 		"unicorn/prefer-set-has": "off",
 		"unicorn/prefer-string-replace-all": "off",

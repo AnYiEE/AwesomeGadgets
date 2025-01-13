@@ -135,13 +135,17 @@
 			"eslint-plugin-vue@<9": "$eslint-plugin-vue",
 			"known-css-properties": "latest",
 			"stylelint-config-wikimedia": "$stylelint-config-wikimedia",
+			"@vue/compiler-dom": "$vue",
+			"@vue/compiler-core": "$vue",
+			"@vue/compiler-sfc": "$vue",
 			"@vue/shared": "$vue"
 		},
 		"patchedDependencies": {
 			"alpha-sort@5.0.0": "patches/alpha-sort@5.0.0.patch",
 			"esbuild-css-modules-plugin@3.1.2": "patches/esbuild-css-modules-plugin@3.1.2.patch",
 			"eslint-config-wikimedia@0.28.2": "patches/eslint-config-wikimedia@0.28.2.patch",
-			"eslint-plugin-no-jquery@3.1.0": "patches/eslint-plugin-no-jquery@3.1.0.patch"
+			"eslint-plugin-no-jquery@3.1.0": "patches/eslint-plugin-no-jquery@3.1.0.patch",
+			"types-mediawiki@1.9.1": "patches/types-mediawiki@1.9.1.patch"
 		}
 	}
 }

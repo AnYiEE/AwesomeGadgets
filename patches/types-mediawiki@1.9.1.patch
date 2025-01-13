@@ -1,0 +1,126 @@
+diff --git a/api_params/index.d.ts b/api_params/index.d.ts
+index 287a89da82c1a24807eb0be08ac72bb4c9ca759e..ce9ada11869275b73b10296ee05a6463222cc403 100644
+--- a/api_params/index.d.ts
++++ b/api_params/index.d.ts
+@@ -46,6 +46,7 @@ export interface ApiParams {
+     responselanginfo?: boolean;
+     origin?: string;
+     uselang?: string;
++    variant?: string;
+     errorformat?: "bc" | "html" | "none" | "plaintext" | "raw" | "wikitext";
+     errorlang?: string;
+     errorsuselocal?: boolean;
+@@ -433,17 +434,7 @@ export interface DiscussionToolsApiDiscussionToolsEditParams extends ApiParams {
+     summary?: string;
+     sectiontitle?: string;
+     allownosectiontitle?: boolean;
+-    useskin?:
+-        | "apioutput"
+-        | "cologneblue"
+-        | "contenttranslation"
+-        | "fallback"
+-        | "minerva"
+-        | "modern"
+-        | "monobook"
+-        | "timeless"
+-        | "vector"
+-        | "vector-2022";
++    useskin?: string;
+     watchlist?: string;
+     captchaid?: string;
+     captchaword?: string;
+@@ -477,17 +468,7 @@ export interface DiscussionToolsApiDiscussionToolsPreviewParams extends ApiParam
+     page?: string;
+     wikitext?: string;
+     sectiontitle?: string;
+-    useskin?:
+-        | "apioutput"
+-        | "cologneblue"
+-        | "contenttranslation"
+-        | "fallback"
+-        | "minerva"
+-        | "modern"
+-        | "monobook"
+-        | "timeless"
+-        | "vector"
+-        | "vector-2022";
++    useskin?: string;
+     mobileformat?: boolean;
+ }
+ 
+@@ -910,17 +891,7 @@ export interface ApiImportParams extends ApiParams {
+     summary?: string;
+     xml?: upload;
+     interwikiprefix?: string;
+-    interwikisource?:
+-        | "commons"
+-        | "de"
+-        | "es"
+-        | "fr"
+-        | "it"
+-        | "meta"
+-        | "nost"
+-        | "outreachwiki"
+-        | "pl"
+-        | "test2wiki";
++    interwikisource?: string;
+     interwikipage?: string;
+     fullhistory?: boolean;
+     templates?: boolean;
+@@ -1352,17 +1323,7 @@ export interface ApiParseParams extends ApiParams {
+     preview?: boolean;
+     sectionpreview?: boolean;
+     disabletoc?: boolean;
+-    useskin?:
+-        | "apioutput"
+-        | "cologneblue"
+-        | "contenttranslation"
+-        | "fallback"
+-        | "minerva"
+-        | "modern"
+-        | "monobook"
+-        | "timeless"
+-        | "vector"
+-        | "vector-2022";
++    useskin?: string;
+     contentformat?:
+         | "application/json"
+         | "application/octet-stream"
+@@ -2759,17 +2720,7 @@ export interface VisualEditorApiVisualEditorEditParams extends ApiParams {
+     returnto?: string;
+     returntoquery?: string;
+     returntoanchor?: string;
+-    useskin?:
+-        | "apioutput"
+-        | "cologneblue"
+-        | "contenttranslation"
+-        | "fallback"
+-        | "minerva"
+-        | "modern"
+-        | "monobook"
+-        | "timeless"
+-        | "vector"
+-        | "vector-2022";
++    useskin?: string;
+     tags?: string | string[];
+     plugins?: string | string[];
+     mobileformat?: boolean;
+diff --git a/mw/Api.d.ts b/mw/Api.d.ts
+index ffbe4d03f642e449eb2c14b1877121411c45cef2..5e417059a119d45964ab8f69707ac9c460d00750 100644
+--- a/mw/Api.d.ts
++++ b/mw/Api.d.ts
+@@ -1,4 +1,5 @@
+ import {
++    ApiParams,
+     ApiAssert,
+     ApiEditPageParams,
+     ApiLegacyTokenType,
+@@ -16,7 +17,7 @@ type Tail<T extends any[]> = T extends [] ? T : T extends [any?, ...infer R] ? R
+ type TypeOrArray<T> = T extends any ? T | T[] : never; // T[] would be a mixed array
+ type ReplaceValue<T extends U | U[], U, V> = T extends U[] ? V[] : V;
+ 
+-type UnknownApiParams = Record<string, string | number | boolean | string[] | number[] | undefined>;
++type UnknownApiParams = Record<string, string | number | boolean | string[] | number[] | undefined> | ApiParams;
+ 
+ export type ApiResponse = Record<string, any>; // it will always be a JSON object, the rest is uncertain ...
+ 

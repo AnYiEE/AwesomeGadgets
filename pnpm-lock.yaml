@@ -14,6 +14,9 @@ overrides:
   eslint-plugin-vue@<9: ^9.32.0
   known-css-properties: latest
   stylelint-config-wikimedia: ^0.18.0
+  '@vue/compiler-dom': 3.3.9
+  '@vue/compiler-core': 3.3.9
+  '@vue/compiler-sfc': 3.3.9
   '@vue/shared': 3.3.9
 
 patchedDependencies:
@@ -29,6 +32,9 @@ patchedDependencies:
   eslint-plugin-no-jquery@3.1.0:
     hash: j5tec5l4ch3r5tyouixtzytkrm
     path: patches/eslint-plugin-no-jquery@3.1.0.patch
+  types-mediawiki@1.9.1:
+    hash: vq7dw26e2dx4lkf63ka2w3gisu
+    path: patches/types-mediawiki@1.9.1.patch
 
 importers:
 
@@ -249,7 +255,7 @@ importers:
         version: 4.19.2
       types-mediawiki:
         specifier: ^1.9.1
-        version: 1.9.1(typescript@5.7.3)
+        version: 1.9.1(patch_hash=vq7dw26e2dx4lkf63ka2w3gisu)(typescript@5.7.3)
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
@@ -1765,26 +1771,14 @@ packages:
   '@vue/compiler-core@3.3.9':
     resolution: {integrity: sha512-+/Lf68Vr/nFBA6ol4xOtJrW+BQWv3QWKfRwGSm70jtXwfhZNF4R/eRgyVJYoxFRhdCTk/F6g99BP0ffPgZihfQ==}
 
-  '@vue/compiler-core@3.5.13':
-    resolution: {integrity: sha512-oOdAkwqUfW1WqpwSYJce06wvt6HljgY3fGeM9NcVA1HaYOij3mZG9Rkysn0OHuyUAGMbEbARIpsG+LPVlBJ5/Q==}
-
   '@vue/compiler-dom@3.3.9':
     resolution: {integrity: sha512-nfWubTtLXuT4iBeDSZ5J3m218MjOy42Vp2pmKVuBKo2/BLcrFUX8nCSr/bKRFiJ32R8qbdnnnBgRn9AdU5v0Sg==}
-
-  '@vue/compiler-dom@3.5.13':
-    resolution: {integrity: sha512-ZOJ46sMOKUjO3e94wPdCzQ6P1Lx/vhp2RSvfaab88Ajexs0AHeV0uasYhi99WPaogmBlRHNRuly8xV75cNTMDA==}
 
   '@vue/compiler-sfc@3.3.9':
     resolution: {integrity: sha512-wy0CNc8z4ihoDzjASCOCsQuzW0A/HP27+0MDSSICMjVIFzk/rFViezkR3dzH+miS2NDEz8ywMdbjO5ylhOLI2A==}
 
-  '@vue/compiler-sfc@3.5.13':
-    resolution: {integrity: sha512-6VdaljMpD82w6c2749Zhf5T9u5uLBWKnVue6XWxprDobftnletJ8+oel7sexFfM3qIxNmVE7LSFGTpv6obNyaQ==}
-
   '@vue/compiler-ssr@3.3.9':
     resolution: {integrity: sha512-NO5oobAw78R0G4SODY5A502MGnDNiDjf6qvhn7zD7TJGc8XDeIEw4fg6JU705jZ/YhuokBKz0A5a/FL/XZU73g==}
-
-  '@vue/compiler-ssr@3.5.13':
-    resolution: {integrity: sha512-wMH6vrYHxQl/IybKJagqbquvxpWCuVYpoUJfCqFZwa/JY1GdATAQ+TgVtgrwwMZ0D07QhA99rs/EAAWfvG6KpA==}
 
   '@vue/compiler-vue2@2.7.16':
     resolution: {integrity: sha512-qYC3Psj9S/mfu9uVi5WvNZIzq+xnXMhOwbTFKKDD7b1lhpnn71jXSFdTQ+WsIEk0ONCd7VV2IMm7ONl6tbQ86A==}
@@ -6484,22 +6478,9 @@ snapshots:
       estree-walker: 2.0.2
       source-map-js: 1.2.1
 
-  '@vue/compiler-core@3.5.13':
-    dependencies:
-      '@babel/parser': 7.26.5
-      '@vue/shared': 3.3.9
-      entities: 4.5.0
-      estree-walker: 2.0.2
-      source-map-js: 1.2.1
-
   '@vue/compiler-dom@3.3.9':
     dependencies:
       '@vue/compiler-core': 3.3.9
-      '@vue/shared': 3.3.9
-
-  '@vue/compiler-dom@3.5.13':
-    dependencies:
-      '@vue/compiler-core': 3.5.13
       '@vue/shared': 3.3.9
 
   '@vue/compiler-sfc@3.3.9':
@@ -6515,26 +6496,9 @@ snapshots:
       postcss: 8.4.49
       source-map-js: 1.2.1
 
-  '@vue/compiler-sfc@3.5.13':
-    dependencies:
-      '@babel/parser': 7.26.5
-      '@vue/compiler-core': 3.5.13
-      '@vue/compiler-dom': 3.5.13
-      '@vue/compiler-ssr': 3.5.13
-      '@vue/shared': 3.3.9
-      estree-walker: 2.0.2
-      magic-string: 0.30.17
-      postcss: 8.4.49
-      source-map-js: 1.2.1
-
   '@vue/compiler-ssr@3.3.9':
     dependencies:
       '@vue/compiler-dom': 3.3.9
-      '@vue/shared': 3.3.9
-
-  '@vue/compiler-ssr@3.5.13':
-    dependencies:
-      '@vue/compiler-dom': 3.5.13
       '@vue/shared': 3.3.9
 
   '@vue/compiler-vue2@2.7.16':
@@ -6568,7 +6532,7 @@ snapshots:
   '@vue/language-core@2.2.0(typescript@5.7.3)':
     dependencies:
       '@volar/language-core': 2.4.11
-      '@vue/compiler-dom': 3.5.13
+      '@vue/compiler-dom': 3.3.9
       '@vue/compiler-vue2': 2.7.16
       '@vue/shared': 3.3.9
       alien-signals: 0.4.14
@@ -7318,8 +7282,8 @@ snapshots:
 
   esbuild-plugin-vue3@0.4.1(pug@3.0.3)(sass@1.83.1):
     dependencies:
-      '@vue/compiler-core': 3.5.13
-      '@vue/compiler-sfc': 3.5.13
+      '@vue/compiler-core': 3.3.9
+      '@vue/compiler-sfc': 3.3.9
       esbuild: 0.14.54
       typescript: 4.9.5
     optionalDependencies:
@@ -8504,7 +8468,7 @@ snapshots:
       form-data: 4.0.1
       oauth-1.0a: 2.2.6
       tough-cookie: 4.1.4
-      types-mediawiki: 1.9.1(typescript@5.7.3)
+      types-mediawiki: 1.9.1(patch_hash=vq7dw26e2dx4lkf63ka2w3gisu)(typescript@5.7.3)
     transitivePeerDependencies:
       - debug
       - typescript
@@ -9709,7 +9673,7 @@ snapshots:
       possible-typed-array-names: 1.0.0
       reflect.getprototypeof: 1.0.10
 
-  types-mediawiki@1.9.1(typescript@5.7.3):
+  types-mediawiki@1.9.1(patch_hash=vq7dw26e2dx4lkf63ka2w3gisu)(typescript@5.7.3):
     dependencies:
       '@types/jquery': 3.5.32
       '@types/oojs-ui': 0.49.3
