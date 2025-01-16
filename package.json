@@ -112,7 +112,7 @@
 		"proxy-polyfill": "^0.3.2",
 		"pug": "^3.0.3",
 		"rimraf": "^6.0.1",
-		"stylelint": "^16.13.2",
+		"stylelint": "16.12.0",
 		"stylelint-config-css-modules": "^4.4.0",
 		"stylelint-config-wikimedia": "^0.18.0",
 		"tsx": "^4.19.2",
