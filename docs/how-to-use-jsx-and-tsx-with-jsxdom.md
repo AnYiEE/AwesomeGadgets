@@ -33,31 +33,31 @@ document.body.append(
 
 #### 目标 MediaWiki 的版本不低于 1.38<br>The target MediaWiki version is at least 1.38
 
-1. 根据实际情况修改`src/React`文件夹中的以下文件<br>According to actual needs, modify some files in the `src/React` folder
+1. 根据实际情况修改`src/JSX`文件夹中的以下文件<br>According to actual needs, modify some files in the `src/JSX` folder
 
-    - `React.ts`
+    - `JSX.ts`
     - `modules/global.d.ts`
     - `definition.json`（将`enable`属性改为`true`）/ (change `enable` property to `true`)
 
-2. 在小工具对应的`definition.json`中，将`ext.gadget.React`添加为依赖项（`dependencies`）<br>In the corresponding `definition.json` of the gadget, add the `ext.gadget.React` as a dependency
+2. 在小工具对应的`definition.json`中，将`ext.gadget.JSX`添加为依赖项（`dependencies`）<br>In the corresponding `definition.json` of the gadget, add the `ext.gadget.JSX` as a dependency
 
 ```jsonc
 {
-	"dependencies": ["ext.gadget.React"],
+	"dependencies": ["ext.gadget.JSX"],
 	// Other properties...
 }
 ```
 
-3. 在 JSX 或 TSX 中，使用`import`导入`ext.gadget.React`<br>In the place where you need to use `jsx-dom`, import it using `import`
+3. 在 JSX 或 TSX 中，使用`import`导入`ext.gadget.JSX`<br>In the place where you need to use `jsx-dom`, import it using `import`
 
 ```ts
-import React from 'ext.gadget.React';
+import React from 'ext.gadget.JSX';
 ```
 
 现在，你可以使用 JSX 或 TSX 语法来创建 DOM 元素，并使用样式化组件来创建组件。<br>Now you can use JSX or TSX syntax to create DOM elements and use styled components to create components.
 
 ```tsx
-import React, {styled} from 'ext.gadget.React';
+import React, {styled} from 'ext.gadget.JSX';
 
 const Header = styled.h2`
 	font-size: 1.5em;

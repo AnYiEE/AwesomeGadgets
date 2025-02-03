@@ -5,4 +5,4 @@
 </div>
 
 == appear ==
-* React[ResourceLoader]|React.js
+* JSX[ResourceLoader]|JSX.js
