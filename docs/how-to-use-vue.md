@@ -55,6 +55,8 @@ createMwApp(App).mount(root);
 
 #### 特别说明<br>Notes
 
+- Vue 组件中需要临时将 TypeScript 的版本从“使用工作区版本”切换至“使用 VS Code 的版本”<br>In the Vue component, you need to temporarily switch the TypeScript version from "Use Workspace Version" to "Use VSCode's Version"
+    - https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-newer-typescript-versions
 - `vue`和`pinia`已经内置在仓库中，无需额外安装<br>`vue` and `pinia` are already built into the repository, no need to install
 - `@wikimedia/codex`等其他 Vue 相关的组件包需要额外按需安装<br>Other Vue-related components need to be installed separately
 - Vue 组件中可以使用 Less 样式语法和 Pug 模板语法<br>Vue components can use Less style syntax and Pug template syntax
