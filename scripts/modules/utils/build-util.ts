@@ -143,7 +143,7 @@ const generateTransformOptions = () => {
 				{
 					bugfixes: true, // FIXME: Remove when updating to Babel 8
 					corejs: {
-						version: PACKAGE.devDependencies['core-js'].match(/\d+(?:.\d+){0,2}/)?.[0] ?? '3.40',
+						version: PACKAGE.devDependencies['core-js'].match(/\d+(?:.\d+){0,2}/)?.[0] ?? '3.41',
 					},
 					exclude: ['web.dom-collections.for-each', 'web.dom-collections.iterator'],
 					include: [] as string[],
