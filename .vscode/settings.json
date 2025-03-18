@@ -60,8 +60,8 @@
 	"explorer.fileNesting.enabled": true,
 	"explorer.fileNesting.expand": false,
 	"explorer.fileNesting.patterns": {
-		"package.json": ".*cache, .*ignore, .*rc, .editorConfig, .git*, pnpm-lock.yaml, tsconfig.json, tsconfig.tsbuildinfo",
-		"readme*": "*.md, LICENSE"
+		"package.json": ".*cache, .*ignore, .*rc, .editorconfig, .git*, pnpm-lock.yaml, tsconfig.json, tsconfig.tsbuildinfo",
+		"README*": "*.md, LICENSE"
 	},
 	"json.schemas": [
 		{
@@ -78,5 +78,34 @@
 		}
 	],
 	"typescript.enablePromptUseWorkspaceTsdk": true,
-	"typescript.tsdk": "./node_modules/typescript/lib"
+	"typescript.tsdk": "./node_modules/typescript/lib",
+	"cSpell.words": [
+		"browserslistrc",
+		"contentmodel",
+		"corejs",
+		"dataurl",
+		"demi",
+		"fullpath",
+		"idents",
+		"jqueryui",
+		"lightningcss",
+		"missingtitle",
+		"mrhenry",
+		"newrevid",
+		"newtimestamp",
+		"nochange",
+		"nodelist",
+		"nonconstructor",
+		"nowiki",
+		"oldrevid",
+		"oojs",
+		"pageid",
+		"prefsection",
+		"qiuwen",
+		"qiuwenbaike",
+		"sitewide",
+		"unorm",
+		"uselang",
+		"wikitext"
+	]
 }

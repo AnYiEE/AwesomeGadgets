@@ -450,7 +450,7 @@ async function makeEditSummary(
 /**
  * Convert language variants of a page
  *
- * @param {string} pageTitle The titie of this page
+ * @param {string} pageTitle The title of this page
  * @param {string} content The content of this page
  * @param {Api} api The api instance and the site name
  * @param {string} editSummary The editing summary used by the api instance
@@ -512,8 +512,8 @@ const convertVariant = (pageTitle: string, content: string, api: Api, editSummar
 				};
 			})
 		)
-		.then((nochanges) => {
-			const isNoChange = nochanges.every(Boolean);
+		.then((noChanges) => {
+			const isNoChange = noChanges.every(Boolean);
 			if (isNoChange) {
 				console.log(chalk.yellow(`━ No change converting ${chalk.bold(pageTitle)}`));
 			} else {
@@ -788,7 +788,7 @@ const deleteUnusedPages = async (api: Api, editSummary: string, isSkipAsk?: bool
 		return;
 	}
 
-	const currentSiteDeloyPages = fullDeployPages[site] ?? [];
+	const currentSiteDeployPages = fullDeployPages[site] ?? [];
 	const needToDeletePages = currentSiteLastDeployPages
 		.toSorted(
 			alphaSort({
@@ -797,7 +797,7 @@ const deleteUnusedPages = async (api: Api, editSummary: string, isSkipAsk?: bool
 			})
 		)
 		.filter((page) => {
-			return !currentSiteDeloyPages.includes(page);
+			return !currentSiteDeployPages.includes(page);
 		});
 	if (!needToDeletePages.length) {
 		console.log(chalk.yellow('━ No page need to delete'));

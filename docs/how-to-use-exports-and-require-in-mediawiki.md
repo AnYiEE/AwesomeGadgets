@@ -48,7 +48,7 @@ pnpm add <package-name>
 pnpm add @wikimedia/codex
 ```
 
-如果需要导入的不是 npm 包或包名与 MiediaWiki 内置模块不同，则应该在导入前于小工具的`*.d.ts`中声明相关类型，如：<br>If the imported package is not a npm package or the package name is different from MediaWiki built-in modules, you should declare the types in the `*.d.ts` of the gadget before importing it. For example:
+如果需要导入的不是 npm 包或包名与 MediaWiki 内置模块不同，则应该在导入前于小工具的`*.d.ts`中声明相关类型，如：<br>If the imported package is not a npm package or the package name is different from MediaWiki built-in modules, you should declare the types in the `*.d.ts` of the gadget before importing it. For example:
 
 ```ts
 declare module 'ext.gadget.any_package' {

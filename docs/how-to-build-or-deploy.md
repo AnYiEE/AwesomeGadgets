@@ -103,7 +103,7 @@
     ```jsonc
     {
     	"siteA": {
-    		"Commmon.js": {
+    		"Common.js": {
     			"enable": true,
     			"sourceCode": "mw.loader.using(['ext.gadget.Common']);", // 此处的代码不会经过编译，仅支持 CSS 或使用 ES5 语法的 JavaScript / The code here will not be compiled, only supports CSS or JavaScript using ES5 syntax
     			"licenseText": "", // 可选 / Optional
