@@ -1,28 +1,35 @@
 ### 用法 / Usage
 
-#### 对于小工具开发者：<br>For gadget developers:
+#### 对于小工具开发者 / For gadget developers
 
-1. Fork 由目标 MediaWiki 网站所维护的仓库<br>Fork the repository maintained by the target MediaWiki website
+1. **克隆仓库**<br>克隆由目标 MediaWiki 网站所维护的仓库<br>Fork the repository maintained by the target MediaWiki site
 
-2. 在`src`文件夹下以小工具名新建文件夹<br>Create a new folder within the `src` directory, using the name of your gadget
+2. **创建小工具目录**<br>在`src`目录下以小工具名新建文件夹<br>Create a new folder within the `src` directory, using the name of your gadget
 
-3. 在目录下新建`小工具名.{js, ts, css, less}`或`index.{js, ts, css, less}`<br>Within the directory, create either `GadgetName.{js, ts, css, less}` or `index.{js, ts, css, less}`
+3. **创建入口文件**<br>在目录下新建`小工具名.{js, ts, css, less}`或`index.{js, ts, css, less}`文件<br>Within the directory, create either `GadgetName.{js, ts, css, less}` or `index.{js, ts, css, less}` file
 
-编译时的优先级如下：<br>The priority of compilation is as follows:
+- 编译优先级<br>The priority of compilation
 
-1.  `index.*` > `小工具名.*` / `index.*` > `GadgetName.*`
-2.  `*.{tsx, ts}` > `*.{jsx, js}`
-3.  `*.{jsx, tsx}` > `*.{js, ts}`
-4.  `*.less` > `*.css`
-5.  `.vue`仅供被其他脚本导入 / `.vue` files are only allowed import by other script files
+```
+1. `index.*` > `GadgetName.*`
+2. `*.{tsx, ts}` > `*.{jsx, js}`
+3. `*.{jsx, tsx}` > `*.{js, ts}`
+4. `*.less` > `*.css`
+5. `.vue`仅供被其他脚本导入 / `.vue` files are only allowed import by other script files
+```
+
+4.  **样式管理**
 
 - 如果小工具包含脚本，且使用单独的样式表，则其所使用到的样式表应在脚本中导入<br>If the gadget has script files and style sheets, the style sheets used should be imported in script files
 
-    - 如果样式表名形如`*.module.{css, less}`，则其将被视为 [CSS/Less 模块](https://github.com/css-modules/css-modules)。注意，如需在 VS Code 中获得代码自动补全功能，应[切换到当前工作区中的 TypeScript 版本](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript)，如果在切换后未有效果，可尝试重新加载当前工作区<br> If the style sheet name is like `*.module.{css, less}`, it will be considered as [CSS/Less modules](https://github.com/css-modules/css-modules). Note that if you want to get code autocompletion in VS Code, you should [switch to the TypeScript version in the current workspace](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript). If it doesn't work after switching, try reloading the current workspace.
+    - 如果样式表名形如`*.module.{css, less}`，则其将被视为 [CSS/Less 模块](https://github.com/css-modules/css-modules)<br> If the style sheet name is like `*.module.{css, less}`, it will be considered as [CSS/Less modules](https://github.com/css-modules/css-modules)
+        - 如需在 VS Code 中获得代码自动补全功能，应[切换到当前工作区中的 TypeScript 版本](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript)。如果在切换后未有效果，可尝试重新加载当前工作区<br>Note that if you want to get code autocompletion in VS Code, you should [switch to the TypeScript version in the current workspace](https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-the-workspace-version-of-typescript). If it doesn't work after switching, try reloading the current workspace.
 
 - 如果小工具仅包含样式表，则不需要在脚本中导入（无需新建一个脚本文件）<br>If the gadget only has style sheets, there is no need to import style sheets in any script files. (no need to create a script file)
 
-4. 目录下可以创建`definition.json`以手动指定小工具定义（可选）<br>In the directory, you have the option to create a `definition.json` file to manually specify the gadget definition
+5. **高级配置（可选）**
+
+- 在目录下创建`definition.json`文件以手动指定小工具定义<br>In the directory, you have the option to create a `definition.json` file to manually specify the gadget definition
 
     ```jsonc
     {
@@ -37,23 +44,25 @@
     }
     ```
 
-5. 目录下可以创建`LICENSE`以标注小工具的版权信息（可选），文件中的内容会在编译后自动添加到对应小工具文件的顶部<br>In the directory, you have the option to create a `LICENSE` file to indicate the copyright information of your gadget. The content of this file will be automatically added to the top of the gadget file when it is compiled
+- 在目录下创建`LICENSE`文件以标注小工具的版权信息，文件中的内容会在编译后自动添加到对应小工具文件的顶部<br>In the directory, you have the option to create a `LICENSE` file to indicate the copyright information of your gadget. The content of this file will be automatically added to the top of the gadget file when it is compiled
 
-6. 运行`pnpm run build`以格式化代码、检查语法、测试编译<br>Run `pnpm run build` to format the code, check syntax, and test the compilation
+6. **开发流程**
 
-7. 向上游发起 Pull Request<br>Initiate a Pull Request to the upstream
+- 运行`pnpm run build`以格式化代码、检查语法、测试编译<br>Run `pnpm run build` to format the code, check syntax, and test the compilation
+
+- 向上游发起 Pull Request<br>Initiate a Pull Request to the upstream
 
 > 脚本可以是 ts 或 js，可以使用 ESNext 所支持的语法（如`import`，支持跨目录导入）；导入的图片将被自动转换成 Data URLs（如`data:image/png;base64,...`）<br>The scripts can be in either TypeScript or JavaScript and can utilize the syntax supported by ESNext, such as import, which allows importing across directories. Imported images will be automatically converted to Data URLs, like `data:image/png;base64,...`.
 >
 > 样式可以是 Less 或 CSS，支持`@import`语法。<br>The styles can be written in either Less or CSS and support the `@import` syntax.
 
-#### 对于网站维护者：<br>For website maintainers:
+#### 对于网站维护者 / For Wiki Maintainers
 
-1. Fork 本仓库<br>Fork this repository
+1. 克隆本仓库<br>Fork this repository
 
-2. 根据实际情况更改各个小工具的`definition.json`，可选值及默认值可见于`scripts/constant.ts` - `DEFAULT_DEFINITION`<br>Modify the definition.json for each gadget according to your specific requirements. Optional values and their default values can be found in `scripts/constant.ts` - `DEFAULT_DEFINITION`
+2. 根据实际情况更改各个小工具的`definition.json`文件，可选值及默认值可见于`scripts/constant.ts`文件的`DEFAULT_DEFINITION`部分<br>Modify the `definition.json` file for each gadget according to your specific requirements. Optional values and their default values can be found in `scripts/constant.ts` file - `DEFAULT_DEFINITION` section
 
-3. 根据实际情况更改`scripts/constant.ts`中的信息<br>Update the information in `scripts/constant.ts` based on your specific needs
+3. 根据实际情况更改`scripts/constant.ts`文件中的信息<br>Update the information in `scripts/constant.ts` file based on your specific needs
 
 4. 在`script`文件夹下新建`credentials.json`文件（同一站点存在多种登录凭据时，OAuth2 优先于 OAuth1.0a 优先于机器人账号密码）<br>Create a `credentials.json` file in the `script` directory (If multiple login credentials are available for a site, OAuth2 takes precedence over OAuth1.0a, which takes precedence over bot password)
 
@@ -82,7 +91,7 @@
     }
     ```
 
-    也可以将字符串化后的`credentials.json`文本声明为`CREDENTIALS_JSON`环境变量。此时，`credentials.json`文件将被忽略<br>You can declare the stringified `credentials.json` text as the `CREDENTIALS_JSON` environment variable, in which case the `credentials.json` file will be ignored.
+    也可以将字符串化后的`credentials.json`文本声明为`CREDENTIALS_JSON`环境变量。此时，`credentials.json`文件将被忽略<br>You can declare the stringified `credentials.json` text as the `CREDENTIALS_JSON` environment variable, in which case the `credentials.json` file will be ignored
 
     根据工具需要，你应该授予机器人账号以下额外权限<br>Grant the robot account the following additional permissions:
 

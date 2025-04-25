@@ -9,7 +9,7 @@ The package [jsx-dom](https://www.npmjs.com/package/jsx-dom) is a JavaScript lib
 pnpm add jsx-dom
 ```
 
-#### 目标 MediaWiki 的版本低于 1.38<br>The target MediaWiki version is lower than 1.38
+#### 目标 MediaWiki 的版本低于 1.38 / The target MediaWiki version is lower than 1.38
 
 按正常使用 jsx-dom 的方式使用即可。需要注意的是，每个使用 jsx-dom 的小工具都[会打包若干份对应的库](https://github.com/evanw/esbuild/issues/475)，可能会影响代码体积。<br>Just use jsx-dom in the normal way. It should be noted that each gadget using them [will bundle several copies of the library](https://github.com/evanw/esbuild/issues/475), which may affect the code size.
 
@@ -31,7 +31,7 @@ document.body.append(
 );
 ```
 
-#### 目标 MediaWiki 的版本不低于 1.38<br>The target MediaWiki version is at least 1.38
+#### 目标 MediaWiki 的版本不低于 1.38 / The target MediaWiki version is at least 1.38
 
 1. 根据实际情况修改`src/JSX`文件夹中的以下文件<br>According to actual needs, modify some files in the `src/JSX` folder
 

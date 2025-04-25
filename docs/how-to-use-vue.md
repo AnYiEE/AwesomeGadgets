@@ -1,6 +1,6 @@
 ### 如何使用 Vue？<br>How to use Vue?
 
-#### 准备依赖<br>Prepare dependencies
+#### 准备依赖 / Prepare dependencies
 
 在本仓库中使用 Vue，有以下两种方式：<br>To use Vue in this repository, there are two ways:
 
@@ -19,7 +19,7 @@
     - 目标 MediaWiki 版本过低，尚未包含 Vue 相关的包，但依然需要使用 Vue<br>The target MediaWiki version is too low and does not yet built-in the Vue-related packages, but still needs to use Vue
     - 安装所需的包，直接使用即可<br>Install the required packages directly
 
-#### 示例<br>Example
+#### 示例 / Example
 
 ```vue
 <!-- App.vue -->
@@ -48,12 +48,13 @@ div {
 import App from './App.vue';
 import {createApp} from 'vue';
 
-const root: HTMLElement = document.createElement('div');
+const root = document.createElement('div');
+
 document.body.append(root);
 createMwApp(App).mount(root);
 ```
 
-#### 特别说明<br>Notes
+#### 特别说明 / Notes
 
 - Vue 组件中需要临时将 TypeScript 的版本从“使用工作区版本”切换至“使用 VS Code 的版本”<br>In the Vue component, you need to temporarily switch the TypeScript version from "Use Workspace Version" to "Use VSCode's Version"
     - https://code.visualstudio.com/docs/typescript/typescript-compiling#_using-newer-typescript-versions

@@ -1,6 +1,6 @@
 ### 如何使用 MediaWiki 中的`module.exports`和`require()`？<br>How to use `module.exports` and `require()` in MediaWiki?
 
-#### 使用`module.exports`<br>Using `module.exports`
+#### 使用`module.exports` / Using `module.exports`
 
 在本仓库中使用`module.exports`，你需要<br>To use `module.exports` in this repository, you need to
 
@@ -22,7 +22,7 @@ const func = () => {};
 export {func};
 ```
 
-#### 使用`require()`<br>Using `require()`
+#### 使用`require()` / Using `require()`
 
 在本仓库中使用`require()`，你需要<br>To use `require()` in this repository, you need to
 
@@ -68,7 +68,7 @@ console.log({
 });
 ```
 
-#### 使用 MediaWiki 内置的包<br>Using MediaWiki built-in packages
+#### 使用 MediaWiki 内置的包 / Using MediaWiki built-in packages
 
 对于 MediaWiki 内置的一部分包，可以通过以下的方式使用：<br> For some MediaWiki built-in packages, you can use them as follows:
 
