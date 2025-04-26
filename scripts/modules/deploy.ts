@@ -147,30 +147,34 @@ const deploy = async (isSkipAsk = false, isTest = false) => {
 
 		console.log(chalk.yellow(`--- [${chalk.bold(site)}] starting deployment ---`));
 
-		for (const [gadgetName, {description, excludeSites, files}] of Object.entries(targets)) {
-			if (excludeSites.includes(site)) {
-				continue;
-			}
+		await Promise.all(
+			Object.entries(targets).map(async ([gadgetName, {description, excludeSites, files}]) => {
+				if (excludeSites.includes(site)) {
+					return;
+				}
 
-			enabledGadgets.push(gadgetName);
+				enabledGadgets.push(gadgetName);
 
-			const originDefinitionFilePath = path.join(__rootDir, `src/${gadgetName}/definition.json`);
-			const originDefinitionEditSummary = await makeEditSummary(isSkipAsk, {
-				fallbackEditSummary,
-				filePath: originDefinitionFilePath,
-			});
-			saveDescription(gadgetName, description, api, originDefinitionEditSummary);
-
-			for (const [originFileName, fileName] of files) {
-				const filePath = path.join(__rootDir, `dist/${gadgetName}/${originFileName}`);
-				const fileContent = readFileContent(filePath);
-				const fileEditSummary = await makeEditSummary(isSkipAsk, {
+				const originDefinitionFilePath = path.join(__rootDir, `src/${gadgetName}/definition.json`);
+				const originDefinitionEditSummary = await makeEditSummary(isSkipAsk, {
 					fallbackEditSummary,
-					filePath,
+					filePath: originDefinitionFilePath,
 				});
-				saveFiles(gadgetName, fileName, fileContent, api, fileEditSummary);
-			}
-		}
+				saveDescription(gadgetName, description, api, originDefinitionEditSummary);
+
+				await Promise.all(
+					files.map(async ([originFileName, fileName]) => {
+						const filePath = path.join(__rootDir, `dist/${gadgetName}/${originFileName}`);
+						const fileContent = readFileContent(filePath);
+						const fileEditSummary = await makeEditSummary(isSkipAsk, {
+							fallbackEditSummary,
+							filePath,
+						});
+						saveFiles(gadgetName, fileName, fileContent, api, fileEditSummary);
+					})
+				);
+			})
+		);
 
 		const definitionFilePath = path.join(__rootDir, 'dist/definition.txt');
 		const definitionEditSummary = await makeEditSummary(isSkipAsk, {
