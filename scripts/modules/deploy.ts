@@ -103,7 +103,7 @@ const deploy = async (isSkipAsk = false, isTest = false) => {
 			apiInstance.setOptions(config);
 		}
 
-		console.log(chalk.yellow(`--- [${chalk.bold(site)}] logging in ---`));
+		console.log(chalk.yellow(`--- [${chalk.bold(site)}] logging in...`));
 
 		try {
 			if (isUseOAuth) {
@@ -111,25 +111,28 @@ const deploy = async (isSkipAsk = false, isTest = false) => {
 			} else {
 				await apiInstance.login();
 			}
+
+			console.log(chalk.green(`${' '.repeat(site.length + 7)}login successful.`));
+
 			apis.push({
 				apiInstance,
 				site,
 			});
 		} catch (error) {
-			console.log(chalk.red(`--- [${chalk.bold(site)}] log in failed ---`));
-			console.log(chalk.red(`--- Skip deployment at ${chalk.bold(site)} ---`));
+			console.log(chalk.red(`${' '.repeat(site.length + 7)}login failed.`));
+			console.log(chalk.red(`${' '.repeat(site.length + 7)}skipped deployment of site ${chalk.bold(site)}`));
 			console.error(error);
 			continue;
 		}
 	}
 
 	if (!apis.length) {
-		console.log(chalk.red('No site configured, program terminated.'));
+		console.log(chalk.red('No site configuration detected, program terminated.'));
 		exit(1);
 	}
 
 	if (!isSkipAsk) {
-		await prompt('> Confirm start deployment?', 'confirm', true);
+		await prompt('> Confirm deployment?', 'confirm', true);
 	}
 
 	const targets = generateTargets();
@@ -143,9 +146,9 @@ const deploy = async (isSkipAsk = false, isTest = false) => {
 
 		const startTime = moment();
 		const startTimeFormatted = startTime.format(timeFormat);
-		console.log(chalk.blue(`--- [${chalk.bold(site)}] all starting at ${startTimeFormatted} ---`));
+		console.log(chalk.blue(`--- [${chalk.bold(site)}] all starting at ${startTimeFormatted}`));
 
-		console.log(chalk.yellow(`--- [${chalk.bold(site)}] starting deployment ---`));
+		console.log(chalk.yellow(`    [${chalk.bold(site)}] deploying...`));
 
 		await Promise.all(
 			Object.entries(targets).map(async ([gadgetName, {description, excludeSites, files}]) => {
@@ -196,28 +199,28 @@ const deploy = async (isSkipAsk = false, isTest = false) => {
 
 		await apiQueue.onIdle();
 
-		console.log(chalk.yellow(`--- [${chalk.bold(site)}] end of deployment ---`));
+		console.log(chalk.green(`    [${chalk.bold(site)}] deployment successful.`));
 
-		console.log(chalk.yellow(`--- [${chalk.bold(site)}] starting delete unused pages ---`));
+		console.log(chalk.yellow(`    [${chalk.bold(site)}] deleting unused pages...`));
 
 		await deleteUnusedPages(api, fallbackEditSummary, isSkipAsk);
 
 		await apiQueue.onIdle();
 
-		console.log(chalk.yellow(`--- [${chalk.bold(site)}] end of delete unused pages ---`));
+		console.log(chalk.green(`    [${chalk.bold(site)}] unused pages deleted successful.`));
 
 		const endTime = moment();
 		const endTimeFormatted = endTime.format(timeFormat);
 		const totalSeconds = endTime.diff(startTime, 'seconds');
 		const calcMinutes = Math.floor(totalSeconds / 60);
 		const calcSeconds = totalSeconds % 60;
-		console.log(chalk.blue(`--- [${chalk.bold(site)}] all succeeded at ${endTimeFormatted} ---`));
+		console.log(chalk.blue(`--- [${chalk.bold(site)}] all succeeded at ${endTimeFormatted}`));
 
 		const timeTaken =
 			calcMinutes > 0
 				? `${calcMinutes} minutes and ${Math.floor(calcSeconds)} seconds`
 				: `${Math.floor(calcSeconds)} seconds`;
-		console.log(chalk.blue(`--- [${chalk.bold(site)}] took ${timeTaken} ---`));
+		console.log(chalk.green(`${' '.repeat(site.length + 7)}all tasks took ${timeTaken}.`));
 	}
 };
 

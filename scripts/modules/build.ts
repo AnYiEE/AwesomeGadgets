@@ -14,7 +14,7 @@ import chalk from 'chalk';
  * Compile scripts and styles and generate corresponding definitions
  */
 const build = async () => {
-	console.log(chalk.yellow('--- starting build ---'));
+	console.log(chalk.yellow('--- starting build...'));
 
 	await cleanUpDist();
 
@@ -30,7 +30,7 @@ const build = async () => {
 					});
 					if (hasVue && !script) {
 						console.log(
-							chalk.yellow(
+							chalk.red(
 								`The ${chalk.bold(gadgetName)} uses Vue components but missing entry file, skipping it.`
 							)
 						);
@@ -66,7 +66,7 @@ const build = async () => {
 
 	saveDefinition(definitions.filter(Boolean) as string[]);
 
-	console.log(chalk.yellow('--- end of build ---'));
+	console.log(chalk.green('    build completed.'));
 };
 
 export {build};

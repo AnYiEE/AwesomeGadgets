@@ -157,7 +157,7 @@ const generateDirectTargets = async (site: Api['site']) => {
 
 	const globalJsonFilePath = path.join(__rootDir, 'src/global.json');
 	if (!existsSync(globalJsonFilePath)) {
-		console.log(chalk.white(`━ No ${chalk.bold('global.json')} found`));
+		console.log(chalk.yellow(`━ No ${chalk.italic('global.json')} found`));
 		return [];
 	}
 
@@ -167,7 +167,7 @@ const generateDirectTargets = async (site: Api['site']) => {
 	try {
 		globalJsonObject = JSON.parse(globalJsonText) as GlobalJsonObject;
 	} catch {
-		console.log(chalk.red(`✘ Failed to parse ${chalk.bold('global.json')}`));
+		console.log(chalk.red(`✘ Failed to parse ${chalk.italic('global.json')}`));
 		return [];
 	}
 
@@ -207,7 +207,7 @@ const generateDirectTargets = async (site: Api['site']) => {
 				const resultText = await formatter.format(lintResult);
 				if (resultText) {
 					console.log(resultText);
-					console.log(chalk.red(`✘ Failed to lint ${chalk.bold(file)}, skip it`));
+					console.log(chalk.red(`✘ Failed to lint ${chalk.bold(file)}, skipping it`));
 					continue;
 				}
 				targets.push([
@@ -316,7 +316,7 @@ async function checkConfig(
 const loadConfig = () => {
 	const logError = (reason: string) => {
 		console.log(
-			chalk.yellow(`${chalk.italic('credentials.json')} is ${reason}, credentials must be provided manually.`)
+			chalk.yellow(`The ${chalk.italic('credentials.json')} is ${reason}, credentials must be provided manually.`)
 		);
 	};
 
@@ -433,15 +433,13 @@ async function makeEditSummary(
 	});
 	// If trimmed input is an empty string, use the message from the last git commit
 	const editSummary = customSummaryTrimmed || `${sha ? `Git commit ${sha}: ` : ''}${summary}`;
-	console.log(
-		chalk.white(`${customSummaryTrimmed ? 'Editing' : 'Fallback editing'} summary is: ${chalk.bold(editSummary)}`)
-	);
+	console.log(`${customSummaryTrimmed ? 'Editing' : 'Fallback editing'} summary is: ${chalk.italic(editSummary)}`);
 
 	if (!isSkipAsk) {
 		await prompt('> Confirm to continue deployment?', 'confirm', true);
 	}
 
-	console.log(chalk.yellow('--- deployment will continue in three seconds ---'));
+	console.log(chalk.yellow('--- deployment will continue in three seconds...'));
 	await setTimeout(3 * 1000);
 
 	return editSummary;
@@ -515,13 +513,13 @@ const convertVariant = (pageTitle: string, content: string, api: Api, editSummar
 		.then((noChanges) => {
 			const isNoChange = noChanges.every(Boolean);
 			if (isNoChange) {
-				console.log(chalk.yellow(`━ No change converting ${chalk.bold(pageTitle)}`));
+				console.log(chalk.yellow(`━ No change converting ${chalk.underline(pageTitle)}`));
 			} else {
-				console.log(chalk.green(`✔ Successfully converted ${chalk.bold(pageTitle)}`));
+				console.log(chalk.green(`✔ Successfully converted ${chalk.underline(pageTitle)}`));
 			}
 		})
 		.catch((error) => {
-			console.log(chalk.red(`✘ Failed to convert ${chalk.bold(pageTitle)}`));
+			console.log(chalk.red(`✘ Failed to convert ${chalk.underline(pageTitle)}`));
 			console.error(error);
 		});
 };
@@ -586,12 +584,12 @@ const saveDefinition = (definitionText: string, enabledGadgets: string[], api: A
 		try {
 			const {nochange} = await apiInstance.save(pageTitle, definitionText, editSummary);
 			if (nochange) {
-				console.log(chalk.yellow(`━ No change saving ${chalk.bold('gadget definitions')}`));
+				console.log(chalk.yellow(`━ No change saving ${chalk.underline(pageTitle)}`));
 			} else {
-				console.log(chalk.green(`✔ Successfully saved ${chalk.bold('gadget definitions')}`));
+				console.log(chalk.green(`✔ Successfully saved ${chalk.underline(pageTitle)}`));
 			}
 		} catch (error) {
-			console.log(chalk.red(`✘ Failed to save ${chalk.bold('gadget definitions')}`));
+			console.log(chalk.red(`✘ Failed to save ${chalk.underline(pageTitle)}`));
 			console.error(error);
 		}
 	});
@@ -628,12 +626,12 @@ const saveDefinitionSectionPage = (definitionText: string, api: Api, editSummary
 			try {
 				const {nochange} = await apiInstance.save(pageTitle, sectionText, editSummary);
 				if (nochange) {
-					console.log(chalk.yellow(`━ No change saving ${chalk.bold(pageTitle)}`));
+					console.log(chalk.yellow(`━ No change saving ${chalk.underline(pageTitle)}`));
 				} else {
-					console.log(chalk.green(`✔ Successfully saved ${chalk.bold(pageTitle)}`));
+					console.log(chalk.green(`✔ Successfully saved ${chalk.underline(pageTitle)}`));
 				}
 			} catch (error) {
-				console.log(chalk.red(`✘ Failed to save ${chalk.bold(pageTitle)}`));
+				console.log(chalk.red(`✘ Failed to save ${chalk.underline(pageTitle)}`));
 				console.error(error);
 			}
 		});
@@ -663,12 +661,12 @@ const saveDescription = (gadgetName: string, description: string, api: Api, edit
 		try {
 			const {nochange} = await apiInstance.save(pageTitle, description, editSummary);
 			if (nochange) {
-				console.log(chalk.yellow(`━ No change saving ${chalk.bold(`${gadgetName} description`)}`));
+				console.log(chalk.yellow(`━ No change saving ${chalk.underline(pageTitle)}`));
 			} else {
-				console.log(chalk.green(`✔ Successfully saved ${chalk.bold(`${gadgetName} description`)}`));
+				console.log(chalk.green(`✔ Successfully saved ${chalk.underline(pageTitle)}`));
 			}
 		} catch (error) {
-			console.log(chalk.red(`✘ Failed to save ${chalk.bold(`${gadgetName} description`)}`));
+			console.log(chalk.red(`✘ Failed to save ${chalk.underline(pageTitle)}`));
 			console.error(error);
 		}
 	});
@@ -810,7 +808,7 @@ const deleteUnusedPages = async (api: Api, editSummary: string, isSkipAsk?: bool
 		await prompt('> Confirm to continue deleting?', 'confirm', true);
 	}
 
-	console.log(chalk.yellow(`--- [${chalk.bold(site)}] deleting will continue in three seconds ---`));
+	console.log(chalk.yellow(`    [${chalk.bold(site)}] deleting will continue in three seconds...`));
 	await setTimeout(3 * 1000);
 
 	const deletePage = async (pageTitle: string) => {
@@ -819,9 +817,9 @@ const deleteUnusedPages = async (api: Api, editSummary: string, isSkipAsk?: bool
 			console.log(chalk.green(`✔ Successfully deleted ${chalk.bold(pageTitle)}`));
 		} catch (error) {
 			if (error instanceof MwnError && error.code === 'missingtitle') {
-				console.log(chalk.yellow(`━ Page ${chalk.bold(pageTitle)} no need to delete`));
+				console.log(chalk.yellow(`━ Page ${chalk.underline(pageTitle)} no need to delete`));
 			} else {
-				console.log(chalk.red(`✘ Failed to delete ${chalk.bold(pageTitle)}`));
+				console.log(chalk.red(`✘ Failed to delete ${chalk.underline(pageTitle)}`));
 				console.error(error);
 			}
 		}

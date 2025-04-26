@@ -270,7 +270,7 @@ const generateDefinition = (gadgetName: string, isShowLog: boolean = true) => {
 		if (isShowLog) {
 			console.log(
 				chalk.yellow(
-					`${chalk.italic('definition.json')} of ${chalk.bold(
+					`The ${chalk.italic('definition.json')} of ${chalk.bold(
 						gadgetName
 					)} is ${reason}, the default definition will be used.`
 				)

@@ -1,4 +1,3 @@
-import type {ApiDeleteParams, ApiEditPageParams, ApiParseParams} from 'mwn/build/api_params';
 import {type Mwn, type MwnOptions} from 'mwn';
 import type {ApiEditResponse} from 'mwn/build/api_response_types';
 import {type loadConfig} from './deploy-util';
@@ -29,37 +28,43 @@ const fakeConfig = Array.from({
 	}, {}) satisfies Config;
 
 class FakeApi implements Partial<Mwn> {
-	options: MwnOptions;
+	public options: MwnOptions;
+
 	public constructor(credentials: Credentials) {
 		this.options = credentials;
 	}
-	// eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
-	public delete(title: string | number, summary: string, _options?: ApiDeleteParams) {
-		console.log('Delete:', {
+
+	// eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+	public delete(title: string | number, summary: string, _options?: any) {
+		console.log('    [test] deleting', {
 			title,
 			summary,
 		});
 		return Promise.resolve({});
 	}
+
 	// eslint-disable-next-line class-methods-use-this
 	public getTokensAndSiteInfo() {
 		return Promise.resolve();
 	}
+
 	// eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-empty-function
 	public initOAuth() {}
-	// eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
-	public parseWikitext(content: string, _additionalParams?: ApiParseParams) {
+
+	// eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+	public parseWikitext(content: string, _additionalParams?: any) {
 		return Promise.resolve(content);
 	}
+
 	// eslint-disable-next-line class-methods-use-this
 	public save(
 		title: string | number,
 		content: string,
 		summary?: string,
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		_options?: ApiEditPageParams
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+		_options?: any
 	) {
-		console.log('Save:', {
+		console.log('    [test] saving', {
 			title,
 			summary,
 		});
