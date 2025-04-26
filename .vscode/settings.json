@@ -60,7 +60,7 @@
 	"explorer.fileNesting.enabled": true,
 	"explorer.fileNesting.expand": false,
 	"explorer.fileNesting.patterns": {
-		"package.json": ".*cache, .*ignore, .*rc, .editorconfig, .git*, pnpm-lock.yaml, tsconfig.json, tsconfig.tsbuildinfo",
+		"package.json": ".*cache, .*ignore, .*rc, .editorconfig, .git*, pnpm-lock.yaml, pnpm-workspace.yaml, tsconfig.json, tsconfig.tsbuildinfo",
 		"README*": "*.md, LICENSE"
 	},
 	"json.schemas": [
